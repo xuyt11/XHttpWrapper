@@ -1,4 +1,4 @@
-package cn.ytxu.gsonTest;
+package cn.ytxu.test;
 
 import cn.ytxu.apacer.entity.RetainEntity;
 import cn.ytxu.util.LogUtil;

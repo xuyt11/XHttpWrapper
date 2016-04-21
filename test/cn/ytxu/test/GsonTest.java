@@ -1,7 +1,6 @@
-package cn.ytxu.gsonTest;
+package cn.ytxu.test;
 
 import com.google.gson.Gson;
-import com.sun.tools.javac.file.SymbolArchive;
 
 /**
  * Created by newchama on 16/4/11.

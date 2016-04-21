@@ -1,4 +1,4 @@
-package cn.ytxu.gsonTest;
+package cn.ytxu.test;
 
 import java.util.List;
 

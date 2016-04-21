@@ -1,4 +1,4 @@
-package cn.ytxu.gsonTest;
+package cn.ytxu.test;
 
 /**
  * 响应数据实体类:所有的响应数据都要符合该格式
