@@ -149,7 +149,7 @@ public class ResponseCategoryCreater {
                 continue;
             }
 
-            String dataClassName = CamelCaseUtils.toCapitalizeCamelCase(method.getMethodName());
+            String dataClassName = CamelCaseUtils.toUpperFirst(method.getMethodName());
             List<OutputParamEntity> outputs = responseEntity.getOutputParams();
             OutputParamEntity dataOutput = getDataOutput(outputs);
             dataOutput.setDataClassName(dataClassName);
