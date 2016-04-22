@@ -94,6 +94,8 @@ public class BaseResponseEntityCreater {
                 type = "Error";
             } else if (ConfigV6.Entity.BaseResponse.Data.equals(fieldName)) {
                 type = "T";
+            } else if(ConfigV6.Entity.BaseResponse.StatusCode.equals(fieldName)) {
+                type = "int";
             }
             String bigName = CamelCaseUtils.toCapitalizeCamelCase(fieldName);
             fieldSb.append(OutputParamCreater.createField(tabIndex, type, fieldName));
