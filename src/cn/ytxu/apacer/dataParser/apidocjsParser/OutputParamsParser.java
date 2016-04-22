@@ -62,6 +62,7 @@ public class OutputParamsParser {
         List<OutputParamEntity> outputs = parserOutputObject(categoryIndex, methodIndex, jObj);
         response.setOutputParams(outputs);
 
+        OutputParamEntity.setResponse(outputs, response);
     }
 
     /** 分析Json对象(JsonObject)(输出参数对象)的属性 */

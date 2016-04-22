@@ -1,6 +1,7 @@
 package cn.ytxu.apacer.fileCreater.newchama.resultEntity.v6;
 
 import cn.ytxu.apacer.ConfigV6;
+import cn.ytxu.apacer.entity.MethodEntity;
 import cn.ytxu.apacer.entity.OutputParamEntity;
 import cn.ytxu.apacer.entity.RetainEntity;
 import cn.ytxu.apacer.fileCreater.newchama.BaseCreater;
@@ -46,7 +47,7 @@ public class OutputClassCreater {
 
         String fileName = className + ".java";
         BaseCreater.getWriter4TargetFile(dirPath, fileName, (Writer writer, RetainEntity retain) -> {
-            createPackageAndImports(writer, retain, packageName, className, tabIndex);
+            createPackageAndImports(writer, output, retain, packageName, className, tabIndex);
 
             List<OutputParamEntity> subs = output.getSubs();
             if (null != subs && subs.size() > 0) {
@@ -78,7 +79,7 @@ public class OutputClassCreater {
 
 
     // package and imports
-    private void createPackageAndImports(Writer writer, RetainEntity retain, String packageName, String className, int tabIndex) throws IOException {
+    private void createPackageAndImports(Writer writer, OutputParamEntity output, RetainEntity retain, String packageName, String className, int tabIndex) throws IOException {
         writer.write("package " + packageName + ";\n\n");
         writer.write("import java.util.List;\n\n");// 每一个都加上List类，防止其中有List参数
         if (null != retain) {
@@ -87,6 +88,17 @@ public class OutputClassCreater {
         }
 
         String tab = BaseCreater.getTable(tabIndex);
+        
+        // set method request tip node
+        if (output.getResponse() != null && output.getResponse().getMethod() != null) {
+            MethodEntity method = output.getResponse().getMethod();
+            writer.write(tab + "/**\n");
+            writer.write(tab + " * " + method.getDescrption() + "\n");
+            writer.write(tab + " * @version " + method.getVersionCode() + "\n");
+            writer.write(tab + " * @requestUrl " + method.getUrl() + "\n");
+            writer.write(tab + " */\n");
+        }
+
         writer.write(tab + "public class " + className + " {\n\n");
     }
 

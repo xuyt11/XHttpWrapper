@@ -1,5 +1,6 @@
 package cn.ytxu.apacer.entity;
 
+import cn.ytxu.apacer.fileCreater.newchama.resultEntity.v6.ResponseCategoryCreater;
 import cn.ytxu.util.CamelCaseUtils;
 
 import java.util.List;
@@ -22,6 +23,8 @@ public class OutputParamEntity {
     private List<OutputParamEntity> subs;// 若是对象或数组类型,则有字段
     private String createdClassName;// 生成类文件的名称:name相同的output,但是subs不一样的,会生成从根节点开始的一个类名
     private String dataClassName;// 若该字段有值,代表为该字段是response的data字段,需要使用请求方法的名称来进行类命名
+
+    private ResponseEntity response;
 
     public OutputParamEntity(String name, String type, String desc) {
         this.name = name;
@@ -100,6 +103,10 @@ public class OutputParamEntity {
         return dataClassName;
     }
 
+    public ResponseEntity getResponse() {
+        return response;
+    }
+
     @Override
     public String toString() {
         return "OutputParamEntity{" +
@@ -175,5 +182,15 @@ public class OutputParamEntity {
         }
 
         return CamelCaseUtils.toCapitalizeCamelCase(name) + "4" + parent.rename4Class();
+    }
+
+    public static void setResponse(List<OutputParamEntity> outputs, ResponseEntity response) {
+        if (outputs == null || outputs.size() <= 0) {
+            return;
+        }
+
+        for (OutputParamEntity output : outputs) {
+            output.response = response;
+        }
     }
 }

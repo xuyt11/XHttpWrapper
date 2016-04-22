@@ -61,6 +61,8 @@ public class MethodParser {
         method.setResponses(responses);
 		
 		method.setRESTfulApis(RESTfulAPIParser.parse(methodUrl));
+
+		ResponseEntity.setMethod(responses, method);
 		
 		return method;
 	}

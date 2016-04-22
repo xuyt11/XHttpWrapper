@@ -15,6 +15,8 @@ public class ResponseEntity {
     private List<OutputParamEntity> outputParams;
     private String statusCode = null;// 该响应的status_code值,可以与Api中statusCode进行比较
 
+    private MethodEntity method;
+
     public ResponseEntity(String responseDesc, String responseHeader, String responseContent) {
         this.responseDesc = responseDesc;
         this.responseHeader = responseHeader;
@@ -48,5 +50,19 @@ public class ResponseEntity {
 
     public void setStatusCode(String statusCode) {
         this.statusCode = statusCode;
+    }
+
+    public MethodEntity getMethod() {
+        return method;
+    }
+
+    public static void setMethod(List<ResponseEntity> responses, MethodEntity method) {
+        if (responses == null || responses.size() <= 0) {
+            return;
+        }
+
+        for (ResponseEntity response : responses) {
+            response.method = method;
+        }
     }
 }
