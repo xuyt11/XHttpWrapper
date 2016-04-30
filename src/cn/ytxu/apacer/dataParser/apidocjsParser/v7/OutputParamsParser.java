@@ -1,15 +1,14 @@
-package cn.ytxu.apacer.dataParser.apidocjsParser;
-
-import cn.ytxu.util.LogUtil;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONException;
-import com.alibaba.fastjson.JSONObject;
+package cn.ytxu.apacer.dataParser.apidocjsParser.v7;
 
 import cn.ytxu.apacer.Config;
 import cn.ytxu.apacer.entity.FieldEntity;
 import cn.ytxu.apacer.entity.OutputParamEntity;
 import cn.ytxu.apacer.entity.ResponseEntity;
+import cn.ytxu.util.LogUtil;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONException;
+import com.alibaba.fastjson.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;

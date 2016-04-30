@@ -1,4 +1,4 @@
-package cn.ytxu.apacer.dataParser.apidocjsParser;
+package cn.ytxu.apacer.dataParser.apidocjsParser.v1;
 
 import cn.ytxu.apacer.entity.ResponseEntity;
 import org.jsoup.select.Elements;

@@ -8,7 +8,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import cn.ytxu.apacer.Config;
-import cn.ytxu.apacer.dataParser.apidocjsParser.OutputParamsParser;
+import cn.ytxu.apacer.dataParser.apidocjsParser.v1.OutputParamsParser;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

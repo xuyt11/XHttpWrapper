@@ -1,14 +1,14 @@
 package cn.ytxu.apacer;
 
-import cn.ytxu.util.LogUtil;
+import cn.ytxu.apacer.dataParser.apidocjsParser.v7.ApiDocHtmlParser;
 import cn.ytxu.apacer.entity.ApiEnitity;
-import cn.ytxu.apacer.dataParser.apidocjsParser.v1.ApiDocHtmlParser;
 import cn.ytxu.apacer.entity.DocumentEntity;
 import cn.ytxu.apacer.fileCreater.newchama.ApiFileCreater;
+import cn.ytxu.util.LogUtil;
 
 import java.util.List;
 
-public class Engine {
+public class EngineV7 {
 	
 	public static void main(String[] args) {
 		long start = System.currentTimeMillis();

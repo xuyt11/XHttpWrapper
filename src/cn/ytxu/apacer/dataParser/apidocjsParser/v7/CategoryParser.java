@@ -1,15 +1,13 @@
-package cn.ytxu.apacer.dataParser.apidocjsParser;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
-import cn.ytxu.util.LogUtil;
+package cn.ytxu.apacer.dataParser.apidocjsParser.v7;
 
 import cn.ytxu.apacer.entity.CategoryEntity;
 import cn.ytxu.apacer.entity.MethodEntity;
+import cn.ytxu.util.LogUtil;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 分类的解析类
