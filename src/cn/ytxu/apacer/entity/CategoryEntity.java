@@ -9,7 +9,7 @@ import java.util.List;
  * @date 2016-3-18 17:35:11
  *
  */
-public class CategoryEntity {
+public class CategoryEntity extends BaseEntity<ApiEnitity> {
     private String name;// 类别的名称
     private List<MethodEntity> methods;// 该分类中所有的方法
 

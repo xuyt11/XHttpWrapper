@@ -7,7 +7,7 @@ import java.util.List;
  * 2016-04-08<br>
  * 只有一个状态码类: 状态码不分版本;也就是说,状态码是不能更改的,只能是新增;
  */
-public class DocumentEntity {
+public class DocumentEntity extends BaseEntity {
     private List<String> versions;// API所有的版本号
     private List<StatusCodeEntity> statusCodes;// 所有的状态码
 

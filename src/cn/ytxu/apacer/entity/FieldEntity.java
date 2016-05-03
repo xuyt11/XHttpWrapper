@@ -8,7 +8,7 @@ import java.util.List;
  * @date 2016-3-18 17:35:11
  *
  */
-public class FieldEntity {
+public class FieldEntity extends BaseEntity<MethodEntity> {
 	private String key;// 字段名称
 	private String type;// 字段的类型
     private boolean isOptional = false;// 是否为可选字段

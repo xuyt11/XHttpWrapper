@@ -11,7 +11,7 @@ package cn.ytxu.apacer.entity;
  * @author ytxu 2016-3-22
  *
  */
-public class RESTfulApiEntity {
+public class RESTfulApiEntity extends BaseEntity<MethodEntity> {
 	
 	private String restfulParam;
 	private String staticStr;

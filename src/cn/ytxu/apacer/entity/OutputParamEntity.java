@@ -12,7 +12,7 @@ import java.util.List;
  *     2.1 若是对象类型的数组,则是一个类;<br>
  * 3 那就是一些基本类型与String了;
  */
-public class OutputParamEntity {
+public class OutputParamEntity extends BaseEntity<ResponseEntity> {
     private String name;
     private String type;
     private String desc;

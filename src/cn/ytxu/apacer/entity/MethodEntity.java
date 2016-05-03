@@ -8,7 +8,7 @@ import java.util.List;
  * @date 2016-3-18 17:35:11
  *
  */
-public class MethodEntity {
+public class MethodEntity extends BaseEntity<CategoryEntity> {
 	private String descrption;// 方法的中文名称（描述）
 	private String versionCode;// 该方法的版本号
 	private String methodName;// 该方法的方法名称：驼峰法命名

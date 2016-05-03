@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by newchama on 16/3/30.
  */
-public class StatusCodeEntity {
+public class StatusCodeEntity extends BaseEntity<DocumentEntity> {
 
     private String name;
     private String value;

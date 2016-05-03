@@ -6,7 +6,7 @@ import java.util.List;
  * 请求响应实体类
  * 2016-04-05
  */
-public class ResponseEntity {
+public class ResponseEntity extends BaseEntity<MethodEntity> {
 
     private String responseDesc;// 响应的描述
     private String responseHeader;// 响应头

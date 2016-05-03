@@ -9,7 +9,7 @@ import java.util.List;
  * @date 2016-3-18 17:35:11
  *
  */
-public class ApiEnitity {
+public class ApiEnitity extends BaseEntity<DocumentEntity> {
 	
 	private List<CategoryEntity> categorys;// 所有的API分类
 	private String currVersionCode;
