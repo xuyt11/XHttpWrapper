@@ -133,7 +133,7 @@ public class BaseResponseEntityCreater {
     }
 
 
-    //************************** parser **************************
+    //************************** parserApiDocHtmlCode2DocumentEntity **************************
 
     private List<OutputParamEntity> getOutputs(List<ApiEnitity> apis) {
         List<ResponseEntity> responses = getResponseEntities(apis);

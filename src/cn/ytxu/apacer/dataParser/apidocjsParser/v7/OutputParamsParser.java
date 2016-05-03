@@ -103,7 +103,7 @@ public class OutputParamsParser {
             entity.setSubs(subs);
         } else {
             // i don`t know type
-            throw new RuntimeException("parser output array, i don`t know curr class type:" + objType + ", categoryIndex:" + categoryIndex + ", methodIndex:" + methodIndex);
+            throw new RuntimeException("parserApiDocHtmlCode2DocumentEntity output array, i don`t know curr class type:" + objType + ", categoryIndex:" + categoryIndex + ", methodIndex:" + methodIndex);
         }
 
         entity.setType(fieldType);

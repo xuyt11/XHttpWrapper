@@ -18,7 +18,7 @@ public class RESTfulApiEntity extends BaseEntity<MethodEntity> {
 	private Type type;
 	
 	
-	public static enum Type {
+	public enum Type {
 		staticStr, // RESTful url中固定不变的字符串
 		restfulParam,// RESTful url中需要替换的字符串
 	}

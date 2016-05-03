@@ -37,7 +37,7 @@ public class RetainEntity {
     private RetainEntity() {super();}
 
 
-    //********************* parser file data, and create RetainEntity *********************
+    //********************* parserApiDocHtmlCode2DocumentEntity file data, and create RetainEntity *********************
     /**
      * 1、先要判断目标文件是否存在；<br>
      * 2、若存在，在判断该文件是否有数据；<br>

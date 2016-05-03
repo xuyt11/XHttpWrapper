@@ -56,7 +56,7 @@ public class TemplateClassCreater {
                 } else if (listMethodStart && !content.contains("{ytxu.list-methodEnd}")) {// method loop start : add method content to list
                     methodContents.add(content);
 
-                } else if (content.contains("{ytxu.list-methodEnd}")) {// method loop end : parser method content, and fill or replace it
+                } else if (content.contains("{ytxu.list-methodEnd}")) {// method loop end : parserApiDocHtmlCode2DocumentEntity method content, and fill or replace it
                     listMethodStart = false;
                     TemplateMethodCreater.create(category, methodContents, writer);
 

@@ -45,7 +45,7 @@ public class TemplateMethodCreater {
 //            } else if (ifStart) {
 //                if (methodContent.contains("{ytxu.else}")) {
 //
-//                } else if (methodContent.contains("{ytxu.ifend}")) {// if end, so go to parser
+//                } else if (methodContent.contains("{ytxu.ifend}")) {// if end, so go to parserApiDocHtmlCode2DocumentEntity
 //                    ifStart = false;
 //                } else {
 //

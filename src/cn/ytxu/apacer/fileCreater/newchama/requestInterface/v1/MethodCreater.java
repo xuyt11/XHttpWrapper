@@ -36,7 +36,7 @@ public class MethodCreater {
 		FieldCreater.generatorRequestHeader(sb, method, isSameButOnlyVersionCode);// headers
 		FieldCreater.generatorRequestParam(sb, method, isSameButOnlyVersionCode);// input params
 		
-		// TODO out params parser
+		// TODO out params parserApiDocHtmlCode2DocumentEntity
 		
 		// method end
 		sb.append(currTabStr).append("\treturn NetWorker.execute(").append(Config.Api.AndroidContextParamName).append(", request, response);\n");
