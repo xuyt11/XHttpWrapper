@@ -41,5 +41,13 @@ public class CategoryEntity extends BaseEntity<ApiEnitity> {
     }
 
 
+    public void setDoubleLinkedRefrence() {
+        setHigherLevel(methods, this);
 
+        if (methods != null && methods.size() > 0) {
+            for (MethodEntity method : methods) {
+                method.setDoubleLinkedRefrence();
+            }
+        }
+    }
 }

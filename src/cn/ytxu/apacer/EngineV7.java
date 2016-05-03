@@ -2,6 +2,7 @@ package cn.ytxu.apacer;
 
 import cn.ytxu.apacer.dataParser.apidocjsParser.v7.ApiDocHtmlParser;
 import cn.ytxu.apacer.entity.ApiEnitity;
+import cn.ytxu.apacer.entity.BaseEntity;
 import cn.ytxu.apacer.entity.DocumentEntity;
 import cn.ytxu.apacer.fileCreater.newchama.ApiFileCreater;
 import cn.ytxu.util.LogUtil;
@@ -13,7 +14,10 @@ public class EngineV7 {
 	public static void main(String[] args) {
 		long start = System.currentTimeMillis();
 
-		DocumentEntity docEntity = ApiDocHtmlParser.parser();
+		ApiDocHtmlParser apiDocHtmlParser = new ApiDocHtmlParser();
+		DocumentEntity docEntity = apiDocHtmlParser.parserApiDocHtmlCode2DocumentEntity();
+        docEntity.setDoubleLinkedRefrence();
+
 
 		ApiFileCreater.createApiFile(docEntity);
 

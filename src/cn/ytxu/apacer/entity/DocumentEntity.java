@@ -10,7 +10,6 @@ import java.util.List;
 public class DocumentEntity extends BaseEntity {
     private List<String> versions;// API所有的版本号
     private List<StatusCodeEntity> statusCodes;// 所有的状态码
-
     private List<ApiEnitity> apis;// 根据版本,来分的不同的API
 
 
@@ -36,5 +35,23 @@ public class DocumentEntity extends BaseEntity {
 
     public void setStatusCodes(List<StatusCodeEntity> statusCodes) {
         this.statusCodes = statusCodes;
+    }
+
+
+    /** 给整个文档对象数据链,设置higherLevel */
+    public void setDoubleLinkedRefrence() {
+        // 1 doc
+        setHigherLevel(statusCodes, this);
+        setHigherLevel(apis, this);
+
+        // 2 api
+        if (apis == null || apis.size() <= 0) {
+            return;
+        }
+
+        for (ApiEnitity api : apis) {
+            api.setDoubleLinkedRefrence();
+        }
+
     }
 }

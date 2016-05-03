@@ -65,4 +65,10 @@ public class ResponseEntity extends BaseEntity<MethodEntity> {
             response.method = method;
         }
     }
+
+
+    public void setDoubleLinkedRefrence() {
+        setHigherLevel(outputParams, this);
+    }
+
 }

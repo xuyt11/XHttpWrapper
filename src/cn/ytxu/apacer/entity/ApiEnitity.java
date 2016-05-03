@@ -38,4 +38,16 @@ public class ApiEnitity extends BaseEntity<DocumentEntity> {
         return "V" + currVersionCode.replace(".", "_");
     }
 
+
+    protected void setDoubleLinkedRefrence() {
+        setHigherLevel(categorys, this);
+
+        if (categorys == null || categorys.size() <= 0) {
+            return;
+        }
+
+        for (CategoryEntity cate : categorys) {
+            cate.setDoubleLinkedRefrence();
+        }
+    }
 }

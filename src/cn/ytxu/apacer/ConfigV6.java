@@ -95,6 +95,7 @@ public class ConfigV6 {
         /** 接口文件的包名*/
         public static final String PackageName = "com.newchama.api";
         public static final String StatusCodeFileName = "StatusCode";// 状态码类
+        public static final String StatusCode = "StatusCode";// 状态码类
 
     }
 

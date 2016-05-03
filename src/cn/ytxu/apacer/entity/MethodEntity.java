@@ -198,4 +198,17 @@ public class MethodEntity extends BaseEntity<CategoryEntity> {
 	}
 
 
+	public void setDoubleLinkedRefrence() {
+        setHigherLevel(headers, this);
+        setHigherLevel(inputParameters, this);
+        setHigherLevel(outParameters, this);
+        setHigherLevel(restfulApis, this);
+        setHigherLevel(responses, this);
+
+        if (responses != null && responses.size() > 0) {
+            for (ResponseEntity response : responses) {
+                response.setDoubleLinkedRefrence();
+            }
+        }
+	}
 }
