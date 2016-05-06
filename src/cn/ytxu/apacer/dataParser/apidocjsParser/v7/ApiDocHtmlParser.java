@@ -11,6 +11,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import rx.Observable;
+import rx.functions.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -141,7 +143,7 @@ public class ApiDocHtmlParser {
 	}
 
     /** 根据版本号,将category中的method分类到docEntity的apis中 */
-    private void addACategoryToTargetApi(List<ApiEnitity> apis, CategoryEntity category) {
+    private void addACategoryToTargetApi2(List<ApiEnitity> apis, CategoryEntity category) {
         // 1 为每一个API创建一个category
         for (ApiEnitity api : apis) {
             List<MethodEntity> methods = category.getMethods();
@@ -168,6 +170,48 @@ public class ApiDocHtmlParser {
             cate.setName(category.getName());
             cate.setMethods(targetMethods);
             api.addACategory(cate);
+        }
+    }
+
+
+    /** 根据版本号,将category中的method分类到docEntity的apis中 */
+    private void addACategoryToTargetApi(List<ApiEnitity> apis, CategoryEntity category) {
+        // 1 为每一个API创建一个category
+        for (ApiEnitity api : apis) {
+            // 2 将api中category的methods中,与api版本不同的method remove
+            final String versionCode = api.getCurrVersionCode();
+            final List<MethodEntity> targetMethods = new ArrayList<>();
+            Observable.from(category.getMethods())
+            .filter(new Func1<MethodEntity, Boolean>() {
+                    @Override
+                    public Boolean call(MethodEntity methodEntity) {
+                        return versionCode.equals(methodEntity.getVersionCode());
+                    }
+                })
+            .collect(
+                new Func0<List<MethodEntity>>() {
+                    @Override
+                    public List<MethodEntity> call() {
+                        return new ArrayList<MethodEntity>();
+                    }
+                },
+                new Action2<List<MethodEntity>, MethodEntity>() {
+                    @Override
+                    public void call(List<MethodEntity> methods, MethodEntity methodEntity) {
+                        methods.add(methodEntity);
+                    }
+                })
+            .subscribe(new Action1<List<MethodEntity>>() {
+                @Override
+                public void call(List<MethodEntity> methodEntities) {
+
+                    CategoryEntity cate = new CategoryEntity();
+                    cate.setName(category.getName());
+                    cate.setMethods(methodEntities);
+
+                    api.addACategory(cate);
+                }
+            });
         }
     }
 
