@@ -1,11 +1,9 @@
 package cn.ytxu.apacer.dataParser.apidocjsParser.v7;
 
-import cn.ytxu.apacer.Config;
 import cn.ytxu.apacer.ConfigV6;
 import cn.ytxu.apacer.entity.*;
 import cn.ytxu.apacer.exception.BlankTextException;
 import cn.ytxu.apacer.exception.TargetElementsNotFoundException;
-import cn.ytxu.util.LogUtil;
 import cn.ytxu.util.TextUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -52,7 +50,7 @@ public class ApiDocHtmlParser {
 //		Connection conn = Jsoup.connect(ApiEnitity.ApiDocUrl);
 //		conn.userAgent(UserAgentConfig.getWithRandom());
 		try {
-            Document doc = Jsoup.parse(new File(Config.ApiDocHtmlPath), Config.CharsetName);
+            Document doc = Jsoup.parse(new File(ConfigV6.ApiDocHtmlPath), ConfigV6.CharsetName);
             return doc;
         } catch (IOException e) {
             e.printStackTrace();

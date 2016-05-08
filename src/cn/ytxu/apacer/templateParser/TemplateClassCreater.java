@@ -1,8 +1,8 @@
 package cn.ytxu.apacer.templateParser;
 
+import cn.ytxu.apacer.ConfigV6;
 import cn.ytxu.util.FileUtil;
 import cn.ytxu.util.LogUtil;
-import cn.ytxu.apacer.Config;
 import cn.ytxu.apacer.entity.CategoryEntity;
 import cn.ytxu.apacer.entity.MethodEntity;
 
@@ -39,8 +39,8 @@ public class TemplateClassCreater {
         Writer writer = null;
         BufferedReader reader = null;
         try {
-            writer = FileUtil.getWriter(classFileFullName, Config.Template.DirPath);
-            reader = new BufferedReader(new FileReader(new File(Config.Template.FilePath)));
+            writer = FileUtil.getWriter(classFileFullName, ConfigV6.Template.DirPath);
+            reader = new BufferedReader(new FileReader(new File(ConfigV6.Template.FilePath)));
 
             String content = null;
             boolean listMethodStart = false;
