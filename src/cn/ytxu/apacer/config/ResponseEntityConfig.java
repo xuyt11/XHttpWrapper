@@ -20,14 +20,6 @@ public class ResponseEntityConfig {
     }
 
     /**
-     * 实体类文件保存目录
-     */
-    private String DirPath = responseEntityFileDir + "%s/entity/";
-    /**
-     * 实体类文件保存目录---v5
-     */
-    private String DirPath4Category = responseEntityFileDir + "%s/entity/%s/";
-    /**
      * 实体类文件的包名
      */
     private String PackageName = "com.newchama.api.%s.entity";
@@ -45,10 +37,24 @@ public class ResponseEntityConfig {
     }
 
     public String getDirPath(String versionCode) {
-        return String.format(DirPath, versionCode);
+        return String.format(getDirPath(), versionCode);
     }
 
     public String getDirPath4Category(String versionCode, String categoryName) {
-        return String.format(DirPath4Category, versionCode, categoryName);
+        return String.format(getDirPath4Category(), versionCode, categoryName);
+    }
+
+    /**
+     * 实体类文件保存目录
+     */
+    public String getDirPath() {
+        return responseEntityFileDir + "%s/entity/";
+    }
+
+    /**
+     * 实体类文件保存目录---v5
+     */
+    public String getDirPath4Category() {
+        return responseEntityFileDir + "%s/entity/%s/";
     }
 }

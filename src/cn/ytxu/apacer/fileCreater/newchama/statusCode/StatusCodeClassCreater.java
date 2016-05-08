@@ -33,7 +33,7 @@ public class StatusCodeClassCreater {
 
     public void create(DocumentEntity doc) {
         String fileName = Config.statusCode.StatusCodeFileName + ".java";
-        String dirPath = Config.statusCode.DirPath;
+        String dirPath = Config.statusCode.getDirPath();
 
         BaseCreater.getWriter4TargetFile(dirPath, fileName, (Writer writer, RetainEntity retain) -> {
             // package

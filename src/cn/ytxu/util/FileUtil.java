@@ -28,7 +28,11 @@ public class FileUtil {
         return classFileName.substring(0, 1).toLowerCase() + classFileName.substring(1);
     }
 
+    private static int testCount = 0;
     public static Writer getWriter(String classFileFullName, String dirPath) throws UnsupportedEncodingException, FileNotFoundException {
+        if (dirPath == null) {
+            LogUtil.e("dir path is null error :" + testCount++);
+        }
         File dir = new File(dirPath);
         if (!dir.exists()) {
             dir.mkdirs();

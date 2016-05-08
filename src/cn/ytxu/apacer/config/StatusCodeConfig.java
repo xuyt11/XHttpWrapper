@@ -17,14 +17,16 @@ public class StatusCodeConfig {
     }
 
     /**
-     * 接口文件保存目录
-     */
-    public final String DirPath = responseEntityFileDir + "";
-    /**
      * 接口文件的包名
      */
     public final String PackageName = "com.newchama.api";
     public final String StatusCodeFileName = "StatusCode";// 状态码类
     public final String StatusCode = "StatusCode";// 状态码类
 
+    /**
+     * 接口文件保存目录
+     */
+    public String getDirPath() {
+        return responseEntityFileDir + "";
+    }
 }

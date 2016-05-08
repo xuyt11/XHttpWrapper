@@ -2,7 +2,6 @@ package cn.ytxu.apacer;
 
 import cn.ytxu.apacer.dataParser.apidocjsParser.v7.ApiDocHtmlParser;
 import cn.ytxu.apacer.entity.ApiEnitity;
-import cn.ytxu.apacer.entity.BaseEntity;
 import cn.ytxu.apacer.entity.DocumentEntity;
 import cn.ytxu.apacer.fileCreater.newchama.ApiFileCreater;
 import cn.ytxu.util.LogUtil;

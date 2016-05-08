@@ -22,10 +22,15 @@ public class TemplateConfig {
     /**
      * 模板接口文件保存目录
      */
-    public String DirPath = inputFileDir + "tempapi/";
+    public String getDirPath() {
+        return inputFileDir + "tempapi/";
+    }
+
     /**
      * template文件的路径
      */
-    public String FilePath = inputFileDir + "template.txt";
+    public String getFilePath() {
+        return inputFileDir + "template.txt";
+    }
 
 }

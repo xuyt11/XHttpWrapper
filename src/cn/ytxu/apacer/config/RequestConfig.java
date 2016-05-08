@@ -17,10 +17,6 @@ public class RequestConfig {
     }
 
     /**
-     * 接口文件保存目录
-     */
-    private final String DirPath = requestFileDir + "%s/api/";
-    /**
      * 接口文件的包名
      */
     private final String PackageName = "com.newchama.api.%s.api";
@@ -39,10 +35,17 @@ public class RequestConfig {
     }
 
     public String getDirPath(String versionCode) {
-        return String.format(DirPath, versionCode);
+        return String.format(getDirPath(), versionCode);
     }
 
     public String getPublicApiFileName(String formatVersionCode) {
         return String.format(PublicApiFileName, formatVersionCode);
+    }
+
+    /**
+     * 接口文件保存目录
+     */
+    public String getDirPath() {
+        return requestFileDir + "%s/api/";
     }
 }
