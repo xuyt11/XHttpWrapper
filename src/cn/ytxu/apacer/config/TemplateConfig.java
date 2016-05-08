@@ -1,4 +1,4 @@
-package cn.ytxu.apacer.system_platform;
+package cn.ytxu.apacer.config;
 
 /**
  * 现阶段,不进行模板方法的构建,有些难度 2016-03-31

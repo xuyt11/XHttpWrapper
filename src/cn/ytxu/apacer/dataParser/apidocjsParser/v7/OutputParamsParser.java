@@ -1,6 +1,6 @@
 package cn.ytxu.apacer.dataParser.apidocjsParser.v7;
 
-import cn.ytxu.apacer.system_platform.Config;
+import cn.ytxu.apacer.config.Config;
 import cn.ytxu.apacer.entity.FieldEntity;
 import cn.ytxu.apacer.entity.OutputParamEntity;
 import cn.ytxu.apacer.entity.ResponseEntity;
@@ -52,8 +52,8 @@ public class OutputParamsParser {
             return;
         }
 
-        if (jObj.containsKey(Config.Entity.BaseResponse.StatusCode)) {// TODO 未来要他们统一返回格式,有些result没有这个字段
-            response.setStatusCode(String.valueOf(jObj.getInteger(Config.Entity.BaseResponse.StatusCode)));
+        if (jObj.containsKey(Config.BaseResponse.StatusCode)) {// TODO 未来要他们统一返回格式,有些result没有这个字段
+            response.setStatusCode(String.valueOf(jObj.getInteger(Config.BaseResponse.StatusCode)));
         } else {
             LogUtil.i("can not have status code:parserOutputArray categoryIndex:" + categoryIndex + ", methodIndex:" + methodIndex
                     + "response desc:" + response.getResponseDesc() + ", jsonStr:" + jsonStr);

@@ -1,6 +1,6 @@
 package cn.ytxu.util;
 
-import cn.ytxu.apacer.system_platform.Config;
+import cn.ytxu.apacer.config.Config;
 
 import java.io.*;
 

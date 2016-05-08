@@ -1,4 +1,4 @@
-package cn.ytxu.apacer.system_platform;
+package cn.ytxu.apacer.config;
 
 public class RequestConfig {
 

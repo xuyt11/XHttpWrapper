@@ -1,6 +1,6 @@
 package cn.ytxu.apacer.dataParser.apidocjsParser.v7;
 
-import cn.ytxu.apacer.system_platform.Config;
+import cn.ytxu.apacer.config.Config;
 import cn.ytxu.apacer.entity.*;
 import cn.ytxu.apacer.exception.BlankTextException;
 import cn.ytxu.apacer.exception.TargetElementsNotFoundException;

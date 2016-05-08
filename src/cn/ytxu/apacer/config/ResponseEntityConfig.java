@@ -1,4 +1,4 @@
-package cn.ytxu.apacer.system_platform;
+package cn.ytxu.apacer.config;
 
 /**
  * 基础的响应实体类

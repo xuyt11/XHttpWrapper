@@ -1,6 +1,6 @@
 package cn.ytxu.apacer.templateParser;
 
-import cn.ytxu.apacer.system_platform.Config;
+import cn.ytxu.apacer.config.Config;
 import cn.ytxu.util.FileUtil;
 import cn.ytxu.util.LogUtil;
 import cn.ytxu.apacer.entity.CategoryEntity;

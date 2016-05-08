@@ -2,7 +2,7 @@ package cn.ytxu.apacer.fileCreater.newchama.statusCode;
 
 import cn.ytxu.apacer.entity.RetainEntity;
 import cn.ytxu.apacer.fileCreater.newchama.BaseCreater;
-import cn.ytxu.apacer.system_platform.Config;
+import cn.ytxu.apacer.config.Config;
 import cn.ytxu.apacer.entity.DocumentEntity;
 import cn.ytxu.apacer.entity.StatusCodeEntity;
 

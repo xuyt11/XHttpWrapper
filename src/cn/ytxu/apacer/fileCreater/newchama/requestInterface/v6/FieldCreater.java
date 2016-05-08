@@ -1,6 +1,6 @@
 package cn.ytxu.apacer.fileCreater.newchama.requestInterface.v6;
 
-import cn.ytxu.apacer.system_platform.Config;
+import cn.ytxu.apacer.config.Config;
 import cn.ytxu.apacer.entity.FieldEntity;
 import cn.ytxu.apacer.entity.MethodEntity;
 import cn.ytxu.util.TextUtil;

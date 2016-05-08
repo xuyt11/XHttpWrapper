@@ -1,6 +1,6 @@
 package cn.ytxu.apacer.fileCreater.newchama.resultEntity.v6;
 
-import cn.ytxu.apacer.system_platform.Config;
+import cn.ytxu.apacer.config.Config;
 import cn.ytxu.apacer.dataParser.apidocjsParser.v7.OutputParamsParser;
 import cn.ytxu.apacer.entity.*;
 import cn.ytxu.apacer.fileCreater.newchama.BaseCreater;
