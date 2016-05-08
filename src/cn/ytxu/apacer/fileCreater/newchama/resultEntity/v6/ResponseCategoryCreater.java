@@ -161,7 +161,7 @@ public class ResponseCategoryCreater {
     private OutputParamEntity getDataOutput(List<OutputParamEntity> outputs) {
         OutputParamEntity dataOutput = null;
         for (OutputParamEntity output : outputs) {
-            if (Config.Entity.BaseResponse.Data.equals(output.getName())) {
+            if (Config.BaseResponse.Data.equals(output.getName())) {
                 dataOutput = output;
                 break;
             }

@@ -19,8 +19,6 @@ public class ResponseEntityConfig {
         return instance;
     }
 
-    public BaseResponseConfig BaseResponse = BaseResponseConfig.getInstance(responseEntityFileDir);
-
     /**
      * 实体类文件保存目录
      */

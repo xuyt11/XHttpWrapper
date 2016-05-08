@@ -7,24 +7,24 @@ package cn.ytxu.apacer.system_platform;
  * version -v6
  */
 public abstract class Config {
-	public static final String BasePath = "/Users/newchama/Desktop/NewChama-Data/";
+	public static final String inputFileDir = "/Users/newchama/Desktop/NewChama-Data/";
 
     public static final String BasePath2 = "/Users/newchama/Documents/ytxu/newchama_android/NewChama/";
-    public static final String BaseEntityLibOutputPath = BasePath2 + "newchama.model/src/main/java/com/newchama/api/";
-    public static final String BaseCommonLibOutputPath = BasePath2 + "newchama.common/src/main/java/com/newchama/api/";
+    public static final String responseEntityFileDir = BasePath2 + "newchama.model/src/main/java/com/newchama/api/";
+    public static final String requestFileDir = BasePath2 + "newchama.common/src/main/java/com/newchama/api/";
 	
 	/** API文档的html文件的路径 */
-	public static final String ApiDocHtmlPath = BasePath + "apidoc.html";
+	public static final String ApiDocHtmlPath = inputFileDir + "apidoc.html";
 
-    public static RequestConfig Api = RequestConfig.getInstance(BaseCommonLibOutputPath);
+    public static RequestConfig Api = RequestConfig.getInstance(requestFileDir);
 
-    public static ResponseEntityConfig Entity = ResponseEntityConfig.getInstance(BaseEntityLibOutputPath);
-//    public static BaseResponseConfig BaseResponse = BaseResponseConfig.getInstance(BaseEntityLibOutputPath);
+    public static ResponseEntityConfig Entity = ResponseEntityConfig.getInstance(responseEntityFileDir);
+    public static BaseResponseConfig BaseResponse = BaseResponseConfig.getInstance(responseEntityFileDir);
 
-    public static StatusCodeConfig statusCode = StatusCodeConfig.getInstance(BaseEntityLibOutputPath);
+    public static StatusCodeConfig statusCode = StatusCodeConfig.getInstance(responseEntityFileDir);
 
     /** 现阶段,不进行模板方法的构建,有些难度 2016-03-31 */
-    public static TemplateConfig Template = TemplateConfig.getInstance(BasePath);
+    public static TemplateConfig Template = TemplateConfig.getInstance(inputFileDir);
 
 
 

@@ -34,7 +34,7 @@ public class OutputParamCreater {
         // 需要将status_code,message,error,给过滤掉
         if (null == parent) {// parent`s type is response
             final String name = output.getName();
-            for (String filterName : Config.Entity.BaseResponse.FilterNames) {
+            for (String filterName : Config.BaseResponse.FilterNames) {
                 if (filterName.equals(name)) {
                     return;
                 }
