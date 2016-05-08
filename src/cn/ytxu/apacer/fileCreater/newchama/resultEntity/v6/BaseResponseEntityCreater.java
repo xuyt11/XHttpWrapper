@@ -41,7 +41,7 @@ public class BaseResponseEntityCreater {
 
         String classFileName = Config.BaseResponse.ClassName;
         String fileName = classFileName + ".java";
-        String dirPath = Config.BaseResponse.DirPath;
+        String dirPath = Config.BaseResponse.getDirPath();
 
         BaseCreater.getWriter4TargetFile(dirPath, fileName, (Writer writer, RetainEntity retain) -> {
             int tabIndex = 0;

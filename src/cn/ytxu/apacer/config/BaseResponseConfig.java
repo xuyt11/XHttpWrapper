@@ -19,10 +19,6 @@ public class BaseResponseConfig {
 
     public String ClassName = "ResponseEntity";
     /**
-     * 实体类文件保存目录
-     */
-    public String DirPath = responseEntityFileDir + "";
-    /**
      * 实体类文件的包名
      */
     public String PackageName = "com.newchama.api";
@@ -37,4 +33,10 @@ public class BaseResponseConfig {
     public String[] FilterNames = {StatusCode, Message, Error};
     public String[] FieldNames = {StatusCode, Message, Error, Data};
 
+    /**
+     * 实体类文件保存目录
+     */
+    public String getDirPath() {
+        return responseEntityFileDir + "";
+    }
 }
