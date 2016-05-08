@@ -50,7 +50,7 @@ public class ApiDocHtmlParser {
 //		Connection conn = Jsoup.connect(ApiEnitity.ApiDocUrl);
 //		conn.userAgent(UserAgentConfig.getWithRandom());
 		try {
-            Document doc = Jsoup.parse(new File(Config.ApiDocHtmlPath), Config.CharsetName);
+            Document doc = Jsoup.parse(new File(Config.getApiDocHtmlPath()), Config.CharsetName);
             return doc;
         } catch (IOException e) {
             e.printStackTrace();
