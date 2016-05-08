@@ -1,6 +1,6 @@
 package cn.ytxu.apacer.fileCreater.newchama.resultEntity.v6;
 
-import cn.ytxu.apacer.ConfigV6;
+import cn.ytxu.apacer.system_platform.Config;
 import cn.ytxu.apacer.entity.OutputParamEntity;
 import cn.ytxu.apacer.fileCreater.newchama.BaseCreater;
 import cn.ytxu.util.CamelCaseUtils;
@@ -34,7 +34,7 @@ public class OutputParamCreater {
         // 需要将status_code,message,error,给过滤掉
         if (null == parent) {// parent`s type is response
             final String name = output.getName();
-            for (String filterName : ConfigV6.Entity.BaseResponse.FilterNames) {
+            for (String filterName : Config.Entity.BaseResponse.FilterNames) {
                 if (filterName.equals(name)) {
                     return;
                 }

@@ -14,7 +14,7 @@ import cn.ytxu.apacer.fileCreater.newchama.resultEntity.v6.ResponseCategoryCreat
 import cn.ytxu.util.LogUtil;
 
 /**
- * api接口生成器：Api requestInterface creater
+ * api接口生成器：RequestConfig requestInterface creater
  * @author ytxu 2016-3-21
  *
  */

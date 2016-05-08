@@ -1,6 +1,6 @@
 package cn.ytxu.apacer.fileCreater.newchama.resultEntity.v6;
 
-import cn.ytxu.apacer.ConfigV6;
+import cn.ytxu.apacer.system_platform.Config;
 import cn.ytxu.apacer.entity.*;
 import cn.ytxu.util.CamelCaseUtils;
 import cn.ytxu.util.FileUtil;
@@ -52,8 +52,8 @@ public class ResponseCategoryCreater {
 
         final String version = api.getFormatVersion();
         name = FileUtil.getCategoryPackageName(name);
-        String packageName = ConfigV6.Entity.getPackageName4Category(version, name);
-        String dirPath = ConfigV6.Entity.getDirPath4Category(version, name);
+        String packageName = Config.Entity.getPackageName4Category(version, name);
+        String dirPath = Config.Entity.getDirPath4Category(version, name);
 
         // result fields and getter and setter method of result fileds
         createResultFieldsForEachMethods(methods, packageName, dirPath);
@@ -161,7 +161,7 @@ public class ResponseCategoryCreater {
     private OutputParamEntity getDataOutput(List<OutputParamEntity> outputs) {
         OutputParamEntity dataOutput = null;
         for (OutputParamEntity output : outputs) {
-            if (ConfigV6.Entity.BaseResponse.Data.equals(output.getName())) {
+            if (Config.Entity.BaseResponse.Data.equals(output.getName())) {
                 dataOutput = output;
                 break;
             }

@@ -1,6 +1,6 @@
 package cn.ytxu.apacer.fileCreater.newchama.requestInterface.v6;
 
-import cn.ytxu.apacer.ConfigV6;
+import cn.ytxu.apacer.system_platform.Config;
 import cn.ytxu.apacer.entity.ApiEnitity;
 import cn.ytxu.apacer.entity.CategoryEntity;
 import cn.ytxu.apacer.entity.MethodEntity;
@@ -57,7 +57,7 @@ public class RequestInterfaceCreater {
 		final String version = api.getFormatVersion();
 		String classFileName = FileUtil.getClassFileName(name);
 		String fileName = classFileName + ".java";
-		String dirPath = ConfigV6.Api.getDirPath(version);
+		String dirPath = Config.Api.getDirPath(version);
 
 		BaseCreater.getWriter4TargetFile(dirPath, fileName, (Writer writer, RetainEntity retain) -> {
             // package and imports
@@ -85,7 +85,7 @@ public class RequestInterfaceCreater {
 
 	// package and imports
 	private void createPackageAndImports(Writer writer, RetainEntity retain, String formatVersion) throws IOException {
-        writer.write("package " + ConfigV6.Api.getPackageName(formatVersion) + ";\n\n");
+        writer.write("package " + Config.Api.getPackageName(formatVersion) + ";\n\n");
 
 		writer.write("import android.content.Context;\n\n");
 		writer.write("import com.loopj.android.http.RequestHandle;\n");
@@ -117,7 +117,7 @@ public class RequestInterfaceCreater {
      */
 	private void createConstructorAndRegisterInstance(Writer writer, String classFileName) throws IOException {
 		// class start
-		writer.write("\npublic class " + classFileName + " extends " + ConfigV6.Api.BaseApiFileName + " {\n\n");
+		writer.write("\npublic class " + classFileName + " extends " + Config.Api.BaseApiFileName + " {\n\n");
 
         writer.write("\tpublic static class Helper {\n");
         writer.write("\t\tpublic static final " + classFileName + " instance = new " + classFileName + "();\n");

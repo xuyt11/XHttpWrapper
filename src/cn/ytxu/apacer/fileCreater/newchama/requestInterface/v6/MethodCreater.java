@@ -1,7 +1,7 @@
 package cn.ytxu.apacer.fileCreater.newchama.requestInterface.v6;
 
 
-import cn.ytxu.apacer.ConfigV6;
+import cn.ytxu.apacer.system_platform.Config;
 import cn.ytxu.apacer.entity.FieldEntity;
 import cn.ytxu.apacer.entity.MethodEntity;
 
@@ -13,14 +13,14 @@ import java.util.List;
  *
  */
 public class MethodCreater {
-	private static String currTabStr = ConfigV6.TabKeyStr;
+	private static String currTabStr = Config.TabKeyStr;
 
 	public static String create(MethodEntity method, boolean isSameButOnlyVersionCode) {
 		if (null == method) {
 			return null;
 		}
 		
-		currTabStr = isSameButOnlyVersionCode ? ConfigV6.TabKeyNoUseStr : ConfigV6.TabKeyStr;
+		currTabStr = isSameButOnlyVersionCode ? Config.TabKeyNoUseStr : Config.TabKeyStr;
 		
 		StringBuffer sb = new StringBuffer();
 		
@@ -39,7 +39,7 @@ public class MethodCreater {
 		// TODO out params parserApiDocHtmlCode2DocumentEntity
 		
 		// method end
-		sb.append(currTabStr).append("\treturn NetWorker.execute(").append(ConfigV6.Api.AndroidContextParamName).append(", request, response);\n");
+		sb.append(currTabStr).append("\treturn NetWorker.execute(").append(Config.Api.AndroidContextParamName).append(", request, response);\n");
 		sb.append(currTabStr).append("}\n\n");
 		
 		return sb.toString();
@@ -94,7 +94,7 @@ public class MethodCreater {
 	private static void generatorMethodTitle(StringBuffer sb, MethodEntity method, boolean isSameButOnlyVersionCode) {
 //		public static RequestHandle methodName(Context context,
 		// 将参数名称从context改为cxt001，防止在之后出现参数名称为context的参数。
-		sb.append(currTabStr).append("public RequestHandle ").append(method.getMethodName()).append("(Context ").append(ConfigV6.Api.AndroidContextParamName).append(", \n");
+		sb.append(currTabStr).append("public RequestHandle ").append(method.getMethodName()).append("(Context ").append(Config.Api.AndroidContextParamName).append(", \n");
 
 //		/** urlParams 4 RESTful */ String paramName, \n
 		RESTfulRequestUrlCreater.generatorRequestParam(sb, method, isSameButOnlyVersionCode);
@@ -144,7 +144,7 @@ public class MethodCreater {
 //		request.setUrl();
 //		list-->request.addHeader(key, value);
 //		list-->request.addParam(key, value);
-//		request.setUrl(ConfigV6.BaseUrl + method.getUrl());
+//		request.setUrl(Config.BaseUrl + method.getUrl());
 //		
 //		return NetWorker.execute(context, request, response);
 //	}

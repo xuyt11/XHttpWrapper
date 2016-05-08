@@ -2,7 +2,7 @@ package cn.ytxu.apacer.fileCreater.newchama.statusCode;
 
 import cn.ytxu.apacer.entity.RetainEntity;
 import cn.ytxu.apacer.fileCreater.newchama.BaseCreater;
-import cn.ytxu.apacer.ConfigV6;
+import cn.ytxu.apacer.system_platform.Config;
 import cn.ytxu.apacer.entity.DocumentEntity;
 import cn.ytxu.apacer.entity.StatusCodeEntity;
 
@@ -32,8 +32,8 @@ public class StatusCodeClassCreater {
 
 
     public void create(DocumentEntity doc) {
-        String fileName = ConfigV6.statusCode.StatusCodeFileName + ".java";
-        String dirPath = ConfigV6.statusCode.DirPath;
+        String fileName = Config.statusCode.StatusCodeFileName + ".java";
+        String dirPath = Config.statusCode.DirPath;
 
         BaseCreater.getWriter4TargetFile(dirPath, fileName, (Writer writer, RetainEntity retain) -> {
             // package
@@ -50,14 +50,14 @@ public class StatusCodeClassCreater {
     }
 
     private void createImportAndClassStart(Writer writer, RetainEntity retain) throws IOException {
-        writer.write("package " + ConfigV6.statusCode.PackageName + ";\n\n");
+        writer.write("package " + Config.statusCode.PackageName + ";\n\n");
         if (null != retain) {
             writer.write(retain.getImportData().toString());
             writer.write("\n");
         }
 
         // class start
-        writer.write("\npublic class " + ConfigV6.statusCode.StatusCodeFileName + " {\n\n");
+        writer.write("\npublic class " + Config.statusCode.StatusCodeFileName + " {\n\n");
     }
 
     private String createStatusCodeParam(StatusCodeEntity statusCode) {

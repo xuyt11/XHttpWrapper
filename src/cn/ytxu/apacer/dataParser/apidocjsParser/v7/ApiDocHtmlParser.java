@@ -1,6 +1,6 @@
 package cn.ytxu.apacer.dataParser.apidocjsParser.v7;
 
-import cn.ytxu.apacer.ConfigV6;
+import cn.ytxu.apacer.system_platform.Config;
 import cn.ytxu.apacer.entity.*;
 import cn.ytxu.apacer.exception.BlankTextException;
 import cn.ytxu.apacer.exception.TargetElementsNotFoundException;
@@ -50,7 +50,7 @@ public class ApiDocHtmlParser {
 //		Connection conn = Jsoup.connect(ApiEnitity.ApiDocUrl);
 //		conn.userAgent(UserAgentConfig.getWithRandom());
 		try {
-            Document doc = Jsoup.parse(new File(ConfigV6.ApiDocHtmlPath), ConfigV6.CharsetName);
+            Document doc = Jsoup.parse(new File(Config.ApiDocHtmlPath), Config.CharsetName);
             return doc;
         } catch (IOException e) {
             e.printStackTrace();
@@ -115,7 +115,7 @@ public class ApiDocHtmlParser {
         }
 
         // 2 状态码
-        if (ConfigV6.statusCode.StatusCode.equals(name)) {
+        if (Config.statusCode.StatusCode.equals(name)) {
             List<StatusCodeEntity> statusCodes = StatusCodeParser.parseStatusCodes(sectionEle);
             docEntity.setStatusCodes(statusCodes);
             return;

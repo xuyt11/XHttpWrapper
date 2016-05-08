@@ -1,6 +1,6 @@
 package cn.ytxu.apacer.fileCreater.newchama.resultEntity.v6;
 
-import cn.ytxu.apacer.ConfigV6;
+import cn.ytxu.apacer.system_platform.Config;
 import cn.ytxu.apacer.dataParser.apidocjsParser.v7.OutputParamsParser;
 import cn.ytxu.apacer.entity.*;
 import cn.ytxu.apacer.fileCreater.newchama.BaseCreater;
@@ -39,9 +39,9 @@ public class BaseResponseEntityCreater {
     public void create(DocumentEntity doc, List<ApiEnitity> apis) {
         List<OutputParamEntity> outputs = getOutputs(apis);
 
-        String classFileName = ConfigV6.Entity.BaseResponse.ClassName;
+        String classFileName = Config.Entity.BaseResponse.ClassName;
         String fileName = classFileName + ".java";
-        String dirPath = ConfigV6.Entity.BaseResponse.DirPath;
+        String dirPath = Config.Entity.BaseResponse.DirPath;
 
         BaseCreater.getWriter4TargetFile(dirPath, fileName, (Writer writer, RetainEntity retain) -> {
             int tabIndex = 0;
@@ -67,7 +67,7 @@ public class BaseResponseEntityCreater {
     private void createErrorClass(Writer writer, List<OutputParamEntity> outputs, DocumentEntity doc, int tabIndex) throws IOException {
         tabIndex++;
         final String table = BaseCreater.getTable(tabIndex);
-        String fieldName = ConfigV6.Entity.BaseResponse.Error;
+        String fieldName = Config.Entity.BaseResponse.Error;
         String className = CamelCaseUtils.toCapitalizeCamelCase(fieldName);
         writer.write(table + "public static class " + className + " {\n\n");
 
@@ -86,15 +86,15 @@ public class BaseResponseEntityCreater {
 
     private void createFieldsAndTheirGetterAndSetter(Writer writer, RetainEntity retain, int tabIndex) throws IOException {
         tabIndex++;
-        String[] fieldNames = ConfigV6.Entity.BaseResponse.FieldNames;// and their type is String
+        String[] fieldNames = Config.Entity.BaseResponse.FieldNames;// and their type is String
         StringBuffer fieldSb = new StringBuffer(), getterSb = new StringBuffer(), setterSb = new StringBuffer();
         for (String fieldName : fieldNames) {
             String type = "String";
-            if (ConfigV6.Entity.BaseResponse.Error.equals(fieldName)) {
+            if (Config.Entity.BaseResponse.Error.equals(fieldName)) {
                 type = "Error";
-            } else if (ConfigV6.Entity.BaseResponse.Data.equals(fieldName)) {
+            } else if (Config.Entity.BaseResponse.Data.equals(fieldName)) {
                 type = "T";
-            } else if(ConfigV6.Entity.BaseResponse.StatusCode.equals(fieldName)) {
+            } else if(Config.Entity.BaseResponse.StatusCode.equals(fieldName)) {
                 type = "int";
             }
             String bigName = CamelCaseUtils.toCapitalizeCamelCase(fieldName);
@@ -123,7 +123,7 @@ public class BaseResponseEntityCreater {
 
     // package and imports
     protected void createPackageAndImports(Writer writer, RetainEntity retain, String classFileName) throws IOException {
-        writer.write("package " + ConfigV6.Entity.BaseResponse.PackageName + ";\n\n");
+        writer.write("package " + Config.Entity.BaseResponse.PackageName + ";\n\n");
 
         writer.write("import java.util.List;\n\n");// 每一个都加上List类，防止其中有List参数
         if (null != retain) {
@@ -191,11 +191,11 @@ public class BaseResponseEntityCreater {
             String jsonStr = response.getResponseContent();
             try {
                 JSONObject jObj = JSON.parseObject(jsonStr);
-                if (!jObj.containsKey(ConfigV6.Entity.BaseResponse.Error)) {// TODO 未来要他们统一返回格式,有些result没有这个字段
+                if (!jObj.containsKey(Config.Entity.BaseResponse.Error)) {// TODO 未来要他们统一返回格式,有些result没有这个字段
                     continue;
                 }
 
-                JSONObject errorJObj = jObj.getJSONObject(ConfigV6.Entity.BaseResponse.Error);
+                JSONObject errorJObj = jObj.getJSONObject(Config.Entity.BaseResponse.Error);
                 errorJObjs.add(errorJObj);
             } catch (JSONException e) {
                 // TODO 这是返回数据的Json格式有问题,以后解决

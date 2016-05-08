@@ -1,6 +1,6 @@
 package cn.ytxu.apacer.fileCreater.newchama.requestInterface.v6;
 
-import cn.ytxu.apacer.ConfigV6;
+import cn.ytxu.apacer.system_platform.Config;
 import cn.ytxu.apacer.entity.ApiEnitity;
 import cn.ytxu.apacer.entity.CategoryEntity;
 import cn.ytxu.apacer.entity.MethodEntity;
@@ -40,8 +40,8 @@ public class PublicApiClassCreater {
 	 */
 	public void createApiInterfaceClass(ApiEnitity api) {
 		final String version = api.getFormatVersion();
-		final String dirPath = ConfigV6.Api.getDirPath(version);
-		final String fileName = ConfigV6.Api.getPublicApiFileName(version) + ".java";
+		final String dirPath = Config.Api.getDirPath(version);
+		final String fileName = Config.Api.getPublicApiFileName(version) + ".java";
 
 		BaseCreater.getWriter4TargetFile(dirPath, fileName, (Writer writer, RetainEntity retain) -> {
             // package
@@ -56,14 +56,14 @@ public class PublicApiClassCreater {
 
     private void createPackageAndStart(String version, RetainEntity retain, Writer writer) throws IOException {
         // package
-        writer.write("package " + ConfigV6.Api.getPackageName(version) + ";\n\n");
+        writer.write("package " + Config.Api.getPackageName(version) + ";\n\n");
         if (null != retain) {
             writer.write(retain.getImportData().toString());
             writer.write("\n");
         }
 
         // class start
-        writer.write("\npublic class " + ConfigV6.Api.getPublicApiFileName(version) + " {\n\n");
+        writer.write("\npublic class " + Config.Api.getPublicApiFileName(version) + " {\n\n");
     }
 
     private void createClassEnd(Writer writer, RetainEntity retain) throws IOException {

@@ -1,6 +1,6 @@
 package cn.ytxu.apacer.fileCreater.newchama.requestInterface.v6;
 
-import cn.ytxu.apacer.ConfigV6;
+import cn.ytxu.apacer.system_platform.Config;
 import cn.ytxu.apacer.entity.FieldEntity;
 import cn.ytxu.apacer.entity.MethodEntity;
 import cn.ytxu.util.TextUtil;
@@ -23,7 +23,7 @@ public class FieldCreater {
 		}
 		
 		String key = field.getKey();
-		if (ConfigV6.TokenName_Authorization.equalsIgnoreCase(key)) {// 过滤掉Token
+		if (Config.TokenName_Authorization.equalsIgnoreCase(key)) {// 过滤掉Token
 			sb.append(" /**").append(type).append(" ").append(key).append(",*/");
 			return;
 		}
@@ -50,11 +50,11 @@ public class FieldCreater {
 			return;
 		}
 
-		String currTabStr = isSameButOnlyVersionCode ? ConfigV6.TabKeyNoUseStr : ConfigV6.TabKeyStr;
+		String currTabStr = isSameButOnlyVersionCode ? Config.TabKeyNoUseStr : Config.TabKeyStr;
 		for (FieldEntity header : headers) {
 			String headerParamName = header.getKey();
 			// 过滤掉Token，设置工作交给获取到的时候，由程序员，直接在HttpClient SingleInstance中设置到header中去
-			if (ConfigV6.TokenName_Authorization.equalsIgnoreCase(headerParamName)) {
+			if (Config.TokenName_Authorization.equalsIgnoreCase(headerParamName)) {
 				sb.append("//");
 				sb.append(currTabStr).append("\trequest.addHeader(\"").append(headerParamName).append("\", ")
 					.append(headerParamName).append(");");
@@ -76,7 +76,7 @@ public class FieldCreater {
 			return;
 		}
 
-		String currTabStr = isSameButOnlyVersionCode ? ConfigV6.TabKeyNoUseStr : ConfigV6.TabKeyStr;
+		String currTabStr = isSameButOnlyVersionCode ? Config.TabKeyNoUseStr : Config.TabKeyStr;
 		for (FieldEntity param : inputs) {
 			generatorRequestParam(sb, currTabStr, param);
 		}

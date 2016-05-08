@@ -42,10 +42,10 @@
 //        String classFileFullName = classFileName + ".java";
 //        Writer writer = null;
 //        try {
-//            writer = FileUtil.getWriter(classFileFullName, Config.Api.DirPath);
+//            writer = FileUtil.getWriter(classFileFullName, Config.RequestConfig.DirPath);
 //
 //            // package
-//            writer.write("package " + Config.Api.PackageName + ";\n\n");
+//            writer.write("package " + Config.RequestConfig.PackageName + ";\n\n");
 //            // imports
 //            createImports(writer);
 //            // class start, create private a default constructor and a public registerInstance method, and thrie params
@@ -85,13 +85,13 @@
 //    // class start, create private a default constructor and a public registerInstance method, and their params
 //    private void createConstructorAndRegisterInstance(Writer writer, CategoryEntity category, String classFileName) throws IOException {
 //        // class start
-//        writer.write("\npublic class " + classFileName + " extends " + Config.Api.BaseApiFileName + " {\n\n");
+//        writer.write("\npublic class " + classFileName + " extends " + Config.RequestConfig.BaseApiFileName + " {\n\n");
 //
 //        writer.write("\tprivate volatile static " + classFileName + " instance;\n");
 //        // private constructor
 //        writer.write("\tprivate " + classFileName + "() {}\n");
 //        // public register instance method
-//        writer.write("\tpublic static void " + Config.Api.RegisterInstanceMethodName + "() {\n");
+//        writer.write("\tpublic static void " + Config.RequestConfig.RegisterInstanceMethodName + "() {\n");
 //        writer.write("\t\tif (instance == null) {\n");
 //        writer.write("\t\t\tsynchronized (" + classFileName + ".class) {\n");
 //        writer.write("\t\t\t\tif (instance == null) {\n");
@@ -99,7 +99,7 @@
 //        writer.write("\t\t\t\t}\n");
 //        writer.write("\t\t\t}\n");
 //        writer.write("\t\t}\n");
-//        writer.write("\t\t" + Config.Api.PublicApiFileName + ".set" + classFileName + "(instance);\n");
+//        writer.write("\t\t" + Config.RequestConfig.PublicApiFileName + ".set" + classFileName + "(instance);\n");
 //        writer.write("\t}\n\n");
 //
 //    }

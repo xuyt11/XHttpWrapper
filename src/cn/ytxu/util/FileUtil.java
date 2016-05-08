@@ -1,6 +1,6 @@
 package cn.ytxu.util;
 
-import cn.ytxu.apacer.ConfigV6;
+import cn.ytxu.apacer.system_platform.Config;
 
 import java.io.*;
 
@@ -35,7 +35,7 @@ public class FileUtil {
         }
 
         Writer writer = new OutputStreamWriter(new FileOutputStream(
-                new File(dir, classFileFullName)), ConfigV6.CharsetName);
+                new File(dir, classFileFullName)), Config.CharsetName);
         return writer;
     }
 

@@ -1,6 +1,6 @@
 package cn.ytxu.apacer.fileCreater.newchama.requestInterface.v6;
 
-import cn.ytxu.apacer.ConfigV6;
+import cn.ytxu.apacer.system_platform.Config;
 import cn.ytxu.apacer.entity.MethodEntity;
 import cn.ytxu.apacer.entity.RESTfulApiEntity;
 
@@ -17,7 +17,7 @@ public class RESTfulRequestUrlCreater {
 	/** 生成请求url 
 	 * @param isSameButOnlyVersionCode */
 	public static void generatorRequestUrl(StringBuffer sb, MethodEntity method, boolean isSameButOnlyVersionCode) {
-		String currTabStr = isSameButOnlyVersionCode ? ConfigV6.TabKeyNoUseStr : ConfigV6.TabKeyStr;
+		String currTabStr = isSameButOnlyVersionCode ? Config.TabKeyNoUseStr : Config.TabKeyStr;
 		List<RESTfulApiEntity> restfuls = method.getRESTfulApis();
 		
 		if (null == restfuls || restfuls.size() <= 0) {// 没有RESTful风格的东东，所以直接将url搞上去
@@ -53,7 +53,7 @@ public class RESTfulRequestUrlCreater {
 		}
 		
 		// 使用String.format进行RESTful风格的url进行格式化
-//		String formatStr = TextUtil.getFullUrl(ConfigV6.StartUrl, formatSb.toString());
+//		String formatStr = TextUtil.getFullUrl(Config.StartUrl, formatSb.toString());
 		String formatStr = formatSb.toString();
 		sb.append(currTabStr).append("\tString requestUrl = String.format(getFullUrl(\"").append(formatStr).append("\")").append(argsSb.toString()).append(");\n");
 		sb.append(currTabStr).append("\trequest.setUrl(requestUrl);\n");
@@ -63,7 +63,7 @@ public class RESTfulRequestUrlCreater {
 	 * @param isSameButOnlyVersionCode */
 	public static void generatorRequestParam(StringBuffer sb, MethodEntity method, boolean isSameButOnlyVersionCode) {
 //		/** urlParams 4 RESTful */ String paramName/** note */, \n
-		String currTabStr = isSameButOnlyVersionCode ? ConfigV6.TabKeyNoUseStr : ConfigV6.TabKeyStr;
+		String currTabStr = isSameButOnlyVersionCode ? Config.TabKeyNoUseStr : Config.TabKeyStr;
 		List<RESTfulApiEntity> restfuls = method.getRESTfulApis();
 		
 		if (null == restfuls || restfuls.size() <= 0) {
