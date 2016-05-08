@@ -18,63 +18,13 @@ public abstract class Config {
 
     public static RequestConfig Api = RequestConfig.getInstance(BaseCommonLibOutputPath);
 
-
-    public static final class Entity {
-        /** 实体类文件保存目录 */
-        private static final String DirPath = BaseEntityLibOutputPath + "%s/entity/";
-        /** 实体类文件保存目录---v5 */
-        private static final String DirPath4Category = BaseEntityLibOutputPath + "%s/entity/%s/";
-        /** 实体类文件的包名*/
-        private static final String PackageName = "com.newchama.api.%s.entity";
-        /** 实体类文件的包名---v5*/
-        private static final String PackageName4Category = "com.newchama.api.%s.entity.%s";
-
-        public static String getPackageName(String versionCode) {
-            return String.format(PackageName, versionCode);
-        }
-
-        public static String getPackageName4Category(String versionCode, String categoryName) {
-            return String.format(PackageName4Category, versionCode, categoryName);
-        }
-
-        public static String getDirPath(String versionCode) {
-            return String.format(DirPath, versionCode);
-        }
-
-        public static String getDirPath4Category(String versionCode, String categoryName) {
-            return String.format(DirPath4Category, versionCode, categoryName);
-        }
-
-        /** 基础的响应实体类 */
-        public static final class BaseResponse {
-            public static final String ClassName = "ResponseEntity";
-            /** 实体类文件保存目录 */
-            public static final String DirPath = BaseEntityLibOutputPath + "";
-            /** 实体类文件的包名*/
-            public static final String PackageName = "com.newchama.api";
-
-            public static final String StatusCode = "status_code";
-            public static final String Message = "message";
-            public static final String Error = "error";
-            public static final String Data = "data";
-            /** 过滤掉的属性,这些都在基础响应实体类中都有写,所以其他的子类不需要添加了 */
-            public static final String[] FilterNames = {StatusCode, Message, Error};
-            public static final String[] FieldNames = {StatusCode, Message, Error, Data};
-
-        }
-    }
-
+    public static ResponseEntityConfig Entity = ResponseEntityConfig.getInstance(BaseEntityLibOutputPath);
+//    public static BaseResponseConfig BaseResponse = BaseResponseConfig.getInstance(BaseEntityLibOutputPath);
 
     public static StatusCodeConfig statusCode = StatusCodeConfig.getInstance(BaseEntityLibOutputPath);
 
     /** 现阶段,不进行模板方法的构建,有些难度 2016-03-31 */
-    public static final class Template {
-        /** 模板接口文件保存目录 */
-        public static final String DirPath = BasePath + "tempapi/";
-        /** template文件的路径 */
-        public static final String FilePath = BasePath + "template.txt";
-
-    }
+    public static TemplateConfig Template = TemplateConfig.getInstance(BasePath);
 
 
 
@@ -93,7 +43,7 @@ public abstract class Config {
 
     /** 配置文件目录 */
     public interface ConfigDir {
-        /** 获取输入数据的文件夹<br>
+        /** 获取输入数据的文件夹(需要解析的文件)<br>
          * 例如：apidochtml(API文档的html文件)、template(模板文件)的文件夹 */
         public abstract String getInputDir();
 
