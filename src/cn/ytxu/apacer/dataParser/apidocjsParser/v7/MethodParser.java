@@ -1,7 +1,9 @@
 package cn.ytxu.apacer.dataParser.apidocjsParser.v7;
 
+import cn.ytxu.apacer.dataParser.jsoupUtil.JsoupParserUtil;
 import cn.ytxu.apacer.entity.FieldEntity;
 import cn.ytxu.apacer.entity.MethodEntity;
+import cn.ytxu.apacer.entity.RESTfulApiEntity;
 import cn.ytxu.apacer.entity.ResponseEntity;
 import cn.ytxu.util.CamelCaseUtils;
 import org.jsoup.nodes.Element;
@@ -15,56 +17,131 @@ import java.util.List;
  *
  */
 public class MethodParser {
+	private static final String CSS_QUERY_ARTICLE = "article";
+	private static final String ATTR_DATA_NAME = "data-name";
+	private static final String ATTR_DATA_VERSION = "data-version";
+	private static final String CSS_QUERY_GET_METHOD_DESC = "div.pull-left > h1";
+    private static final String CSS_QUERY_GET_TYPE_AND_URL_FOR_METHOD = "pre.prettyprint.language-html";
+    private static final String ATTR_DATA_TYPE = "data-type";
+    private static final String CSS_QUERY_GET_METHOD_URL = "code";
+    private static final String CSS_QUERY_TABLE = "table";
+    private static final String CSS_QUERY_FIELDSET = "form.form-horizontal > fieldset";
+    private static final String CSS_QUERY_RESPONSE = "div.tab-content > div.tab-pane";
+    private static final String CSS_QUERY_RESPONSE_DESC = "ul.nav.nav-tabs.nav-tabs-examples > li";
 
-	public static MethodEntity parseMethodElement(int categoryIndex, int methodIndex, Element methodEle) {
+
+	public MethodEntity getMethod(Element methodEle) {
 //		String methodId = methodEle.attr("id");
-		
-		Element articleEle = methodEle.select("article").first();
+		Element articleEle = getArticleElement(methodEle);
 //		String methodCategory = articleEle.attr("data-group");
-		String methodName = articleEle.attr("data-name");
-		String methodVersion = articleEle.attr("data-version");
+		String methodName = getMethodName(articleEle);
+		String methodVersion = getMethodVersion(articleEle);
+		String methodDescription = getMethodDesc(articleEle);
 		
-		String methodDescription = articleEle.select("div.pull-left > h1").first().text();
-		
-		Element preEle = articleEle.select("pre.prettyprint.language-html").first();
-		String methodType = preEle.attr("data-type");
-		String methodUrl = preEle.select("code").first().text();
+		Element preEle = getMethodTypeAndUrlEle(articleEle);
+		String methodType = getMethodType(preEle);
+		String methodUrl = getMethodUrl(preEle);
 
         // headers, input params
-		Elements tableEls = articleEle.select("table");
-		List<FieldEntity> descParams = FieldParser.getDescParams(tableEls);
-
-		Element fieldsetEle = articleEle.select("form.form-horizontal > fieldset").first();
-		List<FieldEntity> headerFields = FieldParser.getHeaderFields(fieldsetEle);
-		List<FieldEntity> inputFields = FieldParser.getInputParamFields(fieldsetEle);
-
-		headerFields = FieldParser.replaceDescParam(headerFields, descParams);
-		inputFields = FieldParser.replaceDescParam(inputFields, descParams);
-
+        List<FieldEntity> descParams = getDescParams(articleEle);
+		Element fieldsetEle = getFieldsetEle(articleEle);
+        List<FieldEntity> headerFields = getHeaderFields(descParams, fieldsetEle);
+        List<FieldEntity> inputFields = getInputFields(descParams, fieldsetEle);
         // response : output params
-        Elements responseDescEls = articleEle.select("ul.nav.nav-tabs.nav-tabs-examples > li");// 该请求响应的描述
-        Elements responseEls = articleEle.select("div.tab-content > div.tab-pane");// 请求响应报文的数据:响应头,响应体
-        List<ResponseEntity> responses = ResponseParser.parser(categoryIndex, methodIndex, responseDescEls, responseEls);
-
-        responses = OutputParamsParser.parser(categoryIndex, methodIndex, responses, descParams);
+        List<ResponseEntity> responses = getResponses(articleEle, descParams);
+        List<RESTfulApiEntity> resTfulApiEntities = getRESTfuls(methodUrl);
 
 		MethodEntity method = new MethodEntity();
+		method.setMethodName(methodName);
+		method.setVersionCode(methodVersion);
 		method.setDescrption(methodDescription);
-		method.setUrl(methodUrl);
 		method.setMethodType(methodType);
+		method.setUrl(methodUrl);
 		method.setHeaders(headerFields);
 		method.setInputParameters(inputFields);
-		method.setVersionCode(methodVersion);
-		method.setMethodName(CamelCaseUtils.toCamelCase(methodName));
         method.setResponses(responses);
-		
-		method.setRESTfulApis(RESTfulAPIParser.parse(methodUrl));
+		method.setRESTfulApis(resTfulApiEntities);
 
+        // TODO 要删除，并用BaseEntity中的higherLevel进行替代
 		ResponseEntity.setMethod(responses, method);
 		
 		return method;
 	}
-	
-	
-	
+
+    private Element getArticleElement(Element methodEle) {
+		return JsoupParserUtil.getFirstEle(methodEle, CSS_QUERY_ARTICLE);
+	}
+
+	private String getMethodName(Element articleEle) {
+		String dataName = articleEle.attr(ATTR_DATA_NAME);
+		String methodName = CamelCaseUtils.toCamelCase(dataName);
+		return methodName;
+	}
+
+	private String getMethodVersion(Element articleEle) {
+		return articleEle.attr(ATTR_DATA_VERSION);
+	}
+
+    private String getMethodDesc(Element articleEle) {
+        Element methodDescEle = JsoupParserUtil.getFirstEle(articleEle, CSS_QUERY_GET_METHOD_DESC);
+        String methodDesc = JsoupParserUtil.getText(methodDescEle);
+        return methodDesc;
+    }
+
+    private Element getMethodTypeAndUrlEle(Element articleEle) {
+        return JsoupParserUtil.getFirstEle(articleEle, CSS_QUERY_GET_TYPE_AND_URL_FOR_METHOD);
+    }
+
+    private String getMethodType(Element preEle) {
+        return preEle.attr(ATTR_DATA_TYPE).trim();
+    }
+
+    private String getMethodUrl(Element preEle) {
+        Element methodUrlEle = JsoupParserUtil.getFirstEle(preEle, CSS_QUERY_GET_METHOD_URL);
+        String methodUrl = JsoupParserUtil.getText(methodUrlEle);
+        return methodUrl;
+    }
+
+    private List<FieldEntity> getDescParams(Element articleEle) {
+        Elements tableEls = JsoupParserUtil.getEles(articleEle, CSS_QUERY_TABLE);
+        return FieldParser.getDescParams(tableEls);
+    }
+
+    private Element getFieldsetEle(Element articleEle) {
+        return JsoupParserUtil.getFirstEle(articleEle, CSS_QUERY_FIELDSET);
+    }
+
+    private List<FieldEntity> getHeaderFields(List<FieldEntity> descParams, Element fieldsetEle) {
+        List<FieldEntity> headerFields = FieldParser.getHeaderFields(fieldsetEle);
+        headerFields = FieldParser.replaceDescParam(headerFields, descParams);
+        return headerFields;
+    }
+
+    private List<FieldEntity> getInputFields(List<FieldEntity> descParams, Element fieldsetEle) {
+        List<FieldEntity> inputFields = FieldParser.getInputParamFields(fieldsetEle);
+        inputFields = FieldParser.replaceDescParam(inputFields, descParams);
+        return inputFields;
+    }
+
+    private List<ResponseEntity> getResponses(Element articleEle, List<FieldEntity> descParams) {
+        Elements responseDescEls = getResponseDescEles(articleEle);// 该请求响应的描述
+        Elements responseEls = getResponseEles(articleEle);// 请求响应报文的数据:响应头,响应体
+
+        List<ResponseEntity> responses = ResponseParser.parser(-1, -1, responseDescEls, responseEls);
+        responses = OutputParamsParser.parser(-1, -1, responses, descParams);
+
+        return responses;
+    }
+
+    private Elements getResponseEles(Element articleEle) {
+        return JsoupParserUtil.getEles(articleEle, CSS_QUERY_RESPONSE);
+    }
+
+    private Elements getResponseDescEles(Element articleEle) {
+        return JsoupParserUtil.getEles(articleEle, CSS_QUERY_RESPONSE_DESC);
+    }
+
+    private List<RESTfulApiEntity> getRESTfuls(String methodUrl) {
+        return RESTfulAPIParser.parse(methodUrl);
+    }
 }

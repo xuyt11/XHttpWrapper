@@ -41,7 +41,7 @@ public class CategoryParser {
         List<MethodEntity> methods = new ArrayList<>(methodEles.size());
         for (Iterator<Element> iterator = methodEles.iterator(); iterator.hasNext(); ) {
             Element methodEle = iterator.next();
-            MethodEntity method = MethodParser.parseMethodElement(-1, -1, methodEle);
+            MethodEntity method = new MethodParser().getMethod(methodEle);
             methods.add(method);
         }
         return methods;

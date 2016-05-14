@@ -39,6 +39,19 @@ public class JsoupParserUtil {
         return Selector.select(cssQuery, ele);
     }
 
+    public static Element getFirstEle(Document doc, String cssQuery) {
+        return getEles(doc, cssQuery).first();
+    }
+
+    public static Element getFirstEle(Elements eles, String cssQuery) {
+        return getEles(eles, cssQuery).first();
+    }
+
+    public static Element getFirstEle(Element ele, String cssQuery) {
+        return getEles(ele, cssQuery).first();
+    }
+
+
     public static String getText(Element ele) {
         return ele.text().trim();
     }
