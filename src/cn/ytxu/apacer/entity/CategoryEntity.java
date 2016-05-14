@@ -18,6 +18,11 @@ public class CategoryEntity extends BaseEntity<ApiEnitity> {
     // 2 若 equal不同,但是名称一样,则将按照规则生成一个从根output的名称
     private List<OutputParamEntity> subUsedOutputs = new ArrayList<>();
 
+    public CategoryEntity(String name, List<MethodEntity> methods) {
+        this.name = name;
+        this.methods = methods;
+    }
+
     public String getName() {
         return name;
     }

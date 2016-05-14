@@ -17,7 +17,7 @@ public class StatusCodeParser {
     private static final String CSS_QUERY_GET_ALL_FIELD = "div > article > table > tbody > tr";
     private static final String CSS_QUERY_GET_CONTENT = "td";
 
-    public static List<StatusCodeEntity> parseStatusCodes(Element sectionEle) {
+    public List<StatusCodeEntity> parseStatusCodes(Element sectionEle) {
         Elements statusCodeEles = JsoupParserUtil.getEles(sectionEle, CSS_QUERY_GET_ALL_FIELD);
 
         if (null == statusCodeEles || statusCodeEles.size() <= 0) {
@@ -40,7 +40,7 @@ public class StatusCodeParser {
      * (1, '登录状态已过期，请重新登入')<br>
      * (5, '服务器错误') # 5XX 服务器错误
      */
-    private static StatusCodeEntity getStatusCode(Element statusCodeEle) {
+    private StatusCodeEntity getStatusCode(Element statusCodeEle) {
         Elements tdEls = getTdEles(statusCodeEle);
 
         String statusCodeName = getStatusCodeName(tdEls);
@@ -52,7 +52,7 @@ public class StatusCodeParser {
         return new StatusCodeEntity(statusCodeName, statusCodeDesc, statusCodeNumber);
     }
 
-    private static Elements getTdEles(Element statusCodeEle) {
+    private Elements getTdEles(Element statusCodeEle) {
         Elements tdEls = JsoupParserUtil.getEles(statusCodeEle, CSS_QUERY_GET_CONTENT);
         if (null == tdEls) {
             throw new RuntimeException("tdEls is null");
@@ -64,11 +64,11 @@ public class StatusCodeParser {
         return tdEls;
     }
 
-    private static String getStatusCodeName(Elements tdEls) {
+    private String getStatusCodeName(Elements tdEls) {
         return JsoupParserUtil.getText(tdEls.get(0));
     }
 
-    private static String getDescription(Elements tdEls) {
+    private String getDescription(Elements tdEls) {
         String description = JsoupParserUtil.getText(tdEls.get(1));
         if (null == description) {
             throw new RuntimeException("the description message is null");
@@ -77,7 +77,7 @@ public class StatusCodeParser {
         return description;
     }
 
-    private static int getSeparatorIndex(String description) {
+    private int getSeparatorIndex(String description) {
         int separatorIndex = description.indexOf(",");
         if (separatorIndex <= 0) {// 小于0:没有找到; 等于0:没有statusCode
             throw new RuntimeException("the separatorIndex is not bigger 0");
@@ -85,11 +85,11 @@ public class StatusCodeParser {
         return separatorIndex;
     }
 
-    private static String getStatusCodeDesc(String description, int separatorIndex) {
+    private String getStatusCodeDesc(String description, int separatorIndex) {
         return description.substring(separatorIndex + 1).trim();
     }
 
-    private static String getStatusCodeNumber(String description, int separatorIndex) {
+    private String getStatusCodeNumber(String description, int separatorIndex) {
         String statusCodeStr = description.substring(0, separatorIndex).trim();
         try {
             Long.parseLong(statusCodeStr);

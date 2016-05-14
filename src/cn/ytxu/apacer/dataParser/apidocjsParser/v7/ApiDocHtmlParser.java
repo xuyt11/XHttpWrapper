@@ -40,17 +40,14 @@ public class ApiDocHtmlParser {
         Elements sectionEls = getSectionElements(doc);
         // 2 get status code
         Element statusCodeEle = getStatusCodeElement(sectionEls);
-        sectionEls.remove(statusCodeEle);
-        List<StatusCodeEntity> statusCodes = StatusCodeParser.parseStatusCodes(statusCodeEle);
+        sectionEls.remove(statusCodeEle);// remove status code section
+        List<StatusCodeEntity> statusCodes = new StatusCodeParser().parseStatusCodes(statusCodeEle);
         // 3 get apis
         List<ApiEnitity> apis = getApiEnitities(versions);
         List<CategoryEntity> categorys = getCategoryEntities(sectionEls);
         apis = addSameVersionMethodForCategory2TargetApi(apis, categorys);
         // 3 create document entity
-        DocumentEntity docEntity = new DocumentEntity();
-        docEntity.setVersions(versions);
-        docEntity.setStatusCodes(statusCodes);
-        docEntity.setApis(apis);
+        DocumentEntity docEntity = new DocumentEntity(versions, statusCodes, apis);
         return docEntity;
 	}
 
@@ -107,12 +104,12 @@ public class ApiDocHtmlParser {
     private List<CategoryEntity> getCategoryEntities(Elements sectionEls) {
         List<CategoryEntity> categorys = new ArrayList<>();
         for (Iterator<Element> iterator = sectionEls.iterator(); iterator.hasNext(); ) {
-            Element sectionEle = iterator.next();
+            Element categoryEle = iterator.next();
 
             // 1、get name of the category
             String name;
             try {
-                name = findCategoryName(sectionEle);
+                name = findCategoryName(categoryEle);
             } catch (TargetElementsNotFoundException e) {
                 e.printStackTrace();
                 continue;
@@ -122,7 +119,7 @@ public class ApiDocHtmlParser {
             }
 
             // 3 获取到了该分类的所有方法
-            CategoryEntity category = CategoryParser.parserTheSectionElementAndCreateCategory(sectionEle, -1, name);
+            CategoryEntity category = new CategoryParser().getCategory(categoryEle, name);
             categorys.add(category);
         }
         return categorys;
@@ -175,9 +172,7 @@ public class ApiDocHtmlParser {
                 continue;
             }
 
-            CategoryEntity cate = new CategoryEntity();
-            cate.setName(category.getName());
-            cate.setMethods(targetMethods);
+            CategoryEntity cate = new CategoryEntity(category.getName(), targetMethods);
             api.addACategory(cate);
         }
     }
@@ -212,10 +207,7 @@ public class ApiDocHtmlParser {
             .subscribe(new Action1<List<MethodEntity>>() {
                 @Override
                 public void call(List<MethodEntity> methodEntities) {
-                    CategoryEntity cate = new CategoryEntity();
-                    cate.setName(category.getName());
-                    cate.setMethods(methodEntities);
-
+                    CategoryEntity cate = new CategoryEntity(category.getName(), targetMethods);
                     api.addACategory(cate);
                 }
             });

@@ -12,6 +12,11 @@ public class DocumentEntity extends BaseEntity {
     private List<StatusCodeEntity> statusCodes;// 所有的状态码
     private List<ApiEnitity> apis;// 根据版本,来分的不同的API
 
+    public DocumentEntity(List<String> versions, List<StatusCodeEntity> statusCodes, List<ApiEnitity> apis) {
+        this.versions = versions;
+        this.statusCodes = statusCodes;
+        this.apis = apis;
+    }
 
     public List<String> getVersions() {
         return versions;
