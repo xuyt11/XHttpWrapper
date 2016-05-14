@@ -9,8 +9,8 @@ public class Win10ConfigDir implements Config.ConfigDir {
     private static final String INPUT_FILE_DIR = "E:\\NewChama\\";
     // test
     private static final String TEST_AUTO_CREATE_DIR = "E:\\NewChama\\autoCreaterDir\\";
-    private static final String TEST_RESPONSE_ENTITY_FILE_DIR = TEST_AUTO_CREATE_DIR + "model";
-    private static final String TEST_REQUEST_FILE_DIR = TEST_AUTO_CREATE_DIR + "common";
+    private static final String TEST_RESPONSE_ENTITY_FILE_DIR = TEST_AUTO_CREATE_DIR + "model/";
+    private static final String TEST_REQUEST_FILE_DIR = TEST_AUTO_CREATE_DIR + "common/";
     // target
     private static final String TARGET_AUTO_CREATE_DIR = "I:\\NewChamaStudio\\newchama_android\\NewChama\\";
     private static final String TARGET_RESPONSE_ENTITY_FILE_DIR = TARGET_AUTO_CREATE_DIR + "newchama.model/src/main/java/com/newchama/api/";
