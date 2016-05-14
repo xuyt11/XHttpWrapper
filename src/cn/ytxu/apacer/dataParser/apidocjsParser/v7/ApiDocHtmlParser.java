@@ -1,30 +1,30 @@
 package cn.ytxu.apacer.dataParser.apidocjsParser.v7;
 
 import cn.ytxu.apacer.config.Config;
+import cn.ytxu.apacer.dataParser.jsoupUtil.JsoupParserUtil;
 import cn.ytxu.apacer.entity.*;
 import cn.ytxu.apacer.exception.BlankTextException;
 import cn.ytxu.apacer.exception.TargetElementsNotFoundException;
 import cn.ytxu.util.TextUtil;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import rx.Observable;
 import rx.functions.*;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class ApiDocHtmlParser {
+    private static final String CSS_QUERY_GET_VERSION_CODE = "div.container-fluid > div.row-fluid > div#content > div#project > div.pull-right > div.btn-group > ul#versions > li.version > a";
+    private static final String CSS_QUERY_GET_SECTION = "div.container-fluid > div.row-fluid > div#content > div#sections > section";
+    private static final String CSS_QUERY_FIND_CATEGORY_NAME = "h1";
 
-	
+
 	public void main(String[] args) {
         ApiDocHtmlParser apiDocHtmlParser = new ApiDocHtmlParser();
         apiDocHtmlParser.parserApiDocHtmlCode2DocumentEntity();
-		
 	}
     
     public ApiDocHtmlParser() {
@@ -32,45 +32,69 @@ public class ApiDocHtmlParser {
     }
 
 	public DocumentEntity parserApiDocHtmlCode2DocumentEntity() {
-		Document doc = getDocument();
-
+		Document doc = JsoupParserUtil.getDocument(Config.getApiDocHtmlPath());
+        // 1 get version
         List<String> versions = getVersionCodes(doc);
-        List<ApiEnitity> apis = getApiEnitities(versions);
 
         Elements sectionEls = getSectionElements(doc);
-
-        DocumentEntity docEntity = parseSectionElsForCategoryAndStatusCodeThenReturnDocmentEntity(apis, sectionEls);
+        // 2 get status code
+        Element statusCodeEle = getStatusCodeElement(sectionEls);
+        sectionEls.remove(statusCodeEle);
+        List<StatusCodeEntity> statusCodes = StatusCodeParser.parseStatusCodes(statusCodeEle);
+        // 3 get apis
+        List<ApiEnitity> apis = getApiEnitities(versions);
+        List<CategoryEntity> categorys = getCategoryEntities(sectionEls);
+        apis = addSameVersionMethodForCategory2TargetApi(apis, categorys);
+        // 3 create document entity
+        DocumentEntity docEntity = new DocumentEntity();
         docEntity.setVersions(versions);
+        docEntity.setStatusCodes(statusCodes);
         docEntity.setApis(apis);
         return docEntity;
 	}
 
-
-    private Document getDocument() {
-//		Connection conn = Jsoup.connect(ApiEnitity.ApiDocUrl);
-//		conn.userAgent(UserAgentConfig.getWithRandom());
-		try {
-            Document doc = Jsoup.parse(new File(Config.getApiDocHtmlPath()), Config.CharsetName);
-            return doc;
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException("ytxu document is null, so can not run...");
-        }
-	}
-
 	private List<String> getVersionCodes(Document doc) {
-		Elements versionEls = doc.select("div.container-fluid > div.row-fluid > div#content > div#project > div.pull-right > div.btn-group > ul#versions > li.version > a");
+		Elements versionEls = JsoupParserUtil.getEles(doc, CSS_QUERY_GET_VERSION_CODE);
 		if (null == versionEls || versionEls.size() <= 0) {
-			throw new RuntimeException("ytxu have not version code element...");
+			throw new RuntimeException("ytxu error status: have not version code element...");
         }
 
 		List<String> versions = new ArrayList<>(versionEls.size());
 		for (int i = 0, size = versionEls.size(); i < size; i++) {
-			versions.add(versionEls.get(i).text().trim());
+			versions.add(JsoupParserUtil.getText(versionEls.get(i)));
 		}
 		return versions;
 	}
 
+    private Elements getSectionElements(Document doc) {
+        Elements sectionEls = JsoupParserUtil.getEles(doc, CSS_QUERY_GET_SECTION);
+        if (null == sectionEls || sectionEls.size() <= 0) {
+            throw new RuntimeException("ytxu error status: can not select the section elements, so stop running...");
+        }
+        return sectionEls;
+    }
+
+    private Element getStatusCodeElement(Elements sectionEls) {
+        for (Iterator<Element> iterator = sectionEls.iterator(); iterator.hasNext(); ) {
+            Element sectionEle = iterator.next();
+            String name;
+            try {
+                // 1、get name of the category
+                name = findCategoryName(sectionEle);
+            } catch (TargetElementsNotFoundException ignore) {
+                continue;
+            } catch (BlankTextException ignore) {
+                continue;
+            }
+            // 2 状态码
+            if (!Config.statusCode.StatusCode.equals(name)) {
+                continue;
+            }
+            return sectionEle;
+        }
+        throw new RuntimeException("ytxu error status: can not find status code section element...");
+    }
+    
     private List<ApiEnitity> getApiEnitities(List<String> versions) {
         List<ApiEnitity> apis = new ArrayList<>(versions.size());
         for (String version : versions) {
@@ -78,67 +102,53 @@ public class ApiDocHtmlParser {
         }
         return apis;
     }
+    
+    private List<CategoryEntity> getCategoryEntities(Elements sectionEls) {
+        List<CategoryEntity> categorys = new ArrayList<>();
+        for (Iterator<Element> iterator = sectionEls.iterator(); iterator.hasNext(); ) {
+            Element sectionEle = iterator.next();
 
-    private Elements getSectionElements(Document doc) {
-        Elements sectionEls = doc.select("div.container-fluid > div.row-fluid > div#content > div#sections > section");
-        if (null == sectionEls || sectionEls.size() <= 0) {
-            throw new RuntimeException("ytxu can not select the section elements, so stop running...");
+            // 1、get name of the category
+            String name;
+            try {
+                name = findCategoryName(sectionEle);
+            } catch (TargetElementsNotFoundException e) {
+                e.printStackTrace();
+                continue;
+            } catch (BlankTextException e) {
+                e.printStackTrace();
+                continue;
+            }
+
+            // 3 获取到了该分类的所有方法
+            CategoryEntity category = CategoryParser.parserTheSectionElementAndCreateCategory(sectionEle, -1, name);
+            categorys.add(category);
         }
-
-        return sectionEls;
+        return categorys;
     }
 
-    /** 解析sectionEle:<br>
-     * 其中有一个状态码section,是属于doc的,<br>
-     * 其他的都是request的分类,都是属于API的;且分类中的方法需要判断版本号,进行设置 */
-    private DocumentEntity parseSectionElsForCategoryAndStatusCodeThenReturnDocmentEntity(List<ApiEnitity> apis, Elements sectionEls) {
-        DocumentEntity docEntity = new DocumentEntity();
-        for(int i=0, count=sectionEls.size(); i<count; i++) {
-            parseSectionEle(apis, sectionEls, docEntity, i);
+    /** 将分类中的方法根据版本号，进行分类，并添加到相同版本好的api中 */
+    private List<ApiEnitity> addSameVersionMethodForCategory2TargetApi(List<ApiEnitity> apis, List<CategoryEntity> categorys) {
+        for (Iterator<CategoryEntity> iterator = categorys.iterator(); iterator.hasNext(); ) {
+            CategoryEntity category = iterator.next();
+            // 3.1 将该分类中的方法,按版本号进行分类
+            addACategoryToTargetApi(apis, category);
         }
-        return docEntity;
+        return apis;
     }
 
-    private void parseSectionEle(List<ApiEnitity> apis, Elements sectionEls, DocumentEntity docEntity, int index) {
-        Element sectionEle = sectionEls.get(index);
-
-        // 1、get name of the category
-        String name;
-        try {
-            name = findCategoryName(sectionEle, index);
-        } catch (TargetElementsNotFoundException e) {
-            e.printStackTrace();
-            return;
-        } catch (BlankTextException e) {
-            e.printStackTrace();
-            return;
+    private String findCategoryName(Element sectionEle) throws TargetElementsNotFoundException, BlankTextException {
+        Elements h1Els = JsoupParserUtil.getEles(sectionEle, CSS_QUERY_FIND_CATEGORY_NAME);
+        if (null == h1Els || h1Els.size() <= 0) {
+            throw new TargetElementsNotFoundException(" can`t find the h1 element");
         }
 
-        // 2 状态码
-        if (Config.statusCode.StatusCode.equals(name)) {
-            List<StatusCodeEntity> statusCodes = StatusCodeParser.parseStatusCodes(sectionEle);
-            docEntity.setStatusCodes(statusCodes);
-            return;
-        }
-
-        // 3 获取到了该分类的所有方法
-        CategoryEntity category = CategoryParser.parserTheSectionElementAndCreateCategory(sectionEle, index, name);
-        // 3.1 将该分类中的方法,按版本号进行分类
-        addACategoryToTargetApi(apis, category);
-    }
-
-    private String findCategoryName(Element sectionEle, int index) throws TargetElementsNotFoundException, BlankTextException {
-		Elements h1Els = sectionEle.select("h1");
-		if (null == h1Els || h1Els.size() <= 0) {
-			throw new TargetElementsNotFoundException("index:" + index + ", can`t find the h1 element");
-		}
-
-		String name = h1Els.first().text().trim();
+        String name = JsoupParserUtil.getText(h1Els.first());
         if (TextUtil.isBlank(name)) {
-            throw new BlankTextException("index:" + index + ", this name is blank for category");
+            throw new BlankTextException(" this name is blank for category");
         }
-		return name;
-	}
+        return name;
+    }
 
     /** 根据版本号,将category中的method分类到docEntity的apis中 */
     private void addACategoryToTargetApi2(List<ApiEnitity> apis, CategoryEntity category) {
@@ -170,8 +180,7 @@ public class ApiDocHtmlParser {
             api.addACategory(cate);
         }
     }
-
-
+    
     /** 根据版本号,将category中的method分类到docEntity的apis中 */
     private void addACategoryToTargetApi(List<ApiEnitity> apis, CategoryEntity category) {
         // 1 为每一个API创建一个category
@@ -202,7 +211,6 @@ public class ApiDocHtmlParser {
             .subscribe(new Action1<List<MethodEntity>>() {
                 @Override
                 public void call(List<MethodEntity> methodEntities) {
-
                     CategoryEntity cate = new CategoryEntity();
                     cate.setName(category.getName());
                     cate.setMethods(methodEntities);
