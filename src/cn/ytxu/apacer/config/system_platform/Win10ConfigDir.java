@@ -7,20 +7,46 @@ import cn.ytxu.apacer.config.Config;
  */
 public class Win10ConfigDir implements Config.ConfigDir {
     private static final String INPUT_FILE_DIR = "E:\\NewChama\\";
+    // test
+    private static final String TEST_AUTO_CREATE_DIR = "E:\\NewChama\\autoCreaterDir\\";
+    private static final String TEST_RESPONSE_ENTITY_FILE_DIR = TEST_AUTO_CREATE_DIR + "newchama.model\\src\\main\\java\\com\\newchama\\api\\";
+    private static final String TEST_REQUEST_FILE_DIR = TEST_AUTO_CREATE_DIR + "newchama.common\\src\\main\\java\\com\\newchama\\api\\";
+    // target
+    private static final String TARGET_AUTO_CREATE_DIR = "I:\\NewChamaStudio\\newchama_android\\NewChama\\";
+    private static final String TARGET_RESPONSE_ENTITY_FILE_DIR = TARGET_AUTO_CREATE_DIR + "newchama.model/src/main/java/com/newchama/api/";
+    private static final String TARGET_REQUEST_FILE_DIR = TARGET_AUTO_CREATE_DIR + "newchama.common/src/main/java/com/newchama/api/";
+    // if false, output to test dir, otherwise to target dir
+    private static final boolean isTarget = false;
 
-//    private static final String AUTO_CREATE_DIRTE_DIR = "E:\\NewChama\\autoCreaterDir\\";
-//    private static final String RESPONSE_ENTITY_FILE_DIR = AUTO_CREATE_DIR + "newchama.model\\src\\main\\java\\com\\newchama\\api\\";
-//    private static final String REQUEST_FILE_DIR = AUTO_CREATE_DIR + "newchama.common\\src\\main\\java\\com\\newchama\\api\\";
+    private enum dir {
+        test(TEST_AUTO_CREATE_DIR, TEST_RESPONSE_ENTITY_FILE_DIR, TEST_REQUEST_FILE_DIR),
+        target(TARGET_AUTO_CREATE_DIR, TARGET_RESPONSE_ENTITY_FILE_DIR, TARGET_REQUEST_FILE_DIR);
 
-    private static final String AUTO_CREATE_DIR = "I:\\NewChamaStudio\\newchama_android\\NewChama\\";
-    private static final String RESPONSE_ENTITY_FILE_DIR = AUTO_CREATE_DIR + "newchama.model/src/main/java/com/newchama/api/";
-    private static final String REQUEST_FILE_DIR = AUTO_CREATE_DIR + "newchama.common/src/main/java/com/newchama/api/";
+        private final String autoCreateDir;
+        private final String requestDir;
+        private final String responseEntityDir;
 
-    private static Win10ConfigDir instance;
+        dir(String autoCreateDir, String requestDir, String responseEntityDir) {
+            this.autoCreateDir = autoCreateDir;
+            this.requestDir = requestDir;
+            this.responseEntityDir = responseEntityDir;
+        }
 
-    private Win10ConfigDir() {
+        public String getAutoCreateDir() {
+            return autoCreateDir;
+        }
+
+        public String getRequestDir() {
+            return requestDir;
+        }
+
+        public String getResponseEntityDir() {
+            return responseEntityDir;
+        }
     }
 
+    private static Win10ConfigDir instance;
+    private Win10ConfigDir() {}
     public static Win10ConfigDir getInstance() {
         if (instance == null) {
             instance = new Win10ConfigDir();
@@ -35,16 +61,16 @@ public class Win10ConfigDir implements Config.ConfigDir {
 
     @Override
     public String getAutoCreaterDir() {
-        return AUTO_CREATE_DIR;
+        return isTarget ? dir.target.getAutoCreateDir() : dir.test.getAutoCreateDir();
     }
 
     @Override
     public String getRequestDir() {
-        return REQUEST_FILE_DIR;
+        return isTarget ? dir.target.getRequestDir() : dir.test.getRequestDir();
     }
 
     @Override
     public String getResponseEntityDir() {
-        return RESPONSE_ENTITY_FILE_DIR;
+        return isTarget ? dir.target.getResponseEntityDir() : dir.test.getResponseEntityDir();
     }
 }
