@@ -94,40 +94,32 @@ public class ApiDocHtmlParser {
     private DocumentEntity parseSectionElsForCategoryAndStatusCodeThenReturnDocmentEntity(List<ApiEnitity> apis, Elements sectionEls) {
         DocumentEntity docEntity = new DocumentEntity();
         for(int i=0, count=sectionEls.size(); i<count; i++) {
-            parseSectionEle(apis, sectionEls, docEntity, i);
+            Element sectionEle = sectionEls.get(i);
+            try {
+                // 1、get name of the category
+                String name = findCategoryName(sectionEle, i);
+
+                // 2 状态码
+                if (Config.statusCode.StatusCode.equals(name)) {
+                    List<StatusCodeEntity> statusCodes = StatusCodeParser.parseStatusCodes(sectionEle);
+                    docEntity.setStatusCodes(statusCodes);
+                    continue;
+                }
+
+                // 3 获取到了该分类的所有方法
+                CategoryEntity category = CategoryParser.parserTheSectionElementAndCreateCategory(sectionEle, i, name);
+                // 3.1 将该分类中的方法,按版本号进行分类
+                addACategoryToTargetApi(apis, category);
+            } catch (TargetElementsNotFoundException e) {
+                e.printStackTrace();
+            } catch (BlankTextException e) {
+                e.printStackTrace();
+            }
         }
         return docEntity;
     }
 
-    private void parseSectionEle(List<ApiEnitity> apis, Elements sectionEls, DocumentEntity docEntity, int index) {
-        Element sectionEle = sectionEls.get(index);
-
-        // 1、get name of the category
-        String name;
-        try {
-            name = findCategoryName(sectionEle, index);
-        } catch (TargetElementsNotFoundException e) {
-            e.printStackTrace();
-            return;
-        } catch (BlankTextException e) {
-            e.printStackTrace();
-            return;
-        }
-
-        // 2 状态码
-        if (Config.statusCode.StatusCode.equals(name)) {
-            List<StatusCodeEntity> statusCodes = StatusCodeParser.parseStatusCodes(sectionEle);
-            docEntity.setStatusCodes(statusCodes);
-            return;
-        }
-
-        // 3 获取到了该分类的所有方法
-        CategoryEntity category = CategoryParser.parserTheSectionElementAndCreateCategory(sectionEle, index, name);
-        // 3.1 将该分类中的方法,按版本号进行分类
-        addACategoryToTargetApi(apis, category);
-    }
-
-    private String findCategoryName(Element sectionEle, int index) throws TargetElementsNotFoundException, BlankTextException {
+	private String findCategoryName(Element sectionEle, int index) throws TargetElementsNotFoundException, BlankTextException {
 		Elements h1Els = sectionEle.select("h1");
 		if (null == h1Els || h1Els.size() <= 0) {
 			throw new TargetElementsNotFoundException("index:" + index + ", can`t find the h1 element");
@@ -145,7 +137,7 @@ public class ApiDocHtmlParser {
         // 1 为每一个API创建一个category
         for (ApiEnitity api : apis) {
             List<MethodEntity> methods = category.getMethods();
-            List<MethodEntity> targetMethods = new ArrayList<>();
+            List<MethodEntity> methodList = new ArrayList<>();
             if (null == methods || methods.size() <= 0) {// 没有方法,不需要为API添加request分类了;
                 continue;
             }
@@ -156,7 +148,7 @@ public class ApiDocHtmlParser {
             while (iterator.hasNext()) {
                 MethodEntity method = iterator.next();
                 if (versionCode.equals(method.getVersionCode())) {
-                    targetMethods.add(method);
+                    methodList.add(method);
                 }
             }
 
@@ -166,9 +158,11 @@ public class ApiDocHtmlParser {
 
             CategoryEntity cate = new CategoryEntity();
             cate.setName(category.getName());
-            cate.setMethods(targetMethods);
+            cate.setMethods(methodList);
             api.addACategory(cate);
         }
+
+
     }
 
 
