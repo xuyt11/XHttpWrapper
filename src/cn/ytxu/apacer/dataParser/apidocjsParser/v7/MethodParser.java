@@ -41,6 +41,7 @@ public class MethodParser {
 		Element preEle = getMethodTypeAndUrlEle(articleEle);
 		String methodType = getMethodType(preEle);
 		String methodUrl = getMethodUrl(preEle);
+        List<RESTfulApiEntity> resTfulApiEntities = getRESTfuls(methodUrl);
 
         // headers, input params
         List<FieldEntity> descParams = getDescParams(articleEle);
@@ -49,7 +50,6 @@ public class MethodParser {
         List<FieldEntity> inputFields = getInputFields(descParams, fieldsetEle);
         // response : output params
         List<ResponseEntity> responses = getResponses(articleEle, descParams);
-        List<RESTfulApiEntity> resTfulApiEntities = getRESTfuls(methodUrl);
 
 		MethodEntity method = new MethodEntity();
 		method.setMethodName(methodName);
@@ -57,10 +57,10 @@ public class MethodParser {
 		method.setDescrption(methodDescription);
 		method.setMethodType(methodType);
 		method.setUrl(methodUrl);
+		method.setRESTfulApis(resTfulApiEntities);
 		method.setHeaders(headerFields);
 		method.setInputParameters(inputFields);
         method.setResponses(responses);
-		method.setRESTfulApis(resTfulApiEntities);
 
         // TODO 要删除，并用BaseEntity中的higherLevel进行替代
 		ResponseEntity.setMethod(responses, method);
