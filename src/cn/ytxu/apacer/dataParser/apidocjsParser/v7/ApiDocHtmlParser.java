@@ -17,8 +17,9 @@ import java.util.Iterator;
 import java.util.List;
 
 public class ApiDocHtmlParser {
-    private static final String CSS_QUERY_GET_VERSION_CODE = "div.container-fluid > div.row-fluid > div#content > div#project > div.pull-right > div.btn-group > ul#versions > li.version > a";
-    private static final String CSS_QUERY_GET_SECTION = "div.container-fluid > div.row-fluid > div#content > div#sections > section";
+    private static final String CONTENT = "div.container-fluid > div.row-fluid > div#content";
+    private static final String CSS_QUERY_GET_VERSION_CODE = CONTENT + " > div#project > div.pull-right > div.btn-group > ul#versions > li.version > a";
+    private static final String CSS_QUERY_GET_SECTION = CONTENT + " > div#sections > section";
     private static final String CSS_QUERY_FIND_CATEGORY_NAME = "h1";
 
 
