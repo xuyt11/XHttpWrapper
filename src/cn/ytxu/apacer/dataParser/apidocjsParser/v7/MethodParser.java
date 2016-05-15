@@ -103,8 +103,8 @@ public class MethodParser {
     }
 
     private List<FieldEntity> getDescParams(Element articleEle) {
-        Elements tableEls = JsoupParserUtil.getEles(articleEle, CSS_QUERY_TABLE);
-        return FieldParser.getDescParams(tableEls);
+        Elements descParamCategoryEles = JsoupParserUtil.getEles(articleEle, CSS_QUERY_TABLE);// table elements
+        return FieldParser.getDescParams(descParamCategoryEles);
     }
 
     private Element getFieldsetEle(Element articleEle) {

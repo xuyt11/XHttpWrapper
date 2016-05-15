@@ -4,11 +4,13 @@ import cn.ytxu.apacer.config.Config;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
 import org.jsoup.select.Selector;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by ytxu on 2016/5/14.
@@ -56,11 +58,20 @@ public class JsoupParserUtil {
         return ele.text().trim();
     }
 
+    public static String getText(TextNode textNode) {
+        return textNode.text().trim();
+    }
+
     public static String getAttr(Element ele, String attributeKey) {
         return ele.attr(attributeKey).trim();
     }
 
-
+    public static boolean isNullOrEmpty(List list) {
+        if (null == list || list.size() <= 0) {
+            return true;
+        }
+        return false;
+    }
 
 
 

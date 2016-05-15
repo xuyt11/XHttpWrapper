@@ -18,10 +18,6 @@ public class FieldEntity extends BaseEntity<MethodEntity> {
 	private boolean isList = false;// 是否为数组类型：默认为不是数组类型
 	private List<FieldEntity> subs;// 子字段集合
 
-	public FieldEntity() {
-		super();
-	}
-	
 	public FieldEntity(String key, String type, String description) {
 		super();
 		this.key = key;
