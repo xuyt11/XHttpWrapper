@@ -73,13 +73,13 @@ public class MethodParser {
 	}
 
 	private String getMethodName(Element articleEle) {
-		String dataName = articleEle.attr(ATTR_DATA_NAME);
+		String dataName = JsoupParserUtil.getAttr(articleEle, ATTR_DATA_NAME);
 		String methodName = CamelCaseUtils.toCamelCase(dataName);
 		return methodName;
 	}
 
 	private String getMethodVersion(Element articleEle) {
-		return articleEle.attr(ATTR_DATA_VERSION);
+		return JsoupParserUtil.getAttr(articleEle, ATTR_DATA_VERSION);
 	}
 
     private String getMethodDesc(Element articleEle) {
@@ -93,7 +93,7 @@ public class MethodParser {
     }
 
     private String getMethodType(Element preEle) {
-        return preEle.attr(ATTR_DATA_TYPE).trim();
+        return JsoupParserUtil.getAttr(preEle, ATTR_DATA_TYPE);
     }
 
     private String getMethodUrl(Element preEle) {

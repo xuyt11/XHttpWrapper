@@ -56,6 +56,10 @@ public class JsoupParserUtil {
         return ele.text().trim();
     }
 
+    public static String getAttr(Element ele, String attributeKey) {
+        return ele.attr(attributeKey).trim();
+    }
+
 
 
 
