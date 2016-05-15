@@ -32,7 +32,7 @@ public class FieldParser {
 	/**
 	 * 获取到该方法中所有的字段,包括:header, input params, output params
      */
-	public static List<FieldEntity> getDescParams(Elements descParamCategoryEles) {
+	public List<FieldEntity> getDescParams(Elements descParamCategoryEles) {
 		if (JsoupParserUtil.isNullOrEmpty(descParamCategoryEles)) {
 			return null;
 		}
@@ -55,7 +55,7 @@ public class FieldParser {
 
     /** 参数的类别名称：<br>
      * 有可能可以成为实体类的名称,也有可能是results、params等无实际意义的参数名称 */
-    private static String getParamCategoryName(Element descParamCategoryEle) {
+    private String getParamCategoryName(Element descParamCategoryEle) {
         Element descParamCategoryNameEle = descParamCategoryEle.previousElementSibling();
         String paramCategoryName = null;
         if (null != descParamCategoryNameEle && PARAM_CATEGORY_NAME_TAG_NAME.equalsIgnoreCase(descParamCategoryNameEle.tagName())) {
@@ -69,7 +69,7 @@ public class FieldParser {
      * Field                Type        Description<br>
      * company optional     Integer     公司id
      */
-    private static FieldEntity getDescParam(String paramCategoryName, Element descParamEle) {
+    private FieldEntity getDescParam(String paramCategoryName, Element descParamEle) {
         Elements descParamAttrEles = descParamEle.children();
         if (isNotDescParamElement(descParamAttrEles)) {// 本来是要进行throw的,但是出现了StatusCode,没有type的问题.所以直接不处理吧
             LogUtil.i(FieldParser.class, "table > tbody > tr > td, and the size of td`s children is not 3");
@@ -93,20 +93,20 @@ public class FieldParser {
         return descParam;
     }
 
-    private static boolean isNotDescParamElement(Elements descParamAttrEles) {
+    private boolean isNotDescParamElement(Elements descParamAttrEles) {
         return null == descParamAttrEles || descParamAttrEles.size() != DESC_PARAM_ATTR_NUMBER;
     }
 
-    private static boolean isOptionalField(Element fieldEle) {
+    private boolean isOptionalField(Element fieldEle) {
         Elements fieldOptionalEles = getFieldOptionalEles(fieldEle);
         return null != fieldOptionalEles && fieldOptionalEles.size() == 1;
     }
 
-    private static Elements getFieldOptionalEles(Element fieldEle) {
+    private Elements getFieldOptionalEles(Element fieldEle) {
         return JsoupParserUtil.getEles(fieldEle, CSS_QUERY_GET_FIELD_OPTIONAL);// span elements
     }
 
-    private static String getParamName(Element fieldEle, boolean isOptional) {
+    private String getParamName(Element fieldEle, boolean isOptional) {
         String paramName;
         if (isOptional) {
             paramName = JsoupParserUtil.getText(fieldEle.textNodes().get(0));
@@ -118,15 +118,19 @@ public class FieldParser {
 
 
 
-    public static List<FieldEntity> getHeaderFields(Element fieldsetEle) {
-        return getFields(fieldsetEle, CSS_QUERY_GET_HEADER);
+    public List<FieldEntity> getHeaderFields(Element fieldsetEle, List<FieldEntity> descParams) {
+        List<FieldEntity> headerFields = getFields(fieldsetEle, CSS_QUERY_GET_HEADER);
+        headerFields = replaceDescParam(headerFields, descParams);
+        return headerFields;
     }
 
-    public static List<FieldEntity> getInputParamFields(Element fieldsetEle) {
-        return getFields(fieldsetEle, CSS_QUERY_GET_INPUT_PARAM);
+    public List<FieldEntity> getInputParamFields(Element fieldsetEle, List<FieldEntity> descParams) {
+        List<FieldEntity> inputParamFields = getFields(fieldsetEle, CSS_QUERY_GET_INPUT_PARAM);
+        inputParamFields = replaceDescParam(inputParamFields, descParams);
+        return inputParamFields;
     }
 
-    private static List<FieldEntity> getFields(Element fieldsetEle, String cssQuery) {
+    private List<FieldEntity> getFields(Element fieldsetEle, String cssQuery) {
         Elements fieldEls = JsoupParserUtil.getEles(fieldsetEle, cssQuery);
         if (JsoupParserUtil.isNullOrEmpty(fieldEls)) {
             return null;
@@ -140,27 +144,27 @@ public class FieldParser {
         return fields;
     }
 
-    private static FieldEntity getField(Element fieldEle) {
+    private FieldEntity getField(Element fieldEle) {
         String fieldName = getFieldName(fieldEle);
         String fieldType = getFieldType(fieldEle);
         FieldEntity field = new FieldEntity(fieldName, fieldType, null);
         return field;
     }
 
-    private static String getFieldName(Element fieldEle) {
+    private String getFieldName(Element fieldEle) {
         Element fieldNameEle = JsoupParserUtil.getFirstEle(fieldEle, CSS_QUERY_GET_FIELD_NAME);
         String fieldName = JsoupParserUtil.getText(fieldNameEle);
         return fieldName;
     }
 
-    private static String getFieldType(Element fieldEle) {
+    private String getFieldType(Element fieldEle) {
         Element fieldTypeEle = JsoupParserUtil.getFirstEle(fieldEle, CSS_QUERY_GET_FIELD_TYPE);
         String fieldTypeText = JsoupParserUtil.getText(fieldTypeEle);
         String fieldType = getFieldType(fieldTypeText);
         return fieldType;
     }
 
-    private static String getFieldType(String fieldTypeText) {
+    private String getFieldType(String fieldTypeText) {
         String fieldType;
 
         if (isNeedRemoveFrontAndRearHtmlTag(fieldTypeText)){
@@ -172,18 +176,18 @@ public class FieldParser {
     }
 
     /** 是否需要去除前后的<p></p> */
-    private static boolean isNeedRemoveFrontAndRearHtmlTag(String fieldTypeText) {
+    private boolean isNeedRemoveFrontAndRearHtmlTag(String fieldTypeText) {
         return fieldTypeText.startsWith("<p>");
     }
 
     /** 去除前后的<p></p> */
-    private static String removeFrontAndRearHtmlTag(String fieldTypeText) {
+    private String removeFrontAndRearHtmlTag(String fieldTypeText) {
         return fieldTypeText.replace("<p>", "").replace("</p>", "").trim();
     }
 
 
     /** 替换为更详细的FieldEntity */
-    public static List<FieldEntity> replaceDescParam(List<FieldEntity> fields, List<FieldEntity> descParams) {
+    private List<FieldEntity> replaceDescParam(List<FieldEntity> fields, List<FieldEntity> descParams) {
         if (isNotNeedReplace(fields, descParams)) {
             return fields;
         }
@@ -191,7 +195,7 @@ public class FieldParser {
         return getReplacedDescParams(fields, descParams);
     }
 
-    private static List<FieldEntity> getReplacedDescParams(List<FieldEntity> fields, List<FieldEntity> descParams) {
+    private List<FieldEntity> getReplacedDescParams(List<FieldEntity> fields, List<FieldEntity> descParams) {
         List<FieldEntity> replaceFields = new ArrayList<>(fields.size());
         for (FieldEntity field : fields) {
             FieldEntity target = getDetailedFieldOtherwiseReturnOriginalField(descParams, field);
@@ -200,7 +204,7 @@ public class FieldParser {
         return replaceFields;
     }
 
-    private static FieldEntity getDetailedFieldOtherwiseReturnOriginalField(List<FieldEntity> descParams, FieldEntity field) {
+    private FieldEntity getDetailedFieldOtherwiseReturnOriginalField(List<FieldEntity> descParams, FieldEntity field) {
         int detailedFieldIndexInDescParams = findDetailedFieldIndexInDescParams(descParams, field);
         if (hasFoundDetailedFieldInDescParams(detailedFieldIndexInDescParams)) {// 找到了详细的FieldEntity对象
             return getDetailedField(descParams, detailedFieldIndexInDescParams);
@@ -208,19 +212,19 @@ public class FieldParser {
         return field;
     }
 
-    private static boolean isNotNeedReplace(List<FieldEntity> fields, List<FieldEntity> descParams) {
+    private boolean isNotNeedReplace(List<FieldEntity> fields, List<FieldEntity> descParams) {
         return JsoupParserUtil.isNullOrEmpty(fields) || JsoupParserUtil.isNullOrEmpty(descParams);
     }
 
-    private static int findDetailedFieldIndexInDescParams(List<FieldEntity> descParams, FieldEntity field) {
+    private int findDetailedFieldIndexInDescParams(List<FieldEntity> descParams, FieldEntity field) {
         return descParams.indexOf(field);
     }
 
-    private static boolean hasFoundDetailedFieldInDescParams(int indexOfDescParams) {
+    private boolean hasFoundDetailedFieldInDescParams(int indexOfDescParams) {
         return indexOfDescParams >= 0;
     }
 
-    private static FieldEntity getDetailedField(List<FieldEntity> descParams, int detailedFieldIndexInDescParams) {
+    private FieldEntity getDetailedField(List<FieldEntity> descParams, int detailedFieldIndexInDescParams) {
         return descParams.get(detailedFieldIndexInDescParams);
     }
 

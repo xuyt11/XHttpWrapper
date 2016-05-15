@@ -104,7 +104,7 @@ public class MethodParser {
 
     private List<FieldEntity> getDescParams(Element articleEle) {
         Elements descParamCategoryEles = JsoupParserUtil.getEles(articleEle, CSS_QUERY_TABLE);// table elements
-        return FieldParser.getDescParams(descParamCategoryEles);
+        return new FieldParser().getDescParams(descParamCategoryEles);
     }
 
     private Element getFieldsetEle(Element articleEle) {
@@ -112,14 +112,12 @@ public class MethodParser {
     }
 
     private List<FieldEntity> getHeaderFields(List<FieldEntity> descParams, Element fieldsetEle) {
-        List<FieldEntity> headerFields = FieldParser.getHeaderFields(fieldsetEle);
-        headerFields = FieldParser.replaceDescParam(headerFields, descParams);
+        List<FieldEntity> headerFields = new FieldParser().getHeaderFields(fieldsetEle, descParams);
         return headerFields;
     }
 
     private List<FieldEntity> getInputFields(List<FieldEntity> descParams, Element fieldsetEle) {
-        List<FieldEntity> inputFields = FieldParser.getInputParamFields(fieldsetEle);
-        inputFields = FieldParser.replaceDescParam(inputFields, descParams);
+        List<FieldEntity> inputFields = new FieldParser().getInputParamFields(fieldsetEle, descParams);
         return inputFields;
     }
 
@@ -127,7 +125,7 @@ public class MethodParser {
         Elements responseDescEls = getResponseDescEles(articleEle);// 该请求响应的描述
         Elements responseEls = getResponseEles(articleEle);// 请求响应报文的数据:响应头,响应体
 
-        List<ResponseEntity> responses = ResponseParser.parser(-1, -1, responseDescEls, responseEls);
+        List<ResponseEntity> responses = new ResponseParser().getResponses(responseDescEls, responseEls);
         responses = OutputParamsParser.parser(-1, -1, responses, descParams);
 
         return responses;

@@ -73,6 +73,12 @@ public class JsoupParserUtil {
         return false;
     }
 
+    public static int getSize(Elements eles) {
+        if (null == eles) {
+            return 0;
+        }
+        return eles.size();
+    }
 
 
 
