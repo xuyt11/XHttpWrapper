@@ -25,9 +25,11 @@ public class Config {
     public static StatusCodeConfig statusCode;
     /** 现阶段,不进行模板方法的构建,有些难度 2016-03-31 */
     public static TemplateConfig Template;
+    public static FilterApiVersionCodeConfig filterApiVersionCodeConfig;
 
     static {
         ConfigFactory.setConfigData();
+        filterApiVersionCodeConfig = new FilterApiVersionCodeConfig();
     }
 
     static void setConfigDirThenCreateOtherConfig(ConfigDir configDir) {

@@ -2,6 +2,7 @@ package cn.ytxu.apacer.fileCreater.newchama;
 
 import java.util.List;
 
+import cn.ytxu.apacer.config.Config;
 import cn.ytxu.apacer.entity.ApiEnitity;
 import cn.ytxu.apacer.entity.CategoryEntity;
 import cn.ytxu.apacer.entity.DocumentEntity;
@@ -34,12 +35,20 @@ public class ApiFileCreater {
         // 2 for each categorys
         List<ApiEnitity> apis = doc.getApis();
         for (ApiEnitity api : apis) {
+            if (interceptCurrVersionCodeApi(api)) continue;
             forEachApis(doc, api);
         }
 
         // 3 create Base Response Entity class
         BaseResponseEntityCreater.getInstance().create(doc, apis);
 	}
+
+    private static boolean interceptCurrVersionCodeApi(ApiEnitity api) {
+        if (Config.filterApiVersionCodeConfig.getFilterVersionCodes().contains(api.getCurrVersionCode())) {
+            return true;
+        }
+        return false;
+    }
 
     private static void forEachApis(DocumentEntity doc, ApiEnitity api) {
         List<CategoryEntity> categorys = api.getCategorys();

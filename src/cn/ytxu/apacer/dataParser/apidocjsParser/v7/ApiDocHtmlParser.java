@@ -130,7 +130,7 @@ public class ApiDocHtmlParser {
         for (Iterator<CategoryEntity> iterator = categorys.iterator(); iterator.hasNext(); ) {
             CategoryEntity category = iterator.next();
             // 3.1 将该分类中的方法,按版本号进行分类
-            addACategoryToTargetApi(apis, category);
+            addACategoryToTargetApi2(apis, category);
         }
         return apis;
     }
