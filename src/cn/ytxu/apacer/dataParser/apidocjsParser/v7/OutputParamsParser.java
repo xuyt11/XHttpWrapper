@@ -20,70 +20,105 @@ import java.util.Map;
  */
 public class OutputParamsParser {
 
-    public static List<ResponseEntity> parser(int categoryIndex, int methodIndex, List<ResponseEntity> responses, List<FieldEntity> descParams) {
+    public List<ResponseEntity> parseResponseContent(List<ResponseEntity> responses, List<FieldEntity> descParams) {
         int size = responses.size();
         List<ResponseEntity> responseList = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
             ResponseEntity response = responses.get(i);
-            parserOneResponse(categoryIndex, methodIndex, response);
+            response = parseResponseContent(response);
             responseList.add(response);
         }
 
         // add a same field object to response object, if thier name and type is same
         for (ResponseEntity response : responseList) {
             // TODO must use response, descParams
-
-
         }
 
         return responseList;
     }
 
-    private static void parserOneResponse(int categoryIndex, int methodIndex, ResponseEntity response) {
-        String jsonStr = response.getResponseContent();
-        LogUtil.i("parserOutputArray categoryIndex:" + categoryIndex + ", methodIndex:" + methodIndex
-                + "response desc:" + response.getResponseDesc() + ", jsonStr:" + jsonStr);
-        JSONObject jObj = null;
+    private ResponseEntity parseResponseContent(ResponseEntity response) {
+        String responseContent = response.getResponseContent();
+        LogUtil.i("response desc:" + response.getResponseDesc() + ", jsonStr:" + responseContent);
+        JSONObject responseContentJObj;
         try {
-            jObj = JSON.parseObject(jsonStr);
+            responseContentJObj = JSON.parseObject(responseContent);
         } catch (JSONException e) {
             // TODO 这是返回数据的Json格式有问题,以后解决
             e.printStackTrace();
-            return;
+            LogUtil.i("返回数据的Json格式有问题,以后解决: " + response.toString());
+            return response;
         }
 
-        if (jObj.containsKey(Config.BaseResponse.StatusCode)) {// TODO 未来要他们统一返回格式,有些result没有这个字段
-            response.setStatusCode(String.valueOf(jObj.getInteger(Config.BaseResponse.StatusCode)));
-        } else {
-            LogUtil.i("can not have status code:parserOutputArray categoryIndex:" + categoryIndex + ", methodIndex:" + methodIndex
-                    + "response desc:" + response.getResponseDesc() + ", jsonStr:" + jsonStr);
+        if (responseContentJObj.containsKey(Config.BaseResponse.StatusCode)) {
+            response.setStatusCode(String.valueOf(responseContentJObj.getInteger(Config.BaseResponse.StatusCode)));
+        } else {// TODO 未来要他们统一返回格式,有些result没有这个字段
+            LogUtil.i("can not have status code:" + response.toString());
         }
-        List<OutputParamEntity> outputs = parserOutputObject(categoryIndex, methodIndex, jObj);
+        List<OutputParamEntity> outputs = parseJSONObjectToOutputParams(responseContentJObj);
         response.setOutputParams(outputs);
 
         OutputParamEntity.setResponse(outputs, response);
+        return response;
     }
 
-    /** 分析Json对象(JsonObject)(输出参数对象)的属性 */
-    private static List<OutputParamEntity> parserOutputObject(int categoryIndex, int methodIndex, JSONObject fieldValue) {
+    /**
+     * 分析Json对象(JsonObject)(输出参数对象)的属性
+     */
+    private List<OutputParamEntity> parseJSONObjectToOutputParams(JSONObject fieldValue) {
         List<OutputParamEntity> outputs = new ArrayList<>(fieldValue.size());
-
         for (Map.Entry<String, Object> entry : fieldValue.entrySet()) {
-            OutputParamEntity entity = parserOutputParam(categoryIndex, methodIndex, entry);
+            OutputParamEntity entity = parseJSONObjectEntryToOutputParam(entry);
             outputs.add(entity);
         }
-
         return outputs;
     }
 
-    /** 分析Json数组(JsonArray): 若数组中只是int或String类型的要进行反设置其类型,否则其类型是一个自定一个实体类  */
-    private static OutputParamEntity parserOutputArray(int categoryIndex, int methodIndex, String fieldName, JSONArray fieldValue) {
-        LogUtil.i("parserOutputArray categoryIndex:" + categoryIndex + ", methodIndex:" + methodIndex + "fieldName:" + fieldName + ", fieldValue:" + fieldValue);
-        OutputParamEntity entity = OutputParamEntity.createrArrayType(fieldName, fieldValue.toString());
+    /**
+     * 分析出输出参数中对象的属性
+     */
+    public OutputParamEntity parseJSONObjectEntryToOutputParam(Map.Entry<String, Object> entry) {
+        String fieldName = entry.getKey();
+        Object fieldValue = entry.getValue();
+        if (null == fieldValue) {// 若字段中的值是null,则直接设置为String类型;以后有问题再去看
+            LogUtil.i("the value is null, fieldName:" + fieldName);
+            return new OutputParamEntity(fieldName, "String", "this value is null in result demo");
+        }
+
+        Class fieldType = fieldValue.getClass();
+        if (fieldType == String.class) {
+            return new OutputParamEntity(fieldName, "String", fieldValue.toString());
+        }
+        if (fieldType == Integer.class) {
+            return new OutputParamEntity(fieldName, "Number", fieldValue.toString());
+        }
+        if (fieldType == Boolean.class) {
+            return new OutputParamEntity(fieldName, "Boolean", fieldValue.toString());
+        }
+        if (fieldType == JSONObject.class) {
+            OutputParamEntity entity = createrObjectType(fieldName, fieldValue.toString());
+            List<OutputParamEntity> subs = parseJSONObjectToOutputParams((JSONObject) fieldValue);
+            entity.setSubs(subs);
+            return entity;
+        }
+        if (fieldType == JSONArray.class) {
+            OutputParamEntity entity = parseJSONArrayToOutputParam(fieldName, (JSONArray) fieldValue);
+            return entity;
+        }
+        // i don`t know type
+        throw new RuntimeException("i don`t know curr class type:" + fieldType);
+    }
+
+    /**
+     * 分析Json数组(JsonArray): 若数组中只是int或String类型的要进行反设置其类型,否则其类型是一个自定一个实体类
+     */
+    private OutputParamEntity parseJSONArrayToOutputParam(String fieldName, JSONArray fieldValue) {
+        LogUtil.i("parseJSONArrayToOutputParam fieldName:" + fieldName + ", fieldValue:" + fieldValue);
+        OutputParamEntity entity = createrArrayType(fieldName, fieldValue.toString());
 
         if (fieldValue.size() <= 0) {
             // TODO 先这样吧,等以后在看如何办;应该会将这些东西都给分离吧????
-            LogUtil.w("请在index==0的位置将该数组中所有的属性添加上!" + ", categoryIndex:" + categoryIndex + ", methodIndex:" + methodIndex + ", fieldName:" + fieldName);
+            LogUtil.w("请在index==0的位置将该数组中所有的属性添加上!" + ", fieldName:" + fieldName);
             entity.setType(null);
             return entity;
         }
@@ -99,59 +134,29 @@ public class OutputParamsParser {
             fieldType = "Boolean";
         } else if (objType == JSONObject.class) {
             fieldType = "Object";
-            List<OutputParamEntity> subs = parserOutputObject(categoryIndex, methodIndex, (JSONObject) obj);
+            List<OutputParamEntity> subs = parseJSONObjectToOutputParams((JSONObject) obj);
             entity.setSubs(subs);
         } else {
             // i don`t know type
-            throw new RuntimeException("parserApiDocHtmlCode2DocumentEntity output array, i don`t know curr class type:" + objType + ", categoryIndex:" + categoryIndex + ", methodIndex:" + methodIndex);
+            throw new RuntimeException("parserApiDocHtmlCode2DocumentEntity output array, i don`t know curr class type:" + objType);
         }
 
         entity.setType(fieldType);
         return entity;
     }
 
-
-    /** 分析出输出参数中对象的属性 */
-    public static OutputParamEntity parserOutputParam(int categoryIndex, int methodIndex, Map.Entry<String, Object> entry) {
-        String fieldName = entry.getKey();
-//        LogUtil.i("fieldName:" + fieldName + ", categoryIndex:" + categoryIndex + ", methodIndex:" + methodIndex);
-        Object fieldValue = entry.getValue();
-        if (null == fieldValue) {// 若字段中的值是null,则直接设置为String类型;以后有问题再去看
-            LogUtil.i("the value is null, fieldName:" + fieldName + ", categoryIndex:" + categoryIndex + ", methodIndex:" + methodIndex);
-            return new OutputParamEntity(fieldName, "String", "this value is null in result demo");
-        }
-
-        Class fieldType = fieldValue.getClass();
-        if (fieldType == String.class) {
-            return new OutputParamEntity(fieldName, "String", fieldValue.toString());
-        }
-
-        if (fieldType == Integer.class) {
-            return new OutputParamEntity(fieldName, "Number", fieldValue.toString());
-        }
-
-        if (fieldType == Boolean.class) {
-            return new OutputParamEntity(fieldName, "Boolean", fieldValue.toString());
-        }
-
-        if (fieldType == JSONObject.class) {
-            OutputParamEntity entity = OutputParamEntity.createrObjectType(fieldName, fieldValue.toString());
-
-            List<OutputParamEntity> subs = parserOutputObject(categoryIndex, methodIndex, (JSONObject) fieldValue);
-            entity.setSubs(subs);
-
-            return entity;
-        }
-
-        if (fieldType == JSONArray.class) {
-            OutputParamEntity entity = parserOutputArray(categoryIndex, methodIndex, fieldName, (JSONArray) fieldValue);
-            return entity;
-        }
-
-        // i don`t know type
-        throw new RuntimeException("i don`t know curr class type:" + fieldType + ", categoryIndex:" + categoryIndex + ", methodIndex:" + methodIndex);
+    private OutputParamEntity createrObjectType(String name, String desc) {
+        // 对象类型,直接使用isObject进行判断,不需要用type字段进行判断
+        OutputParamEntity entity = new OutputParamEntity(name, null, desc);
+        entity.setObject(true);
+        return entity;
     }
 
+    private OutputParamEntity createrArrayType(String name, String desc) {
+        OutputParamEntity entity = new OutputParamEntity(name, null, desc);
+        entity.setArray(true);
+        return entity;
+    }
 
     // enum:jsonObject, jsonArray, String, Integer, Boolean, Double?,
 

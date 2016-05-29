@@ -33,17 +33,12 @@ public class OutputParamEntity extends BaseEntity<ResponseEntity> {
     }
 
 
-    public static OutputParamEntity createrObjectType(String name, String desc) {
-        // 对象类型,直接使用isObject进行判断,不需要用type字段进行判断
-        OutputParamEntity entity = new OutputParamEntity(name, null, desc);
-        entity.isObject = true;
-        return entity;
+    public void setObject(boolean object) {
+        isObject = object;
     }
 
-    public static OutputParamEntity createrArrayType(String name, String desc) {
-        OutputParamEntity entity = new OutputParamEntity(name, null, desc);
-        entity.isArray = true;
-        return entity;
+    public void setArray(boolean array) {
+        isArray = array;
     }
 
     public boolean isObject() {
@@ -184,6 +179,8 @@ public class OutputParamEntity extends BaseEntity<ResponseEntity> {
         return CamelCaseUtils.toCapitalizeCamelCase(name) + "4" + parent.rename4Class();
     }
 
+    // TODO 未来要用heighLevel替换
+    @Deprecated
     public static void setResponse(List<OutputParamEntity> outputs, ResponseEntity response) {
         if (outputs == null || outputs.size() <= 0) {
             return;

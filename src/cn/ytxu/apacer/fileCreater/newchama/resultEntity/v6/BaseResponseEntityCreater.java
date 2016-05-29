@@ -150,7 +150,7 @@ public class BaseResponseEntityCreater {
 
         List<OutputParamEntity> outputs = new ArrayList<>();
         for (Map.Entry<String, Object> entry : entrys) {
-            OutputParamEntity output = OutputParamsParser.parserOutputParam(-1, -1, entry);
+            OutputParamEntity output = new OutputParamsParser().parseJSONObjectEntryToOutputParam(entry);
             outputs.add(output);
         }
         return outputs;

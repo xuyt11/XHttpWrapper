@@ -71,4 +71,15 @@ public class ResponseEntity extends BaseEntity<MethodEntity> {
         setHigherLevel(outputParams, this);
     }
 
+    @Override
+    public String toString() {
+        return "ResponseEntity{" +
+                "responseDesc='" + responseDesc + '\'' +
+                ", responseHeader='" + responseHeader + '\'' +
+                ", responseContent='" + responseContent + '\'' +
+                ", outputParams=" + outputParams +
+                ", statusCode='" + statusCode + '\'' +
+                ", method=" + method +
+                '}';
+    }
 }

@@ -126,7 +126,7 @@ public class MethodParser {
         Elements responseEls = getResponseEles(articleEle);// 请求响应报文的数据:响应头,响应体
 
         List<ResponseEntity> responses = new ResponseParser().getResponses(responseDescEls, responseEls);
-        responses = OutputParamsParser.parser(-1, -1, responses, descParams);
+        responses = new OutputParamsParser().parseResponseContent(responses, descParams);
 
         return responses;
     }
