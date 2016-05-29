@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class OutputParamEntity extends BaseEntity<ResponseEntity> {
     private String name;
-    private String type;
+    private String type;// TODO replace with OutputType
     private String desc;
     private boolean isObject = false;
     private boolean isArray = false;
