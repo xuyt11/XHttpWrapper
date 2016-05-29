@@ -1,6 +1,7 @@
-package cn.ytxu.apacer.dataParser.apidocjsParser.v7;
+package cn.ytxu.apacer.dataParser.apidocjsParser.v7.output;
 
 import cn.ytxu.apacer.config.Config;
+import cn.ytxu.apacer.dataParser.apidocjsParser.v7.output.create.IOutputParamCreater;
 import cn.ytxu.apacer.entity.FieldEntity;
 import cn.ytxu.apacer.entity.OutputParamEntity;
 import cn.ytxu.apacer.entity.ResponseEntity;
@@ -65,7 +66,7 @@ public class OutputParamsParser {
     /**
      * 分析Json对象(JsonObject)(输出参数对象)的属性
      */
-    private List<OutputParamEntity> parseJSONObjectToOutputParams(JSONObject fieldValue) {
+    public static List<OutputParamEntity> parseJSONObjectToOutputParams(JSONObject fieldValue) {
         List<OutputParamEntity> outputs = new ArrayList<>(fieldValue.size());
         for (Map.Entry<String, Object> entry : fieldValue.entrySet()) {
             OutputParamEntity entity = parseJSONObjectEntryToOutputParam(entry);
@@ -77,42 +78,18 @@ public class OutputParamsParser {
     /**
      * 分析出输出参数中对象的属性
      */
-    public OutputParamEntity parseJSONObjectEntryToOutputParam(Map.Entry<String, Object> entry) {
+    public static OutputParamEntity parseJSONObjectEntryToOutputParam(Map.Entry<String, Object> entry) {
         String fieldName = entry.getKey();
         Object fieldValue = entry.getValue();
-        if (null == fieldValue) {// 若字段中的值是null,则直接设置为String类型;以后有问题再去看
-            LogUtil.i("the value is null, fieldName:" + fieldName);
-            return new OutputParamEntity(fieldName, "String", "this value is null in result demo");
-        }
-
-        Class fieldType = fieldValue.getClass();
-        if (fieldType == String.class) {
-            return new OutputParamEntity(fieldName, "String", fieldValue.toString());
-        }
-        if (fieldType == Integer.class) {
-            return new OutputParamEntity(fieldName, "Number", fieldValue.toString());
-        }
-        if (fieldType == Boolean.class) {
-            return new OutputParamEntity(fieldName, "Boolean", fieldValue.toString());
-        }
-        if (fieldType == JSONObject.class) {
-            OutputParamEntity entity = createrObjectType(fieldName, fieldValue.toString());
-            List<OutputParamEntity> subs = parseJSONObjectToOutputParams((JSONObject) fieldValue);
-            entity.setSubs(subs);
-            return entity;
-        }
-        if (fieldType == JSONArray.class) {
-            OutputParamEntity entity = parseJSONArrayToOutputParam(fieldName, (JSONArray) fieldValue);
-            return entity;
-        }
-        // i don`t know type
-        throw new RuntimeException("i don`t know curr class type:" + fieldType);
+        IOutputParamCreater outputCreater = OutputFactory.getOutputParamCreater(fieldValue);
+        OutputParamEntity output = outputCreater.getOutputParam(fieldName, fieldValue);
+        return output;
     }
 
     /**
      * 分析Json数组(JsonArray): 若数组中只是int或String类型的要进行反设置其类型,否则其类型是一个自定一个实体类
      */
-    private OutputParamEntity parseJSONArrayToOutputParam(String fieldName, JSONArray fieldValue) {
+    public static OutputParamEntity parseJSONArrayToOutputParam(String fieldName, JSONArray fieldValue) {
         LogUtil.i("parseJSONArrayToOutputParam fieldName:" + fieldName + ", fieldValue:" + fieldValue);
         OutputParamEntity entity = createrArrayType(fieldName, fieldValue.toString());
 
@@ -145,14 +122,8 @@ public class OutputParamsParser {
         return entity;
     }
 
-    private OutputParamEntity createrObjectType(String name, String desc) {
-        // 对象类型,直接使用isObject进行判断,不需要用type字段进行判断
-        OutputParamEntity entity = new OutputParamEntity(name, null, desc);
-        entity.setObject(true);
-        return entity;
-    }
 
-    private OutputParamEntity createrArrayType(String name, String desc) {
+    private static OutputParamEntity createrArrayType(String name, String desc) {
         OutputParamEntity entity = new OutputParamEntity(name, null, desc);
         entity.setArray(true);
         return entity;
