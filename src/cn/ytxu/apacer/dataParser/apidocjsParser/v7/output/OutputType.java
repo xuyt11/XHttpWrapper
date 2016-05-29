@@ -16,7 +16,7 @@ public enum OutputType {
     },
     Number("Number") {
         @Override
-        boolean isThisType(Object obj) {
+        boolean isThisType(Object obj) {// need parser double, float?
             Class objType = obj.getClass();
             return objType == Integer.class || objType == Long.class;
         }

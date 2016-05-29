@@ -147,12 +147,7 @@ public class BaseResponseEntityCreater {
         List<ResponseEntity> responses = getResponseEntities(apis);
         List<JSONObject> errorJObjs = getErrorJObjArr(responses);
         List<Map.Entry<String, Object>> entrys = getEntrys(errorJObjs);
-
-        List<OutputParamEntity> outputs = new ArrayList<>();
-        for (Map.Entry<String, Object> entry : entrys) {
-            OutputParamEntity output = new OutputParamsParser().parseJSONObjectEntryToOutputParam(entry);
-            outputs.add(output);
-        }
+        List<OutputParamEntity> outputs = OutputParamsParser.parseEntrysToOutputParams(entrys);
         return outputs;
     }
 

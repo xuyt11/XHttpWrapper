@@ -1,7 +1,7 @@
 package cn.ytxu.apacer.dataParser.apidocjsParser.v7.output;
 
 import cn.ytxu.apacer.config.Config;
-import cn.ytxu.apacer.dataParser.apidocjsParser.v7.output.create.IOutputParamCreater;
+import cn.ytxu.apacer.dataParser.apidocjsParser.v7.output.create.OutputParamCreater;
 import cn.ytxu.apacer.entity.FieldEntity;
 import cn.ytxu.apacer.entity.OutputParamEntity;
 import cn.ytxu.apacer.entity.ResponseEntity;
@@ -12,6 +12,7 @@ import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -56,7 +57,7 @@ public class OutputParamsParser {
         } else {// TODO 未来要他们统一返回格式,有些result没有这个字段
             LogUtil.i("can not have status code:" + response.toString());
         }
-        List<OutputParamEntity> outputs = parseJSONObjectToOutputParams(responseContentJObj);
+        List<OutputParamEntity> outputs = parseEntrysToOutputParams(responseContentJObj);
         response.setOutputParams(outputs);
 
         OutputParamEntity.setResponse(outputs, response);
@@ -66,9 +67,13 @@ public class OutputParamsParser {
     /**
      * 分析Json对象(JsonObject)(输出参数对象)的属性
      */
-    public static List<OutputParamEntity> parseJSONObjectToOutputParams(JSONObject fieldValue) {
-        List<OutputParamEntity> outputs = new ArrayList<>(fieldValue.size());
-        for (Map.Entry<String, Object> entry : fieldValue.entrySet()) {
+    public static List<OutputParamEntity> parseEntrysToOutputParams(JSONObject fieldValue) {
+        return parseEntrysToOutputParams(fieldValue.entrySet());
+    }
+
+    public static List<OutputParamEntity> parseEntrysToOutputParams(Collection<Map.Entry<String, Object>> entrys) {
+        List<OutputParamEntity> outputs = new ArrayList<>(entrys.size());
+        for (Map.Entry<String, Object> entry : entrys) {
             OutputParamEntity entity = parseJSONObjectEntryToOutputParam(entry);
             outputs.add(entity);
         }
@@ -78,55 +83,12 @@ public class OutputParamsParser {
     /**
      * 分析出输出参数中对象的属性
      */
-    public static OutputParamEntity parseJSONObjectEntryToOutputParam(Map.Entry<String, Object> entry) {
+    private static OutputParamEntity parseJSONObjectEntryToOutputParam(Map.Entry<String, Object> entry) {
         String fieldName = entry.getKey();
         Object fieldValue = entry.getValue();
-        IOutputParamCreater outputCreater = OutputFactory.getOutputParamCreater(fieldValue);
-        OutputParamEntity output = outputCreater.getOutputParam(fieldName, fieldValue);
+        OutputParamCreater outputCreater = OutputFactory.getOutputParamCreater(fieldValue);
+        OutputParamEntity output = outputCreater.getOutputParam4JSONObject(fieldName, fieldValue);
         return output;
-    }
-
-    /**
-     * 分析Json数组(JsonArray): 若数组中只是int或String类型的要进行反设置其类型,否则其类型是一个自定一个实体类
-     */
-    public static OutputParamEntity parseJSONArrayToOutputParam(String fieldName, JSONArray fieldValue) {
-        LogUtil.i("parseJSONArrayToOutputParam fieldName:" + fieldName + ", fieldValue:" + fieldValue);
-        OutputParamEntity entity = createrArrayType(fieldName, fieldValue.toString());
-
-        if (fieldValue.size() <= 0) {
-            // TODO 先这样吧,等以后在看如何办;应该会将这些东西都给分离吧????
-            LogUtil.w("请在index==0的位置将该数组中所有的属性添加上!" + ", fieldName:" + fieldName);
-            entity.setType(null);
-            return entity;
-        }
-
-        Object obj = fieldValue.get(0);
-        Class objType = obj.getClass();
-        String fieldType;
-        if (objType == String.class) {
-            fieldType = "String";
-        } else if (objType == Integer.class) {
-            fieldType = "Number";
-        } else if (objType == Boolean.class) {
-            fieldType = "Boolean";
-        } else if (objType == JSONObject.class) {
-            fieldType = "Object";
-            List<OutputParamEntity> subs = parseJSONObjectToOutputParams((JSONObject) obj);
-            entity.setSubs(subs);
-        } else {
-            // i don`t know type
-            throw new RuntimeException("parserApiDocHtmlCode2DocumentEntity output array, i don`t know curr class type:" + objType);
-        }
-
-        entity.setType(fieldType);
-        return entity;
-    }
-
-
-    private static OutputParamEntity createrArrayType(String name, String desc) {
-        OutputParamEntity entity = new OutputParamEntity(name, null, desc);
-        entity.setArray(true);
-        return entity;
     }
 
     // enum:jsonObject, jsonArray, String, Integer, Boolean, Double?,
