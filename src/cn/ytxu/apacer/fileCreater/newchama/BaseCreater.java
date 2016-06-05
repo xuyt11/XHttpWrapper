@@ -70,8 +70,8 @@ public class BaseCreater {
     public static void getWriter4TargetFile(String dirPath, String fileName, OnGetWriter onGetWriter) {
         Writer writer = null;
         try {
-            writer = FileUtil.getWriter(fileName, dirPath);
             RetainEntity retain = RetainEntity.getRetainEntity(fileName, dirPath);
+            writer = FileUtil.getWriter(fileName, dirPath);
             if (null == onGetWriter) {
                 LogUtil.w("OnGetWriter listener is null...");
                 return;
