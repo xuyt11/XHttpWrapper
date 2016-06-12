@@ -1,6 +1,7 @@
 package cn.ytxu.apacer.fileCreater.newchama.requestInterface.v6;
 
 import cn.ytxu.apacer.config.Config;
+import cn.ytxu.apacer.dataParser.apidocjsParser.v7.RESTfulAPIParser;
 import cn.ytxu.apacer.entity.MethodEntity;
 import cn.ytxu.apacer.entity.RESTfulApiEntity;
 
@@ -21,7 +22,8 @@ public class RESTfulRequestUrlCreater {
 		List<RESTfulApiEntity> restfuls = method.getRESTfulApis();
 		
 		if (null == restfuls || restfuls.size() <= 0) {// 没有RESTful风格的东东，所以直接将url搞上去
-			sb.append(currTabStr).append("\trequest.setUrl(getFullUrl(\"").append(method.getUrl()).append("\"));\n");
+			String url = RESTfulAPIParser.parseMultiPattern(method.getUrl());
+			sb.append(currTabStr).append("\trequest.setUrl(getFullUrl(\"").append(url).append("\"));\n");
 			return;
 		}
 		
