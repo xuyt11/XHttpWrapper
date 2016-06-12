@@ -147,6 +147,11 @@ public class BaseResponseEntityCreater {
         List<ResponseEntity> responses = getResponseEntities(apis);
         List<JSONObject> errorJObjs = getErrorJObjArr(responses);
         List<Map.Entry<String, Object>> entrys = getEntrys(errorJObjs);
+
+        // TODO future
+        // 2, 判断value的类型是否相同;
+        // 3, 若value都是JsonObject类型,将获取内部所有的字段并集;
+        // 4, 若value都是JsonArray类型,同3处理;
         List<OutputParamEntity> outputs = OutputParamsParser.parseEntrysToOutputParams(entrys);
         return outputs;
     }
@@ -167,9 +172,11 @@ public class BaseResponseEntityCreater {
         List<Map.Entry<String, Object>> filterEntrys = new ArrayList<>();
         for (Map.Entry<String, Object> entry : entrys) {
             String fieldName = entry.getKey();
+            // 1, 判断key是否相同;
             if (null == fieldName || fieldNames.contains(fieldName)) {
                 continue;
             }
+            fieldNames.add(fieldName);
             filterEntrys.add(entry);
         }
 
