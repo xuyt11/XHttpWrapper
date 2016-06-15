@@ -35,6 +35,7 @@ public class JSONObjOutputParamCreater implements OutputParamCreater {
 
     @Override
     public OutputParamEntity getOutputParam4JSONArray(OutputParamEntity entity, String fieldName, JSONArray fieldValue) {
+        // TODO 循环遍历JsonArray对象，而不只是获取第一个对象
         Object obj = fieldValue.get(0);
         List<OutputParamEntity> subs = OutputParamsParser.parseEntrysToOutputParams((JSONObject) obj, descParams);
         entity.setSubs(subs);

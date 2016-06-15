@@ -43,6 +43,8 @@ public class OutputParamsParser {
         LogUtil.i("response desc:" + response.getResponseDesc() + ", jsonStr:" + responseContent);
         JSONObject responseContentJObj;
         try {
+            // TODO 循环遍历JsonArray对象，而不只是获取第一个对象，
+            // TODO 并且要将所有的字段中，若value为null的字段，判断之后是否有值，有值的话就要替换掉
             responseContentJObj = JSON.parseObject(responseContent);
         } catch (JSONException e) {
             // TODO 这是返回数据的Json格式有问题,以后解决
