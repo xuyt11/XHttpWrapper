@@ -152,7 +152,7 @@ public class BaseResponseEntityCreater {
         // 2, 判断value的类型是否相同;
         // 3, 若value都是JsonObject类型,将获取内部所有的字段并集;
         // 4, 若value都是JsonArray类型,同3处理;
-        List<OutputParamEntity> outputs = OutputParamsParser.parseEntrysToOutputParams(entrys);
+        List<OutputParamEntity> outputs = OutputParamsParser.parseEntrysToOutputParams(entrys, null);
         return outputs;
     }
 

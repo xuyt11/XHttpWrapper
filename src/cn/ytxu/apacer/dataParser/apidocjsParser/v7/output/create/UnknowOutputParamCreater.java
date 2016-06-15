@@ -1,13 +1,22 @@
 package cn.ytxu.apacer.dataParser.apidocjsParser.v7.output.create;
 
+import cn.ytxu.apacer.entity.FieldEntity;
 import cn.ytxu.apacer.entity.OutputParamEntity;
 import cn.ytxu.util.LogUtil;
 import com.alibaba.fastjson.JSONArray;
+
+import java.util.List;
 
 /**
  * Created by ytxu on 2016/5/29.
  */
 public class UnknowOutputParamCreater implements OutputParamCreater {
+    private List<FieldEntity> descParams;
+
+    public UnknowOutputParamCreater(List<FieldEntity> descParams) {
+        this.descParams = descParams;
+    }
+
     @Override
     public OutputParamEntity getOutputParam4JSONObject(String fieldName, Object fieldValue) {
         // 若字段中的值是null或者i don`t know type,则直接设置为String类型;以后有问题再去看

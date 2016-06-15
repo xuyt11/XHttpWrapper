@@ -27,7 +27,7 @@ public class OutputParamsParser {
         List<ResponseEntity> responseList = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
             ResponseEntity response = responses.get(i);
-            response = parseResponseContent(response);
+            response = parseResponseContent(response, descParams);
             responseList.add(response);
         }
 
@@ -39,7 +39,7 @@ public class OutputParamsParser {
         return responseList;
     }
 
-    private ResponseEntity parseResponseContent(ResponseEntity response) {
+    private ResponseEntity parseResponseContent(ResponseEntity response, List<FieldEntity> descParams) {
         String responseContent = response.getResponseContent();
         LogUtil.i("response desc:" + response.getResponseDesc() + ", jsonStr:" + responseContent);
         JSONObject responseContentJObj;
@@ -57,7 +57,7 @@ public class OutputParamsParser {
         } else {// TODO 未来要他们统一返回格式,有些result没有这个字段
             LogUtil.i("can not have status code:" + response.toString());
         }
-        List<OutputParamEntity> outputs = parseEntrysToOutputParams(responseContentJObj);
+        List<OutputParamEntity> outputs = parseEntrysToOutputParams(responseContentJObj, descParams);
         response.setOutputParams(outputs);
 
         OutputParamEntity.setResponse(outputs, response);
@@ -67,14 +67,14 @@ public class OutputParamsParser {
     /**
      * 分析Json对象(JsonObject)(输出参数对象)的属性
      */
-    public static List<OutputParamEntity> parseEntrysToOutputParams(JSONObject fieldValue) {
-        return parseEntrysToOutputParams(fieldValue.entrySet());
+    public static List<OutputParamEntity> parseEntrysToOutputParams(JSONObject fieldValue, List<FieldEntity> descParams) {
+        return parseEntrysToOutputParams(fieldValue.entrySet(), descParams);
     }
 
-    public static List<OutputParamEntity> parseEntrysToOutputParams(Collection<Map.Entry<String, Object>> entrys) {
+    public static List<OutputParamEntity> parseEntrysToOutputParams(Collection<Map.Entry<String, Object>> entrys, List<FieldEntity> descParams) {
         List<OutputParamEntity> outputs = new ArrayList<>(entrys.size());
         for (Map.Entry<String, Object> entry : entrys) {
-            OutputParamEntity entity = parseJSONObjectEntryToOutputParam(entry);
+            OutputParamEntity entity = parseJSONObjectEntryToOutputParam(entry, descParams);
             outputs.add(entity);
         }
         return outputs;
@@ -83,10 +83,10 @@ public class OutputParamsParser {
     /**
      * 分析出输出参数中对象的属性
      */
-    private static OutputParamEntity parseJSONObjectEntryToOutputParam(Map.Entry<String, Object> entry) {
+    private static OutputParamEntity parseJSONObjectEntryToOutputParam(Map.Entry<String, Object> entry, List<FieldEntity> descParams) {
         String fieldName = entry.getKey();
         Object fieldValue = entry.getValue();
-        OutputParamCreater outputCreater = OutputFactory.getOutputParamCreater(fieldValue);
+        OutputParamCreater outputCreater = OutputFactory.getOutputParamCreater(fieldValue, descParams);
         OutputParamEntity output = outputCreater.getOutputParam4JSONObject(fieldName, fieldValue);
         return output;
     }
