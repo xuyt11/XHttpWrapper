@@ -7,7 +7,6 @@ import cn.ytxu.apacer.entity.OutputParamEntity;
 import cn.ytxu.apacer.entity.ResponseEntity;
 import cn.ytxu.util.LogUtil;
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 
@@ -86,7 +85,7 @@ public class OutputParamsParser {
     private static OutputParamEntity parseJSONObjectEntryToOutputParam(Map.Entry<String, Object> entry, List<FieldEntity> descParams) {
         String fieldName = entry.getKey();
         Object fieldValue = entry.getValue();
-        OutputParamCreater outputCreater = OutputFactory.getOutputParamCreater(fieldValue, descParams);
+        OutputParamCreater outputCreater = OutputFactory.getOutputParamCreater(fieldName, fieldValue, descParams);
         OutputParamEntity output = outputCreater.getOutputParam4JSONObject(fieldName, fieldValue);
         return output;
     }

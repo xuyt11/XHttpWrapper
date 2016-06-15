@@ -7,6 +7,7 @@ import com.alibaba.fastjson.JSONObject;
  * Created by ytxu on 2016/5/29.
  */
 public enum OutputType {
+    // TODO double、float
     String("String") {
         @Override
         boolean isThisType(Object obj) {
@@ -92,4 +93,18 @@ public enum OutputType {
         }
         return Unknown;
     }
+
+    public static OutputType getOutputTypeByTypeName(String typeName) {
+        if (String.typeName.equals(typeName)) {
+            return String;
+        }
+        if (Number.typeName.equals(typeName)) {
+            return Number;
+        }
+        if (Boolean.typeName.equals(typeName)) {
+            return Boolean;
+        }
+        return Unknown;
+    }
+
 }

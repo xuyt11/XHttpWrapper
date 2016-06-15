@@ -1,7 +1,6 @@
 package cn.ytxu.apacer.dataParser.apidocjsParser.v7.output.create;
 
 import cn.ytxu.apacer.dataParser.apidocjsParser.v7.output.OutputFactory;
-import cn.ytxu.apacer.dataParser.apidocjsParser.v7.output.OutputParamsParser;
 import cn.ytxu.apacer.entity.FieldEntity;
 import cn.ytxu.apacer.entity.OutputParamEntity;
 import cn.ytxu.util.LogUtil;
@@ -31,7 +30,7 @@ public class JSONArrOutputParamCreater implements OutputParamCreater {
     private OutputParamEntity parseJSONArrayToOutputParam(String fieldName, JSONArray fieldValue) {
         LogUtil.i("parseJSONArrayToOutputParam fieldName:" + fieldName + ", fieldValue:" + fieldValue);
         OutputParamEntity entity = createrArrayType(fieldName, fieldValue.toString());
-        OutputParamCreater outputCreater = OutputFactory.getOutputParamCreater(fieldValue, descParams);
+        OutputParamCreater outputCreater = OutputFactory.getOutputParamCreater(fieldName, fieldValue, descParams);
         OutputParamEntity output = outputCreater.getOutputParam4JSONArray(entity, fieldName, fieldValue);
         return output;
     }

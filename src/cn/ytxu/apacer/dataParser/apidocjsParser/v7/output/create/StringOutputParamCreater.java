@@ -18,7 +18,7 @@ public class StringOutputParamCreater implements OutputParamCreater {
 
     @Override
     public OutputParamEntity getOutputParam4JSONObject(String fieldName, Object fieldValue) {
-        return new OutputParamEntity(fieldName, "String", fieldValue.toString());
+        return new OutputParamEntity(fieldName, "String", (fieldValue == null ? " is null" : fieldValue.toString()));
     }
 
     @Override

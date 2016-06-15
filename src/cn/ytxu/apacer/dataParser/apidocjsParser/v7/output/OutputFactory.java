@@ -11,8 +11,29 @@ import java.util.List;
  */
 public class OutputFactory {
 
-    public static OutputParamCreater getOutputParamCreater(Object obj, List<FieldEntity> descParams) {
-        OutputType outputType = OutputType.getOutputType(obj);
+    public static OutputParamCreater getOutputParamCreater(String fieldName, Object fieldValue, List<FieldEntity> descParams) {
+        OutputType outputType = OutputType.getOutputType(fieldValue);
+        return get(outputType, descParams, fieldName);
+    }
+
+    private static OutputParamCreater get(OutputType outputType, List<FieldEntity> descParams, String fieldName) {
+        try {
+            return getOutputParamCreaterOtherwiseThrowException(outputType, descParams);
+        } catch (Exception ignore) {
+        }
+
+        switch (outputType) {
+            case Unknown:
+            default:
+                try {
+                    return getOutputParamCreaterByTypeName(descParams, fieldName);
+                } catch (Exception ignore) {
+                    return new UnknowOutputParamCreater(descParams);
+                }
+        }
+    }
+
+    private static OutputParamCreater getOutputParamCreaterOtherwiseThrowException(OutputType outputType, List<FieldEntity> descParams) {
         switch (outputType) {
             case String:
                 return new StringOutputParamCreater(descParams);
@@ -28,18 +49,42 @@ public class OutputFactory {
                 return new JSONObjOutputParamCreater(descParams);
             case JSONArray:
                 return new JSONArrOutputParamCreater(descParams);
+            default:
+                throw new RuntimeException("can not find output type...");
+        }
+    }
+
+    private static OutputParamCreater getOutputParamCreaterByTypeName(List<FieldEntity> descParams, String fieldName) {
+        if (descParams != null && descParams.size() > 0) {
+            for (FieldEntity descParam : descParams) {
+                if (fieldName.equals(descParam.getKey())) {
+                    OutputType type = OutputType.getOutputTypeByTypeName(descParam.getType());
+                    return get(type, descParams);
+                }
+            }
+        }
+        throw new RuntimeException("can not find output type by type name...");
+    }
+
+    private static OutputParamCreater get(OutputType outputType, List<FieldEntity> descParams) {
+        try {
+            return getOutputParamCreaterOtherwiseThrowException(outputType, descParams);
+        } catch (Exception ignore) {
+        }
+
+        switch (outputType) {
             case Unknown:
             default:
                 return new UnknowOutputParamCreater(descParams);
         }
     }
 
-    public static OutputParamCreater getOutputParamCreater(JSONArray jsonArr, List<FieldEntity> descParams) {
+    public static OutputParamCreater getOutputParamCreater(String fieldName, JSONArray jsonArr, List<FieldEntity> descParams) {
         if (jsonArr.size() <= 0) {
             return new UnknowOutputParamCreater(descParams);
         }
 
         Object obj = jsonArr.get(0);
-        return getOutputParamCreater(obj, descParams);
+        return getOutputParamCreater(fieldName, obj, descParams);
     }
 }
