@@ -24,4 +24,21 @@ public enum ApiVersionEntity {
         return versionCode;
     }
 
+    public static ApiVersionEntity get(String versionCode) {
+        for (ApiVersionEntity version : ApiVersionEntity.values()) {
+            if (version.versionCode.equals(versionCode.trim())) {
+                return version;
+            }
+        }
+        throw new RuntimeException("can not find this version code:" + versionCode + ", so you need add it to this enum...");
+    }
+
+    public static boolean filterOutThisVersion(ApiVersionEntity api) {
+        ApiVersionEntity lowestApi = V1_3_1;// 最低的版本：can replace this version to setup filter fun
+        if (api.apiIndex >= lowestApi.apiIndex) {
+            return false;
+        }
+        return true;
+    }
+
 }
