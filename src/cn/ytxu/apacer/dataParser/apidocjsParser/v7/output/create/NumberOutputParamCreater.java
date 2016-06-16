@@ -18,7 +18,7 @@ public class NumberOutputParamCreater implements OutputParamCreater {
 
     @Override
     public OutputParamEntity getOutputParam4JSONObject(String fieldName, Object fieldValue) {
-        return new OutputParamEntity(fieldName, "Number", fieldValue.toString());
+        return new OutputParamEntity(fieldName, "Number", (fieldValue == null ? " is null" : fieldValue.toString()));
     }
 
     @Override
