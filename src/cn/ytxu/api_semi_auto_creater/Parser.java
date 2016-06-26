@@ -1,14 +1,20 @@
 package cn.ytxu.api_semi_auto_creater;
 
-import cn.ytxu.apacer.config.Config;
-import cn.ytxu.apacer.dataParser.jsoupUtil.JsoupParserUtil;
 import cn.ytxu.api_semi_auto_creater.entity.*;
-import org.jsoup.nodes.Document;
+import cn.ytxu.api_semi_auto_creater.parser.DocParser;
+import cn.ytxu.api_semi_auto_creater.parser.RequestParser;
+import cn.ytxu.api_semi_auto_creater.parser.SectionParser;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ytxu on 2016/6/16.
  */
 public class Parser {
+    DocumentEntity docment;
+    private List<SectionEntity> sections;
+    private List<RequestEntity> requests;
 
     public Parser() {
 
@@ -16,10 +22,10 @@ public class Parser {
 
     public void start() {
         // 1 get docment from html content
-        DocumentEntity docment = getDocument();
-
+        docment = new DocParser().get();
         // 2 parse section
-        SectionEntity section = new SectionEntity();
+        parseSectionsAndGetRequests();
+
         // 3 parse request method
         RequestEntity request = new RequestEntity();
         // 4 parse method RESTful url
@@ -33,19 +39,30 @@ public class Parser {
         ResponseEntity response = new ResponseEntity();
         // 8 parse response content --> output param --> response entity
         OutputParamEntity outputParam = new OutputParamEntity();
-
-
     }
 
-    private DocumentEntity getDocument() {
-        // 1 get html document
-        // 2 get version elements then parse it
-        // 3 get section elements
-        // 4 get status code elements then parse status code
-        DocumentEntity document = new DocumentEntity();
-        Document doc = JsoupParserUtil.getDocument(Config.getApiDocHtmlPath());
-        document.setElement(doc);
-        return document;
+    private void parseDocumentAndGetSections() {
+        docment = new DocParser().get();
+        sections = docment.getSections();
+    }
+
+    private void parseSectionsAndGetRequests() {
+        requests = new ArrayList<>();
+        for (SectionEntity section : sections) {
+            SectionParser parser = new SectionParser(section);
+            List<RequestEntity> datas = parser.get();
+            requests.addAll(datas);
+        }
+    }
+
+    private void parseRequests() {
+
+        for (RequestEntity request : requests) {
+            RequestParser parser = new RequestParser(request);
+            parser.get();
+
+        }
+
     }
 
 }

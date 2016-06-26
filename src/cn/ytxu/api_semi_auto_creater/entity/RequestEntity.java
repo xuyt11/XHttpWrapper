@@ -1,5 +1,7 @@
 package cn.ytxu.api_semi_auto_creater.entity;
 
+import org.jsoup.nodes.Element;
+
 import java.util.List;
 
 /**
@@ -22,4 +24,8 @@ public class RequestEntity extends BaseEntity<SectionEntity> {
     private List<InputParamEntity> inputParams;// 输入字段
 
     private List<ResponseEntity> responses;// 请求响应列表
+
+    public RequestEntity(SectionEntity higherLevel, Element element) {
+        super(higherLevel, element);
+    }
 }
