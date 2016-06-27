@@ -55,12 +55,10 @@ public class RequestParser {
         getMethodVersion();
         getMethodDescription();
 
-        getMethodTypeAndUrlEle();
+        getMethodTypeAndUrl();
 
-        // headers, input params
         getDescParams();
         getInputs();
-        // response : output params
         getResponses();
     }
 
@@ -86,7 +84,7 @@ public class RequestParser {
     }
 
 
-    private void getMethodTypeAndUrlEle() {
+    private void getMethodTypeAndUrl() {
         Element preEle = JsoupParserUtil.getFirstEle(articleEle, CSS_QUERY_GET_TYPE_AND_URL_FOR_METHOD);
         getMethodType(preEle);
         getMethodUrl(preEle);
