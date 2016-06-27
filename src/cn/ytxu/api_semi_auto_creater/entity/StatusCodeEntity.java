@@ -12,6 +12,7 @@ public class StatusCodeEntity extends BaseEntity<DocumentEntity> {
     private String desc;
 
     public StatusCodeEntity(String name, String desc, String value) {
+        super(null, null);// TODO 需要更改
         this.name = name;
         this.desc = desc;
         this.value = value;

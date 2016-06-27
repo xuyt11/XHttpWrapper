@@ -25,20 +25,23 @@ public class Parser {
         docment = new DocParser().get();
         // 2 parse section
         parseSectionsAndGetRequests();
-
         // 3 parse request method
-        RequestEntity request = new RequestEntity();
+        parseRequests();
         // 4 parse method RESTful url
-        RESTfulUrlEntity restfulUrl = new RESTfulUrlEntity();
+//        RESTfulUrlEntity restfulUrl = new RESTfulUrlEntity();
         // 5 parse Parameter desc table element
-        DefinedParameterEntity definedParameter = new DefinedParameterEntity();
+//        DefinedParameterEntity definedParameter = new DefinedParameterEntity();
         // 6 parse header and input field
-        InputParamEntity header = new InputParamEntity();
-        InputParamEntity inputParam = new InputParamEntity();
+//        InputParamEntity header = new InputParamEntity();
+//        InputParamEntity inputParam = new InputParamEntity();
         // 7 parse response
-        ResponseEntity response = new ResponseEntity();
+//        ResponseEntity response = new ResponseEntity();
         // 8 parse response content --> output param --> response entity
-        OutputParamEntity outputParam = new OutputParamEntity();
+//        OutputParamEntity outputParam = new OutputParamEntity();
+
+        // 9 parse defindParamterEntity
+
+        // 10 use defindParamterEntity to filter header,input, output
     }
 
     private void parseDocumentAndGetSections() {

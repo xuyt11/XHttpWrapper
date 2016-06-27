@@ -14,8 +14,6 @@ public class RequestEntity extends BaseEntity<SectionEntity> {
     private String methodName;// 该方法的方法名称：驼峰法命名
     private String methodType;// 请求类型:post、get、patch...
 
-    // TODO 是否需要将url放到RESTfulUrlEntity中，作为一个参数？
-    private String url;// 方法的相对路径，起始位置必须为/
     private RESTfulUrlEntity restfulUrl;// url RESTful风格的解析对象
 
     private List<DefinedParameterEntity> definedParams;// 已定义了的参数
@@ -27,5 +25,77 @@ public class RequestEntity extends BaseEntity<SectionEntity> {
 
     public RequestEntity(SectionEntity higherLevel, Element element) {
         super(higherLevel, element);
+    }
+
+    public String getDescrption() {
+        return descrption;
+    }
+
+    public void setDescrption(String descrption) {
+        this.descrption = descrption;
+    }
+
+    public String getVersionCode() {
+        return versionCode;
+    }
+
+    public void setVersionCode(String versionCode) {
+        this.versionCode = versionCode;
+    }
+
+    public String getMethodName() {
+        return methodName;
+    }
+
+    public void setMethodName(String methodName) {
+        this.methodName = methodName;
+    }
+
+    public String getMethodType() {
+        return methodType;
+    }
+
+    public void setMethodType(String methodType) {
+        this.methodType = methodType;
+    }
+
+    public RESTfulUrlEntity getRestfulUrl() {
+        return restfulUrl;
+    }
+
+    public void setRestfulUrl(RESTfulUrlEntity restfulUrl) {
+        this.restfulUrl = restfulUrl;
+    }
+
+    public List<DefinedParameterEntity> getDefinedParams() {
+        return definedParams;
+    }
+
+    public void setDefinedParams(List<DefinedParameterEntity> definedParams) {
+        this.definedParams = definedParams;
+    }
+
+    public List<InputParamEntity> getHeaders() {
+        return headers;
+    }
+
+    public void setHeaders(List<InputParamEntity> headers) {
+        this.headers = headers;
+    }
+
+    public List<InputParamEntity> getInputParams() {
+        return inputParams;
+    }
+
+    public void setInputParams(List<InputParamEntity> inputParams) {
+        this.inputParams = inputParams;
+    }
+
+    public List<ResponseEntity> getResponses() {
+        return responses;
+    }
+
+    public void setResponses(List<ResponseEntity> responses) {
+        this.responses = responses;
     }
 }
