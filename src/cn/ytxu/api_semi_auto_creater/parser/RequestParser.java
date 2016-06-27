@@ -62,9 +62,6 @@ public class RequestParser {
         getInputs();
         // response : output params
         getResponses();
-
-//        baseEntity.setRESTfulApis(resTfulApiEntities);
-//        baseEntity.setResponses(responses);
     }
 
     private void getArticleElement() {
