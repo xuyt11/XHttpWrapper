@@ -22,7 +22,6 @@ public class RequestParser {
     private static final String CSS_QUERY_GET_TYPE_AND_URL_FOR_METHOD = "pre.prettyprint.language-html";
     private static final String ATTR_DATA_TYPE = "data-type";
     private static final String CSS_QUERY_GET_METHOD_URL = "code";
-    private static final String CSS_QUERY_TABLE = "table";
     private static final String CSS_QUERY_FIELDSET = "form.form-horizontal > fieldset";
     private static final String CSS_QUERY_RESPONSE_DESC = "ul.nav.nav-tabs.nav-tabs-examples > li";
     private static final String CSS_QUERY_RESPONSE = "div.tab-content > div.tab-pane";
@@ -35,6 +34,7 @@ public class RequestParser {
      * 输入参数字段：class以param-fields结束
      */
     private static final String CSS_QUERY_GET_INPUT_PARAM = "div[class$=param-fields] > div.control-group";
+
 
     private RequestEntity baseEntity;
     private Element baseEle;
@@ -57,7 +57,7 @@ public class RequestParser {
 
         getMethodTypeAndUrl();
 
-        getDescParams();
+        new DefinedParamPreParser().get();
         getInputs();
         getResponses();
     }
@@ -102,25 +102,64 @@ public class RequestParser {
 //        return RESTfulAPIParser.parse(methodUrl);
     }
 
-    private void getDescParams() {
-        Elements descParamCategoryEles = JsoupParserUtil.getEles(articleEle, CSS_QUERY_TABLE);// table elements
-        if (ListUtil.isEmpty(descParamCategoryEles)) {
-            return;
+    private class DefinedParamPreParser {
+        private static final String CSS_QUERY_TABLE = "table";
+        private static final String CSS_QUERY_GET_DESC_PARAM = "tbody > tr";
+        private static final String PARAM_CATEGORY_NAME_TAG_NAME = "h2";
+
+        public void get() {
+            Elements descParamCategoryEles = JsoupParserUtil.getEles(articleEle, CSS_QUERY_TABLE);// table elements
+            if (ListUtil.isEmpty(descParamCategoryEles)) {
+                return;
+            }
+
+            setDefinedParams(descParamCategoryEles);
         }
 
-        setDefindParams(descParamCategoryEles);
-//        return new FieldParser().getDescParams(descParamCategoryEles);
-    }
+        private void setDefinedParams(Elements descParamCategoryEles) {
+            List<DefinedParameterEntity> definedParams = new ArrayList<>();
 
-    private void setDefindParams(Elements descParamCategoryEles) {
-        List<DefinedParameterEntity> definedParams = new ArrayList<>(descParamCategoryEles.size());
-        for (Element descParamCategoryEle : descParamCategoryEles) {
-            DefinedParameterEntity definedParam = new DefinedParameterEntity(baseEntity, descParamCategoryEle);
-            definedParams.add(definedParam);
+            for (Element descParamCategoryEle : descParamCategoryEles) {
+                List<DefinedParameterEntity> defineds = getDefinedParams(descParamCategoryEle);
+                if (JsoupParserUtil.isNullOrEmpty(defineds)) {
+                    continue;
+                }
+                definedParams.addAll(defineds);
+            }
+
+            baseEntity.setDefinedParams(definedParams);
         }
-        baseEntity.setDefinedParams(definedParams);
-    }
 
+        private List<DefinedParameterEntity> getDefinedParams(Element descParamCategoryEle) {
+            Elements descParamEles = JsoupParserUtil.getEles(descParamCategoryEle, CSS_QUERY_GET_DESC_PARAM);
+            if (JsoupParserUtil.isNullOrEmpty(descParamEles)) {
+                return null;
+            }
+
+            List<DefinedParameterEntity> definedParams = new ArrayList<>(descParamEles.size());
+            String paramCategoryName = getParamCategoryName(descParamCategoryEle);
+            for (Element descParamEle : descParamEles) {
+                DefinedParameterEntity definedParam = new DefinedParameterEntity(baseEntity, descParamEle, paramCategoryName);
+                definedParams.add(definedParam);
+            }
+
+            return definedParams;
+        }
+
+        /**
+         * 参数的类别名称：<br>
+         * 有可能可以成为实体类的名称,也有可能是results、params等无实际意义的参数名称
+         */
+        private String getParamCategoryName(Element descParamCategoryEle) {
+            Element descParamCategoryNameEle = descParamCategoryEle.previousElementSibling();
+            String paramCategoryName = null;
+            if (null != descParamCategoryNameEle && PARAM_CATEGORY_NAME_TAG_NAME.equalsIgnoreCase(descParamCategoryNameEle.tagName())) {
+                paramCategoryName = JsoupParserUtil.getText(descParamCategoryNameEle);
+            }
+            return paramCategoryName;
+        }
+
+    }
 
     private void getInputs() {
         Element fieldsetEle = getFieldsetEle();
