@@ -1,7 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.parser;
 
 import cn.ytxu.apacer.dataParser.jsoupUtil.JsoupParserUtil;
-import cn.ytxu.apacer.entity.FieldEntity;
 import cn.ytxu.api_semi_auto_creater.entity.DefinedParameterEntity;
 import cn.ytxu.util.LogUtil;
 import org.jsoup.nodes.Element;
@@ -23,7 +22,7 @@ public class DefinedParamParser {
     private DefinedParameterEntity baseEntity;
     private Element baseEle;
     private Elements descParamAttrEles;
-    private Element fieldEle, typeEle, descEle;
+    private Element fieldEle, typeEle, descEle;// sub ele
 
     public DefinedParamParser(DefinedParameterEntity baseEntity) {
         super();
@@ -44,7 +43,7 @@ public class DefinedParamParser {
             return;
         }
 
-        getDescEle();
+        getSubEles();
 
         getIsOptionalField();
 
@@ -65,7 +64,7 @@ public class DefinedParamParser {
         return null == descParamAttrEles || descParamAttrEles.size() != DEFINED_PARAM_ATTR_NUMBER;
     }
 
-    private void getDescEle() {
+    private void getSubEles() {
         fieldEle = descParamAttrEles.get(DEFINED_PARAM_ATTR_FIELD);
         typeEle = descParamAttrEles.get(DEFINED_PARAM_ATTR_TYPE);
         descEle = descParamAttrEles.get(DEFINED_PARAM_ATTR_DESC);
