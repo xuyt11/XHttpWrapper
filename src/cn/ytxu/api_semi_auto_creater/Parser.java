@@ -1,9 +1,11 @@
 package cn.ytxu.api_semi_auto_creater;
 
 import cn.ytxu.api_semi_auto_creater.entity.*;
+import cn.ytxu.api_semi_auto_creater.parser.DefinedParamParser;
 import cn.ytxu.api_semi_auto_creater.parser.DocParser;
 import cn.ytxu.api_semi_auto_creater.parser.RequestParser;
 import cn.ytxu.api_semi_auto_creater.parser.SectionParser;
+import cn.ytxu.util.ListUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +24,7 @@ public class Parser {
 
     public void start() {
         // 1 get docment from html content
-        docment = new DocParser().get();
+        parseDocumentAndGetSections();
         // 2 parse section
         parseSectionsAndGetRequests();
         // 3 parse request method
@@ -59,13 +61,25 @@ public class Parser {
     }
 
     private void parseRequests() {
-
         for (RequestEntity request : requests) {
             RequestParser parser = new RequestParser(request);
             parser.get();
-
         }
+    }
 
+    private void parseDefinedParams() {
+        for (RequestEntity request : requests) {
+            List<DefinedParameterEntity> definedParams = request.getDefinedParams();
+
+            if (ListUtil.isEmpty(definedParams)) {
+                continue;
+            }
+
+            for (DefinedParameterEntity definedParam : definedParams) {
+                DefinedParamParser parser = new DefinedParamParser(definedParam);
+                parser.get();
+            }
+        }
     }
 
 }
