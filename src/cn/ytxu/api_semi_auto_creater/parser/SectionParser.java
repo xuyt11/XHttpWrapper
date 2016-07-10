@@ -50,6 +50,7 @@ public class SectionParser {
     private void getSectionName() {
         try {
             name = findSectionName(sectionEle);
+            sectionEntity.setName(name);
         } catch (TargetElementsNotFoundException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -79,6 +80,7 @@ public class SectionParser {
             RequestEntity request = new RequestEntity(sectionEntity, requestEle);
             requests.add(request);
         }
+        sectionEntity.setRequests(requests);
     }
 
 
