@@ -1,6 +1,7 @@
 package cn.ytxu.api_semi_auto_creater;
 
 import cn.ytxu.api_semi_auto_creater.creater.Property;
+import cn.ytxu.api_semi_auto_creater.creater.request.PublicApiClassCreater;
 import cn.ytxu.api_semi_auto_creater.entity.DocumentEntity;
 import cn.ytxu.api_semi_auto_creater.entity.SectionEntity;
 
@@ -31,7 +32,7 @@ public class Creater {
 //        }
 
         // 2 create api request interface files, and maybe used the result entity
-//        new PublicApiClassCreater(document).start();
+        new PublicApiClassCreater(document).start();
 //        for (CategoryEntity category : categorys) {
 //            RequestInterfaceCreater creater = RequestInterfaceCreater.getInstance();
 //            creater.create(category, api);
