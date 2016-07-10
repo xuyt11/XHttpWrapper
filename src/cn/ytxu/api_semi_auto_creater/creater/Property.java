@@ -38,7 +38,7 @@ public class Property {
     public static String getValue(String key) {
         Property property = data.get(key);
         if (property == null) {// not found target property
-            throw new RuntimeException("can not found target property, key:" + key);
+            throw new NullPointerException("can not found target property, key:" + key);
         }
 
         if (property.val != null) {
@@ -51,7 +51,7 @@ public class Property {
                 return value.val;
             }
         }
-        throw new RuntimeException("can not found valite data in this os");
+        throw new IllegalStateException("can not found valite data in this os");
     }
 
     static class PropertyParser {
@@ -230,7 +230,7 @@ public class Property {
             String value;
             try {
                 value = getValue(key);
-            } catch (Exception ignore) {
+            } catch (NullPointerException ignore) {
                 return;
             }
 
