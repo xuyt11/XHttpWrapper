@@ -2,7 +2,7 @@
 <!-- http公开api接口模板 -->
 <header>
     <property key="projectDir" desc="项目所在的根文件夹">
-        <value key="Window" val="I:/NewChamaStudio/newchama_android/NewChama/"/>
+        <value key="Windows" val="I:/NewChamaStudio/newchama_android/NewChama/"/>
         <value key="Mac OS" val="/Users/newchama/Documents/ytxu/newchama_android/NewChama/"/>
     </property>
 
