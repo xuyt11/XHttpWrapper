@@ -24,7 +24,7 @@ public class Creater {
             throw new RuntimeException("the sections of the api is null or empty, so end...");
         }
 
-        Property.init();
+        Property.getValue(null);
         // 1 create api result entity class files
 //        for (CategoryEntity category : categorys) {
 //            ResponseCategoryCreater creater = ResponseCategoryCreater.getInstance();

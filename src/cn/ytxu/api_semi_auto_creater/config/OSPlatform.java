@@ -1,4 +1,4 @@
-package cn.ytxu.apacer.config.system_platform;
+package cn.ytxu.api_semi_auto_creater.config;
 
 /**
  * 操作系统平台：
@@ -42,23 +42,26 @@ public enum OSPlatform {
     Others("Others");
 
     private static final String CurrentOSName = System.getProperty("os.name").toLowerCase();
+    private final String osName;
 
-    private final String description;
-
-    OSPlatform(String desc) {
-        this.description = desc;
+    OSPlatform(String osName) {
+        this.osName = osName;
     }
 
     public String toString() {
-        return description;
+        return osName;
     }
 
     public boolean isThisOS() {
-        return CurrentOSName.indexOf(description.toLowerCase()) >= 0;
+        return CurrentOSName.indexOf(osName.toLowerCase()) >= 0;
     }
 
     public boolean isWin10() {
         return Windows.isThisOS() && CurrentOSName.indexOf("10") > 0;
+    }
+
+    public String getOsName() {
+        return osName;
     }
 
     public static String getCurrentOSName() {
