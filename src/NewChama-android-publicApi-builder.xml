@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" xmlns:ytxu="http://schemas.ytxu.com/" ?>
+<!-- http公开api接口模板 -->
+<request>
+    <header>
+    </header>
+
+    <body>
+        <line list="versionCode" desc="类所在的包">value="${packagePath};\n\n"</line>
+        <!--<retain key="import">-->
+        <!--</retain>-->
+        <line desc="类文件起始行">
+            public class ${className} {
+        </line>
+
+        <line desc="类文件结束行">
+            }
+        </line>
+
+    </body>
+
+</request>
