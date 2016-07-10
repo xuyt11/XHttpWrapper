@@ -16,7 +16,7 @@ public class Win10ConfigDir implements Config.ConfigDir {
     private static final String TARGET_RESPONSE_ENTITY_FILE_DIR = TARGET_AUTO_CREATE_DIR + "newchama.model/src/main/java/com/newchama/api/";
     private static final String TARGET_REQUEST_FILE_DIR = TARGET_AUTO_CREATE_DIR + "newchama.common/src/main/java/com/newchama/api/";
     // if false, output to test dir, otherwise to target dir
-    private static final boolean isTarget = false;
+    private static final boolean isTarget = true;
 
     private enum dir {
         test(TEST_AUTO_CREATE_DIR, TEST_RESPONSE_ENTITY_FILE_DIR, TEST_REQUEST_FILE_DIR),

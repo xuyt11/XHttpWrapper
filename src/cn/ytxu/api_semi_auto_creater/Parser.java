@@ -22,7 +22,7 @@ public class Parser {
 
     }
 
-    public void start() {
+    public DocumentEntity start() {
         // 1 get docment from html content
         parseDocumentAndGetSections();
         // 2 parse section
@@ -44,6 +44,8 @@ public class Parser {
         // 9 parse defindParamterEntity
 
         // 10 use defindParamterEntity to filter header,input, output
+
+        return docment;
     }
 
     private void parseDocumentAndGetSections() {
