@@ -47,8 +47,8 @@ public class ${section_class_name} {
 	 * @requestUrl ${request_url}
 	 */
 	public RequestHandle ${request_name}(Context cxt001,
-	    <list each="RESTful_ids" singleLine>
-        String ${RESTful_id_name},
+	    <list each="RESTful_fields" singleLine>
+        String ${RESTful_field_name},
         </list>
 	    <list each="headers" singleLine>
 	    ${header_type} ${header_name},
@@ -60,7 +60,12 @@ public class ${section_class_name} {
 		NetRequest request = new NetRequest();
 		request.setMethod(Method.${request_METHOD});
 
+        <if isTure="request_url_is_RESTful">
+        <list each="RESTful_fields" isReplace replace_key="restful_name_list" list_value=", ${RESTful_field_name}"/>
+		request.setUrl(String.format(getFullUrl("${request_convert_url}")${restful_name_list}));
+        <if_else>
 		request.setUrl(getFullUrl("${request_url}"));
+        <if_end>
 
 	    <list each="headers">
    	    request.addHeader("${header_name}", ${header_name});
