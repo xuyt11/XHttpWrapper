@@ -37,14 +37,18 @@ public class ${section_class_name} {
 	 * @param ${header_name} ${header_desc}
 	 </list>
 	 <list each="inputs" >
+	 <if isTure="input_isOptional">
+	 * @param ${input_name} isOptional ${input_desc}
+	 <if_else>
 	 * @param ${input_name} ${input_desc}
+	 <if_end>
 	 </list>
 	 * @version ${request_version}
 	 * @requestUrl ${request_url}
 	 */
 	public RequestHandle ${request_name}(Context cxt001,
-	    <list each="RESTful" singleLine >
-        ${header_type} ${header_name},
+	    <list each="RESTful_ids" singleLine >
+        String ${RESTful_id_name},
         </list>
 	    <list each="headers" singleLine >
 	    ${header_type} ${header_name},
@@ -59,10 +63,14 @@ public class ${section_class_name} {
 		request.setUrl(getFullUrl("${request_url}"));
 
 	    <list each="headers" >
-   	    request.addHeader("${header_name}", ${header_name});// ${header_desc}
+   	    request.addHeader("${header_name}", ${header_name});
         </list>
 	    <list each="inputs" >
-   	    request.addHeader("${input_name}", ${input_name});// ${input_desc}
+	    <if isTure="input_isOptional">
+	    if (null != ${input_name}) request.addHeader("${input_name}", ${input_name});
+	    <if_else>
+	    request.addHeader("${input_name}", ${input_name});
+	    <if_end>
         </list>
 
 		return NetWorker.execute(cxt001, request, response);
