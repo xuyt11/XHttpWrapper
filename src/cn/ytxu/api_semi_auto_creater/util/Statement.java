@@ -16,7 +16,7 @@ public enum Statement {
 
         @Override
         public int getAndAddRecord(String content, List<StatementRecord> records, int index, int size, List<String> contents) {
-            records.add(StatementRecord.getText(content));
+            records.add(new StatementRecord(this, content, null));
             return index;
         }
 
@@ -28,27 +28,15 @@ public enum Statement {
     foreach("循环", Pattern.compile("(<foreach each=\")\\w+(\">)"), "</foreach>") {
         @Override
         public int getAndAddRecord(String content, List<StatementRecord> records, int index, int size, List<String> contents) {
-            List<String> foreachContents = getForeachContents(index, size, contents);
-            records.add(StatementRecord.getForeach(content, foreachContents));
+            List<String> foreachContents = getContents(index, size, contents);
+            records.add(new StatementRecord(this, content, foreachContents));
             return index + foreachContents.size() + 1;// startTagIndex + contentSize + endTag
-        }
-
-        private List<String> getForeachContents(int index, int size, List<String> contents) {
-            List<String> datas = new ArrayList<>();
-            for (int i = index + 1; i < size; i++) {
-                String data = contents.get(index);
-                if (isEndTag(data)) {
-                    break;
-                }
-                datas.add(data);
-            }
-            return datas;
         }
     },
     retain("保留代码区域", Pattern.compile("(<retain type=\")\\w+(\"/>)"), null) {
         @Override
         public int getAndAddRecord(String content, List<StatementRecord> records, int index, int size, List<String> contents) {
-            records.add(StatementRecord.getRetain(content));
+            records.add(new StatementRecord(this, content, null));
             return index;
         }
 
@@ -60,21 +48,25 @@ public enum Statement {
     list("在foreach中的循环，防止foreach循环嵌套", Pattern.compile("(<list each=\")\\w+(\">)"), "</list>") {
         @Override
         public int getAndAddRecord(String content, List<StatementRecord> records, int index, int size, List<String> contents) {
-
-            return index;
+            List<String> listContents = getContents(index, size, contents);
+            records.add(new StatementRecord(this, content, listContents));
+            return index + listContents.size() + 1;// startTagIndex + contentSize + endTag
         }
     },
     if_else("if else 条件判断", Pattern.compile("(<if isTure=\")\\w+(\">)"), "</if_end>") {
         @Override
         public int getAndAddRecord(String content, List<StatementRecord> records, int index, int size, List<String> contents) {
-
-            return index;
+            List<String> ifElseContents = getContents(index, size, contents);
+            records.add(new StatementRecord(this, content, ifElseContents));
+            return index + ifElseContents.size() + 1;// startTagIndex + contentSize + endTag
         }
     },
     list_replace("替换数组的文本", Pattern.compile("(<list_replace each=\")\\w+(\" replace_key=\")\\w+(\" list_value=\")\\w+(\">)"), "</list_replace>") {
         @Override
         public int getAndAddRecord(String content, List<StatementRecord> records, int index, int size, List<String> contents) {
-            return 0;
+            List<String> ifElseContents = getContents(index, size, contents);
+            records.add(new StatementRecord(this, content, ifElseContents));
+            return index + ifElseContents.size() + 1;// startTagIndex + contentSize + endTag
         }
     };
 
@@ -101,9 +93,22 @@ public enum Statement {
      */
     public abstract int getAndAddRecord(String content, List<StatementRecord> records, int index, int size, List<String> contents);
 
-    public boolean isEndTag(String content) {
+    List<String> getContents(int index, int size, List<String> contents) {
+        List<String> datas = new ArrayList<>();
+        for (int i = index + 1; i < size; i++) {
+            String data = contents.get(index);
+            if (isEndTag(data)) {
+                break;
+            }
+            datas.add(data);
+        }
+        return datas;
+    }
+
+    boolean isEndTag(String content) {
         return endTag.equals(content.trim());
     }
+
 
     public static Statement get(String content) {
         for (Statement s : Statement.values()) {

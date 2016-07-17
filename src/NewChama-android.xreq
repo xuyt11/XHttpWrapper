@@ -61,7 +61,7 @@ public class ${section_class_name} {
 		request.setMethod(Method.${request_METHOD});
 
         <if isTure="request_url_is_RESTful">
-        <list_replace each="RESTful_fields" isReplace replace_key="restful_name_list" list_value=", ${RESTful_field_name}">
+        <list_replace each="RESTful_fields" replace_key="restful_name_list" list_value=", ${RESTful_field_name}">
 		request.setUrl(String.format(getFullUrl("${request_convert_url}")${restful_name_list}));
 		</list_replace>
         <if_else>

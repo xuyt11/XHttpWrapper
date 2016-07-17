@@ -17,34 +17,13 @@ public class StatementEngine {
         this.records = new ArrayList<>();
     }
 
-    public void start() {
+    public List<StatementRecord> start() {
         for (int i = 0, size = contents.size(); i < size; i++) {
             String content = contents.get(i);
             Statement statement = Statement.get(content);
-            statement.getAndAddRecord(content, records, i, size, contents);
-            switch (statement) {
-                case list: {
-                    // TODO
-                }
-                break;
-                case if_else: {
-                    // TODO
-                }
-                break;
-                case list_replace: {
-                    // TODO
-                }
-                break;
-                case text:
-                case retain:
-                case foreach: {
-                }
-                break;
-                default:
-                    throw new IllegalStateException("unknow statement type :" + statement);
-            }
-
+            i = statement.getAndAddRecord(content, records, i, size, contents);
         }
+        return records;
     }
 
 
