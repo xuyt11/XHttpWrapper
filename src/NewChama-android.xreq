@@ -41,7 +41,7 @@ public class ${section_class_name} {
 	 * @param ${input_name} isOptional ${input_desc}
 	 <if_else>
 	 * @param ${input_name} ${input_desc}
-	 <if_end>
+	 </if_end>
 	 </list>
 	 * @version ${request_version}
 	 * @requestUrl ${request_url}
@@ -66,7 +66,7 @@ public class ${section_class_name} {
 		</list_replace>
         <if_else>
 		request.setUrl(getFullUrl("${request_url}"));
-        <if_end>
+        </if_end>
 
 	    <list each="headers">
    	    request.addHeader("${header_name}", ${header_name});
@@ -76,7 +76,7 @@ public class ${section_class_name} {
 	    if (null != ${input_name}) request.addHeader("${input_name}", ${input_name});
 	    <if_else>
 	    request.addHeader("${input_name}", ${input_name});
-	    <if_end>
+	    </if_end>
         </list>
 
 		return NetWorker.execute(cxt001, request, response);
