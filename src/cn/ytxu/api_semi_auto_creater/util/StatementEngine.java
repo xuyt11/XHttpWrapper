@@ -31,6 +31,10 @@ public class StatementEngine {
                     // TODO
                 }
                 break;
+                case list_replace: {
+                    // TODO
+                }
+                break;
                 case text:
                 case retain:
                 case foreach: {

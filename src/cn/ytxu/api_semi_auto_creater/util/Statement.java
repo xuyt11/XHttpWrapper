@@ -29,9 +29,8 @@ public enum Statement {
         @Override
         public int getAndAddRecord(String content, List<StatementRecord> records, int index, int size, List<String> contents) {
             List<String> foreachContents = getForeachContents(index, size, contents);
-//            Statement.foreach.getAndAddRecord(content, records, datas);
             records.add(StatementRecord.getForeach(content, foreachContents));
-            return index + foreachContents.size() + 1;
+            return index + foreachContents.size() + 1;// startTagIndex + contentSize + endTag
         }
 
         private List<String> getForeachContents(int index, int size, List<String> contents) {
@@ -70,6 +69,12 @@ public enum Statement {
         public int getAndAddRecord(String content, List<StatementRecord> records, int index, int size, List<String> contents) {
 
             return index;
+        }
+    },
+    list_replace("替换数组的文本", Pattern.compile("(<list_replace each=\")\\w+(\" replace_key=\")\\w+(\" list_value=\")\\w+(\">)"), "</list_replace>") {
+        @Override
+        public int getAndAddRecord(String content, List<StatementRecord> records, int index, int size, List<String> contents) {
+            return 0;
         }
     };
 

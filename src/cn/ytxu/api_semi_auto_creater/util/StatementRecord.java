@@ -33,6 +33,8 @@ public class StatementRecord {
         record.statement = Statement.foreach;
         record.content = content;
         record.contents = foreachContents;
+        // TODO 使用StatementEngine遍历foreachContents
+//        TODO 并将records添加到record.subs上
         return record;
     }
 }
