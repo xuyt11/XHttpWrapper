@@ -8,25 +8,17 @@ import java.util.List;
  */
 public class StatementRecord {
 
+    private Statement statement;// 该条表达式的类型
+    private String content;// 表达式的首行
+    private List<String> contents;// 表达式的所有内容
+
     private List<StatementRecord> subs;
 
-    /**
-     * 表达式枚举
-     */
-    public enum Statement {
-        text("普通的文本"),
-        foreach("循环"),
-        retain("保留代码区域"),
-        list("在foreach中的循环，防止foreach循环嵌套"),
-        if_else("if else 条件判断");
-
-        private final String tag;
-
-        Statement(String tag) {
-            this.tag = tag;
-        }
-
+    public static StatementRecord getText(String content) {
+        StatementRecord record = new StatementRecord();
+        record.statement = Statement.text;
+        record.content = content;
+        return record;
     }
-
 
 }

@@ -100,7 +100,6 @@ public class XTempUtil {
         Pattern p = Pattern.compile("(<foreach each=\")\\w+(\">)");
         Matcher m = p.matcher(regStr);
         while (m.find()) {
-            m.
             System.out.println(m.group());
         }
 
