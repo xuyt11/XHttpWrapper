@@ -21,15 +21,19 @@ public class StatementEngine {
         for (int i = 0, size = contents.size(); i < size; i++) {
             String content = contents.get(i);
             Statement statement = Statement.get(content);
-            statement.getAndAddRecord(content, records);
+            statement.getAndAddRecord(content, records, i, size, contents);
             switch (statement) {
-                case foreach: {
-                }
-                break;
                 case list: {
+                    // TODO
                 }
                 break;
                 case if_else: {
+                    // TODO
+                }
+                break;
+                case text:
+                case retain:
+                case foreach: {
                 }
                 break;
                 default:
@@ -38,7 +42,6 @@ public class StatementEngine {
 
         }
     }
-
 
 
 }

@@ -28,4 +28,11 @@ public class StatementRecord {
         return record;
     }
 
+    public static StatementRecord getForeach(String content, List<String> foreachContents) {
+        StatementRecord record = new StatementRecord();
+        record.statement = Statement.foreach;
+        record.content = content;
+        record.contents = foreachContents;
+        return record;
+    }
 }
