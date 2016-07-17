@@ -18,27 +18,27 @@ public class StatementEngine {
     }
 
     public void start() {
-        for (String content : contents) {
+        for (int i = 0, size = contents.size(); i < size; i++) {
+            String content = contents.get(i);
             Statement statement = Statement.get(content);
+            statement.getAndAddRecord(content, records);
             switch (statement) {
-                case text:
-                    StatementRecord record = StatementRecord.getText(content);
-                    records.add(record);
-                    break;
-                case foreach:
-                    break;
-                case retain:
-                    break;
-                case list:
-                    break;
-                case if_else:
-                    break;
+                case foreach: {
+                }
+                break;
+                case list: {
+                }
+                break;
+                case if_else: {
+                }
+                break;
                 default:
                     throw new IllegalStateException("unknow statement type :" + statement);
             }
 
         }
     }
+
 
 
 }

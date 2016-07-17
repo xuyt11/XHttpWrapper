@@ -21,4 +21,11 @@ public class StatementRecord {
         return record;
     }
 
+    public static StatementRecord getRetain(String content) {
+        StatementRecord record = new StatementRecord();
+        record.statement = Statement.retain;
+        record.content = content;
+        return record;
+    }
+
 }
