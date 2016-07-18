@@ -1,6 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.util;
 
-import cn.ytxu.api_semi_auto_creater.util.statement.StatementEngine;
+import cn.ytxu.api_semi_auto_creater.util.statement.StatementRecord;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -50,7 +50,8 @@ public class XTempUtil {
 
     private void start() {
         List<String> contents = getContents();
-        new StatementEngine(contents).start();
+        List<StatementRecord> records = StatementRecord.getRecords(contents);
+        // TODO parse records
     }
 
     private List<String> getContents() {

@@ -1,5 +1,7 @@
 package cn.ytxu.api_semi_auto_creater.util.statement;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -22,5 +24,25 @@ public abstract class StatementRecord {
 
     /** 解析表达式 */
     public abstract void parse();
+
+
+    public static List<StatementRecord> getRecords(List<String> contents) {
+        List<StatementRecord> records = new ArrayList<>();
+
+        Iterator<String> iterator = contents.iterator();
+
+        while (iterator.hasNext()) {
+            String content = iterator.next();
+            Statement statement = Statement.get(content);
+            statement.getAndAddRecord(content, records, iterator);
+        }
+        return records;
+    }
+
+    public static void parse(List<StatementRecord> records) {
+        for (StatementRecord record : records) {
+            record.parse();
+        }
+    }
 
 }
