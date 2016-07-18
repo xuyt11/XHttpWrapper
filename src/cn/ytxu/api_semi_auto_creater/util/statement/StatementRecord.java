@@ -6,7 +6,7 @@ import java.util.List;
  * Created by ytxu on 2016/7/17.
  * 表达式记录
  */
-public class StatementRecord {
+public abstract class StatementRecord {
 
     protected Statement statement;// 该条表达式的类型
     protected String startTagContent;// 表达式的首行
@@ -20,5 +20,7 @@ public class StatementRecord {
         this.contents = contents;
     }
 
+    /** 解析表达式 */
+    public abstract void parse();
 
 }

@@ -15,6 +15,9 @@ public class TextStatementRecord extends StatementRecord {
     }
 
 
-
+    @Override
+    public void parse() {
+        // TODO
+    }
 
 }

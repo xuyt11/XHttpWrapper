@@ -18,4 +18,10 @@ public class ListReplaceStatementRecord extends StatementRecord {
 
 
 
+    @Override
+    public void parse() {
+        // TODO
+    }
+
+
 }

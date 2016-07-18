@@ -1,9 +1,7 @@
 package cn.ytxu.api_semi_auto_creater.util.statement;
 
-import cn.ytxu.api_semi_auto_creater.util.statement.Statement;
-import cn.ytxu.api_semi_auto_creater.util.statement.StatementRecord;
-
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -20,14 +18,25 @@ public class StatementEngine {
         this.records = new ArrayList<>();
     }
 
-    public List<StatementRecord> start() {
-        for (int i = 0, size = contents.size(); i < size; i++) {
-            String content = contents.get(i);
-            Statement statement = Statement.get(content);
-            i = statement.getAndAddRecord(content, records, i, size, contents);
-        }
-        return records;
+    public void start() {
+        get();
+        parse();
     }
 
+    public void get() {
+        Iterator<String> iterator = contents.iterator();
+        while (iterator.hasNext()) {
+            String content = iterator.next();
+            Statement statement = Statement.get(content);
+            statement.getAndAddRecord(content, records, iterator);
+        }
+    }
+
+    public void parse() {
+        for (StatementRecord record : records) {
+            record.parse();
+
+        }
+    }
 
 }

@@ -3,6 +3,7 @@ package cn.ytxu.api_semi_auto_creater.util.statement;
 import cn.ytxu.api_semi_auto_creater.util.statement.record.*;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -17,9 +18,8 @@ public enum Statement {
         }
 
         @Override
-        public int getAndAddRecord(String content, List<StatementRecord> records, int index, int size, List<String> contents) {
+        public void getAndAddRecord(String content, List<StatementRecord> records, Iterator<String> contentIterator) {
             records.add(new TextStatementRecord(this, content));
-            return index;
         }
 
         @Override
@@ -29,17 +29,15 @@ public enum Statement {
     },
     foreach("循环", Pattern.compile("(<foreach each=\")\\w+(\">)"), "</foreach>") {
         @Override
-        public int getAndAddRecord(String content, List<StatementRecord> records, int index, int size, List<String> contents) {
-            List<String> foreachContents = getContents(index, size, contents);
+        public void getAndAddRecord(String content, List<StatementRecord> records, Iterator<String> contentIterator) {
+            List<String> foreachContents = getContents(contentIterator);
             records.add(new ForeachStatementRecord(this, content, foreachContents));
-            return index + foreachContents.size() + 1;// startTagIndex + contentSize + endTag
         }
     },
     retain("保留代码区域", Pattern.compile("(<retain type=\")\\w+(\"/>)"), null) {
         @Override
-        public int getAndAddRecord(String content, List<StatementRecord> records, int index, int size, List<String> contents) {
+        public void getAndAddRecord(String content, List<StatementRecord> records, Iterator<String> contentIterator) {
             records.add(new RetainStatementRecord(this, content));
-            return index;
         }
 
         @Override
@@ -49,26 +47,23 @@ public enum Statement {
     },
     list("在foreach中的循环，防止foreach循环嵌套", Pattern.compile("(<list each=\")\\w+(\">)"), "</list>") {
         @Override
-        public int getAndAddRecord(String content, List<StatementRecord> records, int index, int size, List<String> contents) {
-            List<String> listContents = getContents(index, size, contents);
+        public void getAndAddRecord(String content, List<StatementRecord> records, Iterator<String> contentIterator) {
+            List<String> listContents = getContents(contentIterator);
             records.add(new ListStatementRecord(this, content, listContents));
-            return index + listContents.size() + 1;// startTagIndex + contentSize + endTag
         }
     },
     if_else("if else 条件判断", Pattern.compile("(<if isTure=\")\\w+(\">)"), "</if_end>") {
         @Override
-        public int getAndAddRecord(String content, List<StatementRecord> records, int index, int size, List<String> contents) {
-            List<String> ifElseContents = getContents(index, size, contents);
+        public void getAndAddRecord(String content, List<StatementRecord> records, Iterator<String> contentIterator) {
+            List<String> ifElseContents = getContents(contentIterator);
             records.add(new IfElseStatementRecord(this, content, ifElseContents));
-            return index + ifElseContents.size() + 1;// startTagIndex + contentSize + endTag
         }
     },
     list_replace("替换数组的文本", Pattern.compile("(<list_replace each=\")\\w+(\" replace_key=\")\\w+(\" list_value=\")\\w+(\">)"), "</list_replace>") {
         @Override
-        public int getAndAddRecord(String content, List<StatementRecord> records, int index, int size, List<String> contents) {
-            List<String> listReplaceContents = getContents(index, size, contents);
+        public void getAndAddRecord(String content, List<StatementRecord> records, Iterator<String> contentIterator) {
+            List<String> listReplaceContents = getContents(contentIterator);
             records.add(new ListReplaceStatementRecord(this, content, listReplaceContents));
-            return index + listReplaceContents.size() + 1;// startTagIndex + contentSize + endTag
         }
     };
 
@@ -87,24 +82,21 @@ public enum Statement {
     }
 
     /**
-     * @param index
-     * @param size
      * @param content
      * @param records
-     * @return 返回遍历contents完后的index
      */
-    public abstract int getAndAddRecord(String content, List<StatementRecord> records, int index, int size, List<String> contents);
+    public abstract void getAndAddRecord(String content, List<StatementRecord> records, Iterator<String> contentIterator);
 
-    List<String> getContents(int index, int size, List<String> contents) {
-        List<String> datas = new ArrayList<>();
-        for (int i = index + 1; i < size; i++) {
-            String data = contents.get(index);
-            if (isEndTag(data)) {
+    List<String> getContents(Iterator<String> contentIterator) {
+        List<String> contents = new ArrayList<>();
+        while (contentIterator.hasNext()) {
+            String content = contentIterator.next();
+            if (isEndTag(content)) {
                 break;
             }
-            datas.add(data);
+            contents.add(content);
         }
-        return datas;
+        return contents;
     }
 
     boolean isEndTag(String content) {
