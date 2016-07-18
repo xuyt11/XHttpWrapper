@@ -1,4 +1,6 @@
-package cn.ytxu.api_semi_auto_creater.util;
+package cn.ytxu.api_semi_auto_creater.util.statement;
+
+import cn.ytxu.api_semi_auto_creater.util.statement.record.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +18,7 @@ public enum Statement {
 
         @Override
         public int getAndAddRecord(String content, List<StatementRecord> records, int index, int size, List<String> contents) {
-            records.add(new StatementRecord(this, content, null));
+            records.add(new TextStatementRecord(this, content));
             return index;
         }
 
@@ -29,14 +31,14 @@ public enum Statement {
         @Override
         public int getAndAddRecord(String content, List<StatementRecord> records, int index, int size, List<String> contents) {
             List<String> foreachContents = getContents(index, size, contents);
-            records.add(new StatementRecord(this, content, foreachContents));
+            records.add(new ForeachStatementRecord(this, content, foreachContents));
             return index + foreachContents.size() + 1;// startTagIndex + contentSize + endTag
         }
     },
     retain("保留代码区域", Pattern.compile("(<retain type=\")\\w+(\"/>)"), null) {
         @Override
         public int getAndAddRecord(String content, List<StatementRecord> records, int index, int size, List<String> contents) {
-            records.add(new StatementRecord(this, content, null));
+            records.add(new RetainStatementRecord(this, content));
             return index;
         }
 
@@ -49,7 +51,7 @@ public enum Statement {
         @Override
         public int getAndAddRecord(String content, List<StatementRecord> records, int index, int size, List<String> contents) {
             List<String> listContents = getContents(index, size, contents);
-            records.add(new StatementRecord(this, content, listContents));
+            records.add(new ListStatementRecord(this, content, listContents));
             return index + listContents.size() + 1;// startTagIndex + contentSize + endTag
         }
     },
@@ -57,16 +59,16 @@ public enum Statement {
         @Override
         public int getAndAddRecord(String content, List<StatementRecord> records, int index, int size, List<String> contents) {
             List<String> ifElseContents = getContents(index, size, contents);
-            records.add(new StatementRecord(this, content, ifElseContents));
+            records.add(new IfElseStatementRecord(this, content, ifElseContents));
             return index + ifElseContents.size() + 1;// startTagIndex + contentSize + endTag
         }
     },
     list_replace("替换数组的文本", Pattern.compile("(<list_replace each=\")\\w+(\" replace_key=\")\\w+(\" list_value=\")\\w+(\">)"), "</list_replace>") {
         @Override
         public int getAndAddRecord(String content, List<StatementRecord> records, int index, int size, List<String> contents) {
-            List<String> ifElseContents = getContents(index, size, contents);
-            records.add(new StatementRecord(this, content, ifElseContents));
-            return index + ifElseContents.size() + 1;// startTagIndex + contentSize + endTag
+            List<String> listReplaceContents = getContents(index, size, contents);
+            records.add(new ListReplaceStatementRecord(this, content, listReplaceContents));
+            return index + listReplaceContents.size() + 1;// startTagIndex + contentSize + endTag
         }
     };
 

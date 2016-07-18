@@ -1,4 +1,7 @@
-package cn.ytxu.api_semi_auto_creater.util;
+package cn.ytxu.api_semi_auto_creater.util.statement;
+
+import cn.ytxu.api_semi_auto_creater.util.statement.Statement;
+import cn.ytxu.api_semi_auto_creater.util.statement.StatementRecord;
 
 import java.util.ArrayList;
 import java.util.List;
