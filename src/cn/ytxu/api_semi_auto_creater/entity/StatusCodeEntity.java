@@ -5,13 +5,13 @@ import java.util.List;
 /**
  * Created by newchama on 16/3/30.
  */
-public class StatusCodeModel extends BaseModel<DocumentModel> {
+public class StatusCodeEntity extends BaseEntity<DocumentEntity> {
 
     private String name;
     private String value;
     private String desc;
 
-    public StatusCodeModel(String name, String desc, String value) {
+    public StatusCodeEntity(String name, String desc, String value) {
         super(null, null);// TODO 需要更改
         this.name = name;
         this.desc = desc;
@@ -31,12 +31,12 @@ public class StatusCodeModel extends BaseModel<DocumentModel> {
     }
 
     /** 获取目标状态码 */
-    public static StatusCodeModel getTarget(List<StatusCodeModel> statusCodes, String statusCode) {
+    public static StatusCodeEntity getTarget(List<StatusCodeEntity> statusCodes, String statusCode) {
         if (null == statusCode) {
             return null;
         }
 
-        for (StatusCodeModel statusCodeEntity : statusCodes) {
+        for (StatusCodeEntity statusCodeEntity : statusCodes) {
             if (statusCodeEntity.getValue().equals(statusCode)) {
                 return statusCodeEntity;
             }

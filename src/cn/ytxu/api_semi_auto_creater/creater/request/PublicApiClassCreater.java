@@ -6,8 +6,8 @@ import cn.ytxu.apacer.entity.CategoryEntity;
 import cn.ytxu.apacer.entity.MethodEntity;
 import cn.ytxu.apacer.entity.RetainEntity;
 import cn.ytxu.apacer.fileCreater.newchama.BaseCreater;
-import cn.ytxu.api_semi_auto_creater.entity.DocumentModel;
-import cn.ytxu.api_semi_auto_creater.entity.SectionModel;
+import cn.ytxu.api_semi_auto_creater.entity.DocumentEntity;
+import cn.ytxu.api_semi_auto_creater.entity.SectionEntity;
 import cn.ytxu.util.FileUtil;
 import cn.ytxu.util.LogUtil;
 import cn.ytxu.util.TextUtil;
@@ -22,11 +22,11 @@ import java.util.List;
  * 公开http接口文件生成器
  */
 public class PublicApiClassCreater {
-    private DocumentModel document;
+    private DocumentEntity document;
     private List<String> versions;
     private List<PublicApi> publicApis;
 
-    public PublicApiClassCreater(DocumentModel document) {
+    public PublicApiClassCreater(DocumentEntity document) {
         this.document = document;
     }
 
@@ -38,9 +38,9 @@ public class PublicApiClassCreater {
     private void getProperty() {
         versions = document.getVersions();
 
-        List<SectionModel> sections = document.getSections();
+        List<SectionEntity> sections = document.getSections();
         publicApis = new ArrayList<>(sections.size());
-        for (SectionModel section : sections) {
+        for (SectionEntity section : sections) {
             PublicApi publicApi = new PublicApi(section, versions);
             publicApis.add(publicApi);
         }

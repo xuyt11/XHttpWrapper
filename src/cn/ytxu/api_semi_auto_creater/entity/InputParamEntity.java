@@ -5,9 +5,9 @@ import org.jsoup.nodes.Element;
 /**
  * Created by ytxu on 2016/6/16.
  */
-public class InputParamModel extends BaseModel<RequestModel> {
+public class InputParamEntity extends BaseEntity<RequestEntity> {
 
-    public InputParamModel(RequestModel higherLevel, Element element) {
+    public InputParamEntity(RequestEntity higherLevel, Element element) {
         super(higherLevel, element);
     }
 

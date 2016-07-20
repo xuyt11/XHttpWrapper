@@ -14,15 +14,15 @@ import java.util.List;
  * Created by ytxu on 2016/6/16.
  */
 public class Parser {
-    DocumentModel docment;
-    private List<SectionModel> sections;
-    private List<RequestModel> requests;
+    DocumentEntity docment;
+    private List<SectionEntity> sections;
+    private List<RequestEntity> requests;
 
     public Parser() {
 
     }
 
-    public DocumentModel start() {
+    public DocumentEntity start() {
         // 1 get docment from html content
         parseDocumentAndGetSections();
         // 2 parse section
@@ -30,16 +30,16 @@ public class Parser {
         // 3 parse request method
         parseRequests();
         // 4 parse method RESTful url
-//        RESTfulUrlModel restfulUrl = new RESTfulUrlModel();
+//        RESTfulUrlEntity restfulUrl = new RESTfulUrlEntity();
         // 5 parse Parameter desc table element
-//        DefinedParameterModel definedParameter = new DefinedParameterModel();
+//        DefinedParameterEntity definedParameter = new DefinedParameterEntity();
         // 6 parse header and input field
-//        InputParamModel header = new InputParamModel();
-//        InputParamModel inputParam = new InputParamModel();
+//        InputParamEntity header = new InputParamEntity();
+//        InputParamEntity inputParam = new InputParamEntity();
         // 7 parse response
-//        ResponseModel response = new ResponseModel();
+//        ResponseEntity response = new ResponseEntity();
         // 8 parse response content --> output param --> response entity
-//        OutputParamModel outputParam = new OutputParamModel();
+//        OutputParamEntity outputParam = new OutputParamEntity();
 
         // 9 parse defindParamterEntity
 
@@ -55,29 +55,29 @@ public class Parser {
 
     private void parseSectionsAndGetRequests() {
         requests = new ArrayList<>();
-        for (SectionModel section : sections) {
+        for (SectionEntity section : sections) {
             SectionParser parser = new SectionParser(section);
-            List<RequestModel> datas = parser.get();
+            List<RequestEntity> datas = parser.get();
             requests.addAll(datas);
         }
     }
 
     private void parseRequests() {
-        for (RequestModel request : requests) {
+        for (RequestEntity request : requests) {
             RequestParser parser = new RequestParser(request);
             parser.get();
         }
     }
 
     private void parseDefinedParams() {
-        for (RequestModel request : requests) {
-            List<DefinedParameterModel> definedParams = request.getDefinedParams();
+        for (RequestEntity request : requests) {
+            List<DefinedParameterEntity> definedParams = request.getDefinedParams();
 
             if (ListUtil.isEmpty(definedParams)) {
                 continue;
             }
 
-            for (DefinedParameterModel definedParam : definedParams) {
+            for (DefinedParameterEntity definedParam : definedParams) {
                 DefinedParamParser parser = new DefinedParamParser(definedParam);
                 parser.get();
             }

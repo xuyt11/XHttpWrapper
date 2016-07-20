@@ -1,7 +1,7 @@
 package cn.ytxu.api_semi_auto_creater.parser;
 
 import cn.ytxu.apacer.dataParser.jsoupUtil.JsoupParserUtil;
-import cn.ytxu.api_semi_auto_creater.entity.StatusCodeModel;
+import cn.ytxu.api_semi_auto_creater.entity.StatusCodeEntity;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
@@ -17,17 +17,17 @@ public class StatusCodeParser {
     private static final String CSS_QUERY_GET_ALL_FIELD = "div > article > table > tbody > tr";
     private static final String CSS_QUERY_GET_CONTENT = "td";
 
-    public List<StatusCodeModel> parseStatusCodes(Element sectionEle) {
+    public List<StatusCodeEntity> parseStatusCodes(Element sectionEle) {
         Elements statusCodeEles = JsoupParserUtil.getEles(sectionEle, CSS_QUERY_GET_ALL_FIELD);
 
         if (null == statusCodeEles || statusCodeEles.size() <= 0) {
             return null;
         }
 
-        List<StatusCodeModel> statusCodes = new ArrayList<>(statusCodeEles.size());
+        List<StatusCodeEntity> statusCodes = new ArrayList<>(statusCodeEles.size());
 
         for (Iterator<Element> iterator = statusCodeEles.iterator(); iterator.hasNext(); ) {
-            StatusCodeModel statusCode = getStatusCode(iterator.next());
+            StatusCodeEntity statusCode = getStatusCode(iterator.next());
             statusCodes.add(statusCode);
         }
 
@@ -40,7 +40,7 @@ public class StatusCodeParser {
      * (1, '登录状态已过期，请重新登入')<br>
      * (5, '服务器错误') # 5XX 服务器错误
      */
-    private StatusCodeModel getStatusCode(Element statusCodeEle) {
+    private StatusCodeEntity getStatusCode(Element statusCodeEle) {
         Elements tdEls = getTdEles(statusCodeEle);
 
         String statusCodeName = getStatusCodeName(tdEls);
@@ -49,7 +49,7 @@ public class StatusCodeParser {
         String statusCodeDesc = getStatusCodeDesc(description, separatorIndex);
         String statusCodeNumber = getStatusCodeNumber(description, separatorIndex);
 
-        return new StatusCodeModel(statusCodeName, statusCodeDesc, statusCodeNumber);
+        return new StatusCodeEntity(statusCodeName, statusCodeDesc, statusCodeNumber);
     }
 
     private Elements getTdEles(Element statusCodeEle) {

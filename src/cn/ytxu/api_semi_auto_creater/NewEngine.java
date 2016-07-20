@@ -1,6 +1,6 @@
 package cn.ytxu.api_semi_auto_creater;
 
-import cn.ytxu.api_semi_auto_creater.entity.DocumentModel;
+import cn.ytxu.api_semi_auto_creater.entity.DocumentEntity;
 import cn.ytxu.util.LogUtil;
 
 /**
@@ -12,7 +12,7 @@ public class NewEngine {
         long start = System.currentTimeMillis();
 
         Parser parser = new Parser();
-        DocumentModel document = parser.start();
+        DocumentEntity document = parser.start();
 
         Creater creater = new Creater(document);
         creater.start();

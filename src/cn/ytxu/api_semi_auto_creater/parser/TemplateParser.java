@@ -1,6 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.parser;
 
-import cn.ytxu.api_semi_auto_creater.entity.BaseModel;
+import cn.ytxu.api_semi_auto_creater.entity.BaseEntity;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
@@ -13,12 +13,12 @@ import java.util.List;
  */
 public class TemplateParser<T> {
 
-    private BaseModel baseEntity;
+    private BaseEntity baseEntity;
     private Element baseEle;
     private Elements returnsEles;
     private List<T> returns;
 
-    public TemplateParser(BaseModel baseEntity) {
+    public TemplateParser(BaseEntity baseEntity) {
         super();
         this.baseEntity = baseEntity;
         this.baseEle = baseEntity.getElement();
