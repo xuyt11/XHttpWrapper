@@ -27,7 +27,8 @@ public class BaseParser {
             new SectionParser(section).start();
         }
 
-        
+        // TODO convert to model
+        System.out.println(doc.toString());
 
     }
 
