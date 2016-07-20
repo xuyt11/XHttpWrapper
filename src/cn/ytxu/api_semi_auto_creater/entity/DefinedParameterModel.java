@@ -7,7 +7,7 @@ import org.jsoup.nodes.Element;
  * Created by ytxu on 2016/6/16.
  * 已定义的参数：有描述信息，类型信息等
  */
-public class DefinedParameterEntity extends BaseEntity<RequestEntity> {
+public class DefinedParameterModel extends BaseModel<RequestModel> {
     private String paramCategoryName;
 
     private String name;// 字段名称
@@ -18,7 +18,7 @@ public class DefinedParameterEntity extends BaseEntity<RequestEntity> {
 //    private boolean isList = false;// 是否为数组类型：默认为不是数组类型
 //    private List<FieldEntity> subs;// 子字段集合
 
-    public DefinedParameterEntity(RequestEntity higherLevel, Element element, String paramCategoryName) {
+    public DefinedParameterModel(RequestModel higherLevel, Element element, String paramCategoryName) {
         super(higherLevel, element);
         this.paramCategoryName = paramCategoryName;
     }

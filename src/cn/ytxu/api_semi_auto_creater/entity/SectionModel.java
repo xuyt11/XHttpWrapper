@@ -9,11 +9,11 @@ import java.util.List;
  * Created by ytxu on 2016/6/16.
  * API 分类的实体类
  */
-public class SectionEntity extends BaseEntity<DocumentEntity> {
+public class SectionModel extends BaseModel<DocumentModel> {
     private String name;// 类别的名称
-    private List<RequestEntity> requests;// 该分类中所有的方法
+    private List<RequestModel> requests;// 该分类中所有的方法
 
-    public SectionEntity(DocumentEntity higherLevel, Element element) {
+    public SectionModel(DocumentModel higherLevel, Element element) {
         super(higherLevel, element);
     }
 
@@ -25,11 +25,11 @@ public class SectionEntity extends BaseEntity<DocumentEntity> {
         this.name = name;
     }
 
-    public List<RequestEntity> getRequests() {
+    public List<RequestModel> getRequests() {
         return requests;
     }
 
-    public void setRequests(List<RequestEntity> requests) {
+    public void setRequests(List<RequestModel> requests) {
         this.requests = requests;
     }
 }

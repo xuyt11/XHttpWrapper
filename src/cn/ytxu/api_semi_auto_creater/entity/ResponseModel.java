@@ -5,14 +5,14 @@ import org.jsoup.nodes.Element;
 /**
  * Created by ytxu on 2016/6/16.
  */
-public class ResponseEntity extends BaseEntity<RequestEntity> {
+public class ResponseModel extends BaseModel<RequestModel> {
 
-    private OutputParamEntity output;
+    private OutputParamModel output;
 
     private Element responseDescEle;// 该请求响应的描述
     private Element responseEle;// 请求响应报文的数据:响应头,响应体
 
-    public ResponseEntity(RequestEntity higherLevel, Element responseDescEle, Element responseEle) {
+    public ResponseModel(RequestModel higherLevel, Element responseDescEle, Element responseEle) {
         super(higherLevel, null);
         this.responseDescEle = responseDescEle;
         this.responseEle = responseEle;

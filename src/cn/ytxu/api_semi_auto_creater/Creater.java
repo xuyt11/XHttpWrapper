@@ -2,24 +2,23 @@ package cn.ytxu.api_semi_auto_creater;
 
 import cn.ytxu.api_semi_auto_creater.creater.Property;
 import cn.ytxu.api_semi_auto_creater.creater.request.PublicApiClassCreater;
-import cn.ytxu.api_semi_auto_creater.entity.DocumentEntity;
-import cn.ytxu.api_semi_auto_creater.entity.SectionEntity;
+import cn.ytxu.api_semi_auto_creater.entity.DocumentModel;
+import cn.ytxu.api_semi_auto_creater.entity.SectionModel;
 
-import java.io.*;
 import java.util.List;
 
 /**
  * Created by ytxu on 2016/6/16.
  */
 public class Creater {
-    private DocumentEntity document;
+    private DocumentModel document;
 
-    public Creater(DocumentEntity document) {
+    public Creater(DocumentModel document) {
         this.document = document;
     }
 
     public void start() {
-        List<SectionEntity> sections = document.getSections();
+        List<SectionModel> sections = document.getSections();
         if (null == sections || sections.size() <= 0) {
             throw new RuntimeException("the sections of the api is null or empty, so end...");
         }

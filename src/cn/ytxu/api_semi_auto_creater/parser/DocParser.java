@@ -4,9 +4,9 @@ import cn.ytxu.apacer.config.Config;
 import cn.ytxu.apacer.dataParser.jsoupUtil.JsoupParserUtil;
 import cn.ytxu.apacer.exception.BlankTextException;
 import cn.ytxu.apacer.exception.TargetElementsNotFoundException;
-import cn.ytxu.api_semi_auto_creater.entity.DocumentEntity;
-import cn.ytxu.api_semi_auto_creater.entity.SectionEntity;
-import cn.ytxu.api_semi_auto_creater.entity.StatusCodeEntity;
+import cn.ytxu.api_semi_auto_creater.entity.DocumentModel;
+import cn.ytxu.api_semi_auto_creater.entity.SectionModel;
+import cn.ytxu.api_semi_auto_creater.entity.StatusCodeModel;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -22,7 +22,7 @@ public class DocParser {
     private static final String CSS_QUERY_GET_VERSION_CODE = CONTENT + " > div#project > div.pull-right > div.btn-group > ul#versions > li.version > a";
     private static final String CSS_QUERY_GET_SECTION = CONTENT + " > div#sections > section";
 
-    private final DocumentEntity documentEntity;
+    private final DocumentModel documentEntity;
     private Elements sectionEls;
 
     public DocParser() {
@@ -30,10 +30,10 @@ public class DocParser {
 
         // 1 get html document
         Document doc = JsoupParserUtil.getDocument(Config.getApiDocHtmlPath());
-        documentEntity = new DocumentEntity(null, doc);
+        documentEntity = new DocumentModel(null, doc);
     }
 
-    public DocumentEntity get() {
+    public DocumentModel get() {
         // 2 get version elements then parse it
         getVersionCodes();
         // 3 get section elements
@@ -71,7 +71,7 @@ public class DocParser {
         Element statusCodeEle = getStatusCodeElement();
         sectionEls.remove(statusCodeEle);// remove status code section
 
-        List<StatusCodeEntity> statusCodes = new StatusCodeParser().parseStatusCodes(statusCodeEle);
+        List<StatusCodeModel> statusCodes = new StatusCodeParser().parseStatusCodes(statusCodeEle);
         documentEntity.setStatusCodes(statusCodes);
     }
 
@@ -94,10 +94,10 @@ public class DocParser {
     }
 
     private void setSections() {
-        List<SectionEntity> sections = new ArrayList<>(sectionEls.size());
+        List<SectionModel> sections = new ArrayList<>(sectionEls.size());
 
         for (Element sectionEle : sectionEls) {
-            SectionEntity section = new SectionEntity(documentEntity, sectionEle);
+            SectionModel section = new SectionModel(documentEntity, sectionEle);
             sections.add(section);
         }
         documentEntity.setSections(sections);

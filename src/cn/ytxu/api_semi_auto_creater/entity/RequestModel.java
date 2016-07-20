@@ -8,22 +8,22 @@ import java.util.List;
  * Created by ytxu on 2016/6/16.
  * 方法描述的实体类
  */
-public class RequestEntity extends BaseEntity<SectionEntity> {
+public class RequestModel extends BaseModel<SectionModel> {
     private String descrption;// 方法的中文名称（描述）
     private String versionCode;// 该方法的版本号
     private String methodName;// 该方法的方法名称：驼峰法命名
     private String methodType;// 请求类型:post、get、patch...
 
-    private RESTfulUrlEntity restfulUrl;// url RESTful风格的解析对象
+    private RESTfulUrlModel restfulUrl;// url RESTful风格的解析对象
 
-    private List<DefinedParameterEntity> definedParams;// 已定义了的参数
+    private List<DefinedParameterModel> definedParams;// 已定义了的参数
 
-    private List<InputParamEntity> headers;// 请求头字段
-    private List<InputParamEntity> inputParams;// 输入字段
+    private List<InputParamModel> headers;// 请求头字段
+    private List<InputParamModel> inputParams;// 输入字段
 
-    private List<ResponseEntity> responses;// 请求响应列表
+    private List<ResponseModel> responses;// 请求响应列表
 
-    public RequestEntity(SectionEntity higherLevel, Element element) {
+    public RequestModel(SectionModel higherLevel, Element element) {
         super(higherLevel, element);
     }
 
@@ -59,43 +59,43 @@ public class RequestEntity extends BaseEntity<SectionEntity> {
         this.methodType = methodType;
     }
 
-    public RESTfulUrlEntity getRestfulUrl() {
+    public RESTfulUrlModel getRestfulUrl() {
         return restfulUrl;
     }
 
-    public void setRestfulUrl(RESTfulUrlEntity restfulUrl) {
+    public void setRestfulUrl(RESTfulUrlModel restfulUrl) {
         this.restfulUrl = restfulUrl;
     }
 
-    public List<DefinedParameterEntity> getDefinedParams() {
+    public List<DefinedParameterModel> getDefinedParams() {
         return definedParams;
     }
 
-    public void setDefinedParams(List<DefinedParameterEntity> definedParams) {
+    public void setDefinedParams(List<DefinedParameterModel> definedParams) {
         this.definedParams = definedParams;
     }
 
-    public List<InputParamEntity> getHeaders() {
+    public List<InputParamModel> getHeaders() {
         return headers;
     }
 
-    public void setHeaders(List<InputParamEntity> headers) {
+    public void setHeaders(List<InputParamModel> headers) {
         this.headers = headers;
     }
 
-    public List<InputParamEntity> getInputParams() {
+    public List<InputParamModel> getInputParams() {
         return inputParams;
     }
 
-    public void setInputParams(List<InputParamEntity> inputParams) {
+    public void setInputParams(List<InputParamModel> inputParams) {
         this.inputParams = inputParams;
     }
 
-    public List<ResponseEntity> getResponses() {
+    public List<ResponseModel> getResponses() {
         return responses;
     }
 
-    public void setResponses(List<ResponseEntity> responses) {
+    public void setResponses(List<ResponseModel> responses) {
         this.responses = responses;
     }
 }

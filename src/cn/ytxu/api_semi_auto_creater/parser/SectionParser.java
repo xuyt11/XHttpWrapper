@@ -3,8 +3,8 @@ package cn.ytxu.api_semi_auto_creater.parser;
 import cn.ytxu.apacer.dataParser.jsoupUtil.JsoupParserUtil;
 import cn.ytxu.apacer.exception.BlankTextException;
 import cn.ytxu.apacer.exception.TargetElementsNotFoundException;
-import cn.ytxu.api_semi_auto_creater.entity.RequestEntity;
-import cn.ytxu.api_semi_auto_creater.entity.SectionEntity;
+import cn.ytxu.api_semi_auto_creater.entity.RequestModel;
+import cn.ytxu.api_semi_auto_creater.entity.SectionModel;
 import cn.ytxu.util.LogUtil;
 import cn.ytxu.util.TextUtil;
 import org.jsoup.nodes.Element;
@@ -20,22 +20,22 @@ import java.util.List;
 public class SectionParser {
     private static final String CSS_QUERY_FIND_CATEGORY_NAME = "h1";
 
-    private SectionEntity sectionEntity;
+    private SectionModel sectionEntity;
     private Element sectionEle;
 
     private String name;
     private String cssQuery;
     private Elements requestEles;
-    private List<RequestEntity> requests;
+    private List<RequestModel> requests;
 
-    public SectionParser(SectionEntity section) {
+    public SectionParser(SectionModel section) {
         super();
         sectionEntity = section;
         this.sectionEle = section.getElement();
         requests = new ArrayList<>();
     }
 
-    public List<RequestEntity> get() {
+    public List<RequestModel> get() {
         getSectionName();
 
         // 1、生成一个需要搜索到的div元素中，id属性的开始字符串
@@ -77,7 +77,7 @@ public class SectionParser {
         }
 
         for (Element requestEle : requestEles) {
-            RequestEntity request = new RequestEntity(sectionEntity, requestEle);
+            RequestModel request = new RequestModel(sectionEntity, requestEle);
             requests.add(request);
         }
         sectionEntity.setRequests(requests);

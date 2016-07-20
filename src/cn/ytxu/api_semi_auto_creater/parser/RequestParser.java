@@ -36,12 +36,12 @@ public class RequestParser {
     private static final String CSS_QUERY_GET_INPUT_PARAM = "div[class$=param-fields] > div.control-group";
 
 
-    private RequestEntity baseEntity;
+    private RequestModel baseEntity;
     private Element baseEle;
 
     private Element articleEle;
 
-    public RequestParser(RequestEntity baseEntity) {
+    public RequestParser(RequestModel baseEntity) {
         super();
         this.baseEntity = baseEntity;
         this.baseEle = baseEntity.getElement();
@@ -98,7 +98,7 @@ public class RequestParser {
     private void getMethodUrl(Element preEle) {
         Element methodUrlEle = JsoupParserUtil.getFirstEle(preEle, CSS_QUERY_GET_METHOD_URL);
         String methodUrl = JsoupParserUtil.getText(methodUrlEle);
-        baseEntity.setRestfulUrl(new RESTfulUrlEntity(baseEntity, methodUrl));
+        baseEntity.setRestfulUrl(new RESTfulUrlModel(baseEntity, methodUrl));
 //        return RESTfulAPIParser.parse(methodUrl);
     }
 
@@ -117,10 +117,10 @@ public class RequestParser {
         }
 
         private void setDefinedParams(Elements descParamCategoryEles) {
-            List<DefinedParameterEntity> definedParams = new ArrayList<>();
+            List<DefinedParameterModel> definedParams = new ArrayList<>();
 
             for (Element descParamCategoryEle : descParamCategoryEles) {
-                List<DefinedParameterEntity> defineds = getDefinedParams(descParamCategoryEle);
+                List<DefinedParameterModel> defineds = getDefinedParams(descParamCategoryEle);
                 if (JsoupParserUtil.isNullOrEmpty(defineds)) {
                     continue;
                 }
@@ -130,16 +130,16 @@ public class RequestParser {
             baseEntity.setDefinedParams(definedParams);
         }
 
-        private List<DefinedParameterEntity> getDefinedParams(Element descParamCategoryEle) {
+        private List<DefinedParameterModel> getDefinedParams(Element descParamCategoryEle) {
             Elements descParamEles = JsoupParserUtil.getEles(descParamCategoryEle, CSS_QUERY_GET_DESC_PARAM);
             if (JsoupParserUtil.isNullOrEmpty(descParamEles)) {
                 return null;
             }
 
-            List<DefinedParameterEntity> definedParams = new ArrayList<>(descParamEles.size());
+            List<DefinedParameterModel> definedParams = new ArrayList<>(descParamEles.size());
             String paramCategoryName = getParamCategoryName(descParamCategoryEle);
             for (Element descParamEle : descParamEles) {
-                DefinedParameterEntity definedParam = new DefinedParameterEntity(baseEntity, descParamEle, paramCategoryName);
+                DefinedParameterModel definedParam = new DefinedParameterModel(baseEntity, descParamEle, paramCategoryName);
                 definedParams.add(definedParam);
             }
 
@@ -183,9 +183,9 @@ public class RequestParser {
     }
 
     private void setHeaders(Elements fieldEls) {
-        List<InputParamEntity> headers = new ArrayList<>(fieldEls.size());
+        List<InputParamModel> headers = new ArrayList<>(fieldEls.size());
         for (Element fieldEle : fieldEls) {
-            InputParamEntity header = new InputParamEntity(baseEntity, fieldEle);
+            InputParamModel header = new InputParamModel(baseEntity, fieldEle);
             headers.add(header);
         }
         baseEntity.setHeaders(headers);
@@ -203,9 +203,9 @@ public class RequestParser {
     }
 
     private void setInputParams(Elements fieldEls) {
-        List<InputParamEntity> inputs = new ArrayList<>(fieldEls.size());
+        List<InputParamModel> inputs = new ArrayList<>(fieldEls.size());
         for (Element fieldEle : fieldEls) {
-            InputParamEntity input = new InputParamEntity(baseEntity, fieldEle);
+            InputParamModel input = new InputParamModel(baseEntity, fieldEle);
             inputs.add(input);
         }
         baseEntity.setInputParams(inputs);
@@ -225,7 +225,7 @@ public class RequestParser {
         }
 
         setResponses(responseDescEls, responseEls);
-//        List<ResponseEntity> responses = new ResponseParser().getResponses(responseDescEls, responseEls);
+//        List<ResponseModel> responses = new ResponseParser().getResponses(responseDescEls, responseEls);
 //        responses = new OutputParamsParser().parseResponseContent(responses, descParams);
     }
 
@@ -238,9 +238,9 @@ public class RequestParser {
     }
 
     private void setResponses(Elements responseDescEls, Elements responseEls) {
-        List<ResponseEntity> responses = new ArrayList<>(responseDescEls.size());
+        List<ResponseModel> responses = new ArrayList<>(responseDescEls.size());
         for (int i = 0, count = responseDescEls.size(); i < count; i++) {
-            ResponseEntity response = new ResponseEntity(baseEntity, responseDescEls.get(i), responseEls.get(i));
+            ResponseModel response = new ResponseModel(baseEntity, responseDescEls.get(i), responseEls.get(i));
             responses.add(response);
         }
         baseEntity.setResponses(responses);
