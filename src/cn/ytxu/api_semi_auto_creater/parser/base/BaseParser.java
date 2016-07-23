@@ -32,10 +32,8 @@ public class BaseParser {
             new SectionParser(section).start();
         }
 
-        // TODO convert to model
-
-        new DocConverter(doc).invoke();
-
+        DocModel docModel = new Converter(doc).invoke();
+        System.out.println("aaa");
     }
 
 
@@ -186,60 +184,58 @@ public class BaseParser {
         new BaseParser().start();
     }
 
-    private static class DocConverter {
+    private static class Converter {
         private DocEntity doc;
 
-        public DocConverter(DocEntity doc) {
+        public Converter(DocEntity doc) {
             this.doc = doc;
         }
 
-        public void invoke() {
+        public DocModel invoke() {
             DocModel docModel = new DocModel(doc.getElement(), doc.getStatusCode());
-            List<VersionModel> versionModels = new VersionConverter(doc.getVersions(), docModel).invoke();
-            new SectionConverter(doc, versionModels).invoke();
+
+            List<VersionModel> versionModels = new VersionConverter(doc, docModel).invoke();
+
+
             docModel.setVersions(versionModels);
+
+            return docModel;
         }
     }
 
     private static class VersionConverter {
         private List<String> versionStrs;
+        private List<DocEntity.SectionEntity> sections;
         private DocModel docModel;
 
-        public VersionConverter(List<String> versionStrs, DocModel docModel) {
-            this.versionStrs = versionStrs;
+        public VersionConverter(DocEntity doc, DocModel docModel) {
+            this.versionStrs = doc.getVersions();
+            this.sections = doc.getSections();
             this.docModel = docModel;
         }
 
         public List<VersionModel> invoke() {
+            List<VersionModel> versionModels = getVersionModels();
+            for (VersionModel versionModel : versionModels) {
+                String versionName = versionModel.getName();
+                List<DocEntity.SectionEntity> sectionEntities = findTargetVersionSections(versionName, sections);
+                if (sectionEntities.size() <= 0) {
+                    continue;
+                }
+
+                List<SectionModel> sectionModels = new SectionConverter(versionModel, sectionEntities).invoke();
+                versionModel.setSections(sectionModels);
+            }
+            return versionModels;
+        }
+
+        private List<VersionModel> getVersionModels() {
             List<VersionModel> versionModels = new ArrayList<>(versionStrs.size());
             for (String versionStr : versionStrs) {
                 VersionModel versionModel = new VersionModel(docModel, versionStr);
                 versionModels.add(versionModel);
             }
             return versionModels;
-        }
-    }
-
-    private static class SectionConverter {
-        private DocEntity doc;
-        private List<VersionModel> versionModels;
-
-        public SectionConverter(DocEntity doc, List<VersionModel> versionModels) {
-            this.doc = doc;
-            this.versionModels = versionModels;
-        }
-
-        public void invoke() {
-            for (VersionModel versionModel : versionModels) {
-                String versionName = versionModel.getName();
-                List<DocEntity.SectionEntity> sectionEntities = findTargetVersionSections(versionName, doc.getSections());
-                if (sectionEntities.size() <= 0) {
-                    continue;
-                }
-
-                List<SectionModel> sectionModels = convertSection(versionModel, sectionEntities);
-                versionModel.setSections(sectionModels);
-            }
         }
 
         @NotNull
@@ -262,14 +258,25 @@ public class BaseParser {
         private List<DocEntity.RequestEntity> findTargetVersionRequests(String versionName, DocEntity.SectionEntity section) {
             List<DocEntity.RequestEntity> newRequests = new ArrayList<>();
             for (DocEntity.RequestEntity request : section.getRequests()) {
-                if (versionName.equals(request.getName())) {
+                if (versionName.equals(request.getVersion())) {
                     newRequests.add(request);
                 }
             }
             return newRequests;
         }
 
-        private List<SectionModel> convertSection(VersionModel versionModel, List<DocEntity.SectionEntity> sectionEntities) {
+    }
+
+    private static class SectionConverter {
+        private VersionModel versionModel;
+        private List<DocEntity.SectionEntity> sectionEntities;
+
+        public SectionConverter(VersionModel versionModel, List<DocEntity.SectionEntity> sectionEntities) {
+            this.versionModel = versionModel;
+            this.sectionEntities = sectionEntities;
+        }
+
+        public List<SectionModel> invoke() {
             List<SectionModel> sectionModels = new ArrayList<>(sectionEntities.size());
             for (DocEntity.SectionEntity sectionEntity : sectionEntities) {
                 SectionModel sectionModel = new SectionModel(versionModel, sectionEntity.getElement(), sectionEntity.getName());
@@ -282,23 +289,24 @@ public class BaseParser {
             return sectionModels;
         }
 
-        private static class RequestConverter {
-            private DocEntity.SectionEntity sectionEntity;
-            private SectionModel sectionModel;
+    }
 
-            public RequestConverter(DocEntity.SectionEntity sectionEntity, SectionModel sectionModel) {
-                this.sectionEntity = sectionEntity;
-                this.sectionModel = sectionModel;
-            }
+    private static class RequestConverter {
+        private DocEntity.SectionEntity sectionEntity;
+        private SectionModel sectionModel;
 
-            public List<RequestModel> invoke() {
-                List<RequestModel> requestModels = new ArrayList<>(sectionEntity.getRequests().size());
-                for (DocEntity.RequestEntity requestEntity : sectionEntity.getRequests()) {
-                    RequestModel requestModel = new RequestModel(sectionModel, sectionModel.getElement(), requestEntity.getName(), requestEntity.getVersion());
-                    requestModels.add(requestModel);
-                }
-                return requestModels;
+        public RequestConverter(DocEntity.SectionEntity sectionEntity, SectionModel sectionModel) {
+            this.sectionEntity = sectionEntity;
+            this.sectionModel = sectionModel;
+        }
+
+        public List<RequestModel> invoke() {
+            List<RequestModel> requestModels = new ArrayList<>(sectionEntity.getRequests().size());
+            for (DocEntity.RequestEntity requestEntity : sectionEntity.getRequests()) {
+                RequestModel requestModel = new RequestModel(sectionModel, sectionModel.getElement(), requestEntity.getName(), requestEntity.getVersion());
+                requestModels.add(requestModel);
             }
+            return requestModels;
         }
     }
 
