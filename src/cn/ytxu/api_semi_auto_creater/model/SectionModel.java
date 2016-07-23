@@ -7,10 +7,10 @@ import java.util.List;
 /**
  * Created by ytxu on 2016/7/20.
  */
-public class VersionModel extends BaseModel<DocModel> {
-    private List<SectionModel> sections;
+public class SectionModel extends BaseModel<VersionModel> {
+    private List<RequestModel> requests;
 
-    public VersionModel(DocModel higherLevel, Element element) {
+    public SectionModel(VersionModel higherLevel, Element element) {
         super(higherLevel, element);
     }
 
