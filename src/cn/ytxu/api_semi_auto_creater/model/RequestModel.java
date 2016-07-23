@@ -9,9 +9,17 @@ public class RequestModel extends BaseModel<SectionModel> {
     private String name;// 请求名称
     private String version;
 
-    public RequestModel(SectionModel higherLevel, Element element) {
+    public RequestModel(SectionModel higherLevel, Element element, String name, String version) {
         super(higherLevel, element);
+        this.name = name;
+        this.version = version;
     }
 
+    public String getName() {
+        return name;
+    }
 
+    public String getVersion() {
+        return version;
+    }
 }

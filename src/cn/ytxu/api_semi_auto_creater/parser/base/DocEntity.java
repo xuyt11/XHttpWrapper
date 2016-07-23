@@ -60,6 +60,11 @@ public class DocEntity extends BaseEntity {
         public void setRequests(List<RequestEntity> requests) {
             this.requests = requests;
         }
+
+        public static SectionEntity copy(SectionEntity section) {
+            DocEntity.SectionEntity newSection = new DocEntity.SectionEntity(section.getHigherLevel(), section.getElement(), section.getName());
+            return newSection;
+        }
     }
 
     public static class RequestEntity extends BaseEntity<SectionEntity> {

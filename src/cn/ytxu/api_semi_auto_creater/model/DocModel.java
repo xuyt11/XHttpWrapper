@@ -1,5 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.model;
 
+import cn.ytxu.api_semi_auto_creater.parser.base.DocEntity;
 import org.jsoup.nodes.Element;
 
 import java.util.List;
@@ -9,11 +10,23 @@ import java.util.List;
  */
 public class DocModel extends BaseModel {
     private List<VersionModel> versions;
-//    private List<?> statusCodes;// 所有的状态码
+    private DocEntity.SectionEntity statusCode;// TODO 未来要直接转换为状态码list，进行保存
 
-    public DocModel(BaseModel higherLevel, Element element) {
-        super(higherLevel, element);
+    public DocModel(Element element, DocEntity.SectionEntity statusCode) {
+        super(null, element);
+        this.statusCode = statusCode;
     }
 
+    public List<VersionModel> getVersions() {
+        return versions;
+    }
+
+    public void setVersions(List<VersionModel> versions) {
+        this.versions = versions;
+    }
+
+    public DocEntity.SectionEntity getStatusCode() {
+        return statusCode;
+    }
 
 }
