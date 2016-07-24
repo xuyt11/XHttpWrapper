@@ -47,6 +47,10 @@ public class TextStatementRecord extends StatementRecord {
     }
 
     private StringBuffer getFragmentBuffer() {
+        if (hasNotNeedReplaceText()) {
+            return  new StringBuffer(startTagContent);
+        }
+
         StringBuffer fragmentBuffer = new StringBuffer();
         for (int i = 0, size = ranges.size(), end = 0; i < size; i++) {
             Range range = ranges.get(i);
@@ -62,6 +66,10 @@ public class TextStatementRecord extends StatementRecord {
             }
         }
         return fragmentBuffer;
+    }
+
+    private boolean hasNotNeedReplaceText() {
+        return ranges.size() == 0;
     }
 
     private boolean hasNotNeedReplaceTextInFront(int end, Range range) {
@@ -80,14 +88,12 @@ public class TextStatementRecord extends StatementRecord {
     static class Range {
         private int start;
         private int end;
-        private String group;// ${methodName}，在替换时使用
-        private String methodName;// 在反射时使用
+        private String methodName;// 在反射时使用: group = ${methodName}
         private String content;// 真实的、需要替换的，数据
 
         public Range(int start, int end, String group) {
             this.start = start;
             this.end = end;
-            this.group = group;
             this.methodName = group.substring(2, group.length() - 1);
         }
 
@@ -97,10 +103,6 @@ public class TextStatementRecord extends StatementRecord {
 
         public int getEnd() {
             return end;
-        }
-
-        public String getGroup() {
-            return group;
         }
 
         public String getMethodName() {
