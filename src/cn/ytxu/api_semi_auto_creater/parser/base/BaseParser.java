@@ -52,8 +52,8 @@ public class BaseParser {
         public DocEntity start() {
             createDoc();
             getVersionCodes();
-            List<DocEntity.SectionEntity> sections = getSections();
-            getStatusCodeAndSections(sections);
+            List<DocEntity.SectionEntity> sections = getAllSections();
+            findAndSetStatusCodeAndSections(sections);
             return docEntity;
         }
 
@@ -71,7 +71,7 @@ public class BaseParser {
             docEntity.setVersions(versions);
         }
 
-        private List<DocEntity.SectionEntity> getSections() {
+        private List<DocEntity.SectionEntity> getAllSections() {
             Elements sectionEls = JsoupParserUtil.getEles(docEntity.getElement(), CSS_QUERY_GET_SECTION);
 
             List<DocEntity.SectionEntity> sections = new ArrayList<>(sectionEls.size());
@@ -93,9 +93,9 @@ public class BaseParser {
             return JsoupParserUtil.getText(h1Els.first());
         }
 
-        private void getStatusCodeAndSections(List<DocEntity.SectionEntity> sections) {
+        private void findAndSetStatusCodeAndSections(List<DocEntity.SectionEntity> sections) {
             try {
-                DocEntity.SectionEntity statusCode = getStatusCodeEntity(sections);
+                DocEntity.SectionEntity statusCode = findStatusCodeSection(sections);
                 docEntity.setStatusCode(statusCode);
                 sections.remove(statusCode);
             } catch (RuntimeException ignore) {
@@ -105,7 +105,7 @@ public class BaseParser {
             docEntity.setSections(sections);
         }
 
-        private DocEntity.SectionEntity getStatusCodeEntity(List<DocEntity.SectionEntity> sections) {
+        private DocEntity.SectionEntity findStatusCodeSection(List<DocEntity.SectionEntity> sections) {
             for (DocEntity.SectionEntity section : sections) {
                 if (!Config.statusCode.StatusCode.equals(section.getName())) {
                     continue;
@@ -180,10 +180,6 @@ public class BaseParser {
     }
 
 
-    public static void main(String... args) {
-        new BaseParser().start();
-    }
-
     private static class Converter {
         private DocEntity doc;
 
@@ -195,8 +191,6 @@ public class BaseParser {
             DocModel docModel = new DocModel(doc.getElement(), doc.getStatusCode());
 
             List<VersionModel> versionModels = new VersionConverter(doc, docModel).invoke();
-
-
             docModel.setVersions(versionModels);
 
             return docModel;
@@ -216,19 +210,11 @@ public class BaseParser {
 
         public List<VersionModel> invoke() {
             List<VersionModel> versionModels = getVersionModels();
-            for (VersionModel versionModel : versionModels) {
-                String versionName = versionModel.getName();
-                List<DocEntity.SectionEntity> sectionEntities = findTargetVersionSections(versionName, sections);
-                if (sectionEntities.size() <= 0) {
-                    continue;
-                }
-
-                List<SectionModel> sectionModels = new SectionConverter(versionModel, sectionEntities).invoke();
-                versionModel.setSections(sectionModels);
-            }
+            setSectionsToVersions(versionModels);
             return versionModels;
         }
 
+        @NotNull
         private List<VersionModel> getVersionModels() {
             List<VersionModel> versionModels = new ArrayList<>(versionStrs.size());
             for (String versionStr : versionStrs) {
@@ -236,6 +222,23 @@ public class BaseParser {
                 versionModels.add(versionModel);
             }
             return versionModels;
+        }
+
+        private void setSectionsToVersions(List<VersionModel> versionModels) {
+            for (VersionModel versionModel : versionModels) {
+                setSectionsToVersion(versionModel);
+            }
+        }
+
+        private void setSectionsToVersion(VersionModel versionModel) {
+            String versionName = versionModel.getName();
+            List<DocEntity.SectionEntity> sectionEntities = findTargetVersionSections(versionName, sections);
+            if (notNeedSetSections(sectionEntities)) {
+                return;
+            }
+
+            List<SectionModel> sectionModels = new SectionConverter(versionModel, sectionEntities).invoke();
+            versionModel.setSections(sectionModels);
         }
 
         @NotNull
@@ -265,6 +268,9 @@ public class BaseParser {
             return newRequests;
         }
 
+        private boolean notNeedSetSections(List<DocEntity.SectionEntity> sectionEntities) {
+            return sectionEntities.size() <= 0;
+        }
     }
 
     private static class SectionConverter {
@@ -310,5 +316,10 @@ public class BaseParser {
         }
     }
 
+
+
+    public static void main(String... args) {
+        new BaseParser().start();
+    }
 
 }
