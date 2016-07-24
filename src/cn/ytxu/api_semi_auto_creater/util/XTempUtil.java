@@ -111,7 +111,7 @@ public class XTempUtil {
         System.out.println("======================");
 
 
-        String regStr2 = "${version_code} ${versioncode}";
+        String regStr2 = "${version_code} ${s }";
         Pattern p2 = Pattern.compile("(\\$\\{)\\w+(\\})");
         Matcher m2 = p2.matcher(regStr2);
         while (m2.find()) {
