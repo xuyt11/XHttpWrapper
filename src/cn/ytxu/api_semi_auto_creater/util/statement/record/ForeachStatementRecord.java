@@ -27,6 +27,11 @@ public class ForeachStatementRecord extends StatementRecord {
 
     @Override
     public void parse() {
+        getMethodName();
+        parseSubs();
+    }
+
+    private void getMethodName() {
         Matcher matcher = PATTERN.matcher(startTagContent);
         // be sure to match, but also need call matcher.find()
         matcher.find();
@@ -34,6 +39,12 @@ public class ForeachStatementRecord extends StatementRecord {
         int methodNameStart = PATTERN_FRONT.length();
         int methodNameEnd = group.length() - PATTERN_END.length();
         methodName = group.substring(methodNameStart, methodNameEnd);
+    }
+
+    private void parseSubs() {
+        for (StatementRecord sub : subs) {
+            sub.parse();
+        }
     }
 
     @Override
