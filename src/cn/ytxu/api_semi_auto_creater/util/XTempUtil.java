@@ -1,7 +1,5 @@
 package cn.ytxu.api_semi_auto_creater.util;
 
-import cn.ytxu.api_semi_auto_creater.util.statement.StatementRecord;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +17,7 @@ public class XTempUtil {
     /**
      * 需要解析的文件的后缀
      */
-    private enum Suffix {
+    public enum Suffix {
         HttpApi("xha"),
         Request("xreq"),
         Response("xres");
@@ -42,16 +40,22 @@ public class XTempUtil {
 
     /**
      * @param suffix
+     */
+    public XTempUtil(Suffix suffix) {
+        this.tempFileName = suffix.getTempFileName("NewChama-android");
+    }
+
+    /**
+     * @param suffix
      * @param tempName 需要解析的模板文件的名称
      */
     public XTempUtil(Suffix suffix, String tempName) {
         this.tempFileName = suffix.getTempFileName(tempName);
     }
 
-    private void start() {
+    public List<String> start() {
         List<String> contents = getContents();
-        List<StatementRecord> records = StatementRecord.getRecords(contents);
-        // TODO parse records
+        return contents;
     }
 
     private List<String> getContents() {

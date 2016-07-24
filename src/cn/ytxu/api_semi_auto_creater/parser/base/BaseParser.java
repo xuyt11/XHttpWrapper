@@ -23,17 +23,12 @@ import java.util.List;
 public class BaseParser {
 
     public BaseParser() {
-
     }
 
-    public void start() {
+    public DocModel start() {
         DocEntity doc = new DocParser().start();
-        for (DocEntity.SectionEntity section : doc.getSections()) {
-            new SectionParser(section).start();
-        }
-
         DocModel docModel = new Converter(doc).invoke();
-        System.out.println("aaa");
+        return docModel;
     }
 
 
@@ -54,6 +49,7 @@ public class BaseParser {
             getVersionCodes();
             List<DocEntity.SectionEntity> sections = getAllSections();
             findAndSetStatusCodeAndSections(sections);
+            parseSections();
             return docEntity;
         }
 
@@ -113,6 +109,12 @@ public class BaseParser {
                 return section;
             }
             throw new RuntimeException("没有找到状态码字段");
+        }
+
+        private void parseSections() {
+            for (DocEntity.SectionEntity section : docEntity.getSections()) {
+                new SectionParser(section).start();
+            }
         }
 
     }
@@ -315,7 +317,6 @@ public class BaseParser {
             return requestModels;
         }
     }
-
 
 
     public static void main(String... args) {

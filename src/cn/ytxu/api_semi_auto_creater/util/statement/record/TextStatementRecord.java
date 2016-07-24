@@ -20,4 +20,9 @@ public class TextStatementRecord extends StatementRecord {
         // TODO
     }
 
+
+    @Override
+    public List<StringBuffer> getWriteBuffer(Object model) {
+        return null;
+    }
 }

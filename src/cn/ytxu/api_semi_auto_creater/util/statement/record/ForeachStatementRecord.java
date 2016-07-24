@@ -9,6 +9,7 @@ import java.util.List;
  * Created by ytxu on 2016/7/18.
  */
 public class ForeachStatementRecord extends StatementRecord {
+    private static final String each = "each";
 
     public ForeachStatementRecord(Statement statement, String startTagContent, List<String> contents) {
         super(statement, startTagContent, contents);
@@ -23,6 +24,11 @@ public class ForeachStatementRecord extends StatementRecord {
     @Override
     public void parse() {
         // TODO
+    }
+
+    @Override
+    public List<StringBuffer> getWriteBuffer(Object model) {
+        return null;
     }
 
 

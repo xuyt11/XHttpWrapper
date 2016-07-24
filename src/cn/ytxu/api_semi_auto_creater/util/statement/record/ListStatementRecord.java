@@ -25,5 +25,10 @@ public class ListStatementRecord extends StatementRecord {
     }
 
 
+    @Override
+    public List<StringBuffer> getWriteBuffer(Object model) {
+        return null;
+    }
+
 
 }
