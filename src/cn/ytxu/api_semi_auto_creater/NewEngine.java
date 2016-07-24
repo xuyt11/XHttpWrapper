@@ -12,10 +12,13 @@ import cn.ytxu.util.LogUtil;
 public class NewEngine {
 
     public static void main(String... args) {
+        long start = System.currentTimeMillis();
 
         DocModel docModel = new BaseParser().start();
         new TempCreater(docModel).start();
 
+        long end = System.currentTimeMillis();
+        LogUtil.w("duration time is " + (end - start));
     }
 
     private static void old() {

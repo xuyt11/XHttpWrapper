@@ -28,7 +28,8 @@ public class ForeachStatementRecord extends StatementRecord {
     @Override
     public void parse() {
         Matcher matcher = PATTERN.matcher(startTagContent);
-        // be sure to match, so not need judge matcher.find()
+        // be sure to match, but also need call matcher.find()
+        matcher.find();
         String group = matcher.group();
         int methodNameStart = PATTERN_FRONT.length();
         int methodNameEnd = group.length() - PATTERN_END.length();

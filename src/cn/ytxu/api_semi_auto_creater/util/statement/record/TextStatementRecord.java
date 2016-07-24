@@ -36,7 +36,7 @@ public class TextStatementRecord extends StatementRecord {
     public StringBuffer getWriteBuffer(Object model) {
         getAndSetContent2Range(model);
         StringBuffer fragmentBuffer = getFragmentBuffer();
-        return fragmentBuffer;
+        return fragmentBuffer.append(NextLine);
     }
 
     private void getAndSetContent2Range(Object model) {
@@ -65,6 +65,7 @@ public class TextStatementRecord extends StatementRecord {
                 fragmentBuffer.append(startTagContent.substring(end));
             }
         }
+
         return fragmentBuffer;
     }
 

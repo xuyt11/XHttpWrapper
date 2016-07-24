@@ -31,11 +31,12 @@ public class TempCreater {
         StatementRecord.parseRecords(records);
 
         for (VersionModel version : docModel.getVersions()) {
+            System.out.println("=============start===========");
             StringBuffer contentBuffer = StatementRecord.getWriteBuffer(records, version);
 
             // TODO 写入到文件中
             System.out.println(contentBuffer.toString());
-            System.out.println("========================");
+            System.out.println("=============end===========");
         }
 
 

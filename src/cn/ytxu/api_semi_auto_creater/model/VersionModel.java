@@ -27,4 +27,16 @@ public class VersionModel extends BaseModel<DocModel> {
     public void setSections(List<SectionModel> sections) {
         this.sections = sections;
     }
+
+
+
+    //*************** reflect method area ***************
+    public String version_code() {
+        return name.replace(".", "_");
+    }
+
+    public List sections() {
+        return sections;
+    }
+
 }

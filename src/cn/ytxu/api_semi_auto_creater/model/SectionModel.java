@@ -1,5 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.model;
 
+import cn.ytxu.util.FileUtil;
 import org.jsoup.nodes.Element;
 
 import java.util.List;
@@ -27,4 +28,23 @@ public class SectionModel extends BaseModel<VersionModel> {
     public void setRequests(List<RequestModel> requests) {
         this.requests = requests;
     }
+
+
+
+    //*************** reflect method area ***************
+    public String section_class_name() {
+        String className = FileUtil.getClassFileName(name);
+        return className;
+    }
+
+    public String section_name() {
+        String className = FileUtil.getClassFileName(name);
+        String fieldName = className.substring(0, 1).toLowerCase() + className.substring(1);
+        return fieldName;
+    }
+
+    public List requests() {
+        return requests;
+    }
+
 }

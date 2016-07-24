@@ -9,6 +9,7 @@ import java.util.List;
  * 表达式记录
  */
 public abstract class StatementRecord {
+    protected static final String NextLine = "\n";
 
     protected Statement statement;// 该条表达式的类型
     protected String startTagContent;// 表达式的首行
