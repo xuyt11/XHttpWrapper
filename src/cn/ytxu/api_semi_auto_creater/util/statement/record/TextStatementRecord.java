@@ -34,30 +34,48 @@ public class TextStatementRecord extends StatementRecord {
 
     @Override
     public StringBuffer getWriteBuffer(Object model) {
+        getAndSetContent2Range(model);
+        StringBuffer fragmentBuffer = getFragmentBuffer();
+        return fragmentBuffer;
+    }
+
+    private void getAndSetContent2Range(Object model) {
         for (Range range : ranges) {
             String content = ReflectiveUtil.getString(model, range.getMethodName());
             range.setContent(content);
         }
+    }
 
+    private StringBuffer getFragmentBuffer() {
         StringBuffer fragmentBuffer = new StringBuffer();
         for (int i = 0, size = ranges.size(), end = 0; i < size; i++) {
             Range range = ranges.get(i);
-            if (range.getStart() != end) {
+            if (hasNotNeedReplaceTextInFront(end, range)) {
                 fragmentBuffer.append(startTagContent.substring(end, range.getStart()));
             }
 
             fragmentBuffer.append(range.getContent());
             end = range.getEnd();
 
-            if (i + 1 == size) {// is last range
-                if(startTagContent.length() != end) {
-                    fragmentBuffer.append(startTagContent.substring(end));
-                }
+            if (isLastRange(i, size) && hasTextBehindTheLastRange(end)) {
+                fragmentBuffer.append(startTagContent.substring(end));
             }
         }
-
         return fragmentBuffer;
     }
+
+    private boolean hasNotNeedReplaceTextInFront(int end, Range range) {
+        return range.getStart() != end;
+    }
+
+    private boolean isLastRange(int rangeIndex, int rangeSize) {
+        return rangeIndex + 1 == rangeSize;
+    }
+
+    private boolean hasTextBehindTheLastRange(int end) {
+        return startTagContent.length() != end;
+    }
+
 
     static class Range {
         private int start;
