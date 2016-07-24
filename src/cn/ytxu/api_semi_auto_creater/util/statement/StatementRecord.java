@@ -26,7 +26,7 @@ public abstract class StatementRecord {
     public abstract void parse();
 
     /** 获取写入数据 */
-    public abstract List<StringBuffer> getWriteBuffer(Object model);
+    public abstract StringBuffer getWriteBuffer(Object model);
 
 
     public static List<StatementRecord> getRecords(List<String> contents) {
@@ -48,10 +48,10 @@ public abstract class StatementRecord {
         }
     }
 
-    public static List<StringBuffer> getWriteBuffer(List<StatementRecord> records, Object model) {
-        List<StringBuffer> writeBuffer = new ArrayList<>();
+    public static StringBuffer getWriteBuffer(List<StatementRecord> records, Object model) {
+        StringBuffer writeBuffer = new StringBuffer();
         for (StatementRecord record : records) {
-            writeBuffer.addAll(record.getWriteBuffer(model));
+            writeBuffer.append(record.getWriteBuffer(model));
         }
         return writeBuffer;
     }

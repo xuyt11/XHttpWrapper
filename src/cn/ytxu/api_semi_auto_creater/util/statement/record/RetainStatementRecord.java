@@ -25,7 +25,7 @@ public class RetainStatementRecord extends StatementRecord {
 
 
     @Override
-    public List<StringBuffer> getWriteBuffer(Object model) {
+    public StringBuffer getWriteBuffer(Object model) {
         return null;
     }
 }

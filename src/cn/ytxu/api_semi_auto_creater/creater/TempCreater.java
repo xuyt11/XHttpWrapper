@@ -31,12 +31,10 @@ public class TempCreater {
         StatementRecord.parseRecords(records);
 
         for (VersionModel version : docModel.getVersions()) {
-            List<StringBuffer> contentBuffers = StatementRecord.getWriteBuffer(records, version);
+            StringBuffer contentBuffer = StatementRecord.getWriteBuffer(records, version);
 
             // TODO 写入到文件中
-            for (StringBuffer contentBuffer : contentBuffers) {
-                System.out.println(contentBuffer.toString());
-            }
+            System.out.println(contentBuffer.toString());
             System.out.println("========================");
         }
 
