@@ -1,9 +1,11 @@
 package cn.ytxu.api_semi_auto_creater.util;
 
+import cn.ytxu.api_semi_auto_creater.config.OSPlatform;
 import org.xmlpull.v1.XmlPullParser;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -15,6 +17,8 @@ public class XTempModel {
     private static final String HeaderEndTag = "</header>";
     private static final String FirstLine = HeaderStartTag;
 
+    private List<FileDir> fileDirs;
+    private String fileName;
     private List<String> contents;
 
     public XTempModel(List<String> contents) {
@@ -53,23 +57,50 @@ public class XTempModel {
         new XmlParseUtil().parseInputStream(xml, new XmlParseUtil.Callback() {
             @Override
             public void startDocument(XmlPullParser pullParser, String nodeName) {
-
             }
 
             @Override
             public void startTag(XmlPullParser pullParser, String nodeName) {
-
+                if ("fileDir".equals(nodeName)) {
+                    fileDirs = new ArrayList<>();
+                } else if ("value".equals(nodeName)) {
+                    FileDir fileDir = new FileDir();
+                    fileDir.osName = pullParser.getAttributeValue(null, "osName");
+                    fileDir.value = pullParser.getAttributeValue(null, "val");
+                    fileDirs.add(fileDir);
+                } else if ("fileName".equals(nodeName)) {
+                    fileName = pullParser.getAttributeValue(null, "val");
+                }
             }
 
             @Override
             public void endTag(XmlPullParser pullParser, String nodeName) {
-
             }
         });
     }
 
+    public String getFileDir() {
+        String currOsName = OSPlatform.getCurrentOSPlatform().getOsName();
+        for (FileDir fileDir : fileDirs) {
+            if (currOsName.equals(fileDir.osName)) {
+                return fileDir.value;
+            }
+        }
+
+        throw new NullPointerException("not find target file dir");
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
     public List<String> getContents() {
         return contents;
+    }
+
+    public static class FileDir {
+        private String osName;// 对应系统的名称,必须要与OSPlatform中的一致
+        private String value;// 文件夹的路径字符串
     }
 
 }
