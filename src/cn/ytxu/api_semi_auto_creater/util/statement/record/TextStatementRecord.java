@@ -1,5 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.util.statement.record;
 
+import cn.ytxu.apacer.entity.RetainEntity;
 import cn.ytxu.api_semi_auto_creater.util.ReflectiveUtil;
 import cn.ytxu.api_semi_auto_creater.util.statement.Statement;
 import cn.ytxu.api_semi_auto_creater.util.statement.StatementRecord;
@@ -33,7 +34,7 @@ public class TextStatementRecord extends StatementRecord {
 
 
     @Override
-    public StringBuffer getWriteBuffer(Object reflectModel) {
+    public StringBuffer getWriteBuffer(Object reflectModel, RetainEntity retain) {
         getAndSetContent2Range(reflectModel);
         StringBuffer fragmentBuffer = getFragmentBuffer();
         return fragmentBuffer.append(NextLine);

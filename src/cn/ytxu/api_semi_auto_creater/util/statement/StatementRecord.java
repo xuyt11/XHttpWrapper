@@ -1,5 +1,7 @@
 package cn.ytxu.api_semi_auto_creater.util.statement;
 
+import cn.ytxu.apacer.entity.RetainEntity;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -27,7 +29,7 @@ public abstract class StatementRecord {
     public abstract void parse();
 
     /** 获取写入数据 */
-    public abstract StringBuffer getWriteBuffer(Object model);
+    public abstract StringBuffer getWriteBuffer(Object reflectModel, RetainEntity retain);
 
 
     public static List<StatementRecord> getRecords(List<String> contents) {
@@ -49,10 +51,10 @@ public abstract class StatementRecord {
         }
     }
 
-    public static StringBuffer getWriteBuffer(List<StatementRecord> records, Object model) {
+    public static StringBuffer getWriteBuffer(List<StatementRecord> records, Object reflectModel, RetainEntity retain) {
         StringBuffer writeBuffer = new StringBuffer();
         for (StatementRecord record : records) {
-            writeBuffer.append(record.getWriteBuffer(model));
+            writeBuffer.append(record.getWriteBuffer(reflectModel, retain));
         }
         return writeBuffer;
     }

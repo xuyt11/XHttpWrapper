@@ -1,5 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.util.statement.record;
 
+import cn.ytxu.apacer.entity.RetainEntity;
 import cn.ytxu.api_semi_auto_creater.util.ReflectiveUtil;
 import cn.ytxu.api_semi_auto_creater.util.statement.Statement;
 import cn.ytxu.api_semi_auto_creater.util.statement.StatementRecord;
@@ -48,12 +49,12 @@ public class ForeachStatementRecord extends StatementRecord {
     }
 
     @Override
-    public StringBuffer getWriteBuffer(Object reflectModel) {
+    public StringBuffer getWriteBuffer(Object reflectModel, RetainEntity retain) {
         List subModels = ReflectiveUtil.getList(reflectModel, methodName);
         StringBuffer foreachBuffer = new StringBuffer();
         for (Object subModel : subModels) {
             for (StatementRecord sub : subs) {
-                foreachBuffer.append(sub.getWriteBuffer(subModel));
+                foreachBuffer.append(sub.getWriteBuffer(subModel, retain));
             }
         }
         return foreachBuffer;

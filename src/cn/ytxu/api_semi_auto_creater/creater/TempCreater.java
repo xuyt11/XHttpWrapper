@@ -40,8 +40,7 @@ public class TempCreater {
             String fileName = getString(model.getFileName(), version);
 
             BaseCreater.getWriter4TargetFile(dirPath, fileName, (Writer writer, RetainEntity retain) -> {
-                // TODO get write buffer need retain parameter
-                StringBuffer contentBuffer = StatementRecord.getWriteBuffer(records, version);
+                StringBuffer contentBuffer = StatementRecord.getWriteBuffer(records, version, retain);
                 writer.write(contentBuffer.toString());
             });
         }
@@ -58,8 +57,7 @@ public class TempCreater {
                 String fileName = getString(model.getFileName(), section);
 
                 BaseCreater.getWriter4TargetFile(dirPath, fileName, (Writer writer, RetainEntity retain) -> {
-                    // TODO get write buffer need retain parameter
-                    StringBuffer contentBuffer = StatementRecord.getWriteBuffer(records, section);
+                    StringBuffer contentBuffer = StatementRecord.getWriteBuffer(records, section, retain);
                     writer.write(contentBuffer.toString());
                 });
             }
@@ -69,7 +67,7 @@ public class TempCreater {
     private static String getString(String content, Object reflectModel) {
         TextStatementRecord record = new TextStatementRecord(null, content);
         record.parse();
-        return record.getWriteBuffer(reflectModel).toString().trim();
+        return record.getWriteBuffer(reflectModel, null).toString().trim();
     }
 
 

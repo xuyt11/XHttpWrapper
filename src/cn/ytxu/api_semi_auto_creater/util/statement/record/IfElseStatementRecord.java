@@ -1,9 +1,9 @@
 package cn.ytxu.api_semi_auto_creater.util.statement.record;
 
+import cn.ytxu.apacer.entity.RetainEntity;
 import cn.ytxu.api_semi_auto_creater.util.statement.Statement;
 import cn.ytxu.api_semi_auto_creater.util.statement.StatementRecord;
 
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -78,7 +78,7 @@ public class IfElseStatementRecord extends StatementRecord {
     }
 
     @Override
-    public StringBuffer getWriteBuffer(Object model) {
+    public StringBuffer getWriteBuffer(Object reflectModel, RetainEntity retain) {
         return null;
     }
 
