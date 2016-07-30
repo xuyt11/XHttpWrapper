@@ -33,15 +33,15 @@ public class TextStatementRecord extends StatementRecord {
 
 
     @Override
-    public StringBuffer getWriteBuffer(Object model) {
-        getAndSetContent2Range(model);
+    public StringBuffer getWriteBuffer(Object reflectModel) {
+        getAndSetContent2Range(reflectModel);
         StringBuffer fragmentBuffer = getFragmentBuffer();
         return fragmentBuffer.append(NextLine);
     }
 
-    private void getAndSetContent2Range(Object model) {
+    private void getAndSetContent2Range(Object reflectModel) {
         for (Range range : ranges) {
-            String content = ReflectiveUtil.getString(model, range.getMethodName());
+            String content = ReflectiveUtil.getString(reflectModel, range.getMethodName());
             range.setContent(content);
         }
     }

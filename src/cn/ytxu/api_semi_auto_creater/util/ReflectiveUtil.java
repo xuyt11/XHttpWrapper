@@ -10,11 +10,11 @@ import java.util.List;
  */
 public class ReflectiveUtil {
 
-    public static Object invokeMethod(Object obj, String methodName) {
-        Class clazz = obj.getClass();
+    public static Object invokeMethod(Object reflectObj, String methodName) {
+        Class clazz = reflectObj.getClass();
         try {
             Method method = clazz.getDeclaredMethod(methodName);
-            return method.invoke(obj);
+            return method.invoke(reflectObj);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
@@ -25,16 +25,16 @@ public class ReflectiveUtil {
         throw new IllegalArgumentException("obj:" + clazz.toString() + ", methodName:" + methodName);
     }
 
-    public static String getString(Object obj, String methodName) {
-        return (String) invokeMethod(obj, methodName);
+    public static String getString(Object reflectObj, String methodName) {
+        return (String) invokeMethod(reflectObj, methodName);
     }
 
-    public static List<?> getList(Object obj, String methodName) {
-        return (List<?>) invokeMethod(obj, methodName);
+    public static List<?> getList(Object reflectObj, String methodName) {
+        return (List<?>) invokeMethod(reflectObj, methodName);
     }
 
-    public static boolean getBoolean(Object obj, String methodName) {
-        return (boolean) invokeMethod(obj, methodName);
+    public static boolean getBoolean(Object reflectObj, String methodName) {
+        return (boolean) invokeMethod(reflectObj, methodName);
     }
 
 

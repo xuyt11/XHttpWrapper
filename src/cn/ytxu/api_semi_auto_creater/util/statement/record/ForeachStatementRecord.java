@@ -48,8 +48,8 @@ public class ForeachStatementRecord extends StatementRecord {
     }
 
     @Override
-    public StringBuffer getWriteBuffer(Object model) {
-        List subModels = ReflectiveUtil.getList(model, methodName);
+    public StringBuffer getWriteBuffer(Object reflectModel) {
+        List subModels = ReflectiveUtil.getList(reflectModel, methodName);
         StringBuffer foreachBuffer = new StringBuffer();
         for (Object subModel : subModels) {
             for (StatementRecord sub : subs) {
