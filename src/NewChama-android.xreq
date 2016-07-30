@@ -1,3 +1,11 @@
+<header>
+    <fileDir>
+        <value osName="Windows" val="I:/NewChamaStudio/newchama_android/NewChama/newchama.common/src/main/java/com/newchama/api/V${version_code}/api/" />
+        <value osName="Mac OS X" val="/Users/newchama/Documents/ytxu/newchama_android/NewChama/newchama.common/src/main/java/com/newchama/api/V${version_code}/api/" />
+    </fileDir>
+
+    <fileName val="${section_class_name}.java" />
+</header>
 package com.newchama.api.V${version_code}.api;
 
 import android.content.Context;
