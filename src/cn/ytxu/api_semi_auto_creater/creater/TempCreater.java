@@ -37,13 +37,8 @@ public class TempCreater {
         StatementRecord.parseRecords(records);
 
         for (VersionModel version : docModel.getVersions()) {
-            TextStatementRecord record = new TextStatementRecord(null, model.getFileDir());
-            record.parse();
-            String dirPath = record.getWriteBuffer(version).toString().trim();
-
-            record = new TextStatementRecord(null, model.getFileName());
-            record.parse();
-            String fileName = record.getWriteBuffer(version).toString().trim();
+            String dirPath = getString(model.getFileDir(), version);
+            String fileName = getString(model.getFileName(), version);
 
             BaseCreater.getWriter4TargetFile(dirPath, fileName, (Writer writer, RetainEntity retain) -> {
                 // TODO get write buffer need retain parameter
@@ -58,6 +53,12 @@ public class TempCreater {
 //            System.out.println(contentBuffer.toString());
 //            System.out.println("=============end===========");
         }
+    }
+
+    private static String getString(String content, VersionModel version) {
+        TextStatementRecord record = new TextStatementRecord(null, content);
+        record.parse();
+        return record.getWriteBuffer(version).toString().trim();
     }
 
 

@@ -1,7 +1,7 @@
 <header>
     <fileDir>
         <value osName="Windows" val="I:/NewChamaStudio/newchama_android/NewChama/newchama.common/src/main/java/com/newchama/api/V${version_code}/api/" />
-        <value osName="Mac OS X" val="/Users/newchama/Documents/ytxu/newchama_android/NewChama/newchama.common/src/main/java/com/newchama/api/V${version_code}/api2/" />
+        <value osName="Mac OS X" val="/Users/newchama/Documents/ytxu/newchama_android/NewChama/newchama.common/src/main/java/com/newchama/api/V${version_code}/api/" />
     </fileDir>
 
     <fileName val="HttpApiV${version_code}.java" />
