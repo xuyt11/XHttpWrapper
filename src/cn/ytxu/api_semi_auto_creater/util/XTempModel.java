@@ -11,6 +11,7 @@ import java.util.List;
 
 /**
  * Created by ytxu on 16/7/30.
+ * contents 进入之后,会抽离其中的header部分,剩下temp文件的内容
  */
 public class XTempModel {
     private static final String HeaderStartTag = "<header>";

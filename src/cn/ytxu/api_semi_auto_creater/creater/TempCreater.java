@@ -1,12 +1,16 @@
 package cn.ytxu.api_semi_auto_creater.creater;
 
+import cn.ytxu.apacer.entity.RetainEntity;
+import cn.ytxu.apacer.fileCreater.newchama.BaseCreater;
 import cn.ytxu.api_semi_auto_creater.model.DocModel;
 import cn.ytxu.api_semi_auto_creater.model.VersionModel;
+import cn.ytxu.api_semi_auto_creater.util.ReflectiveUtil;
 import cn.ytxu.api_semi_auto_creater.util.XTempModel;
 import cn.ytxu.api_semi_auto_creater.util.XTempUtil;
 import cn.ytxu.api_semi_auto_creater.util.statement.StatementRecord;
+import cn.ytxu.api_semi_auto_creater.util.statement.record.TextStatementRecord;
 
-import java.util.ArrayList;
+import java.io.Writer;
 import java.util.List;
 
 /**
@@ -21,40 +25,39 @@ public class TempCreater {
     }
 
     public void start() {
-        new HttpApiCreater(docModel).start();
+        createHttpApi();
 //        requestCreate();
 //        responseCreate();
     }
 
 
-    private static class HttpApiCreater {
-        private DocModel docModel;
+    private void createHttpApi() {
+        XTempModel model = new XTempUtil(XTempUtil.Suffix.HttpApi).start();
+        List<StatementRecord> records = StatementRecord.getRecords(model.getContents());
+        StatementRecord.parseRecords(records);
 
+        for (VersionModel version : docModel.getVersions()) {
+            TextStatementRecord record = new TextStatementRecord(null, model.getFileDir());
+            record.parse();
+            String dirPath = record.getWriteBuffer(version).toString().trim();
 
-        public HttpApiCreater(DocModel docModel) {
-            this.docModel = docModel;
-        }
+            record = new TextStatementRecord(null, model.getFileName());
+            record.parse();
+            String fileName = record.getWriteBuffer(version).toString().trim();
 
-        private void start() {
-            XTempModel model = new XTempUtil(XTempUtil.Suffix.HttpApi).start();
+            BaseCreater.getWriter4TargetFile(dirPath, fileName, (Writer writer, RetainEntity retain) -> {
+                // TODO get write buffer need retain parameter
+                StringBuffer contentBuffer = StatementRecord.getWriteBuffer(records, version);
+                writer.write(contentBuffer.toString());
+            });
 
-//            List<StatementRecord> records = StatementRecord.getRecords(contents);
-//            StatementRecord.parseRecords(records);
+//            System.out.println("=============start===========");
+//            StringBuffer contentBuffer = StatementRecord.getWriteBuffer(records, version);
 //
-//            for (VersionModel version : docModel.getVersions()) {
-//                System.out.println("=============start===========");
-//                StringBuffer contentBuffer = StatementRecord.getWriteBuffer(records, version);
-//
-//                // TODO 写入到文件中
-//                System.out.println(contentBuffer.toString());
-//                System.out.println("=============end===========");
-//            }
-
-
+//            // TODO 写入到文件中
+//            System.out.println(contentBuffer.toString());
+//            System.out.println("=============end===========");
         }
-
-
-
     }
 
 
