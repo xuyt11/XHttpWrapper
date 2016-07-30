@@ -12,9 +12,10 @@ public class FilterApiVersionCodeConfig {
     private static final String VERSION_CODE_131 = "1.3.1";
     private static final String VERSION_CODE_140 = "1.4.0";
     private static final String VERSION_CODE_150 = "1.5.0";
+    private static final String VERSION_CODE_200 = "2.0.0";
 
     public List<String> getFilterVersionCodes() {
-        return Arrays.asList(VERSION_CODE_131, VERSION_CODE_140);
+        return Arrays.asList(VERSION_CODE_131, VERSION_CODE_140, VERSION_CODE_150);
     }
 
 
