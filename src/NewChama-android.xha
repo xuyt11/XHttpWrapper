@@ -4,7 +4,7 @@
         <value osName="Mac OS" val="/Users/newchama/Documents/ytxu/newchama_android/NewChama/${projectDir}newchama.common/src/main/java/com/newchama/api/" />
     </fileDir>
 
-    <fileName val="HttpApi${version_code}" />
+    <fileName val="HttpApiV${version_code}.java" />
 </header>
 package com.newchama.api.V${version_code}.api;
 
