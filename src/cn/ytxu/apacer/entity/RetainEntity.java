@@ -34,6 +34,8 @@ public class RetainEntity {
     private StringBuffer methodSb;// 需要保留的所有方法
     private StringBuffer otherSb;// 需要保留的其他东东
 
+    private static final RetainEntity EmptyRetain = new RetainEntity();
+
     private RetainEntity() {super();}
 
 
@@ -47,7 +49,7 @@ public class RetainEntity {
     public static RetainEntity getRetainEntity(String classFileFullName, String dirPath) {
         File targetFile = new File(dirPath, classFileFullName);
         if (!targetFile.exists()) {
-            return null;
+            return EmptyRetain;
         }
 
         BufferedReader reader = null;
@@ -57,10 +59,10 @@ public class RetainEntity {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             LogUtil.e("target file`s name is " + classFileFullName);
-            return null;
+            return EmptyRetain;
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
+            return EmptyRetain;
         } finally {
             if (null != reader) {
                 try {

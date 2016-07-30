@@ -32,11 +32,6 @@ public class RetainDataTest {
 
     private static void test4Win10() {
         RetainEntity retain = RetainEntity.getRetainEntity("RetainDataTest.txt", "E:\\NewChama\\");
-        if (null == retain) {
-            // print retain data is null
-            return;
-        }
-
         LogUtil.e("import:" + retain.getImportData().toString());
         LogUtil.e("field:" + retain.getFieldData().toString());
         LogUtil.e("method:" + retain.getMethodData().toString());
@@ -45,11 +40,6 @@ public class RetainDataTest {
 
     private static void test4MacOs() {
         RetainEntity retain = RetainEntity.getRetainEntity("RetainDataTest.txt", "/Users/newchama/Desktop/NewChama-Data/");
-        if (null == retain) {
-            // print retain data is null
-            return;
-        }
-
         LogUtil.e("import:" + retain.getImportData().toString());
         LogUtil.e("field:" + retain.getFieldData().toString());
         LogUtil.e("method:" + retain.getMethodData().toString());
