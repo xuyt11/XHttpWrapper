@@ -55,7 +55,7 @@ public class XTempModel {
 
     private void getHeader(StringBuilder headerBuilder) {
         InputStream xml = new ByteArrayInputStream(headerBuilder.toString().getBytes());
-        new XmlParseUtil().parseInputStream(xml, new XmlParseUtil.Callback() {
+        new XmlParseUtil(xml, new XmlParseUtil.Callback() {
             @Override
             public void startDocument(XmlPullParser pullParser, String nodeName) {
             }
@@ -77,7 +77,7 @@ public class XTempModel {
             @Override
             public void endTag(XmlPullParser pullParser, String nodeName) {
             }
-        });
+        }).start();
     }
 
     public String getFileDir() {

@@ -11,35 +11,20 @@ import java.io.InputStream;
  * Created by ytxu on 2016/7/16.
  */
 public class XmlParseUtil {
-    private static final String PropertyXmlName = "NewChama-android-property.xml";
-    private static final String HttpApiXmlName = "NewChama-android-publicApi-builder.xml";
 
-    private String xmlName;
+    private InputStream xml;
     private Callback callback;
 
-    public XmlParseUtil() {
-    }
-
-    public void parseProperty(Callback callback) {
-        init(PropertyXmlName, callback);
-    }
-
-    public void parseHttpApi(Callback callback) {
-        init(HttpApiXmlName, callback);
-    }
-
-    private void init(String xmlName, Callback callback) {
-        this.xmlName = xmlName;
-        InputStream xml = getXml();
-        parseInputStream(xml, callback);
-    }
-
-    public void parseInputStream(InputStream xml, Callback callback) {
+    public XmlParseUtil(InputStream xml, Callback callback) {
         this.callback = callback;
+        this.xml = xml;
+    }
+
+    public void start() {
         try {
-            XmlPullParser pullParser = getPullParser(xml);
+            XmlPullParser pullParser = getPullParser();
             loopParse(pullParser);
-            close(xml);
+            close();
         } catch (XmlPullParserException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -49,12 +34,7 @@ public class XmlParseUtil {
         }
     }
 
-    private InputStream getXml() {
-        InputStream xml = this.getClass().getClassLoader().getResourceAsStream(xmlName);
-        return xml;
-    }
-
-    private XmlPullParser getPullParser(InputStream xml) throws XmlPullParserException {
+    private XmlPullParser getPullParser() throws XmlPullParserException {
         // 获得pull解析器工厂
         XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
         // 获取XmlPullParser的实例
@@ -90,7 +70,7 @@ public class XmlParseUtil {
         }
     }
 
-    private void close(InputStream xml) throws IOException {
+    private void close() throws IOException {
         if (xml != null) {
             xml.close();
         }
