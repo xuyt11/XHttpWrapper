@@ -1,0 +1,91 @@
+package com.newchama.api.V${version_code}.api;
+
+import android.content.Context;
+
+import com.loopj.android.http.RequestHandle;
+import com.loopj.android.http.ResponseHandlerInterface;
+
+import com.newchama.api.BaseApi;
+
+import com.newchama.tool.net.NetRequest;
+import com.newchama.tool.net.NetRequest.Method;
+import com.newchama.tool.net.NetWorker;
+
+<retain type="import"/>
+
+public class ${section_class_name} {
+
+	public static ${section_class_name} getInstance() {
+		return Helper.instance;
+	}
+
+	private static class Helper {
+		public static final ${section_class_name} instance = new ${section_class_name}();
+	}
+
+	private ${section_class_name}() {
+	    super();
+	}
+
+<retain type="filed"/>
+
+<foreach each="requests">
+	/**
+	 * ${request_desc}
+	 *
+	 <list each="headers">
+	 * @param ${header_name} ${header_desc}
+	 </list>
+	 <list each="inputs">
+	 <if isTure="input_isOptional">
+	 * @param ${input_name} isOptional ${input_desc}
+	 <if_else>
+	 * @param ${input_name} ${input_desc}
+	 </if_end>
+	 </list>
+	 * @version ${request_version}
+	 * @requestUrl ${request_url}
+	 */
+	public RequestHandle ${request_name}(Context cxt001,
+	    <list each="RESTful_fields" singleLine>
+        String ${RESTful_field_name},
+        </list>
+	    <list each="headers" singleLine>
+	    ${header_type} ${header_name},
+	    </list>
+	    <list each="inputs" singleLine>
+   	    ${input_type} ${input_name},
+        </list>
+		ResponseHandlerInterface response) {
+		NetRequest request = new NetRequest();
+		request.setMethod(Method.${request_METHOD});
+
+        <if isTure="request_url_is_RESTful">
+        <list_replace each="RESTful_fields" replace_key="restful_name_list" list_value=", ${RESTful_field_name}">
+		request.setUrl(String.format(getFullUrl("${request_convert_url}")${restful_name_list}));
+		</list_replace>
+        <if_else>
+		request.setUrl(getFullUrl("${request_url}"));
+        </if_end>
+
+	    <list each="headers">
+   	    request.addHeader("${header_name}", ${header_name});
+        </list>
+	    <list each="inputs">
+	    <if isTure="input_isOptional">
+	    if (null != ${input_name}) request.addHeader("${input_name}", ${input_name});
+	    <if_else>
+	    request.addHeader("${input_name}", ${input_name});
+	    </if_end>
+        </list>
+
+		return NetWorker.execute(cxt001, request, response);
+	}
+
+</foreach>
+
+<retain type="method"/>
+
+<retain type="other"/>
+
+}

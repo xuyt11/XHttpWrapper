@@ -1,0 +1,19 @@
+package com.newchama.api.V${version_code}.api;
+
+public class HttpApiV${version_code} {
+
+<foreach each="sections">
+	private static ${section_class_name} ${section_name};
+</foreach>
+
+<foreach each="sections">
+	public static ${section_class_name} ${section_name}() {
+		if (null == ${section_name}) {
+			${section_name} = ${section_class_name}.getInstance();
+		}
+		return ${section_name};
+	}
+
+</foreach>
+
+}
