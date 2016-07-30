@@ -31,9 +31,12 @@ public class XmlParseUtil {
     private void init(String xmlName, Callback callback) {
         this.xmlName = xmlName;
         this.callback = callback;
+        InputStream xml = getXml();
+        parseInputStream(xml, callback);
+    }
 
+    public void parseInputStream(InputStream xml, Callback callback) {
         try {
-            InputStream xml = getXml();
             XmlPullParser pullParser = getPullParser(xml);
             loopParse(pullParser);
             close(xml);

@@ -53,9 +53,9 @@ public class XTempUtil {
         this.tempFileName = suffix.getTempFileName(tempName);
     }
 
-    public List<String> start() {
+    public XTempModel start() {
         List<String> contents = getContents();
-        return contents;
+        return new XTempModel(contents);
     }
 
     private List<String> getContents() {

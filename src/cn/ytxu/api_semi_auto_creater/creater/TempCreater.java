@@ -2,9 +2,11 @@ package cn.ytxu.api_semi_auto_creater.creater;
 
 import cn.ytxu.api_semi_auto_creater.model.DocModel;
 import cn.ytxu.api_semi_auto_creater.model.VersionModel;
+import cn.ytxu.api_semi_auto_creater.util.XTempModel;
 import cn.ytxu.api_semi_auto_creater.util.XTempUtil;
 import cn.ytxu.api_semi_auto_creater.util.statement.StatementRecord;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,25 +21,38 @@ public class TempCreater {
     }
 
     public void start() {
-        httpApiCreate();
+        new HttpApiCreater(docModel).start();
 //        requestCreate();
 //        responseCreate();
     }
 
-    private void httpApiCreate() {
-        List<String> contents = new XTempUtil(XTempUtil.Suffix.HttpApi).start();
 
-        List<StatementRecord> records = StatementRecord.getRecords(contents);
-        StatementRecord.parseRecords(records);
+    private static class HttpApiCreater {
+        private DocModel docModel;
 
-        for (VersionModel version : docModel.getVersions()) {
-            System.out.println("=============start===========");
-            StringBuffer contentBuffer = StatementRecord.getWriteBuffer(records, version);
 
-            // TODO 写入到文件中
-            System.out.println(contentBuffer.toString());
-            System.out.println("=============end===========");
+        public HttpApiCreater(DocModel docModel) {
+            this.docModel = docModel;
         }
+
+        private void start() {
+            XTempModel model = new XTempUtil(XTempUtil.Suffix.HttpApi).start();
+
+//            List<StatementRecord> records = StatementRecord.getRecords(contents);
+//            StatementRecord.parseRecords(records);
+//
+//            for (VersionModel version : docModel.getVersions()) {
+//                System.out.println("=============start===========");
+//                StringBuffer contentBuffer = StatementRecord.getWriteBuffer(records, version);
+//
+//                // TODO 写入到文件中
+//                System.out.println(contentBuffer.toString());
+//                System.out.println("=============end===========");
+//            }
+
+
+        }
+
 
 
     }
