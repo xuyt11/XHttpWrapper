@@ -3,8 +3,8 @@ package cn.ytxu.api_semi_auto_creater.creater;
 import cn.ytxu.apacer.entity.RetainEntity;
 import cn.ytxu.apacer.fileCreater.newchama.BaseCreater;
 import cn.ytxu.api_semi_auto_creater.model.DocModel;
+import cn.ytxu.api_semi_auto_creater.model.SectionModel;
 import cn.ytxu.api_semi_auto_creater.model.VersionModel;
-import cn.ytxu.api_semi_auto_creater.util.ReflectiveUtil;
 import cn.ytxu.api_semi_auto_creater.util.XTempModel;
 import cn.ytxu.api_semi_auto_creater.util.XTempUtil;
 import cn.ytxu.api_semi_auto_creater.util.statement.StatementRecord;
@@ -26,10 +26,9 @@ public class TempCreater {
 
     public void start() {
         createHttpApi();
-//        requestCreate();
+        createRequest();
 //        responseCreate();
     }
-
 
     private void createHttpApi() {
         XTempModel model = new XTempUtil(XTempUtil.Suffix.HttpApi).start();
@@ -45,20 +44,32 @@ public class TempCreater {
                 StringBuffer contentBuffer = StatementRecord.getWriteBuffer(records, version);
                 writer.write(contentBuffer.toString());
             });
-
-//            System.out.println("=============start===========");
-//            StringBuffer contentBuffer = StatementRecord.getWriteBuffer(records, version);
-//
-//            // TODO 写入到文件中
-//            System.out.println(contentBuffer.toString());
-//            System.out.println("=============end===========");
         }
     }
 
-    private static String getString(String content, VersionModel version) {
+    private void createRequest() {
+        XTempModel model = new XTempUtil(XTempUtil.Suffix.Request).start();
+        List<StatementRecord> records = StatementRecord.getRecords(model.getContents());
+        StatementRecord.parseRecords(records);
+
+        for (VersionModel version : docModel.getVersions()) {
+            for (SectionModel section : version.getSections()) {
+                String dirPath = getString(model.getFileDir(), section);
+                String fileName = getString(model.getFileName(), section);
+
+                BaseCreater.getWriter4TargetFile(dirPath, fileName, (Writer writer, RetainEntity retain) -> {
+                    // TODO get write buffer need retain parameter
+                    StringBuffer contentBuffer = StatementRecord.getWriteBuffer(records, section);
+                    writer.write(contentBuffer.toString());
+                });
+            }
+        }
+    }
+
+    private static String getString(String content, Object reflectModel) {
         TextStatementRecord record = new TextStatementRecord(null, content);
         record.parse();
-        return record.getWriteBuffer(version).toString().trim();
+        return record.getWriteBuffer(reflectModel).toString().trim();
     }
 
 
