@@ -8,11 +8,15 @@
 </header>
 package com.newchama.api.V${version_code}.api;
 
+<retain type="import"/>
+
 public class HttpApiV${version_code} {
 
 <foreach each="sections">
 	private static ${section_class_name} ${section_name};
 </foreach>
+
+<retain type="field"/>
 
 <foreach each="sections">
 	public static ${section_class_name} ${section_name}() {
@@ -23,5 +27,9 @@ public class HttpApiV${version_code} {
 	}
 
 </foreach>
+
+<retain type="method"/>
+
+<retain type="other"/>
 
 }
