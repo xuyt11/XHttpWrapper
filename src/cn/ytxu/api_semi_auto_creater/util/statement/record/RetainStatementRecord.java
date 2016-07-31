@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 public class RetainStatementRecord extends StatementRecord {
     private static final String PATTERN_FRONT = "type=\"";
     private static final String PATTERN_END = "\"";
-    private static final Pattern PATTERN = Pattern.compile("(type=\")\\w+(\">)");
+    private static final Pattern PATTERN = Pattern.compile("(type=\")\\w+(\")");
 
     public enum RetainType {
         Import("import") {
