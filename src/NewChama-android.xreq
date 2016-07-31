@@ -21,7 +21,7 @@ import com.newchama.tool.net.NetWorker;
 
 <retain type="import"/>
 
-public class ${section_class_name} {
+public class ${section_class_name} extends BaseApi {
 
 	public static ${section_class_name} getInstance() {
 		return Helper.instance;
