@@ -1,11 +1,9 @@
 package cn.ytxu.api_semi_auto_creater;
 
-import cn.ytxu.api_semi_auto_creater.creater.Property;
 import cn.ytxu.api_semi_auto_creater.creater.request.PublicApiClassCreater;
 import cn.ytxu.api_semi_auto_creater.entity.DocumentEntity;
 import cn.ytxu.api_semi_auto_creater.entity.SectionEntity;
 
-import java.io.*;
 import java.util.List;
 
 /**
@@ -24,11 +22,6 @@ public class Creater {
             throw new RuntimeException("the sections of the api is null or empty, so end...");
         }
 
-        // test code
-        try {
-            Property.getValue(null);
-        } catch (NullPointerException ignore) {
-        }
         // 1 create api result entity class files
 //        for (CategoryEntity category : categorys) {
 //            ResponseCategoryCreater creater = ResponseCategoryCreater.getInstance();
