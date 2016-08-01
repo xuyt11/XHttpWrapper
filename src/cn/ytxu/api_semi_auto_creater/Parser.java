@@ -23,8 +23,8 @@ public class Parser {
         // 5 parse Parameter desc table element
 //        DefinedParamModel definedParameter = new DefinedParamModel();
         // 6 parse header and input field
-//        InputParamEntity header = new InputParamEntity();
-//        InputParamEntity inputParam = new InputParamEntity();
+//        InputParamModel header = new InputParamModel();
+//        InputParamModel inputParam = new InputParamModel();
         // 7 parse response
 //        ResponseEntity response = new ResponseEntity();
         // 8 parse response content --> output param --> response entity

@@ -11,7 +11,7 @@ import org.jsoup.select.Elements;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DefinedParamParser {
+public class DefinedsParser {
     private static final String CSS_QUERY_TABLE = "table";
     private static final String CSS_QUERY_GET_DESC_PARAM = "tbody > tr";
     private static final String PARAM_CATEGORY_NAME_TAG_NAME = "h2";
@@ -19,7 +19,7 @@ public class DefinedParamParser {
     private RequestModel request;
     private Element articleEle;
 
-    public DefinedParamParser(RequestModel request, Element articleEle) {
+    public DefinedsParser(RequestModel request, Element articleEle) {
         this.request = request;
         this.articleEle = articleEle;
     }

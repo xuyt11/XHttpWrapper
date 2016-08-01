@@ -1,7 +1,7 @@
 package cn.ytxu.api_semi_auto_creater.entity;
 
 import cn.ytxu.api_semi_auto_creater.model.DefinedParamModel;
-import cn.ytxu.api_semi_auto_creater.model.InputParamEntity;
+import cn.ytxu.api_semi_auto_creater.model.InputParamModel;
 import cn.ytxu.api_semi_auto_creater.model.RESTfulUrlModel;
 import org.jsoup.nodes.Element;
 
@@ -21,8 +21,8 @@ public class RequestEntity extends BaseEntity<SectionEntity> {
 
     private List<DefinedParamModel> definedParams;// 已定义了的参数
 
-    private List<InputParamEntity> headers;// 请求头字段
-    private List<InputParamEntity> inputParams;// 输入字段
+    private List<InputParamModel> headers;// 请求头字段
+    private List<InputParamModel> inputParams;// 输入字段
 
     private List<ResponseEntity> responses;// 请求响应列表
 
@@ -78,19 +78,19 @@ public class RequestEntity extends BaseEntity<SectionEntity> {
         this.definedParams = definedParams;
     }
 
-    public List<InputParamEntity> getHeaders() {
+    public List<InputParamModel> getHeaders() {
         return headers;
     }
 
-    public void setHeaders(List<InputParamEntity> headers) {
+    public void setHeaders(List<InputParamModel> headers) {
         this.headers = headers;
     }
 
-    public List<InputParamEntity> getInputParams() {
+    public List<InputParamModel> getInputParams() {
         return inputParams;
     }
 
-    public void setInputParams(List<InputParamEntity> inputParams) {
+    public void setInputParams(List<InputParamModel> inputParams) {
         this.inputParams = inputParams;
     }
 

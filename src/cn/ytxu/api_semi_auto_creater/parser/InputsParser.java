@@ -1,7 +1,7 @@
 package cn.ytxu.api_semi_auto_creater.parser;
 
 import cn.ytxu.apacer.dataParser.jsoupUtil.JsoupParserUtil;
-import cn.ytxu.api_semi_auto_creater.model.InputParamEntity;
+import cn.ytxu.api_semi_auto_creater.model.InputParamModel;
 import cn.ytxu.api_semi_auto_creater.model.RequestModel;
 import cn.ytxu.util.ListUtil;
 import org.jsoup.nodes.Element;
@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by ytxu on 2016/8/2.
  */
-public class InputParamParser {
+public class InputsParser {
     private static final String CSS_QUERY_FIELDSET = "form.form-horizontal > fieldset";
     /**
      * header字段：class以header-fields结束
@@ -29,7 +29,7 @@ public class InputParamParser {
     private RequestModel request;
     private Element articleEle;
 
-    public InputParamParser(RequestModel request, Element articleEle) {
+    public InputsParser(RequestModel request, Element articleEle) {
         this.request = request;
         this.articleEle = articleEle;
     }
@@ -42,28 +42,29 @@ public class InputParamParser {
     }
 
     private void getHeaderFields(Element fieldsetEle) {
-        List<InputParamEntity> headers = getInputParams(fieldsetEle, CSS_QUERY_GET_HEADER);
+        List<InputParamModel> headers = getInputParams(fieldsetEle, CSS_QUERY_GET_HEADER);
         request.setHeaders(headers);
 //        List<FieldEntity> headerFields = new FieldParser().getHeaderFields(fieldsetEle, descParams);
 //        return headerFields;
     }
 
     private void getInputFields(Element fieldsetEle) {
-        List<InputParamEntity> inputs = getInputParams(fieldsetEle, CSS_QUERY_GET_INPUT_PARAM);
+        List<InputParamModel> inputs = getInputParams(fieldsetEle, CSS_QUERY_GET_INPUT_PARAM);
         request.setInputParams(inputs);
 //        List<FieldEntity> inputFields = new FieldParser().getInputParamFields(fieldsetEle, descParams);
 //        return inputFields;
     }
 
-    private List<InputParamEntity> getInputParams(Element fieldsetEle, String cssQuery) {
+    private List<InputParamModel> getInputParams(Element fieldsetEle, String cssQuery) {
         Elements fieldEls = JsoupParserUtil.getEles(fieldsetEle, cssQuery);
         if (ListUtil.isEmpty(fieldEls)) {
             return Collections.EMPTY_LIST;
         }
 
-        List<InputParamEntity> inputs = new ArrayList<>(fieldEls.size());
+        List<InputParamModel> inputs = new ArrayList<>(fieldEls.size());
         for (Element fieldEle : fieldEls) {
-            InputParamEntity input = new InputParamEntity(request, fieldEle);
+            InputParamModel input = new InputParamModel(request, fieldEle);
+            // TODO use InputFieldParser to get sub fields
             inputs.add(input);
         }
         return inputs;

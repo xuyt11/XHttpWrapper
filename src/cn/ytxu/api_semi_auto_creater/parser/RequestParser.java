@@ -41,8 +41,8 @@ public class RequestParser {
         getMethodDescription();
         getMethodTypeAndUrl();
 
-        new DefinedParamParser(request, articleEle).start();
-        new InputParamParser(request, articleEle).start();
+        new DefinedsParser(request, articleEle).start();
+        new InputsParser(request, articleEle).start();
         getResponses();
     }
 
