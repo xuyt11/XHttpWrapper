@@ -1,7 +1,7 @@
 package cn.ytxu.api_semi_auto_creater.parser;
 
 import cn.ytxu.apacer.dataParser.jsoupUtil.JsoupParserUtil;
-import cn.ytxu.api_semi_auto_creater.entity.DefinedParameterEntity;
+import cn.ytxu.api_semi_auto_creater.model.DefinedParamModel;
 import cn.ytxu.util.LogUtil;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -19,12 +19,12 @@ public class DefinedParamParser {
 
     private static final String CSS_QUERY_GET_FIELD_OPTIONAL = "span.label.label-optional";
 
-    private DefinedParameterEntity baseEntity;
+    private DefinedParamModel baseEntity;
     private Element baseEle;
     private Elements descParamAttrEles;
     private Element fieldEle, typeEle, descEle;// sub ele
 
-    public DefinedParamParser(DefinedParameterEntity baseEntity) {
+    public DefinedParamParser(DefinedParamModel baseEntity) {
         super();
         this.baseEntity = baseEntity;
         this.baseEle = baseEntity.getElement();

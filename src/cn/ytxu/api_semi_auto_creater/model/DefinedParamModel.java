@@ -1,4 +1,4 @@
-package cn.ytxu.api_semi_auto_creater.entity;
+package cn.ytxu.api_semi_auto_creater.model;
 
 import org.jsoup.nodes.Element;
 
@@ -7,9 +7,8 @@ import org.jsoup.nodes.Element;
  * Created by ytxu on 2016/6/16.
  * 已定义的参数：有描述信息，类型信息等
  */
-public class DefinedParameterEntity extends BaseEntity<RequestEntity> {
-    private String paramCategoryName;
-
+public class DefinedParamModel extends BaseModel<RequestModel> {
+    private String categoryName;
     private String name;// 字段名称
     private String type;// 字段的类型
     private boolean isOptional = false;// 是否为可选字段
@@ -18,13 +17,13 @@ public class DefinedParameterEntity extends BaseEntity<RequestEntity> {
 //    private boolean isList = false;// 是否为数组类型：默认为不是数组类型
 //    private List<FieldEntity> subs;// 子字段集合
 
-    public DefinedParameterEntity(RequestEntity higherLevel, Element element, String paramCategoryName) {
+    public DefinedParamModel(RequestModel higherLevel, Element element, String categoryName) {
         super(higherLevel, element);
-        this.paramCategoryName = paramCategoryName;
+        this.categoryName = categoryName;
     }
 
-    public String getParamCategoryName() {
-        return paramCategoryName;
+    public String getCategoryName() {
+        return categoryName;
     }
 
     public String getName() {

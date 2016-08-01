@@ -1,5 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.entity;
 
+import cn.ytxu.api_semi_auto_creater.model.DefinedParamModel;
 import cn.ytxu.api_semi_auto_creater.model.RESTfulUrlModel;
 import org.jsoup.nodes.Element;
 
@@ -17,7 +18,7 @@ public class RequestEntity extends BaseEntity<SectionEntity> {
 
     private RESTfulUrlModel restfulUrl;// url RESTful风格的解析对象
 
-    private List<DefinedParameterEntity> definedParams;// 已定义了的参数
+    private List<DefinedParamModel> definedParams;// 已定义了的参数
 
     private List<InputParamEntity> headers;// 请求头字段
     private List<InputParamEntity> inputParams;// 输入字段
@@ -68,11 +69,11 @@ public class RequestEntity extends BaseEntity<SectionEntity> {
         this.restfulUrl = restfulUrl;
     }
 
-    public List<DefinedParameterEntity> getDefinedParams() {
+    public List<DefinedParamModel> getDefinedParams() {
         return definedParams;
     }
 
-    public void setDefinedParams(List<DefinedParameterEntity> definedParams) {
+    public void setDefinedParams(List<DefinedParamModel> definedParams) {
         this.definedParams = definedParams;
     }
 
