@@ -1,5 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.entity;
 
+import cn.ytxu.api_semi_auto_creater.model.RESTfulUrlModel;
 import org.jsoup.nodes.Element;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public class RequestEntity extends BaseEntity<SectionEntity> {
     private String methodName;// 该方法的方法名称：驼峰法命名
     private String methodType;// 请求类型:post、get、patch...
 
-    private RESTfulUrlEntity restfulUrl;// url RESTful风格的解析对象
+    private RESTfulUrlModel restfulUrl;// url RESTful风格的解析对象
 
     private List<DefinedParameterEntity> definedParams;// 已定义了的参数
 
@@ -59,11 +60,11 @@ public class RequestEntity extends BaseEntity<SectionEntity> {
         this.methodType = methodType;
     }
 
-    public RESTfulUrlEntity getRestfulUrl() {
+    public RESTfulUrlModel getRestfulUrl() {
         return restfulUrl;
     }
 
-    public void setRestfulUrl(RESTfulUrlEntity restfulUrl) {
+    public void setRestfulUrl(RESTfulUrlModel restfulUrl) {
         this.restfulUrl = restfulUrl;
     }
 

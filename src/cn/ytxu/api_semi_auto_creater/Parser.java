@@ -24,7 +24,7 @@ public class Parser {
         // 3 parse request method
         parseRequests();
         // 4 parse method RESTful url
-//        RESTfulUrlEntity restfulUrl = new RESTfulUrlEntity();
+//        RESTfulUrlModel restfulUrl = new RESTfulUrlModel();
         // 5 parse Parameter desc table element
 //        DefinedParameterEntity definedParameter = new DefinedParameterEntity();
         // 6 parse header and input field

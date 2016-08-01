@@ -2,7 +2,8 @@ package cn.ytxu.api_semi_auto_creater.parser;
 
 import cn.ytxu.apacer.dataParser.jsoupUtil.JsoupParserUtil;
 import cn.ytxu.api_semi_auto_creater.entity.*;
-import cn.ytxu.util.CamelCaseUtils;
+import cn.ytxu.api_semi_auto_creater.model.RESTfulUrlModel;
+import cn.ytxu.api_semi_auto_creater.model.RequestModel;
 import cn.ytxu.util.ListUtil;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -16,8 +17,6 @@ import java.util.List;
  */
 public class RequestParser {
     private static final String CSS_QUERY_ARTICLE = "article";
-    private static final String ATTR_DATA_NAME = "data-name";
-    private static final String ATTR_DATA_VERSION = "data-version";
     private static final String CSS_QUERY_GET_METHOD_DESC = "div.pull-left > h1";
     private static final String CSS_QUERY_GET_TYPE_AND_URL_FOR_METHOD = "pre.prettyprint.language-html";
     private static final String ATTR_DATA_TYPE = "data-type";
@@ -36,25 +35,20 @@ public class RequestParser {
     private static final String CSS_QUERY_GET_INPUT_PARAM = "div[class$=param-fields] > div.control-group";
 
 
-    private RequestEntity baseEntity;
+    private RequestModel request;
     private Element baseEle;
 
     private Element articleEle;
 
-    public RequestParser(RequestEntity baseEntity) {
+    public RequestParser(RequestModel baseEntity) {
         super();
-        this.baseEntity = baseEntity;
+        this.request = baseEntity;
         this.baseEle = baseEntity.getElement();
     }
 
     public void get() {
-//		String methodId = baseEle.attr("id");
         getArticleElement();
-//		String methodCategory = articleEle.attr("data-group");
-        getMethodName();
-        getMethodVersion();
         getMethodDescription();
-
         getMethodTypeAndUrl();
 
         new DefinedParamPreParser().get();
@@ -66,23 +60,11 @@ public class RequestParser {
         articleEle = JsoupParserUtil.getFirstEle(baseEle, CSS_QUERY_ARTICLE);
     }
 
-    private void getMethodName() {
-        String dataName = JsoupParserUtil.getAttr(articleEle, ATTR_DATA_NAME);
-        String methodName = CamelCaseUtils.toCamelCase(dataName);
-        baseEntity.setMethodName(methodName);
-    }
-
-    private void getMethodVersion() {
-        String methodVersion = JsoupParserUtil.getAttr(articleEle, ATTR_DATA_VERSION);
-        baseEntity.setVersionCode(methodVersion);
-    }
-
     private void getMethodDescription() {
         Element methodDescEle = JsoupParserUtil.getFirstEle(articleEle, CSS_QUERY_GET_METHOD_DESC);
         String methodDescription = JsoupParserUtil.getText(methodDescEle);
-        baseEntity.setDescrption(methodDescription);
+        request.setDescrption(methodDescription);
     }
-
 
     private void getMethodTypeAndUrl() {
         Element preEle = JsoupParserUtil.getFirstEle(articleEle, CSS_QUERY_GET_TYPE_AND_URL_FOR_METHOD);
@@ -92,14 +74,13 @@ public class RequestParser {
 
     private void getMethodType(Element preEle) {
         String methodType = JsoupParserUtil.getAttr(preEle, ATTR_DATA_TYPE);
-        baseEntity.setMethodType(methodType);
+        request.setMethodType(methodType);
     }
 
     private void getMethodUrl(Element preEle) {
         Element methodUrlEle = JsoupParserUtil.getFirstEle(preEle, CSS_QUERY_GET_METHOD_URL);
         String methodUrl = JsoupParserUtil.getText(methodUrlEle);
-        baseEntity.setRestfulUrl(new RESTfulUrlEntity(baseEntity, methodUrl));
-//        return RESTfulAPIParser.parse(methodUrl);
+        request.setRestfulUrl(new RESTfulUrlModel(request, methodUrl));
     }
 
     private class DefinedParamPreParser {
@@ -127,7 +108,7 @@ public class RequestParser {
                 definedParams.addAll(defineds);
             }
 
-            baseEntity.setDefinedParams(definedParams);
+            request.setDefinedParams(definedParams);
         }
 
         private List<DefinedParameterEntity> getDefinedParams(Element descParamCategoryEle) {
@@ -139,7 +120,7 @@ public class RequestParser {
             List<DefinedParameterEntity> definedParams = new ArrayList<>(descParamEles.size());
             String paramCategoryName = getParamCategoryName(descParamCategoryEle);
             for (Element descParamEle : descParamEles) {
-                DefinedParameterEntity definedParam = new DefinedParameterEntity(baseEntity, descParamEle, paramCategoryName);
+                DefinedParameterEntity definedParam = new DefinedParameterEntity(request, descParamEle, paramCategoryName);
                 definedParams.add(definedParam);
             }
 
@@ -185,10 +166,10 @@ public class RequestParser {
     private void setHeaders(Elements fieldEls) {
         List<InputParamEntity> headers = new ArrayList<>(fieldEls.size());
         for (Element fieldEle : fieldEls) {
-            InputParamEntity header = new InputParamEntity(baseEntity, fieldEle);
+            InputParamEntity header = new InputParamEntity(request, fieldEle);
             headers.add(header);
         }
-        baseEntity.setHeaders(headers);
+        request.setHeaders(headers);
     }
 
     private void getInputFields(Element fieldsetEle) {
@@ -205,10 +186,10 @@ public class RequestParser {
     private void setInputParams(Elements fieldEls) {
         List<InputParamEntity> inputs = new ArrayList<>(fieldEls.size());
         for (Element fieldEle : fieldEls) {
-            InputParamEntity input = new InputParamEntity(baseEntity, fieldEle);
+            InputParamEntity input = new InputParamEntity(request, fieldEle);
             inputs.add(input);
         }
-        baseEntity.setInputParams(inputs);
+        request.setInputParams(inputs);
     }
 
 
@@ -240,10 +221,10 @@ public class RequestParser {
     private void setResponses(Elements responseDescEls, Elements responseEls) {
         List<ResponseEntity> responses = new ArrayList<>(responseDescEls.size());
         for (int i = 0, count = responseDescEls.size(); i < count; i++) {
-            ResponseEntity response = new ResponseEntity(baseEntity, responseDescEls.get(i), responseEls.get(i));
+            ResponseEntity response = new ResponseEntity(request, responseDescEls.get(i), responseEls.get(i));
             responses.add(response);
         }
-        baseEntity.setResponses(responses);
+        request.setResponses(responses);
     }
 
 }

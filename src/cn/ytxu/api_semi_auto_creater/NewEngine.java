@@ -4,8 +4,10 @@ import cn.ytxu.apacer.entity.RetainEntity;
 import cn.ytxu.apacer.fileCreater.newchama.BaseCreater;
 import cn.ytxu.api_semi_auto_creater.entity.DocumentEntity;
 import cn.ytxu.api_semi_auto_creater.model.DocModel;
+import cn.ytxu.api_semi_auto_creater.model.RequestModel;
 import cn.ytxu.api_semi_auto_creater.model.SectionModel;
 import cn.ytxu.api_semi_auto_creater.model.VersionModel;
+import cn.ytxu.api_semi_auto_creater.parser.RequestParser;
 import cn.ytxu.api_semi_auto_creater.parser.base.BaseParser;
 import cn.ytxu.api_semi_auto_creater.util.XTempModel;
 import cn.ytxu.api_semi_auto_creater.util.XTempUtil;
@@ -25,6 +27,14 @@ public class NewEngine {
         long start = System.currentTimeMillis();
 
         DocModel docModel = new BaseParser().start();
+
+        for (VersionModel version : docModel.getVersions()) {
+            for (SectionModel section : version.getSections()) {
+                for (RequestModel request : section.getRequests()) {
+                    new RequestParser(request).get();
+                }
+            }
+        }
 
         create(docModel);
 
