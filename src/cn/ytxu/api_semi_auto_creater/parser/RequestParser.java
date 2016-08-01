@@ -21,18 +21,8 @@ public class RequestParser {
     private static final String CSS_QUERY_GET_TYPE_AND_URL_FOR_METHOD = "pre.prettyprint.language-html";
     private static final String ATTR_DATA_TYPE = "data-type";
     private static final String CSS_QUERY_GET_METHOD_URL = "code";
-    private static final String CSS_QUERY_FIELDSET = "form.form-horizontal > fieldset";
     private static final String CSS_QUERY_RESPONSE_DESC = "ul.nav.nav-tabs.nav-tabs-examples > li";
     private static final String CSS_QUERY_RESPONSE = "div.tab-content > div.tab-pane";
-
-    /**
-     * header字段：class以header-fields结束
-     */
-    private static final String CSS_QUERY_GET_HEADER = "div[class$=header-fields] > div.control-group";
-    /**
-     * 输入参数字段：class以param-fields结束
-     */
-    private static final String CSS_QUERY_GET_INPUT_PARAM = "div[class$=param-fields] > div.control-group";
 
 
     private RequestModel request;
@@ -52,7 +42,7 @@ public class RequestParser {
         getMethodTypeAndUrl();
 
         new DefinedParamParser(request, articleEle).start();
-        getInputs();
+        new InputParamParser(request, articleEle).start();
         getResponses();
     }
 
@@ -81,57 +71,6 @@ public class RequestParser {
         Element methodUrlEle = JsoupParserUtil.getFirstEle(preEle, CSS_QUERY_GET_METHOD_URL);
         String methodUrl = JsoupParserUtil.getText(methodUrlEle);
         request.setRestfulUrl(new RESTfulUrlModel(request, methodUrl));
-    }
-
-
-    private void getInputs() {
-        Element fieldsetEle = getFieldsetEle();
-        getHeaderFields(fieldsetEle);
-        getInputFields(fieldsetEle);
-    }
-
-    private Element getFieldsetEle() {
-        return JsoupParserUtil.getFirstEle(articleEle, CSS_QUERY_FIELDSET);
-    }
-
-    private void getHeaderFields(Element fieldsetEle) {
-        Elements fieldEls = JsoupParserUtil.getEles(fieldsetEle, CSS_QUERY_GET_HEADER);
-        if (ListUtil.isEmpty(fieldEls)) {
-            return;
-        }
-
-        setHeaders(fieldEls);
-//        List<FieldEntity> headerFields = new FieldParser().getHeaderFields(fieldsetEle, descParams);
-//        return headerFields;
-    }
-
-    private void setHeaders(Elements fieldEls) {
-        List<InputParamEntity> headers = new ArrayList<>(fieldEls.size());
-        for (Element fieldEle : fieldEls) {
-            InputParamEntity header = new InputParamEntity(request, fieldEle);
-            headers.add(header);
-        }
-        request.setHeaders(headers);
-    }
-
-    private void getInputFields(Element fieldsetEle) {
-        Elements fieldEls = JsoupParserUtil.getEles(fieldsetEle, CSS_QUERY_GET_INPUT_PARAM);
-        if (ListUtil.isEmpty(fieldEls)) {
-            return;
-        }
-
-        setInputParams(fieldEls);
-//        List<FieldEntity> inputFields = new FieldParser().getInputParamFields(fieldsetEle, descParams);
-//        return inputFields;
-    }
-
-    private void setInputParams(Elements fieldEls) {
-        List<InputParamEntity> inputs = new ArrayList<>(fieldEls.size());
-        for (Element fieldEle : fieldEls) {
-            InputParamEntity input = new InputParamEntity(request, fieldEle);
-            inputs.add(input);
-        }
-        request.setInputParams(inputs);
     }
 
 

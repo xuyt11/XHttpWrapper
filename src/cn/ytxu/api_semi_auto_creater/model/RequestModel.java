@@ -14,6 +14,7 @@ public class RequestModel extends BaseModel<SectionModel> {
     private String methodType;// 请求方法类型:get
     private RESTfulUrlModel restfulUrl;// url
     private List<DefinedParamModel> definedParams;// 已定义了的参数：有参数名，参数类型，参数描述等信息
+    private List<InputParamEntity> headers, inputs;// 请求的头部参数与输入参数
 
     public RequestModel(SectionModel higherLevel, Element element, String name, String version) {
         super(higherLevel, element);
@@ -43,5 +44,13 @@ public class RequestModel extends BaseModel<SectionModel> {
 
     public void setDefinedParams(List<DefinedParamModel> definedParams) {
         this.definedParams = definedParams;
+    }
+
+    public void setHeaders(List<InputParamEntity> headers) {
+        this.headers = headers;
+    }
+
+    public void setInputParams(List<InputParamEntity> inputs) {
+        this.inputs = inputs;
     }
 }

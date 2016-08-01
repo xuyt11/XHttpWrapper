@@ -1,6 +1,7 @@
 package cn.ytxu.api_semi_auto_creater.entity;
 
 import cn.ytxu.api_semi_auto_creater.model.DefinedParamModel;
+import cn.ytxu.api_semi_auto_creater.model.InputParamEntity;
 import cn.ytxu.api_semi_auto_creater.model.RESTfulUrlModel;
 import org.jsoup.nodes.Element;
 
