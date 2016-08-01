@@ -2,9 +2,7 @@ package cn.ytxu.api_semi_auto_creater;
 
 import cn.ytxu.api_semi_auto_creater.entity.*;
 import cn.ytxu.api_semi_auto_creater.parser.DefinedParamParser;
-import cn.ytxu.api_semi_auto_creater.parser.DocParser;
 import cn.ytxu.api_semi_auto_creater.parser.RequestParser;
-import cn.ytxu.api_semi_auto_creater.parser.SectionParser;
 import cn.ytxu.util.ListUtil;
 
 import java.util.ArrayList;
@@ -23,10 +21,6 @@ public class Parser {
     }
 
     public DocumentEntity start() {
-        // 1 get docment from html content
-        parseDocumentAndGetSections();
-        // 2 parse section
-        parseSectionsAndGetRequests();
         // 3 parse request method
         parseRequests();
         // 4 parse method RESTful url
@@ -48,19 +42,6 @@ public class Parser {
         return docment;
     }
 
-    private void parseDocumentAndGetSections() {
-        docment = new DocParser().get();
-        sections = docment.getSections();
-    }
-
-    private void parseSectionsAndGetRequests() {
-        requests = new ArrayList<>();
-        for (SectionEntity section : sections) {
-            SectionParser parser = new SectionParser(section);
-            List<RequestEntity> datas = parser.get();
-            requests.addAll(datas);
-        }
-    }
 
     private void parseRequests() {
         for (RequestEntity request : requests) {
