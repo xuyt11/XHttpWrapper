@@ -1,10 +1,6 @@
 package cn.ytxu.api_semi_auto_creater;
 
 import cn.ytxu.api_semi_auto_creater.entity.*;
-import cn.ytxu.api_semi_auto_creater.model.DefinedParamModel;
-import cn.ytxu.api_semi_auto_creater.parser.DefinedParamParser;
-import cn.ytxu.api_semi_auto_creater.parser.RequestParser;
-import cn.ytxu.util.ListUtil;
 
 import java.util.List;
 
@@ -22,7 +18,6 @@ public class Parser {
 
     public DocumentEntity start() {
         // 3 parse request method
-        parseRequests();
         // 4 parse method RESTful url
 //        RESTfulUrlModel restfulUrl = new RESTfulUrlModel();
         // 5 parse Parameter desc table element
@@ -42,27 +37,5 @@ public class Parser {
         return docment;
     }
 
-
-    private void parseRequests() {
-        for (RequestEntity request : requests) {
-            RequestParser parser = new RequestParser(request);
-            parser.get();
-        }
-    }
-
-    private void parseDefinedParams() {
-        for (RequestEntity request : requests) {
-            List<DefinedParamModel> definedParams = request.getDefinedParams();
-
-            if (ListUtil.isEmpty(definedParams)) {
-                continue;
-            }
-
-            for (DefinedParamModel definedParam : definedParams) {
-                DefinedParamParser parser = new DefinedParamParser(definedParam);
-                parser.get();
-            }
-        }
-    }
 
 }
