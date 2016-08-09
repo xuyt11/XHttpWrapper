@@ -1,6 +1,8 @@
 package cn.ytxu.api_semi_auto_creater.model;
 
 import cn.ytxu.api_semi_auto_creater.model.base.SectionModel;
+import cn.ytxu.api_semi_auto_creater.model.request.DefinedParamModel;
+import cn.ytxu.api_semi_auto_creater.model.request.InputParamModel;
 import org.jsoup.nodes.Element;
 
 import java.util.List;

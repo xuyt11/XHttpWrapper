@@ -1,5 +1,7 @@
-package cn.ytxu.api_semi_auto_creater.model;
+package cn.ytxu.api_semi_auto_creater.model.request;
 
+import cn.ytxu.api_semi_auto_creater.model.BaseModel;
+import cn.ytxu.api_semi_auto_creater.model.RequestModel;
 import org.jsoup.nodes.Element;
 
 /**
