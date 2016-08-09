@@ -1,6 +1,6 @@
-package cn.ytxu.api_semi_auto_creater.model;
+package cn.ytxu.api_semi_auto_creater.model.base;
 
-import org.jsoup.nodes.Element;
+import cn.ytxu.api_semi_auto_creater.model.BaseModel;
 
 import java.util.List;
 

@@ -1,5 +1,6 @@
-package cn.ytxu.api_semi_auto_creater.model;
+package cn.ytxu.api_semi_auto_creater.model.base;
 
+import cn.ytxu.api_semi_auto_creater.model.BaseModel;
 import cn.ytxu.api_semi_auto_creater.parser.base.DocEntity;
 import org.jsoup.nodes.Element;
 

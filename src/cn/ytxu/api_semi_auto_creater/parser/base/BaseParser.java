@@ -2,10 +2,10 @@ package cn.ytxu.api_semi_auto_creater.parser.base;
 
 import cn.ytxu.apacer.config.Config;
 import cn.ytxu.apacer.dataParser.jsoupUtil.JsoupParserUtil;
-import cn.ytxu.api_semi_auto_creater.model.DocModel;
+import cn.ytxu.api_semi_auto_creater.model.base.DocModel;
 import cn.ytxu.api_semi_auto_creater.model.RequestModel;
-import cn.ytxu.api_semi_auto_creater.model.SectionModel;
-import cn.ytxu.api_semi_auto_creater.model.VersionModel;
+import cn.ytxu.api_semi_auto_creater.model.base.SectionModel;
+import cn.ytxu.api_semi_auto_creater.model.base.VersionModel;
 import cn.ytxu.util.CamelCaseUtils;
 import cn.ytxu.util.LogUtil;
 import com.sun.istack.internal.NotNull;
