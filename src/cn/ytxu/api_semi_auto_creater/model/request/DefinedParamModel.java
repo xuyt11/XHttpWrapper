@@ -15,6 +15,11 @@ public class DefinedParamModel extends BaseModel<RequestModel> {
     private String type;// 字段的类型
     private boolean isOptional = false;// 是否为可选字段
     private String description;// 字段描述
+    // 在描述字段张解析出来的该字段的类型名称；可以用于response 中数组、对象的起名
+    // 例如：results中有children字段，但两个都是Area属性
+    // results	Array 地区信息结果{DataType:Area}
+    // children	Array 地区信息子结果{DataType:Area}
+    private String dataType;
 
 //    private boolean isList = false;// 是否为数组类型：默认为不是数组类型
 //    private List<FieldEntity> subs;// 子字段集合
@@ -58,5 +63,13 @@ public class DefinedParamModel extends BaseModel<RequestModel> {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setDataType(String dataType) {
+        this.dataType = dataType;
+    }
+
+    public String getDataType() {
+        return dataType;
     }
 }

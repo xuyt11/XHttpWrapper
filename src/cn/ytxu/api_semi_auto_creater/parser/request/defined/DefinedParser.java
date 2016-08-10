@@ -6,6 +6,9 @@ import cn.ytxu.util.LogUtil;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * 解析类
  * 获取到该方法中所有的字段,包括:header, input params, output params
@@ -19,14 +22,13 @@ public class DefinedParser {
 
     private static final String CSS_QUERY_GET_FIELD_OPTIONAL = "span.label.label-optional";
 
-    private DefinedParamModel baseEntity;
+    private DefinedParamModel definedModel;
     private Element baseEle;
     private Elements descParamAttrEles;
-    private Element fieldEle, typeEle, descEle;// sub ele
 
     public DefinedParser(DefinedParamModel baseEntity) {
         super();
-        this.baseEntity = baseEntity;
+        this.definedModel = baseEntity;
         this.baseEle = baseEntity.getElement();
     }
 
@@ -43,15 +45,10 @@ public class DefinedParser {
             return;
         }
 
-        getSubEles();
         getIsOptionalField();
         getName();
         getType();
         getDesc();
-
-//        TODO 未来要对paramDesc进行参数在服务器端类型的翻译，并添加到FieldEntity中
-//        results	Array 地区信息结果{DataType:Area}
-//        children	Array 地区信息子结果{DataType:Area}
     }
 
     private void findChildren() {
@@ -62,42 +59,70 @@ public class DefinedParser {
         return null == descParamAttrEles || descParamAttrEles.size() != DEFINED_PARAM_ATTR_NUMBER;
     }
 
-    private void getSubEles() {
-        fieldEle = descParamAttrEles.get(DEFINED_PARAM_ATTR_FIELD);
-        typeEle = descParamAttrEles.get(DEFINED_PARAM_ATTR_TYPE);
-        descEle = descParamAttrEles.get(DEFINED_PARAM_ATTR_DESC);
-    }
-
     private void getIsOptionalField() {
         Elements fieldOptionalEles = getFieldOptionalEles();
         boolean isOptional = null != fieldOptionalEles && fieldOptionalEles.size() == 1;
-        baseEntity.setOptional(isOptional);
+        definedModel.setOptional(isOptional);
     }
 
     private Elements getFieldOptionalEles() {
+        Element fieldEle = descParamAttrEles.get(DEFINED_PARAM_ATTR_FIELD);
         return JsoupParserUtil.getEles(fieldEle, CSS_QUERY_GET_FIELD_OPTIONAL);// span elements
     }
 
     private void getName() {
+        Element fieldEle = descParamAttrEles.get(DEFINED_PARAM_ATTR_FIELD);
         String paramName;
-        if (baseEntity.isOptional()) {
+        if (definedModel.isOptional()) {
             paramName = JsoupParserUtil.getText(fieldEle.textNodes().get(0));
         } else {
             paramName = JsoupParserUtil.getText(fieldEle);
         }
-        baseEntity.setName(paramName);
+        definedModel.setName(paramName);
     }
 
-    private String getType() {
+    private void getType() {
+        Element typeEle = descParamAttrEles.get(DEFINED_PARAM_ATTR_TYPE);
         String paramType = JsoupParserUtil.getText(typeEle);
-        baseEntity.setType(paramType);
-        return paramType;
+        definedModel.setType(paramType);
     }
 
-    private String getDesc() {
+    private void getDesc() {
+        Element descEle = descParamAttrEles.get(DEFINED_PARAM_ATTR_DESC);
         String paramDesc = JsoupParserUtil.getText(descEle);
-        baseEntity.setDescription(paramDesc);
-        return paramDesc;
+        definedModel.setDescription(paramDesc);
+
+        getDataType(paramDesc);
+    }
+
+    private void getDataType(String paramDesc) {
+        Matcher m = DATA_TYPE_PATTERN.matcher(paramDesc);
+        if (!m.find()) {
+            return;
+        }
+
+        String group = m.group();
+        int methodNameStart = PATTERN_FRONT.length();
+        int methodNameEnd = group.length() - PATTERN_END.length();
+        String dataType = group.substring(methodNameStart, methodNameEnd);
+        definedModel.setDataType(dataType);
+    }
+
+    private static final String PATTERN_FRONT = "{DataType:";
+    private static final String PATTERN_END = "}";
+    private static final Pattern DATA_TYPE_PATTERN = Pattern.compile("(\\{DataType:)\\w+(\\})");
+
+    public static void main(String... args) {
+        String desc = "desc text {DataType:Area}";
+
+        Matcher m = DATA_TYPE_PATTERN.matcher(desc);
+        if (m.find()) {
+            String group = m.group();
+            int methodNameStart = PATTERN_FRONT.length();
+            int methodNameEnd = group.length() - PATTERN_END.length();
+            String dataType = group.substring(methodNameStart, methodNameEnd);
+            System.out.println("data type :" + dataType);
+        }
     }
 
 }
