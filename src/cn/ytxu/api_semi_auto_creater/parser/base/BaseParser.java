@@ -311,7 +311,7 @@ public class BaseParser {
         public List<RequestModel> invoke() {
             List<RequestModel> requestModels = new ArrayList<>(sectionEntity.getRequests().size());
             for (DocEntity.RequestEntity requestEntity : sectionEntity.getRequests()) {
-                RequestModel requestModel = new RequestModel(sectionModel, sectionModel.getElement(), requestEntity.getName(), requestEntity.getVersion());
+                RequestModel requestModel = new RequestModel(sectionModel, requestEntity.getElement(), requestEntity.getName(), requestEntity.getVersion());
                 requestModels.add(requestModel);
             }
             return requestModels;
