@@ -29,16 +29,8 @@ public class RequestModel extends BaseModel<SectionModel> {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getVersion() {
         return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
     }
 
     public String getDescrption() {
@@ -88,4 +80,12 @@ public class RequestModel extends BaseModel<SectionModel> {
     public void setInputs(List<InputParamModel> inputs) {
         this.inputs = inputs;
     }
+
+
+    //*************** reflect method area ***************
+    public String request_desc() {
+        return descrption;
+    }
+
+
 }
