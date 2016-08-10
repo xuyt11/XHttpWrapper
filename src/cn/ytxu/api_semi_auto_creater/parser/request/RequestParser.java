@@ -103,11 +103,12 @@ public class RequestParser {
 
     private void setResponses(Elements responseDescEls, Elements responseEls) {
         List<ResponseEntity> responses = new ArrayList<>(responseDescEls.size());
-        for (int i = 0, count = responseDescEls.size(); i < count; i++) {
-            ResponseEntity response = new ResponseEntity(request, responseDescEls.get(i), responseEls.get(i));
-            responses.add(response);
-        }
-        request.setResponses(responses);
+        // TODO 需要解析response
+//        for (int i = 0, count = responseDescEls.size(); i < count; i++) {
+//            ResponseEntity response = new ResponseEntity(request, responseDescEls.get(i), responseEls.get(i));
+//            responses.add(response);
+//        }
+//        request.setResponses(responses);
     }
 
 }
