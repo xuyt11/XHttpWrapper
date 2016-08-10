@@ -9,6 +9,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class DefinedsParser {
@@ -48,7 +49,7 @@ public class DefinedsParser {
     private List<DefinedParamModel> getDefinedParams(Element descParamCategoryEle) {
         Elements descParamEles = JsoupParserUtil.getEles(descParamCategoryEle, CSS_QUERY_GET_DESC_PARAM);
         if (JsoupParserUtil.isNullOrEmpty(descParamEles)) {
-            return null;
+            return Collections.EMPTY_LIST;
         }
 
         List<DefinedParamModel> definedParams = new ArrayList<>(descParamEles.size());

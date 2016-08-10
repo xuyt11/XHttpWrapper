@@ -29,31 +29,63 @@ public class RequestModel extends BaseModel<SectionModel> {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getVersion() {
         return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    public String getDescrption() {
+        return descrption;
     }
 
     public void setDescrption(String descrption) {
         this.descrption = descrption;
     }
 
+    public String getMethodType() {
+        return methodType;
+    }
+
     public void setMethodType(String methodType) {
         this.methodType = methodType;
+    }
+
+    public RESTfulUrlModel getRestfulUrl() {
+        return restfulUrl;
     }
 
     public void setRestfulUrl(RESTfulUrlModel restfulUrl) {
         this.restfulUrl = restfulUrl;
     }
 
+    public List<DefinedParamModel> getDefinedParams() {
+        return definedParams;
+    }
+
     public void setDefinedParams(List<DefinedParamModel> definedParams) {
         this.definedParams = definedParams;
+    }
+
+    public List<InputParamModel> getHeaders() {
+        return headers;
     }
 
     public void setHeaders(List<InputParamModel> headers) {
         this.headers = headers;
     }
 
-    public void setInputParams(List<InputParamModel> inputs) {
+    public List<InputParamModel> getInputs() {
+        return inputs;
+    }
+
+    public void setInputs(List<InputParamModel> inputs) {
         this.inputs = inputs;
     }
 }
