@@ -1,9 +1,8 @@
-package cn.ytxu.api_semi_auto_creater.parser.request;
+package cn.ytxu.api_semi_auto_creater.parser.request.input;
 
 import cn.ytxu.apacer.dataParser.jsoupUtil.JsoupParserUtil;
 import cn.ytxu.api_semi_auto_creater.model.request.InputParamModel;
 import cn.ytxu.api_semi_auto_creater.model.RequestModel;
-import cn.ytxu.api_semi_auto_creater.parser.InputFieldParser;
 import cn.ytxu.util.ListUtil;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;

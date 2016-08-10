@@ -1,11 +1,11 @@
-package cn.ytxu.api_semi_auto_creater.parser;
+package cn.ytxu.api_semi_auto_creater.parser.request;
 
 import cn.ytxu.apacer.dataParser.jsoupUtil.JsoupParserUtil;
 import cn.ytxu.api_semi_auto_creater.entity.*;
 import cn.ytxu.api_semi_auto_creater.model.RESTfulUrlModel;
 import cn.ytxu.api_semi_auto_creater.model.RequestModel;
-import cn.ytxu.api_semi_auto_creater.parser.request.DefinedsParser;
-import cn.ytxu.api_semi_auto_creater.parser.request.InputsParser;
+import cn.ytxu.api_semi_auto_creater.parser.request.defined.DefinedsParser;
+import cn.ytxu.api_semi_auto_creater.parser.request.input.InputsParser;
 import cn.ytxu.util.ListUtil;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
