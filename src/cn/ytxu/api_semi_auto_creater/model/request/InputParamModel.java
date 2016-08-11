@@ -13,7 +13,6 @@ import java.util.Objects;
 public class InputParamModel extends BaseModel<RequestModel> {
     private String name;// 字段名称
     private String type;// 字段的类型
-    private boolean isOptional = false;// 是否为可选字段
     private DefinedParamModel defind;// 已定义的字段描述对象
 
     public InputParamModel(RequestModel higherLevel, Element element) {
@@ -34,14 +33,6 @@ public class InputParamModel extends BaseModel<RequestModel> {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public boolean isOptional() {
-        return isOptional;
-    }
-
-    public void setOptional(boolean optional) {
-        isOptional = optional;
     }
 
     public void setDefind(DefinedParamModel defind) {
@@ -77,6 +68,13 @@ public class InputParamModel extends BaseModel<RequestModel> {
         }
 
         return desc;
+    }
+
+    public boolean input_isOptional() {
+        if (Objects.isNull(defind)) {
+            return false;
+        }
+        return defind.isOptional();
     }
 
 }
