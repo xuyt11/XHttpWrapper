@@ -45,7 +45,7 @@ public class ${section_class_name} extends BaseApi {
 	 * @param ${header_name} ${header_desc}
 	 </list>
 	 <list each="inputs">
-	 <if isTure="input_isOptional">
+	 <if isTrue="input_isOptional">
 	 * @param ${input_name} isOptional ${input_desc}
 	 <if_else>
 	 * @param ${input_name} ${input_desc}
