@@ -25,7 +25,7 @@ public class ReflectiveUtil {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-        throw new IllegalArgumentException("obj:" + clazz.toString() + ", methodName:" + methodName);
+        throw new IllegalArgumentException("do not find this method :" + methodName);
     }
 
     private static Object invokeMethodFromSuper(Object reflectObj, String methodName, Class clazz) {
@@ -37,7 +37,7 @@ public class ReflectiveUtil {
         Object reflectSuper = ((BaseModel) reflectObj).getHigherLevel();
         if (reflectSuper == null) {// reflectObj is DocModel, so it have not super base model
             System.out.println("error : the data tree can not call this " + methodName + " method, and return a blank string...");
-            return "";
+            return null;
         }
 
         return invokeMethod(reflectSuper, methodName);
