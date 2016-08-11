@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 
 /**
  * Created by ytxu on 2016/7/18.
+ * 一级遍历标签：foreach能包含list、list_replace、list_singleLine等等遍历标签
  */
 public class ForeachStatementRecord extends StatementRecord {
     private static final String PATTERN_FRONT = "each=\"";
