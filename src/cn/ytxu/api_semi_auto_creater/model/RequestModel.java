@@ -103,4 +103,13 @@ public class RequestModel extends BaseModel<SectionModel> {
         return methodType.toUpperCase();
     }
 
+    public List<InputParamModel> headers() {
+        return headers;
+    }
+
+    public List<InputParamModel> inputs() {
+        return inputs;
+    }
+
+
 }
