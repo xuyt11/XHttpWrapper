@@ -79,6 +79,18 @@ public class IfElseStatementRecord extends StatementRecord {
     @Override
     public void parse() {
         methodName = IfElseCondition.get(startTagContent).getMethodName(startTagContent);
+        parseSubs();
+    }
+
+    private void parseSubs() {
+        parseSubRecords(ifRecords);
+        parseSubRecords(elseRecords);
+    }
+
+    private void parseSubRecords(List<StatementRecord> records) {
+        for (StatementRecord sub : records) {
+            sub.parse();
+        }
     }
 
     @Override
@@ -94,5 +106,5 @@ public class IfElseStatementRecord extends StatementRecord {
         }
         return buffer;
     }
-    
+
 }
