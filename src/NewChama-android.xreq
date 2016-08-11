@@ -81,9 +81,9 @@ public class ${section_class_name} extends BaseApi {
         </list>
 	    <list each="inputs">
 	    <if isTure="input_isOptional">
-	    if (null != ${input_name}) request.addHeader("${input_name}", ${input_name});
+	    if (null != ${input_name}) request.addParam("${input_name}", ${input_name});
 	    <if_else>
-	    request.addHeader("${input_name}", ${input_name});
+	    request.addParam("${input_name}", ${input_name});
 	    </if_end>
         </list>
 
