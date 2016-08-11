@@ -59,7 +59,7 @@ public enum Statement {
             records.add(new ListSingleLineStatementRecord(this, content));
         }
     },
-    if_else("if else 条件判断", Pattern.compile("(<if isTure=\")\\w+(\">)"), "</if_end>") {
+    if_else("if else 条件判断", Pattern.compile("(<if isTrue=\")\\w+(\">)"), "</if_end>") {
         @Override
         public void getAndAddRecord(String content, List<StatementRecord> records, Iterator<String> contentIterator) {
             List<String> ifElseContents = getContents(contentIterator);
