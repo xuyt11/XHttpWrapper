@@ -12,4 +12,7 @@ public class RESTfulUrlModel extends BaseModel<RequestModel> {
         this.url = url;
     }
 
+    public String getUrl() {
+        return url;
+    }
 }

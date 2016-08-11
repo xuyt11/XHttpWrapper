@@ -87,5 +87,20 @@ public class RequestModel extends BaseModel<SectionModel> {
         return descrption;
     }
 
+    public String request_name() {
+        return name;
+    }
+
+    public String request_version() {
+        return version;
+    }
+
+    public String request_url() {
+        return restfulUrl.getUrl();
+    }
+
+    public String request_METHOD() {
+        return methodType.toUpperCase();
+    }
 
 }
