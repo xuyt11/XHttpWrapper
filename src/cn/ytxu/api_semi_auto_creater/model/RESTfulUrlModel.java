@@ -15,4 +15,8 @@ public class RESTfulUrlModel extends BaseModel<RequestModel> {
     public String getUrl() {
         return url;
     }
+
+    public boolean isRESTfulUrl() {
+        return isRESTfulUrl;
+    }
 }

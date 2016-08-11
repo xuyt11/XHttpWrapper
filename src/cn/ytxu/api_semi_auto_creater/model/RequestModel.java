@@ -111,5 +111,8 @@ public class RequestModel extends BaseModel<SectionModel> {
         return inputs;
     }
 
+    public boolean request_url_is_RESTful() {
+        return restfulUrl.isRESTfulUrl();
+    }
 
 }
