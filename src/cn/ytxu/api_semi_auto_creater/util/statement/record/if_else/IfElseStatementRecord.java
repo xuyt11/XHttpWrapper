@@ -7,8 +7,6 @@ import cn.ytxu.api_semi_auto_creater.util.statement.StatementRecord;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by ytxu on 2016/7/18.
@@ -80,7 +78,7 @@ public class IfElseStatementRecord extends StatementRecord {
 
     @Override
     public void parse() {
-        methodName = Condition.Boolean.getMethodName(startTagContent);
+        methodName = IfElseCondition.get(startTagContent).getMethodName(startTagContent);
     }
 
     @Override
@@ -96,33 +94,5 @@ public class IfElseStatementRecord extends StatementRecord {
         }
         return buffer;
     }
-
-
-    public static enum Condition {
-        Boolean("布尔类型判断", "isTrue=\"", "\"", Pattern.compile("(isTrue=\")\\w+(\")"));
-//        String("字符串类型判断");
-
-        private final String tag;
-        private final String pattern_front;
-        private final String pattern_end;
-        private final Pattern pattern;
-
-        Condition(String tag, String pattern_front, String pattern_end, Pattern pattern) {
-            this.tag = tag;
-            this.pattern_front = pattern_front;
-            this.pattern_end = pattern_end;
-            this.pattern = pattern;
-        }
-
-        public String getMethodName(String startTagContent) {
-            Matcher matcher = pattern.matcher(startTagContent);
-            // be sure to match, but also need call matcher.find()
-            matcher.find();
-            String group = matcher.group();
-            int methodNameStart = pattern_front.length();
-            int methodNameEnd = group.length() - pattern_end.length();
-            String methodName = group.substring(methodNameStart, methodNameEnd);
-            return methodName;
-        }
-    }
+    
 }
