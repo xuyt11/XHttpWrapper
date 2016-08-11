@@ -61,5 +61,5 @@ public class ListStatementRecord extends StatementRecord {
         }
         return foreachBuffer;
     }
-    
+
 }

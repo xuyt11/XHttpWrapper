@@ -52,6 +52,12 @@ public enum Statement {
             records.add(new ListStatementRecord(this, content, listContents));
         }
     },
+    list_single_line("单行循环，防止foreach循环嵌套", Pattern.compile("(<list each=\")\\w+(\")( singleLine).+(/>)"), null){
+        @Override
+        public void getAndAddRecord(String content, List<StatementRecord> records, Iterator<String> contentIterator) {
+            records.add(new ListSingleLineStatementRecord(this, content));
+        }
+    },
     if_else("if else 条件判断", Pattern.compile("(<if isTure=\")\\w+(\">)"), "</if_end>") {
         @Override
         public void getAndAddRecord(String content, List<StatementRecord> records, Iterator<String> contentIterator) {
