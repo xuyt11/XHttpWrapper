@@ -55,9 +55,21 @@ public class ${section_class_name} extends BaseApi {
 	 * @requestUrl ${request_url}
 	 */
 	public RequestHandle ${request_name}(Context cxt001,
-	    <list each="RESTful_fields" singleLine start="   	    " value="String ${RESTful_field_name}, " end=""/>
-	    <list each="headers" singleLine start="   	    " value="${header_type} ${header_name}, " end=""/>
-	    <list each="inputs" singleLine start="   	    " value="${input_type} ${input_name}, " end=""/>
+	    <list each="RESTful_fields" singleLine>
+            <start value="   	    "/>
+            <each value="String ${RESTful_field_name}, "/>
+             <end value=""/>
+	    </list>
+	    <list each="headers" singleLine>
+            <start value="   	    "/>
+            <each value="${header_type} ${header_name}, "/>
+            <end value=""/>
+	    </list>
+	    <list each="inputs" singleLine>
+	        <start value="   	    "/>
+	        <each value="${input_type} ${input_name}, "/>
+	        <end value=""/>
+	    </list>
 		ResponseHandlerInterface response) {
 		NetRequest request = new NetRequest();
 		request.setMethod(Method.${request_METHOD});
