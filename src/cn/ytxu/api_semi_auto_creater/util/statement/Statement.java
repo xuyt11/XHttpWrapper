@@ -2,6 +2,7 @@ package cn.ytxu.api_semi_auto_creater.util.statement;
 
 import cn.ytxu.api_semi_auto_creater.util.statement.record.*;
 import cn.ytxu.api_semi_auto_creater.util.statement.record.if_else.IfElseStatementRecord;
+import cn.ytxu.api_semi_auto_creater.util.statement.record.list_single_line.ListSingleLineStatementRecord;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -53,10 +54,11 @@ public enum Statement {
             records.add(new ListStatementRecord(this, content, listContents));
         }
     },
-    list_single_line("单行循环，防止foreach循环嵌套", Pattern.compile("(<list each=\")\\w+(\")( singleLine).+(/>)"), null){
+    list_single_line("单行循环，防止foreach循环嵌套", Pattern.compile("(<list each=\")\\w+(\")( singleLine/>)"), "</list>"){
         @Override
         public void getAndAddRecord(String content, List<StatementRecord> records, Iterator<String> contentIterator) {
-            records.add(new ListSingleLineStatementRecord(this, content));
+            List<String> listSingleLineContents = getContents(contentIterator);
+            records.add(new ListSingleLineStatementRecord(this, content, listSingleLineContents));
         }
     },
     if_else("if else 条件判断", Pattern.compile("(<if isTrue=\")\\w+(\">)"), "</if_end>") {
