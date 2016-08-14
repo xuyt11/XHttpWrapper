@@ -3,6 +3,7 @@ package cn.ytxu.api_semi_auto_creater.util.statement.record.list_single_line;
 import cn.ytxu.api_semi_auto_creater.util.statement.record.helper.PatternHelper;
 
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -18,13 +19,13 @@ public class LSLSRParser {
     public enum SubContentType {
         eachTemp("遍历的数据模板，一定要有的",
                 new PatternHelper.PatternModel("<eachTemp value=\"", "\"/>",
-                        Pattern.compile("(<eachTemp value=\")\\.+(\"/>)"))),
+                        Pattern.compile("(<eachTemp value=\")[\\p{Print}\\p{Space}]+(\"/>)"))),
         start("数据填充后，插入到首位",
                 new PatternHelper.PatternModel("<start value=\"", "\"/>",
-                        Pattern.compile("(<start value=\")\\.+(\"/>)"))),
+                        Pattern.compile("(<start value=\")[\\p{Print}\\p{Space}]+(\"/>)"))),
         end("数据填充后，添加到末尾",
                 new PatternHelper.PatternModel("<end value=\"", "\"/>",
-                        Pattern.compile("(<end value=\")\\.+(\"/>)")));
+                        Pattern.compile("(<end value=\")[\\p{Print}\\p{Space}]+(\"/>)")));
 
         private final String tag;
         private final PatternHelper.PatternModel patternModel;// 判断是否为该分类
@@ -132,5 +133,25 @@ public class LSLSRParser {
         void get(String patternValue);
 
         void unGet();
+    }
+
+
+    public static void main(String... args) {
+        Pattern p = Pattern.compile("(<eachTemp value=')\\.+('>)");
+        Matcher m = p.matcher("<eachTemp value='${input_type} ${input_name}, '>");
+        System.out.println("find " + m.find());
+
+        p = Pattern.compile("(eachTemp value=')[\\p{Punct}\\s\\w]+('>)");
+        m = p.matcher("<eachTemp value='${input_type} ${input_name}, '>");
+        System.out.println("find 1" + m.find());
+
+        p = Pattern.compile("(eachTemp value=')[\\p{Print}\\p{Space}]+('>)");
+        m = p.matcher("<eachTemp value='${input_type} ${input_name}, '>");
+        System.out.println("find 12" + m.find());
+
+        p = Pattern.compile("(eachTemp value=')[\\p{Print}\\p{Blank}]+('>)");
+        m = p.matcher("<eachTemp value='${input_type} ${input_name}, '>");
+        System.out.println("find 123" + m.find());
+
     }
 }
