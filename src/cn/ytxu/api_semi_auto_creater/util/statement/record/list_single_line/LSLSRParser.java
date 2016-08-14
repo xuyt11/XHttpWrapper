@@ -1,5 +1,8 @@
 package cn.ytxu.api_semi_auto_creater.util.statement.record.list_single_line;
 
+import cn.ytxu.api_semi_auto_creater.util.statement.Statement;
+import cn.ytxu.api_semi_auto_creater.util.statement.StatementRecord;
+import cn.ytxu.api_semi_auto_creater.util.statement.record.TextStatementRecord;
 import cn.ytxu.api_semi_auto_creater.util.statement.record.helper.PatternHelper;
 
 import java.util.List;
@@ -41,7 +44,8 @@ public class LSLSRParser {
     private List<String> contents;
 
     private String methodName;
-    private String start, eachTemp, end;// 在遍历完成后，需要将start+values+end拼接返回
+    private StatementRecord eachTempStatementRecord;
+    private String start, end;// 在遍历完成后，需要将start+values+end拼接返回
 
     public LSLSRParser(String startTagContent, List<String> contents) {
         this.startTagContent = startTagContent;
@@ -54,7 +58,8 @@ public class LSLSRParser {
         parsePatternValue(SubContentType.eachTemp, new GetPatternValueCallback() {
             @Override
             public void get(String patternValue) {
-                eachTemp = patternValue;
+                eachTempStatementRecord = new TextStatementRecord(Statement.text, patternValue);
+                eachTempStatementRecord.parse();
             }
 
             @Override
@@ -117,8 +122,8 @@ public class LSLSRParser {
         return start;
     }
 
-    public String getEachTemp() {
-        return eachTemp;
+    public StatementRecord getEachTempStatementRecord() {
+        return eachTempStatementRecord;
     }
 
     public String getEnd() {
