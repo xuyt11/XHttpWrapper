@@ -3,6 +3,7 @@ package cn.ytxu.api_semi_auto_creater.model.request.restful_url;
 import cn.ytxu.api_semi_auto_creater.model.BaseModel;
 import cn.ytxu.api_semi_auto_creater.model.RequestModel;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ public class RESTfulUrlModel extends BaseModel<RequestModel> {
     private boolean isRESTfulUrl = false;
     private boolean hasMultiParam;// 是否有多选类型的参数，若有的话，则使用url是需要使用multiUrl
     private String multiUrl;
-    private List<RESTfulParamModel> params;
+    private List<RESTfulParamModel> params = Collections.EMPTY_LIST;
 
     public RESTfulUrlModel(RequestModel higherLevel, String url) {
         super(higherLevel, null);
@@ -52,12 +53,8 @@ public class RESTfulUrlModel extends BaseModel<RequestModel> {
         this.params = params;
     }
 
-    public List<?> getFields() {
-
-    }
-
-    public String RESTful_field_name() {
-        return ;
+    public List<RESTfulParamModel> getParams() {
+        return params;
     }
 
 }

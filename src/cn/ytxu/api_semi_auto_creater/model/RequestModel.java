@@ -3,6 +3,7 @@ package cn.ytxu.api_semi_auto_creater.model;
 import cn.ytxu.api_semi_auto_creater.model.base.SectionModel;
 import cn.ytxu.api_semi_auto_creater.model.request.DefinedParamModel;
 import cn.ytxu.api_semi_auto_creater.model.request.InputParamModel;
+import cn.ytxu.api_semi_auto_creater.model.request.restful_url.RESTfulParamModel;
 import cn.ytxu.api_semi_auto_creater.model.request.restful_url.RESTfulUrlModel;
 import org.jsoup.nodes.Element;
 
@@ -116,8 +117,8 @@ public class RequestModel extends BaseModel<SectionModel> {
         return restfulUrl.isRESTfulUrl();
     }
 
-    public List<?> RESTful_fields() {
-        return restfulUrl.getFields();
+    public List<RESTfulParamModel> RESTful_fields() {
+        return restfulUrl.getParams();
     }
 
 }

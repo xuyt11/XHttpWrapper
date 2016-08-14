@@ -28,4 +28,11 @@ public class RESTfulParamModel extends BaseModel<RESTfulUrlModel> {
     public int getEnd() {
         return end;
     }
+
+
+    //*************** reflect method area ***************
+    public String RESTful_field_name() {
+        return param;
+    }
+
 }
