@@ -68,7 +68,7 @@ public enum Statement {
             records.add(new IfElseStatementRecord(this, content, ifElseContents));
         }
     },
-    list_replace("替换数组的文本", Pattern.compile("(<list_replace each=\")\\w+(\" replace_key=\")\\w+(\" list_value=\")\\w+(\">)"), "</list_replace>") {
+    list_replace("替换数组的文本", Pattern.compile("(<list_replace each=\")\\w+(\" replace_key=\")\\w+(\" list_value=\")[\\p{Print}\\p{Space}]+(\">)"), "</list_replace>") {
         @Override
         public void getAndAddRecord(String content, List<StatementRecord> records, Iterator<String> contentIterator) {
             List<String> listReplaceContents = getContents(contentIterator);
