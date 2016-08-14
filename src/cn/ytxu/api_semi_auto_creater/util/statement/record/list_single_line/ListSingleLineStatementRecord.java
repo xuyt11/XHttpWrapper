@@ -4,6 +4,7 @@ import cn.ytxu.apacer.entity.RetainEntity;
 import cn.ytxu.api_semi_auto_creater.util.ReflectiveUtil;
 import cn.ytxu.api_semi_auto_creater.util.statement.Statement;
 import cn.ytxu.api_semi_auto_creater.util.statement.StatementRecord;
+import cn.ytxu.api_semi_auto_creater.util.statement.record.TextStatementRecord;
 import cn.ytxu.util.ListUtil;
 
 import java.util.List;
@@ -40,8 +41,9 @@ public class ListSingleLineStatementRecord extends StatementRecord {
         }
 
         for (Object subModel : subModels) {
-            StatementRecord record = parser.getEachTempStatementRecord();
-            listSingleLineBuffer.append(record.getWriteBuffer(subModel, retain));
+            TextStatementRecord record = parser.getEachTempStatementRecord();
+            StringBuffer buffer = record.getNormalWriteBuffer(subModel, retain);
+            listSingleLineBuffer.append(buffer);
         }
 
         if (Objects.nonNull(parser.getStart())) {
@@ -52,6 +54,6 @@ public class ListSingleLineStatementRecord extends StatementRecord {
             listSingleLineBuffer.append(parser.getEnd());
         }
 
-        return listSingleLineBuffer;
+        return listSingleLineBuffer.append(NextLine);
     }
 }

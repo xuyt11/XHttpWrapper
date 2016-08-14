@@ -44,7 +44,7 @@ public class LSLSRParser {
     private List<String> contents;
 
     private String methodName;
-    private StatementRecord eachTempStatementRecord;
+    private TextStatementRecord eachTempStatementRecord;
     private String start, end;// 在遍历完成后，需要将start+values+end拼接返回
 
     public LSLSRParser(String startTagContent, List<String> contents) {
@@ -122,7 +122,7 @@ public class LSLSRParser {
         return start;
     }
 
-    public StatementRecord getEachTempStatementRecord() {
+    public TextStatementRecord getEachTempStatementRecord() {
         return eachTempStatementRecord;
     }
 

@@ -35,9 +35,12 @@ public class TextStatementRecord extends StatementRecord {
 
     @Override
     public StringBuffer getWriteBuffer(Object reflectModel, RetainEntity retain) {
+        return getNormalWriteBuffer(reflectModel, retain).append(NextLine);
+    }
+
+    public StringBuffer getNormalWriteBuffer(Object reflectModel, RetainEntity retain) {
         getAndSetContent2Range(reflectModel);
-        StringBuffer fragmentBuffer = getFragmentBuffer();
-        return fragmentBuffer.append(NextLine);
+        return getFragmentBuffer();
     }
 
     private void getAndSetContent2Range(Object reflectModel) {
@@ -49,7 +52,7 @@ public class TextStatementRecord extends StatementRecord {
 
     private StringBuffer getFragmentBuffer() {
         if (hasNotNeedReplaceText()) {
-            return  new StringBuffer(startTagContent);
+            return new StringBuffer(startTagContent);
         }
 
         StringBuffer fragmentBuffer = new StringBuffer();
