@@ -13,6 +13,7 @@ public class RESTfulUrlModel extends BaseModel<RequestModel> {
     private boolean isRESTfulUrl = false;
     private boolean hasMultiParam;// 是否有多选类型的参数，若有的话，则使用url是需要使用multiUrl
     private String multiUrl;
+    private List<RESTfulParamModel> params;
 
     public RESTfulUrlModel(RequestModel higherLevel, String url) {
         super(higherLevel, null);
@@ -31,12 +32,24 @@ public class RESTfulUrlModel extends BaseModel<RequestModel> {
         this.isRESTfulUrl = isRESTfulUrl;
     }
 
+    public boolean hasMultiParam() {
+        return hasMultiParam;
+    }
+
     public void setHasMultiParam(boolean hasMultiParam) {
         this.hasMultiParam = hasMultiParam;
     }
 
+    public String getMultiUrl() {
+        return multiUrl;
+    }
+
     public void setMultiUrl(String multiUrl) {
         this.multiUrl = multiUrl;
+    }
+
+    public void setParams(List<RESTfulParamModel> params) {
+        this.params = params;
     }
 
     public List<?> getFields() {

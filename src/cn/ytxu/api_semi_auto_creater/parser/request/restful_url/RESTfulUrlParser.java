@@ -1,7 +1,10 @@
 package cn.ytxu.api_semi_auto_creater.parser.request.restful_url;
 
+import cn.ytxu.api_semi_auto_creater.model.request.restful_url.RESTfulParamModel;
 import cn.ytxu.api_semi_auto_creater.model.request.restful_url.RESTfulUrlModel;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -9,6 +12,8 @@ import java.util.regex.Pattern;
  * Created by ytxu on 2016/8/14.
  */
 public class RESTfulUrlParser {
+    private static final Pattern ID_OR_DATE_PATTERN = Pattern.compile("[\\{]{1}.{2,}?[\\}]{1}");
+    private static final Pattern MULTI_PATTERN = Pattern.compile("[\\[]{1}.{2,}?[\\]]{1}");
 
     private RESTfulUrlModel model;
 
@@ -19,17 +24,16 @@ public class RESTfulUrlParser {
     public void start() {
         setIsRESTfulUrl();
         parseMultiUrl();
+        parseIdOrDateParam();
     }
 
     private void setIsRESTfulUrl() {
-        Pattern idOrDatePattern = Pattern.compile("[\\{]{1}.{2,}?[\\}]{1}");
-        Matcher m = idOrDatePattern.matcher(model.getUrl());
+        Matcher m = ID_OR_DATE_PATTERN.matcher(model.getUrl());
         model.setRESTfulUrl(m.find());
     }
 
     private void parseMultiUrl() {
-        Pattern multiPattern = Pattern.compile("[\\[]{1}.{2,}?[\\]]{1}");
-        Matcher m = multiPattern.matcher(model.getUrl());
+        Matcher m = MULTI_PATTERN.matcher(model.getUrl());
         boolean hasMultiParam = m.find();
         model.setHasMultiParam(hasMultiParam);
 
@@ -49,6 +53,38 @@ public class RESTfulUrlParser {
         model.setMultiUrl(multiUrl);
     }
 
+    private void parseIdOrDateParam() {
+        if (!model.isRESTfulUrl()) {// no heed parse
+            return;
+        }
+
+        String url = model.hasMultiParam() ? model.getMultiUrl() : model.getUrl();
+        Matcher m = ID_OR_DATE_PATTERN.matcher(url);
+        List<RESTfulParamModel> params = new ArrayList<>();
+        while (m.find()) {
+            RESTfulParamModel paramModel = getResTfulParamModel(m);
+            params.add(paramModel);
+        }
+        model.setParams(params);
+    }
+
+    private RESTfulParamModel getResTfulParamModel(Matcher m) {
+        int start = m.start();
+        int end = m.end();
+        String group = m.group();
+
+        String restfulParam = group.substring(1, group.length() - 1);
+        if (restfulParam.contains("-") || restfulParam.contains(":") || restfulParam.contains(" ")) {
+            if ("YYYY-MM-DD".equals(restfulParam)) {
+                restfulParam = "restfulDateParam" + "/** " + restfulParam + " */ ";
+            } else {
+                throw new RuntimeException("the RESTful request url is" + model.getUrl() +
+                        ", and the restfulParam is " + restfulParam +
+                        ", and ytxu need parse this param, so i throw exception...");
+            }
+        }
+        return new RESTfulParamModel(model, restfulParam, start, end);
+    }
 
     private enum FieldType {
         id("id型的：{id}、{feedback_id}、{recommend_id}..."),
