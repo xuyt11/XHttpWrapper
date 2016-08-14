@@ -12,23 +12,23 @@ import java.util.List;
  */
 public class ReflectiveUtil {
 
-    public static Object invokeMethod(Object reflectObj, String methodName) {
+    public static Object invokeMethod(Object reflectObj, String methodName, String printTag) {
         Class clazz = reflectObj.getClass();
         try {
             Method method = clazz.getDeclaredMethod(methodName);
             return method.invoke(reflectObj);
         } catch (NoSuchMethodException ignore) {
-            Object reflectSuper = invokeMethodFromSuper(reflectObj, methodName, clazz);
+            Object reflectSuper = invokeMethodFromSuper(reflectObj, methodName, printTag);
             if (reflectSuper != null) return reflectSuper;
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-        throw new IllegalArgumentException("do not find this method :" + methodName);
+        throw new IllegalArgumentException(printTag + ", do not find this method :" + methodName);
     }
 
-    private static Object invokeMethodFromSuper(Object reflectObj, String methodName, Class clazz) {
+    private static Object invokeMethodFromSuper(Object reflectObj, String methodName, String printTag) {
         if (!(reflectObj instanceof BaseModel)) {
             throw new IllegalArgumentException(reflectObj.getClass().toString() + " is not extends BaseModel, you need extends it...");
         }
@@ -40,19 +40,19 @@ public class ReflectiveUtil {
             return null;
         }
 
-        return invokeMethod(reflectSuper, methodName);
+        return invokeMethod(reflectSuper, methodName, printTag);
     }
 
     public static String getString(Object reflectObj, String methodName) {
-        return (String) invokeMethod(reflectObj, methodName);
+        return (String) invokeMethod(reflectObj, methodName, reflectObj.getClass().getSimpleName());
     }
 
     public static List<?> getList(Object reflectObj, String methodName) {
-        return (List<?>) invokeMethod(reflectObj, methodName);
+        return (List<?>) invokeMethod(reflectObj, methodName, reflectObj.getClass().getSimpleName());
     }
 
     public static boolean getBoolean(Object reflectObj, String methodName) {
-        return (boolean) invokeMethod(reflectObj, methodName);
+        return (boolean) invokeMethod(reflectObj, methodName, reflectObj.getClass().getSimpleName());
     }
 
 
