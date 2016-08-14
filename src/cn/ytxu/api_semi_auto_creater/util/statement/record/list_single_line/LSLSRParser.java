@@ -10,32 +10,29 @@ import java.util.regex.Pattern;
  * list single line 表达式记录的解析器
  */
 public class LSLSRParser {
-    // methodName eachObject 必须要有
+    // methodName
     private static final PatternHelper.PatternModel EACH_MODEL
             = new PatternHelper.PatternModel("each=\"", "\"", Pattern.compile("(each=\")\\w+(\")"));
-    private static final PatternHelper.PatternModel VALUE_MODEL
-            = new PatternHelper.PatternModel("value=\"", "\"", Pattern.compile("(value=\")\\.+(\")"));
 
-    // start end 可以没有
-    private static final PatternHelper.PatternModel START_MODEL
-            = new PatternHelper.PatternModel("start=\"", "\"", Pattern.compile("(start=\")\\w+(\")"));
-    private static final PatternHelper.PatternModel END_MODEL
-            = new PatternHelper.PatternModel("end=\"", "\"", Pattern.compile("(end=\")\\w+(\")"));
-
+    // eachTemp 必须要有, start end 可以没有
     public enum SubContentType {
-        eachTemp("遍历的数据模板，一定要有的", Pattern.compile("(<eachTemp value=\")\\.+(\"/>)")),
-        start("数据填充后，插入到首位", Pattern.compile("(<start value=\")\\.+(\"/>)")),
-        end("数据填充后，添加到末尾", Pattern.compile("(<end value=\")\\.+(\"/>)"));
+        eachTemp("遍历的数据模板，一定要有的",
+                new PatternHelper.PatternModel("<eachTemp value=\"", "\"/>",
+                        Pattern.compile("(<eachTemp value=\")\\.+(\"/>)"))),
+        start("数据填充后，插入到首位",
+                new PatternHelper.PatternModel("<start value=\"", "\"/>",
+                        Pattern.compile("(<start value=\")\\.+(\"/>)"))),
+        end("数据填充后，添加到末尾",
+                new PatternHelper.PatternModel("<end value=\"", "\"/>",
+                        Pattern.compile("(<end value=\")\\.+(\"/>)")));
 
         private final String tag;
-        private final Pattern pattern;// 判断是否为该分类
+        private final PatternHelper.PatternModel patternModel;// 判断是否为该分类
 
-        SubContentType(String tag, Pattern pattern) {
+        SubContentType(String tag, PatternHelper.PatternModel patternModel) {
             this.tag = tag;
-            this.pattern = pattern;
+            this.patternModel = patternModel;
         }
-
-
     }
 
 
@@ -43,7 +40,7 @@ public class LSLSRParser {
     private List<String> contents;
 
     private String methodName;
-    private String start, value, end;// 在遍历完成后，需要将start+values+end拼接返回
+    private String start, eachTemp, end;// 在遍历完成后，需要将start+values+end拼接返回
 
     public LSLSRParser(String startTagContent, List<String> contents) {
         this.startTagContent = startTagContent;
@@ -52,17 +49,63 @@ public class LSLSRParser {
 
     public void parse() {
         methodName = PatternHelper.getPatternValue(EACH_MODEL, startTagContent);
-        value = PatternHelper.getPatternValue(VALUE_MODEL, startTagContent);
 
-        boolean hasStart = PatternHelper.matchThisPattern(START_MODEL, startTagContent);
-        if (hasStart) {
-            start = PatternHelper.getPatternValue(START_MODEL, startTagContent);
-        }
+        parsePatternValue(SubContentType.eachTemp, new GetPatternValueCallback() {
+            @Override
+            public void get(String patternValue) {
+                eachTemp = patternValue;
+            }
 
-        boolean hasEnd = PatternHelper.matchThisPattern(END_MODEL, startTagContent);
-        if (hasEnd) {
-            end = PatternHelper.getPatternValue(END_MODEL, startTagContent);
+            @Override
+            public void unGet() {
+                // can not happen
+            }
+        });
+
+        parsePatternValue(SubContentType.start, new GetPatternValueCallback() {
+            @Override
+            public void get(String patternValue) {
+                start = patternValue;
+            }
+
+            @Override
+            public void unGet() {
+                start = "";
+            }
+        });
+
+        parsePatternValue(SubContentType.end, new GetPatternValueCallback() {
+            @Override
+            public void get(String patternValue) {
+                end = patternValue;
+            }
+
+            @Override
+            public void unGet() {
+                end = "";
+            }
+        });
+    }
+
+    private void parsePatternValue(SubContentType type, GetPatternValueCallback callback) {
+        try {
+            String content = getTargetContentByPatternModel(type.patternModel);
+            contents.remove(content);
+            String patternValue = PatternHelper.getPatternValue(type.patternModel, content);
+            callback.get(patternValue);
+        } catch (TargetContentNotFoundException e) {
+            callback.unGet();
         }
+    }
+
+    private String getTargetContentByPatternModel(PatternHelper.PatternModel model) {
+        for (String content : contents) {
+            boolean hasMatch = PatternHelper.matchThisPattern(model, content);
+            if (hasMatch) {
+                return content;
+            }
+        }
+        throw new TargetContentNotFoundException();
     }
 
     public String getMethodName() {
@@ -73,11 +116,21 @@ public class LSLSRParser {
         return start;
     }
 
-    public String getValue() {
-        return value;
+    public String getEachTemp() {
+        return eachTemp;
     }
 
     public String getEnd() {
         return end;
+    }
+
+
+    private static class TargetContentNotFoundException extends RuntimeException {
+    }
+
+    private interface GetPatternValueCallback {
+        void get(String patternValue);
+
+        void unGet();
     }
 }

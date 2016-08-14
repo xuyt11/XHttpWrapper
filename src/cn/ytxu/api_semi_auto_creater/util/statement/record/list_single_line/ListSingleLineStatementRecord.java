@@ -23,11 +23,11 @@ public class ListSingleLineStatementRecord extends StatementRecord {
         if (contents.size() < 1) {
             throw new IllegalArgumentException("list single line statement record must have one sub...");
         }
+        parser = new LSLSRParser(startTagContent, contents);
     }
 
     @Override
     public void parse() {
-        parser = new LSLSRParser(startTagContent, contents);
         parser.parse();
     }
 
@@ -41,7 +41,7 @@ public class ListSingleLineStatementRecord extends StatementRecord {
         }
 
         for (Object subModel : subModels) {
-            StatementRecord record = new TextStatementRecord(Statement.text, parser.getValue());
+            StatementRecord record = new TextStatementRecord(Statement.text, parser.getEachTemp());
             listSingleLineBuffer.append(record.getWriteBuffer(subModel, retain));
         }
 
