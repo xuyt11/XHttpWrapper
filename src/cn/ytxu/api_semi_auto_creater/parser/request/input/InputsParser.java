@@ -42,6 +42,7 @@ public class InputsParser {
 
     private void getHeaderFields(Element fieldsetEle) {
         List<InputParamModel> headers = getInputParams(fieldsetEle, CSS_QUERY_GET_HEADER);
+        // TODO 过滤认证相关的字段，可以以配置文件的形式做--->java的preference???
         request.setHeaders(headers);
     }
 
