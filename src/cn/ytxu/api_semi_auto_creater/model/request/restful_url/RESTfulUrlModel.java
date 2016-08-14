@@ -3,6 +3,7 @@ package cn.ytxu.api_semi_auto_creater.model.request.restful_url;
 import cn.ytxu.api_semi_auto_creater.model.BaseModel;
 import cn.ytxu.api_semi_auto_creater.model.RequestModel;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -57,4 +58,54 @@ public class RESTfulUrlModel extends BaseModel<RequestModel> {
         return params;
     }
 
+    /**
+     * 转换了多选择参数的url：
+     * 若有多选择参数，则需要转换，才能使用
+     */
+    public String request_normal_url() {
+        if (hasMultiParam()) {
+            return getMultiUrl();
+        }
+        return getUrl();
+    }
+
+    /**
+     * 转换了id、date类型参数的url：
+     * 1、若没有id或date类型参数，直接返回normal url;
+     * 2、否则，获取到所有参数的位置，进行替换；
+     */
+    public String request_convert_url() {
+        List<RESTfulParamModel> params = getParams();
+        if (hasNotIdOrDateTypeParam(params)) {
+            return request_normal_url();
+        }
+
+        List<String> replaceContents = getReplaceContents(params);
+        String convertUrl = executeReplace2CreateConvertUrl(replaceContents);
+        return convertUrl;
+    }
+
+    private boolean hasNotIdOrDateTypeParam(List<RESTfulParamModel> params) {
+        return params.size() == 0;
+    }
+
+    private List<String> getReplaceContents(List<RESTfulParamModel> params) {
+        String url = request_normal_url();
+        List<String> replaceContents = new ArrayList<>(params.size());
+        for (RESTfulParamModel param : params) {
+            int start = param.getStart();
+            int end = param.getEnd();
+            String replace = url.substring(start, end);
+            replaceContents.add(replace);
+        }
+        return replaceContents;
+    }
+
+    private String executeReplace2CreateConvertUrl(List<String> replaceContents) {
+        String url = request_normal_url();
+        for (String replace : replaceContents) {
+            url = url.replace(replace, "%s");// TODO future 未来可能要适配ios等平台，不一定使用‘%s’进行替换
+        }
+        return url;
+    }
 }
