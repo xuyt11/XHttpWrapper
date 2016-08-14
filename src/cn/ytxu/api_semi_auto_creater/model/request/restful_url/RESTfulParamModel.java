@@ -2,6 +2,8 @@ package cn.ytxu.api_semi_auto_creater.model.request.restful_url;
 
 import cn.ytxu.api_semi_auto_creater.model.BaseModel;
 
+import java.text.DecimalFormat;
+
 /**
  * Created by ytxu on 2016/8/14.
  */
@@ -32,7 +34,9 @@ public class RESTfulParamModel extends BaseModel<RESTfulUrlModel> {
 
     //*************** reflect method area ***************
     public String RESTful_field_name() {
-        return param;
+        int indexOfParams = getHigherLevel().getParams().indexOf(this);
+        String formatIndex = new DecimalFormat("00").format(indexOfParams);
+        return param + formatIndex;
     }
 
 }
