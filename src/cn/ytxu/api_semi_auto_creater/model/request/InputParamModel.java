@@ -14,6 +14,7 @@ public class InputParamModel extends BaseModel<RequestModel> {
     private String name;// 字段名称
     private String type;// 字段的类型
     private DefinedParamModel defind;// 已定义的字段描述对象
+    private boolean isFilterTag;// 是否为可过滤掉的参数
 
     public InputParamModel(RequestModel higherLevel, Element element) {
         super(higherLevel, element);
@@ -39,6 +40,13 @@ public class InputParamModel extends BaseModel<RequestModel> {
         this.defind = defind;
     }
 
+    public void setFilterTag(boolean isFilterTag) {
+        this.isFilterTag = isFilterTag;
+    }
+
+    public boolean isFilterTag() {
+        return isFilterTag;
+    }
 
     //*************** reflect method area ***************
     public String header_type() {
@@ -84,5 +92,4 @@ public class InputParamModel extends BaseModel<RequestModel> {
         }
         return defind.isOptional();
     }
-
 }

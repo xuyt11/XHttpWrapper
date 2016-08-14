@@ -1,6 +1,7 @@
 package cn.ytxu.api_semi_auto_creater.parser.request.input;
 
 import cn.ytxu.apacer.dataParser.jsoupUtil.JsoupParserUtil;
+import cn.ytxu.api_semi_auto_creater.config.Property;
 import cn.ytxu.api_semi_auto_creater.model.request.InputParamModel;
 import cn.ytxu.api_semi_auto_creater.model.RequestModel;
 import cn.ytxu.util.ListUtil;
@@ -10,6 +11,7 @@ import org.jsoup.select.Elements;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by ytxu on 2016/8/2.
@@ -42,8 +44,21 @@ public class InputsParser {
 
     private void getHeaderFields(Element fieldsetEle) {
         List<InputParamModel> headers = getInputParams(fieldsetEle, CSS_QUERY_GET_HEADER);
-        // TODO 过滤认证相关的字段，可以以配置文件的形式做--->java的preference???
+        setFilterTag4Headers(headers);
         request.setHeaders(headers);
+    }
+
+    private void setFilterTag4Headers(List<InputParamModel> headers) {
+        if (Objects.isNull(headers)) {
+            return;
+        }
+
+        for (InputParamModel header : headers) {
+            boolean isFilterParam = Property.hasThisHeaderInFilterHeaders(header.getName());
+            if (isFilterParam) {
+                header.setFilterTag(true);
+            }
+        }
     }
 
     private void getInputFields(Element fieldsetEle) {

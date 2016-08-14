@@ -2,6 +2,7 @@ package cn.ytxu.api_semi_auto_creater;
 
 import cn.ytxu.apacer.entity.RetainEntity;
 import cn.ytxu.apacer.fileCreater.newchama.BaseCreater;
+import cn.ytxu.api_semi_auto_creater.config.Property;
 import cn.ytxu.api_semi_auto_creater.entity.DocumentEntity;
 import cn.ytxu.api_semi_auto_creater.model.base.DocModel;
 import cn.ytxu.api_semi_auto_creater.model.RequestModel;
@@ -25,6 +26,8 @@ public class NewEngine {
 
     public static void main(String... args) {
         long start = System.currentTimeMillis();
+
+        Property.load();
 
         DocModel docModel = new BaseParser().start();
 
