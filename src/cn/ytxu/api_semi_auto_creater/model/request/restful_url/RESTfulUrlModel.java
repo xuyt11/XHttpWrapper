@@ -1,4 +1,9 @@
-package cn.ytxu.api_semi_auto_creater.model;
+package cn.ytxu.api_semi_auto_creater.model.request.restful_url;
+
+import cn.ytxu.api_semi_auto_creater.model.BaseModel;
+import cn.ytxu.api_semi_auto_creater.model.RequestModel;
+
+import java.util.List;
 
 /**
  * Created by ytxu on 2016/6/16.
@@ -18,5 +23,17 @@ public class RESTfulUrlModel extends BaseModel<RequestModel> {
 
     public boolean isRESTfulUrl() {
         return isRESTfulUrl;
+    }
+
+    public void setRESTfulUrl(boolean isRESTfulUrl) {
+        this.isRESTfulUrl = isRESTfulUrl;
+    }
+
+    public List<?> getFields() {
+
+    }
+
+    public String RESTful_field_name() {
+        return ;
     }
 }

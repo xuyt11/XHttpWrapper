@@ -2,10 +2,11 @@ package cn.ytxu.api_semi_auto_creater.parser.request;
 
 import cn.ytxu.apacer.dataParser.jsoupUtil.JsoupParserUtil;
 import cn.ytxu.api_semi_auto_creater.entity.*;
-import cn.ytxu.api_semi_auto_creater.model.RESTfulUrlModel;
+import cn.ytxu.api_semi_auto_creater.model.request.restful_url.RESTfulUrlModel;
 import cn.ytxu.api_semi_auto_creater.model.RequestModel;
 import cn.ytxu.api_semi_auto_creater.parser.request.defined.DefinedsParser;
 import cn.ytxu.api_semi_auto_creater.parser.request.input.InputsParser;
+import cn.ytxu.api_semi_auto_creater.parser.request.restful_url.RESTfulUrlParser;
 import cn.ytxu.util.ListUtil;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -72,7 +73,9 @@ public class RequestParser {
     private void getMethodUrl(Element preEle) {
         Element methodUrlEle = JsoupParserUtil.getFirstEle(preEle, CSS_QUERY_GET_METHOD_URL);
         String methodUrl = JsoupParserUtil.getText(methodUrlEle);
-        request.setRestfulUrl(new RESTfulUrlModel(request, methodUrl));
+        RESTfulUrlModel restfulUrlModel = new RESTfulUrlModel(request, methodUrl);
+        new RESTfulUrlParser(restfulUrlModel).start();
+        request.setRestfulUrl(restfulUrlModel);
     }
 
 
