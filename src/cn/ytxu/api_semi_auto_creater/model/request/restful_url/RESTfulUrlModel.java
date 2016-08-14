@@ -11,6 +11,8 @@ import java.util.List;
 public class RESTfulUrlModel extends BaseModel<RequestModel> {
     private String url;// 方法的相对路径，起始位置必须不是/,因为人
     private boolean isRESTfulUrl = false;
+    private boolean hasMultiParam;// 是否有多选类型的参数，若有的话，则使用url是需要使用multiUrl
+    private String multiUrl;
 
     public RESTfulUrlModel(RequestModel higherLevel, String url) {
         super(higherLevel, null);
@@ -29,6 +31,14 @@ public class RESTfulUrlModel extends BaseModel<RequestModel> {
         this.isRESTfulUrl = isRESTfulUrl;
     }
 
+    public void setHasMultiParam(boolean hasMultiParam) {
+        this.hasMultiParam = hasMultiParam;
+    }
+
+    public void setMultiUrl(String multiUrl) {
+        this.multiUrl = multiUrl;
+    }
+
     public List<?> getFields() {
 
     }
@@ -36,4 +46,5 @@ public class RESTfulUrlModel extends BaseModel<RequestModel> {
     public String RESTful_field_name() {
         return ;
     }
+
 }
