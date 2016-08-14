@@ -1,38 +1,34 @@
-package cn.ytxu.api_semi_auto_creater.util.statement.record;
+package cn.ytxu.api_semi_auto_creater.util.statement.record.list_replace;
 
 import cn.ytxu.apacer.entity.RetainEntity;
 import cn.ytxu.api_semi_auto_creater.util.ReflectiveUtil;
 import cn.ytxu.api_semi_auto_creater.util.statement.Statement;
 import cn.ytxu.api_semi_auto_creater.util.statement.StatementRecord;
-import cn.ytxu.api_semi_auto_creater.util.statement.record.list_replace.LRSRParser;
+import cn.ytxu.api_semi_auto_creater.util.statement.record.TextStatementRecord;
 import cn.ytxu.util.ListUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by ytxu on 2016/7/18.
- * 在内部没有任何其他标签，只是纯文本替换，所以内部都是直接转换成TextStatementRecord
+ * Created by ytxu on 2016/8/14.
+ * ListReplaceStatementRecord的代码生成器
  */
-public class ListReplaceStatementRecord extends StatementRecord {
+public class LRSRCreater {
+    private String methodName;
+    private TextStatementRecord listValueRecord;
+    private String replaceContent;
+    private List<String> contents;
 
-    private LRSRParser parser;
-
-    public ListReplaceStatementRecord(Statement statement, String startTagContent, List<String> contents) {
-        super(statement, startTagContent, contents);
+    public LRSRCreater(String methodName, TextStatementRecord listValueRecord, String replaceContent, List<String> contents) {
+        this.methodName = methodName;
+        this.listValueRecord = listValueRecord;
+        this.replaceContent = replaceContent;
+        this.contents = contents;
     }
 
-
-    @Override
-    public void parse() {
-        parser = new LRSRParser(startTagContent);
-        parser.parse();
-    }
-
-
-    @Override
     public StringBuffer getWriteBuffer(Object reflectModel, RetainEntity retain) {
-        List subModels = ReflectiveUtil.getList(reflectModel, parser.getMethodName());
+        List subModels = ReflectiveUtil.getList(reflectModel, methodName);
         if (ListUtil.isEmpty(subModels)) {
             return new StringBuffer();
         }
@@ -40,19 +36,14 @@ public class ListReplaceStatementRecord extends StatementRecord {
         // 需要在解析完成listValue之后，才能生成subs，因为需要替换replaceContent
         String listValue = parseAndGetListValue(retain, subModels);
         List<String> newContents = getNewContents(listValue);
-        createSubs(newContents);
+        List<StatementRecord> subs = createSubs(newContents);
 
-        StringBuffer listReplaceBuffer = new StringBuffer();
-        for (StatementRecord sub : subs) {
-            listReplaceBuffer.append(sub.getWriteBuffer(reflectModel, retain));
-        }
-
-        return listReplaceBuffer;
+        return getListReplaceBufferBySubs(reflectModel, retain, subs);
     }
 
     private String parseAndGetListValue(RetainEntity retain, List subModels) {
         StringBuffer listValueBuffer = new StringBuffer();
-        TextStatementRecord record = parser.getListValueRecord();
+        TextStatementRecord record = listValueRecord;
         for (Object subModel : subModels) {
             listValueBuffer.append(record.getNormalWriteBuffer(subModel, retain));
         }
@@ -60,7 +51,6 @@ public class ListReplaceStatementRecord extends StatementRecord {
     }
 
     private List<String> getNewContents(String listValue) {
-        String replaceContent = parser.getReplaceContent();
         List<String> newContents = new ArrayList<>(contents.size());
         for (String content : contents) {
             String newContent;
@@ -74,13 +64,22 @@ public class ListReplaceStatementRecord extends StatementRecord {
         return newContents;
     }
 
-    private void createSubs(List<String> newContents) {
-        subs = new ArrayList<>(newContents.size());
+    private List<StatementRecord> createSubs(List<String> newContents) {
+        List<StatementRecord> subs = new ArrayList<>(newContents.size());
         for (String content : newContents) {
             TextStatementRecord tsr = new TextStatementRecord(Statement.text, content);
             tsr.parse();
             subs.add(tsr);
         }
+        return subs;
+    }
+
+    private StringBuffer getListReplaceBufferBySubs(Object reflectModel, RetainEntity retain, List<StatementRecord> subs) {
+        StringBuffer listReplaceBuffer = new StringBuffer();
+        for (StatementRecord sub : subs) {
+            listReplaceBuffer.append(sub.getWriteBuffer(reflectModel, retain));
+        }
+        return listReplaceBuffer;
     }
 
 }

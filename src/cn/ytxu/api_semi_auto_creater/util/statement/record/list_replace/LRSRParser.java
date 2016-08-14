@@ -1,7 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.util.statement.record.list_replace;
 
 import cn.ytxu.api_semi_auto_creater.util.statement.Statement;
-import cn.ytxu.api_semi_auto_creater.util.statement.StatementRecord;
 import cn.ytxu.api_semi_auto_creater.util.statement.record.TextStatementRecord;
 import cn.ytxu.api_semi_auto_creater.util.statement.record.helper.PatternHelper;
 
@@ -13,7 +12,7 @@ import java.util.regex.Pattern;
 public class LRSRParser {
 
     private String startTagContent;
-    private String methodName, replaceKey, listValue;
+    private String methodName, replaceKey;
     private TextStatementRecord listValueRecord;
 
     private enum Attr {
