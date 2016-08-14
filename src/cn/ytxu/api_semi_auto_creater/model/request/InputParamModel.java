@@ -41,6 +41,14 @@ public class InputParamModel extends BaseModel<RequestModel> {
 
 
     //*************** reflect method area ***************
+    public String header_type() {
+        return type;
+    }
+
+    public String input_type() {
+        return type;
+    }
+
     public String header_name() {
         return name;
     }

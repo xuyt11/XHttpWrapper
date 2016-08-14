@@ -54,7 +54,7 @@ public enum Statement {
             records.add(new ListStatementRecord(this, content, listContents));
         }
     },
-    list_single_line("单行循环，防止foreach循环嵌套", Pattern.compile("(<list each=\")\\w+(\")( singleLine/>)"), "</list>"){
+    list_single_line("单行循环，防止foreach循环嵌套", Pattern.compile("(<list each=\")\\w+(\")( singleLine>)"), "</list>"){
         @Override
         public void getAndAddRecord(String content, List<StatementRecord> records, Iterator<String> contentIterator) {
             List<String> listSingleLineContents = getContents(contentIterator);
