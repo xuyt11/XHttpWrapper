@@ -23,13 +23,6 @@ public class RESTfulUrlParser {
     private void setIsRESTfulUrl() {
         Pattern idOrDatePattern = Pattern.compile("[\\{]{1}.{2,}?[\\}]{1}");
         Matcher m = idOrDatePattern.matcher(model.getUrl());
-        if (m.find()) {
-            model.setRESTfulUrl(true);
-            return;
-        }
-
-        Pattern multiPattern = Pattern.compile("[\\[]{1}.{2,}?[\\]]{1}");
-        m = multiPattern.matcher(model.getUrl());
         model.setRESTfulUrl(m.find());
     }
 
