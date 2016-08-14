@@ -7,6 +7,7 @@ import cn.ytxu.api_semi_auto_creater.model.request.restful_url.RESTfulParamModel
 import cn.ytxu.api_semi_auto_creater.model.request.restful_url.RESTfulUrlModel;
 import org.jsoup.nodes.Element;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -119,6 +120,35 @@ public class RequestModel extends BaseModel<SectionModel> {
 
     public List<RESTfulParamModel> RESTful_fields() {
         return restfulUrl.getParams();
+    }
+
+    public String request_normal_url() {
+        if (restfulUrl.hasMultiParam()) {
+            return restfulUrl.getMultiUrl();
+        }
+        return restfulUrl.getUrl();
+    }
+
+    public String request_convert_url() {
+        String url = request_normal_url();
+        List<RESTfulParamModel> params = restfulUrl.getParams();
+        if (params.size() == 0) {
+            return url;
+        }
+
+        List<String> replaceContents = new ArrayList<>(params.size());
+        for (RESTfulParamModel param : params) {
+            int start = param.getStart();
+            int end = param.getEnd();
+            String replace = url.substring(start, end);
+            replaceContents.add(replace);
+        }
+
+        for (String replace : replaceContents) {
+            url = url.replace(replace, "%s");
+        }
+
+        return url;
     }
 
 }

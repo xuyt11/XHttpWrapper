@@ -79,7 +79,7 @@ public class ${section_class_name} extends BaseApi {
 		request.setUrl(String.format(getFullUrl("${request_convert_url}")${restful_name_list}));
 		</list_replace>
         <if_else>
-		request.setUrl(getFullUrl("${request_url}"));
+		request.setUrl(getFullUrl("${request_normal_url}"));
         </if_end>
 
 	    <list each="headers">
