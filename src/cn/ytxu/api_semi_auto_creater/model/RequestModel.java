@@ -5,8 +5,10 @@ import cn.ytxu.api_semi_auto_creater.model.request.DefinedParamModel;
 import cn.ytxu.api_semi_auto_creater.model.request.InputParamModel;
 import cn.ytxu.api_semi_auto_creater.model.request.restful_url.RESTfulParamModel;
 import cn.ytxu.api_semi_auto_creater.model.request.restful_url.RESTfulUrlModel;
+import cn.ytxu.api_semi_auto_creater.model.response.ResponseModel;
 import org.jsoup.nodes.Element;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,6 +24,7 @@ public class RequestModel extends BaseModel<SectionModel> {
     private RESTfulUrlModel restfulUrl;// url
     private List<DefinedParamModel> definedParams;// 已定义了的参数：有参数名，参数类型，参数描述等信息
     private List<InputParamModel> headers, inputs;// 请求的头部参数与输入参数
+    private List<ResponseModel> responses = Collections.EMPTY_LIST;// 响应列表
 
     public RequestModel(SectionModel higherLevel, Element element, String name, String version) {
         super(higherLevel, element);
@@ -85,6 +88,9 @@ public class RequestModel extends BaseModel<SectionModel> {
         this.inputs = inputs;
     }
 
+    public void setResponses(List<ResponseModel> responses) {
+        this.responses = responses;
+    }
 
     //*************** reflect method area ***************
     public String request_desc() {
