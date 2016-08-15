@@ -7,6 +7,8 @@ import cn.ytxu.api_semi_auto_creater.model.request.restful_url.RESTfulParamModel
 import cn.ytxu.api_semi_auto_creater.model.request.restful_url.RESTfulUrlModel;
 import org.jsoup.nodes.Element;
 
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -106,6 +108,17 @@ public class RequestModel extends BaseModel<SectionModel> {
     }
 
     public List<InputParamModel> headers() {
+        return headers;
+    }
+
+    public List<InputParamModel> filtered_headers() {
+        List<InputParamModel> headers = new LinkedList<>(headers());
+        Iterator<InputParamModel> iterator = headers.iterator();
+        while (iterator.hasNext()) {
+            if (iterator.next().isFilterTag()) {
+                iterator.remove();
+            }
+        }
         return headers;
     }
 

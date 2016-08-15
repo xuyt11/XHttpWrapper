@@ -92,4 +92,8 @@ public class InputParamModel extends BaseModel<RequestModel> {
         }
         return defind.isOptional();
     }
+
+    public boolean isFilterParam() {
+        return isFilterTag;
+    }
 }

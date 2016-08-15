@@ -60,7 +60,7 @@ public class ${section_class_name} extends BaseApi {
             <eachTemp value="String ${RESTful_field_name}, "/>
             <end value=""/>
 	    </list>
-	    <list each="headers" singleLine>
+	    <list each="filtered_headers" singleLine>
             <start value="   	    "/>
             <eachTemp value="${header_type} ${header_name}, "/>
             <end value=""/>
@@ -83,7 +83,11 @@ public class ${section_class_name} extends BaseApi {
         </if_end>
 
 	    <list each="headers">
+        <if isTrue="isFilterParam">
+   	    // request.addHeader("${header_name}", ${header_name});// 被过滤的header字段
+        <if_else>
    	    request.addHeader("${header_name}", ${header_name});
+        </if_end>
         </list>
 	    <list each="inputs">
 	    <if isTrue="input_isOptional">
