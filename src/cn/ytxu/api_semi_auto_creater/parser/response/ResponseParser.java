@@ -59,9 +59,9 @@ public class ResponseParser {
         // 默认两个(responseDesc, responseText)都有数据
         int separatorIndex = getSeparatorIndex(message);
         String header = getResponseHeader(message, separatorIndex);
-        String content = getResponseContent(message, separatorIndex);
+        String body = getResponseBody(message, separatorIndex);
 
-        response.setData(desc, header, content);
+        response.setData(desc, header, body);
         return response;
     }
 
@@ -81,7 +81,7 @@ public class ResponseParser {
         return responseMessage.substring(0, separatorIndex).trim();
     }
 
-    private String getResponseContent(String responseMessage, int separatorIndex) {
+    private String getResponseBody(String responseMessage, int separatorIndex) {
         return responseMessage.substring(separatorIndex).trim();
     }
 

@@ -10,9 +10,9 @@ import org.jsoup.nodes.Element;
 public class ResponseModel extends BaseModel<RequestModel> {
 
     private Element descEle, messageEle;// 响应描述，响应报文
-    private String desc;
-    private String header;
-    private String content;
+    private String desc;// 响应描述文本
+    private String header;// 响应报文中的头部
+    private String body;// 响应报文中的响应体
 
     public ResponseModel(RequestModel higherLevel, Element descEle, Element messageEle) {
         super(higherLevel, null);
@@ -20,9 +20,9 @@ public class ResponseModel extends BaseModel<RequestModel> {
         this.messageEle = messageEle;
     }
 
-    public void setData(String desc, String header, String content) {
+    public void setData(String desc, String header, String body) {
         this.desc = desc;
         this.header = header;
-        this.content = content;
+        this.body = body;
     }
 }
