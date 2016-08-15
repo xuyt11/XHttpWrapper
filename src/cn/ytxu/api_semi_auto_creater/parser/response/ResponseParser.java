@@ -29,14 +29,6 @@ public class ResponseParser {
         Elements responseDescEls = getResponseDescEles(articleEle);// 该请求响应的描述
         Elements responseEls = getResponseEles(articleEle);// 请求响应报文的数据:响应头,响应体
 
-        if (ListUtil.isEmpty(responseDescEls) || ListUtil.isEmpty(responseEls)) {
-            return;
-        }
-
-        if (responseDescEls.size() != responseEls.size()) {
-            throw new RuntimeException("the response of this request is error status");
-        }
-
         setResponses(responseDescEls, responseEls);
 //        List<ResponseEntity> responses = new ResponseParser().getResponses(responseDescEls, responseEls);
 //        responses = new OutputParamsParser().parseResponseContent(responses, descParams);
