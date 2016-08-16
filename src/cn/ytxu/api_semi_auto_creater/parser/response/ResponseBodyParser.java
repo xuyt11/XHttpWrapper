@@ -1,5 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.parser.response;
 
+import cn.ytxu.api_semi_auto_creater.config.Property;
 import cn.ytxu.api_semi_auto_creater.model.response.ResponseModel;
 import cn.ytxu.util.LogUtil;
 import com.alibaba.fastjson.JSON;
@@ -32,6 +33,17 @@ public class ResponseBodyParser {
             return;
         }
 
+        parseStatusCode(bodyJObj);
+
+    }
+
+    private void parseStatusCode(JSONObject bodyJObj) {
+        String statusCodeName = Property.getBreName().getStatusCode();
+        if (bodyJObj.containsKey(statusCodeName)) {
+            response.setStatusCode(String.valueOf(bodyJObj.getInteger(statusCodeName)));
+        } else {
+            LogUtil.ee(ResponseBodyParser.class, getLogTitle(), "can not have status code:", response.toString());
+        }
     }
 
     private void printErrorLog() {
@@ -41,6 +53,14 @@ public class ResponseBodyParser {
         LogUtil.ee(ResponseBodyParser.class, "在版本号为", versionName, "，分类为", sectionName, "，请求名为", requestName,
                 " \n下的响应desc为", response.getDesc(), "中返回数据的Json格式有问题！\n",
                 "响应体为", body);
+    }
+
+    private String[] getLogTitle() {
+        String versionName = response.getHigherLevel().getHigherLevel().getHigherLevel().getName();
+        String sectionName = response.getHigherLevel().getHigherLevel().getName();
+        String requestName = response.getHigherLevel().getName();
+        return new String[]{"在版本号为", versionName, "，分类为", sectionName, "，请求名为", requestName,
+                " \n下的响应desc为", response.getDesc()};
     }
 
 }

@@ -59,6 +59,10 @@ public class Property {
         return false;
     }
 
+    public static BaseResponseEntityName getBreName() {
+        return breName;
+    }
+
 
     public static void main(String... args) {
 //        String filterHeadersStr = null;

@@ -52,6 +52,20 @@ public class LogUtil {
         }
     }
 
+    public static void ee(Class<?> cls, String[] titles, String... msgs) {
+        if (level < e) {
+            StringBuffer msgBuffer = new StringBuffer(cls.getSimpleName());
+            msgBuffer.append(" : ");
+            for (String title : titles) {
+                msgBuffer.append(title);
+            }
+            for (String msg : msgs) {
+                msgBuffer.append(msg);
+            }
+            e(msgBuffer.toString());
+        }
+    }
+
     private static void print(String message) {
         System.out.println(message);
     }

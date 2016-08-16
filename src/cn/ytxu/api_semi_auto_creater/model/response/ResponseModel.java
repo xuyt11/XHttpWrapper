@@ -14,6 +14,9 @@ public class ResponseModel extends BaseModel<RequestModel> {
     private String header;// 响应报文中的头部
     private String body;// 响应报文中的响应体
 
+    // body中的字段数据
+    private String statusCode = "";// 防止出现空指针异常
+
     public ResponseModel(RequestModel higherLevel, Element descEle, Element messageEle) {
         super(higherLevel, null);
         this.descEle = descEle;
@@ -36,5 +39,9 @@ public class ResponseModel extends BaseModel<RequestModel> {
 
     public String getBody() {
         return body;
+    }
+
+    public void setStatusCode(String statusCode) {
+        this.statusCode = statusCode;
     }
 }
