@@ -38,7 +38,7 @@ public class ResponseBodyParser {
         String versionName = response.getHigherLevel().getHigherLevel().getHigherLevel().getName();
         String sectionName = response.getHigherLevel().getHigherLevel().getName();
         String requestName = response.getHigherLevel().getName();
-        LogUtil.ee("在版本号为", versionName, "，分类为", sectionName, "，请求名为", requestName,
+        LogUtil.ee(ResponseBodyParser.class, "在版本号为", versionName, "，分类为", sectionName, "，请求名为", requestName,
                 " \n下的响应desc为", response.getDesc(), "中返回数据的Json格式有问题！\n",
                 "响应体为", body);
     }
