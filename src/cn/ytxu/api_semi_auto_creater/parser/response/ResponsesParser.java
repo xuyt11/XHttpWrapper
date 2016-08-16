@@ -12,14 +12,14 @@ import java.util.List;
 /**
  * Created by ytxu on 2016/8/15.
  */
-public class ResponseParser {
+public class ResponsesParser {
     private static final String CSS_QUERY_RESPONSE_DESC = "ul.nav.nav-tabs.nav-tabs-examples > li";
     private static final String CSS_QUERY_RESPONSE = "div.tab-content > div.tab-pane";
 
     private RequestModel requestModel;
     private Element articleEle;
 
-    public ResponseParser(RequestModel requestModel, Element articleEle) {
+    public ResponsesParser(RequestModel requestModel, Element articleEle) {
         this.requestModel = requestModel;
         this.articleEle = articleEle;
     }
@@ -29,7 +29,7 @@ public class ResponseParser {
         Elements responseMessageEls = getResponseMessageEles(articleEle);// 请求响应报文的数据:响应头,响应体
 
         setResponses(responseDescEls, responseMessageEls);
-//        List<ResponseEntity> responses = new ResponseParser().getResponses(responseDescEls, responseEls);
+//        List<ResponseEntity> responses = new ResponsesParser().getResponses(responseDescEls, responseEls);
 //        responses = new OutputParamsParser().parseResponseContent(responses, descParams);
     }
 

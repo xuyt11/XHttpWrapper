@@ -6,7 +6,7 @@ import cn.ytxu.api_semi_auto_creater.model.RequestModel;
 import cn.ytxu.api_semi_auto_creater.parser.request.defined.DefinedsParser;
 import cn.ytxu.api_semi_auto_creater.parser.request.input.InputsParser;
 import cn.ytxu.api_semi_auto_creater.parser.request.restful_url.RESTfulUrlParser;
-import cn.ytxu.api_semi_auto_creater.parser.response.ResponseParser;
+import cn.ytxu.api_semi_auto_creater.parser.response.ResponsesParser;
 import org.jsoup.nodes.Element;
 
 /**
@@ -39,7 +39,7 @@ public class RequestParser {
 
         new DefinedsParser(request, articleEle).start();
         new InputsParser(request, articleEle).start();
-        new ResponseParser(request, articleEle).start();
+        new ResponsesParser(request, articleEle).start();
     }
 
     private void getArticleElement() {
