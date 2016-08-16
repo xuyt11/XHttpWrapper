@@ -88,6 +88,10 @@ public class RequestModel extends BaseModel<SectionModel> {
         this.inputs = inputs;
     }
 
+    public List<ResponseModel> getResponses() {
+        return responses;
+    }
+
     public void setResponses(List<ResponseModel> responses) {
         this.responses = responses;
     }

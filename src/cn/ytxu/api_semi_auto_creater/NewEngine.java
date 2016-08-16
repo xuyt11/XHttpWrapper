@@ -8,8 +8,10 @@ import cn.ytxu.api_semi_auto_creater.model.base.DocModel;
 import cn.ytxu.api_semi_auto_creater.model.RequestModel;
 import cn.ytxu.api_semi_auto_creater.model.base.SectionModel;
 import cn.ytxu.api_semi_auto_creater.model.base.VersionModel;
+import cn.ytxu.api_semi_auto_creater.model.response.ResponseModel;
 import cn.ytxu.api_semi_auto_creater.parser.request.RequestParser;
 import cn.ytxu.api_semi_auto_creater.parser.base.BaseParser;
+import cn.ytxu.api_semi_auto_creater.parser.response.ResponseParser;
 import cn.ytxu.api_semi_auto_creater.util.XTempModel;
 import cn.ytxu.api_semi_auto_creater.util.XTempUtil;
 import cn.ytxu.api_semi_auto_creater.util.statement.StatementRecord;
@@ -17,6 +19,7 @@ import cn.ytxu.api_semi_auto_creater.util.statement.record.TextStatementRecord;
 import cn.ytxu.util.LogUtil;
 
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,19 +33,37 @@ public class NewEngine {
         Property.load();
 
         DocModel docModel = new BaseParser().start();
-
-        for (VersionModel version : docModel.getVersions()) {
-            for (SectionModel section : version.getSections()) {
-                for (RequestModel request : section.getRequests()) {
-                    new RequestParser(request).get();
-                }
-            }
-        }
+        parseRequests(docModel);
+        parseResponses(docModel);
 
         create(docModel);
 
         long end = System.currentTimeMillis();
         LogUtil.w("duration time is " + (end - start));
+    }
+
+    private static void parseRequests(DocModel docModel) {
+        for (RequestModel request : getRequests(docModel)) {
+            new RequestParser(request).get();
+        }
+    }
+
+    private static void parseResponses(DocModel docModel) {
+        for (RequestModel request : getRequests(docModel)) {
+            for (ResponseModel response : request.getResponses()) {
+                new ResponseParser(response).start();
+            }
+        }
+    }
+
+    private static List<RequestModel> getRequests(DocModel docModel) {
+        List<RequestModel> requests = new ArrayList<>();
+        for (VersionModel version : docModel.getVersions()) {
+            for (SectionModel section : version.getSections()) {
+                requests.addAll(section.getRequests());
+            }
+        }
+        return requests;
     }
 
     private static void old() {
