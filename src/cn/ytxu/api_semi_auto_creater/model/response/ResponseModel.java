@@ -25,4 +25,16 @@ public class ResponseModel extends BaseModel<RequestModel> {
         this.header = header;
         this.body = body;
     }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public String getHeader() {
+        return header;
+    }
+
+    public String getBody() {
+        return body;
+    }
 }

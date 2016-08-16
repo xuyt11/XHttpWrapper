@@ -32,7 +32,7 @@ public class RequestParser {
         this.baseEle = baseEntity.getElement();
     }
 
-    public void get() {
+    public void start() {
         getArticleElement();
         getMethodDescription();
         getMethodTypeAndUrl();

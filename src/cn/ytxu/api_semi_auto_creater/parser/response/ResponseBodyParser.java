@@ -1,23 +1,46 @@
 package cn.ytxu.api_semi_auto_creater.parser.response;
 
+import cn.ytxu.api_semi_auto_creater.model.response.ResponseModel;
+import cn.ytxu.util.LogUtil;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONException;
+import com.alibaba.fastjson.JSONObject;
+
 /**
  * Created by ytxu on 2016/8/16.
  */
 public class ResponseBodyParser {
 
+    private ResponseModel response;
+    private String body;
 
-    public ResponseBodyParser() {
-
+    public ResponseBodyParser(ResponseModel response) {
+        this.response = response;
+        this.body = response.getBody();
     }
 
     public void start() {
         //1 解析出body中json格式数据的所有字段；
-        //2 对request中defineds进行辨析，设置到response字段上
-        //3 获取到相同版本上该Section上的所有的响应体entity，进行遍历判断，
-        // 若为一致的（子字段名称与属性都一样的话），则使用相同的entity，不需要重新输出一个新的entity文件
+        JSONObject bodyJObj;
+        try {
+            // TODO 循环遍历JsonArray对象，而不只是获取第一个对象，
+            // TODO 并且要将所有的字段中，若value为null的字段，判断之后是否有值，有值的话就要替换掉
+            bodyJObj = JSON.parseObject(body);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            printErrorLog();
+            return;
+        }
 
+    }
 
-
+    private void printErrorLog() {
+        String versionName = response.getHigherLevel().getHigherLevel().getHigherLevel().getName();
+        String sectionName = response.getHigherLevel().getHigherLevel().getName();
+        String requestName = response.getHigherLevel().getName();
+        LogUtil.ee("在版本号为", versionName, "，分类为", sectionName, "，请求名为", requestName,
+                " \n下的响应desc为", response.getDesc(), "中返回数据的Json格式有问题！\n",
+                "响应体为", body);
     }
 
 }

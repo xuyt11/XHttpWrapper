@@ -44,7 +44,7 @@ public class NewEngine {
 
     private static void parseRequests(DocModel docModel) {
         for (RequestModel request : getRequests(docModel)) {
-            new RequestParser(request).get();
+            new RequestParser(request).start();
         }
     }
 

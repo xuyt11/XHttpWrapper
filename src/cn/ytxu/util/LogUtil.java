@@ -12,15 +12,15 @@ public class LogUtil {
 	public static void i(String tag, String message) {
 		System.out.println(tag + ":" + message);
 	}
-	
+
 	public static void i(Class<?> cls, String message) {
 		System.out.println(cls.getName() + ":" + message);
 	}
-	
+
 	public static void i(int index, String message) {
 		System.out.println(index + ":" + message);
 	}
-	
+
 	public static void i(String message) {
         if (level < i) {
             print(message);
@@ -38,6 +38,16 @@ public class LogUtil {
     public static void e(String message) {
         if (level < e) {
             print("error:" + message);
+        }
+    }
+
+    public static void ee(String... msgs) {
+        if (level < e) {
+            StringBuffer msgBuffer = new StringBuffer();
+            for (String msg : msgs) {
+                msgBuffer.append(msg);
+            }
+            e(msgBuffer.toString());
         }
     }
 
