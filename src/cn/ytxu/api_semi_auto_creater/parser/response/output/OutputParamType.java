@@ -5,6 +5,9 @@ import cn.ytxu.api_semi_auto_creater.model.response.ResponseModel;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Created by ytxu on 2016/8/17.
  */
@@ -25,16 +28,14 @@ public enum OutputParamType {
     STRING(String.class),
     JSON_OBJECT(JSONObject.class) {
         @Override
-        public boolean parseSubsIfCan(OutputParamParser parser, OutputParamModel output) {
-            parser.parseJSONObject(output);
-            return true;
+        public List<OutputParamModel> parseSubsIfCan(OutputParamParser parser, OutputParamModel output) {
+            return parser.parseJSONObject(output);
         }
     },
     JSON_ARRAY(JSONArray.class) {
         @Override
-        public boolean parseSubsIfCan(OutputParamParser parser, OutputParamModel output) {
-            parser.parseArray(output);
-            return true;
+        public List<OutputParamModel> parseSubsIfCan(OutputParamParser parser, OutputParamModel output) {
+            return parser.parseArray(output);
         }
     },
     UNKNOWN(null) {
@@ -73,7 +74,7 @@ public enum OutputParamType {
     /**
      * @return 是否需要解析output参数中的outputs
      */
-    public boolean parseSubsIfCan(OutputParamParser parser, OutputParamModel output) {
-        return true;
+    public List<OutputParamModel> parseSubsIfCan(OutputParamParser parser, OutputParamModel output) {
+        return Collections.EMPTY_LIST;
     }
 }
