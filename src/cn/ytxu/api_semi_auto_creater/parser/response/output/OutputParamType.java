@@ -39,6 +39,7 @@ public enum OutputParamType {
             Set<Map.Entry<String, Object>> entrys = jObj.entrySet();
             List<OutputParamModel> outputs = parser.getOutputs(entrys, output);
             output.setOutputs(outputs);
+            // TODO 解析values
             return outputs;
         }
 
@@ -78,6 +79,7 @@ public enum OutputParamType {
             output.setSubType(subType);
             // 只有是JSONObject类型才能解析，其他的都不需要解析的；
             return subType.parseListTypeOutput(parser, output);
+            // TODO 解析values
         }
 
         @Override
