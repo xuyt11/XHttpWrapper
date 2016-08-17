@@ -2,6 +2,7 @@ package cn.ytxu.api_semi_auto_creater.parser.response;
 
 import cn.ytxu.api_semi_auto_creater.config.Property;
 import cn.ytxu.api_semi_auto_creater.model.response.ResponseModel;
+import cn.ytxu.api_semi_auto_creater.parser.response.output.OutputParamParser;
 import cn.ytxu.util.LogUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
@@ -34,7 +35,7 @@ public class ResponseBodyParser {
         }
 
         parseStatusCode(bodyJObj);
-
+        new OutputParamParser(response, bodyJObj).start();
     }
 
     private void parseStatusCode(JSONObject bodyJObj) {
