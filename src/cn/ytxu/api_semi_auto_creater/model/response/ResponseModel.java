@@ -4,6 +4,9 @@ import cn.ytxu.api_semi_auto_creater.model.BaseModel;
 import cn.ytxu.api_semi_auto_creater.model.RequestModel;
 import org.jsoup.nodes.Element;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Created by ytxu on 2016/8/15.
  */
@@ -16,6 +19,7 @@ public class ResponseModel extends BaseModel<RequestModel> {
 
     // body中的字段数据
     private String statusCode = "";// 防止出现空指针异常
+    private List<OutputParamModel> outputs = Collections.EMPTY_LIST;
 
     public ResponseModel(RequestModel higherLevel, Element descEle, Element messageEle) {
         super(higherLevel, null);
@@ -43,5 +47,9 @@ public class ResponseModel extends BaseModel<RequestModel> {
 
     public void setStatusCode(String statusCode) {
         this.statusCode = statusCode;
+    }
+
+    public void setOutputs(List<OutputParamModel> outputs) {
+        this.outputs = outputs;
     }
 }

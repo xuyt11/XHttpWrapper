@@ -23,8 +23,20 @@ public enum OutputParamType {
     NUMBER(Number.class),// FUTURE 未来将会删除掉的类型，这样的类型，不能知道精确类型
     BOOLEAN(Boolean.class),
     STRING(String.class),
-    JSON_OBJECT(JSONObject.class),
-    JSON_ARRAY(JSONArray.class),
+    JSON_OBJECT(JSONObject.class) {
+        @Override
+        public boolean parseSubsIfCan(OutputParamParser parser, OutputParamModel output) {
+            parser.parseJSONObject(output);
+            return true;
+        }
+    },
+    JSON_ARRAY(JSONArray.class) {
+        @Override
+        public boolean parseSubsIfCan(OutputParamParser parser, OutputParamModel output) {
+            parser.parseArray(output);
+            return true;
+        }
+    },
     UNKNOWN(null) {
         @Override
         boolean isThisType(Object obj) {
@@ -52,9 +64,16 @@ public enum OutputParamType {
         return UNKNOWN;
     }
 
-    public OutputParamModel createOutput(ResponseModel response, String fieldName, Object fieldValue) {
-        OutputParamModel output = new OutputParamModel(response, this);
+    public OutputParamModel createOutput(ResponseModel response, OutputParamModel parent, String fieldName, Object fieldValue) {
+        OutputParamModel output = new OutputParamModel(response, parent, this);
         output.setNameAndValue(fieldName, fieldValue);
         return output;
+    }
+
+    /**
+     * @return 是否需要解析output参数中的outputs
+     */
+    public boolean parseSubsIfCan(OutputParamParser parser, OutputParamModel output) {
+        return true;
     }
 }
