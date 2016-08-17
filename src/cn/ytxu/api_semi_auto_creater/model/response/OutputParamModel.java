@@ -14,6 +14,7 @@ public class OutputParamModel extends BaseModel<ResponseModel> {
 
     private final OutputParamModel parent;
     private final OutputParamType type;
+    private OutputParamType subType;// 只有array才有，如：List<Integer>,List<Long>,List<String>...
 
     private String fieldName;
     private Object fieldValue;
@@ -47,5 +48,9 @@ public class OutputParamModel extends BaseModel<ResponseModel> {
 
     public OutputParamType getType() {
         return type;
+    }
+
+    public void setSubType(OutputParamType subType) {
+        this.subType = subType;
     }
 }

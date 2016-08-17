@@ -5,8 +5,7 @@ import cn.ytxu.api_semi_auto_creater.model.response.ResponseModel;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by ytxu on 2016/8/17.
@@ -29,13 +28,43 @@ public enum OutputParamType {
     JSON_OBJECT(JSONObject.class) {
         @Override
         public List<OutputParamModel> parseSubsIfCan(OutputParamParser parser, OutputParamModel output) {
-            return parser.parseJSONObject(output);
+            JSONObject jObj = (JSONObject) output.getValue();
+            Set<Map.Entry<String, Object>> entrys = jObj.entrySet();
+            List<OutputParamModel> outputs = parser.getOutputs(entrys, output);
+            output.setOutputs(outputs);
+            return outputs;
+        }
+
+        @Override
+        protected List<OutputParamModel> parseListTypeOutput(OutputParamParser parser, OutputParamModel output) {
+            JSONArray jArr = (JSONArray) output.getValue();
+            List<OutputParamModel> outputs = new ArrayList<>();
+            for (int i = 0, size = jArr.size(); i < size; i++) {
+                JSONObject jObj = jArr.getJSONObject(i);
+                Set<Map.Entry<String, Object>> entrys = jObj.entrySet();
+                List<OutputParamModel> models = parser.getOutputs(entrys, output);
+                // TODO 需要好好考虑如何过滤
+                output.setOutputs(models);
+                outputs.addAll(models);
+            }
+            return outputs;
         }
     },
     JSON_ARRAY(JSONArray.class) {
         @Override
         public List<OutputParamModel> parseSubsIfCan(OutputParamParser parser, OutputParamModel output) {
-            return parser.parseArray(output);
+            JSONArray jArr = (JSONArray) output.getValue();
+
+            int size = jArr.size();
+            if (size == 0) {
+                output.setSubType(OutputParamType.NULL);
+                return Collections.EMPTY_LIST;
+            }
+
+            OutputParamType subType = OutputParamType.get(jArr.get(0));
+            output.setSubType(subType);
+            // 只有是JSONObject类型才能解析，其他的都不需要解析的；
+            return subType.parseListTypeOutput(parser, output);
         }
     },
     UNKNOWN(null) {
@@ -44,7 +73,6 @@ public enum OutputParamType {
             return true;
         }
     };
-
     private Class clazz;
 
     OutputParamType(Class clazz) {
@@ -72,9 +100,17 @@ public enum OutputParamType {
     }
 
     /**
-     * @return 是否需要解析output参数中的outputs
+     * @return output中的subs
      */
     public List<OutputParamModel> parseSubsIfCan(OutputParamParser parser, OutputParamModel output) {
         return Collections.EMPTY_LIST;
     }
+
+    /**
+     * @return output中的subs 默认是不需要解析的
+     */
+    protected List<OutputParamModel> parseListTypeOutput(OutputParamParser parser, OutputParamModel output) {
+        return Collections.EMPTY_LIST;
+    }
+
 }
