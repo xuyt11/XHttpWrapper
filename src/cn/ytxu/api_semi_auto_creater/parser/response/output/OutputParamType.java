@@ -17,6 +17,13 @@ public enum OutputParamType {
         boolean isThisType(Object obj) {
             return obj == null;
         }
+
+        @Override
+        public boolean replaceOutputOrAddValue(List<OutputParamModel> outputs, OutputParamModel target, OutputParamModel model) {
+            int index = outputs.indexOf(target);
+            outputs.set(index, model);
+            return true;
+        }
     },
     INTEGER(Integer.class),
     LONG(Long.class),
@@ -43,11 +50,17 @@ public enum OutputParamType {
                 JSONObject jObj = jArr.getJSONObject(i);
                 Set<Map.Entry<String, Object>> entrys = jObj.entrySet();
                 List<OutputParamModel> models = parser.getOutputs(entrys, output);
-                // TODO 需要好好考虑如何过滤
-                output.setOutputs(models);
-                outputs.addAll(models);
+                List<OutputParamModel> filterModels = output.addOutputsAfterFilter(models);
+                if (filterModels.size() > 0) {
+                    outputs.addAll(filterModels);
+                }
             }
             return outputs;
+        }
+
+        @Override
+        public boolean replaceOutputOrAddValue(List<OutputParamModel> outputs, OutputParamModel target, OutputParamModel model) {
+            return addValueIfNeed(target, model);
         }
     },
     JSON_ARRAY(JSONArray.class) {
@@ -65,6 +78,11 @@ public enum OutputParamType {
             output.setSubType(subType);
             // 只有是JSONObject类型才能解析，其他的都不需要解析的；
             return subType.parseListTypeOutput(parser, output);
+        }
+
+        @Override
+        public boolean replaceOutputOrAddValue(List<OutputParamModel> outputs, OutputParamModel target, OutputParamModel model) {
+            return addValueIfNeed(target, model);
         }
     },
     UNKNOWN(null) {
@@ -113,4 +131,22 @@ public enum OutputParamType {
         return Collections.EMPTY_LIST;
     }
 
+    public boolean replaceOutputOrAddValue(List<OutputParamModel> outputs, OutputParamModel target, OutputParamModel model) {
+        return false;
+    }
+
+    protected boolean addValueIfNeed(OutputParamModel target, OutputParamModel model) {
+        Object value = model.getValue();
+        OutputParamType type = OutputParamType.get(value);
+        if (type == NULL) {
+            return false;
+        }
+        if (type != this) {
+            throw new IllegalStateException("the value type is not match" +
+                    "\nin request " + model.getHigherLevel().getHigherLevel().getName() +
+                    "\n and the output name is " + model.getName() + ", its previous type is " + this.name() + ", but curr type is " + type.name());
+        }
+        target.addValue(value);
+        return false;
+    }
 }
