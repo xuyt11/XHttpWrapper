@@ -88,8 +88,14 @@ public enum OutputParamType {
             OutputParamType subType = OutputParamType.get(jArr.get(0));
             output.setSubType(subType);
             // 只有是JSONObject类型才能解析，其他的都不需要解析的；
+            // tip:并且不能是JSONArray类型，这个类型我不解析；即：JSONArray中不能包含JSONArray，这种的数据结构，我不解析
             return subType.parseListTypeOutput(parser, output);
             // TODO 解析values
+        }
+
+        @Override
+        protected List<OutputParamModel> parseListTypeOutput(OutputParamParser parser, OutputParamModel output) {
+            throw new IllegalStateException("JSONArray中不能包含JSONArray，这种的数据结构，我不解析");
         }
 
         @Override
