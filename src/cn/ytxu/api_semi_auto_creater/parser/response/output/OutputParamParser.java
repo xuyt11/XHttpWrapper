@@ -24,7 +24,7 @@ public class OutputParamParser {
         List<OutputParamModel> outputs = getOutputsOfResponse(entrys);
         // TODO 需要在output中获取outputs循环遍历，知道所有的outputs都没有JSONObject,JSONArray了
         // 判断依据是当前是否需要解析outputs,若需要，则需要解析子outputs
-        parseOutputs(outputs);
+        parseSubsOfOutputs(outputs);
         response.setOutputs(outputs);
     }
 
@@ -44,10 +44,10 @@ public class OutputParamParser {
         return outputs;
     }
 
-    private void parseOutputs(List<OutputParamModel> outputs) {
+    private void parseSubsOfOutputs(List<OutputParamModel> outputs) {
         List<OutputParamModel> subOutputs = parseOutputsAndReturnSubs(outputs);
         if (isNeedParseSubs(subOutputs)) {
-            parseOutputs(subOutputs);
+            parseSubsOfOutputs(subOutputs);
         }
     }
 
