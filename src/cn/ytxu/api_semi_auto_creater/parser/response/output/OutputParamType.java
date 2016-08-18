@@ -39,8 +39,19 @@ public enum OutputParamType {
             Set<Map.Entry<String, Object>> entrys = jObj.entrySet();
             List<OutputParamModel> outputs = parser.getOutputs(entrys, output);
             output.setOutputs(outputs);
-            // TODO 解析values
+            // 解析values，生成outputs，再与output中的outputs进行对比过滤，将有效的数据添加到outputs中
+            parseValuesThenAdd2OutputsAfterFilter(parser, output);
             return outputs;
+        }
+
+        private void parseValuesThenAdd2OutputsAfterFilter(OutputParamParser parser, OutputParamModel output) {
+            List<Object> values = output.getValues();
+            for (Object val : values) {
+                JSONObject vJObj = (JSONObject) val;
+                Set<Map.Entry<String, Object>> vEntrys = vJObj.entrySet();
+                List<OutputParamModel> models = parser.getOutputs(vEntrys, output);
+                output.addOutputsAfterFilter(models);
+            }
         }
 
         @Override
@@ -68,7 +79,6 @@ public enum OutputParamType {
         @Override
         public List<OutputParamModel> parseSubsIfCan(OutputParamParser parser, OutputParamModel output) {
             JSONArray jArr = (JSONArray) output.getValue();
-
             int size = jArr.size();
             if (size == 0) {
                 output.setSubType(OutputParamType.NULL);

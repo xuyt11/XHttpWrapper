@@ -58,6 +58,10 @@ public class OutputParamModel extends BaseModel<ResponseModel> {
         return fieldValue;
     }
 
+    public List<Object> getValues() {
+        return values;
+    }
+
     public OutputParamType getType() {
         return type;
     }
