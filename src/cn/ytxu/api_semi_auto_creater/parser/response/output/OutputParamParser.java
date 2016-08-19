@@ -28,6 +28,8 @@ public class OutputParamParser {
         response.setOutputs(outputs);
     }
 
+
+    //********************** parse output of response **********************
     private List<OutputParamModel> getOutputsOfResponse(Collection<Map.Entry<String, Object>> entrys) {
         List<OutputParamModel> outputs = new ArrayList<>(entrys.size());
         for (Map.Entry<String, Object> entry : entrys) {
@@ -52,6 +54,8 @@ public class OutputParamParser {
         return outputs;
     }
 
+
+    //********************** loop parse outputs and its subs **********************
     private void parseValueAndValuesOfOutputsThenParseSubsIfCan(List<OutputParamModel> outputs) {
         List<OutputParamModel> allSubsOfOuputs = parseValueAndValuesOfOutputsAndReturnAllSubsOfOutputs(outputs);
         if (isNeedParseSubs(allSubsOfOuputs)) {
@@ -83,4 +87,12 @@ public class OutputParamParser {
         return allSubsOfOuputs.size() > 0;
     }
 
+
+    //********************** parse value and values of output **********************
+    public void parseValueAndValuesOfObjectType(OutputParamModel output) {
+    }
+
+
+    public void parseValueAndValuesOfArrayType(OutputParamModel output) {
+    }
 }

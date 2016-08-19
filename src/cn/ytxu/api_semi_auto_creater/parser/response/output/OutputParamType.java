@@ -34,7 +34,8 @@ public enum OutputParamType {
     STRING(String.class),
     JSON_OBJECT(JSONObject.class) {
         @Override
-        public List<OutputParamModel> parseValueAndValuesIfCan(OutputParamParser parser, OutputParamModel output) {
+        public void parseValueAndValuesIfCan(OutputParamParser parser, OutputParamModel output) {
+            parser.parseValueAndValuesOfObjectType(output);
             JSONObject jObj = (JSONObject) output.getValue();
             Set<Map.Entry<String, Object>> entrys = jObj.entrySet();
             List<OutputParamModel> outputs = parser.getOutputs(entrys, output);
@@ -77,7 +78,9 @@ public enum OutputParamType {
     },
     JSON_ARRAY(JSONArray.class) {
         @Override
-        public List<OutputParamModel> parseValueAndValuesIfCan(OutputParamParser parser, OutputParamModel output) {
+        public void parseValueAndValuesIfCan(OutputParamParser parser, OutputParamModel output) {
+            parser.parseValueAndValuesOfArrayType(output);
+
             JSONArray jArr = (JSONArray) output.getValue();
             int size = jArr.size();
             if (size == 0) {
@@ -138,8 +141,8 @@ public enum OutputParamType {
     /**
      * @return output中的subs
      */
-    public List<OutputParamModel> parseValueAndValuesIfCan(OutputParamParser parser, OutputParamModel output) {
-        return Collections.EMPTY_LIST;
+    public void parseValueAndValuesIfCan(OutputParamParser parser, OutputParamModel output) {
+        return;
     }
 
     /**
