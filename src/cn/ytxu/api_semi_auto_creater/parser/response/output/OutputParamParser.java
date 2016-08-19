@@ -24,7 +24,7 @@ public class OutputParamParser {
         List<OutputParamModel> outputs = getOutputsOfResponse(entrys);
         // TODO 需要在output中获取outputs循环遍历，知道所有的outputs都没有JSONObject,JSONArray了
         // 判断依据是当前是否需要解析outputs,若需要，则需要解析子outputs
-        parseSubsOfOutputs(outputs);
+        parseValueAndValuesOfOutputsThenParseSubsIfCan(outputs);
         response.setOutputs(outputs);
     }
 
@@ -52,26 +52,35 @@ public class OutputParamParser {
         return outputs;
     }
 
-    private void parseSubsOfOutputs(List<OutputParamModel> outputs) {
-        List<OutputParamModel> subOutputs = parseOutputsAndReturnSubs(outputs);
-        if (isNeedParseSubs(subOutputs)) {
-            parseSubsOfOutputs(subOutputs);
+    private void parseValueAndValuesOfOutputsThenParseSubsIfCan(List<OutputParamModel> outputs) {
+        List<OutputParamModel> allSubsOfOuputs = parseValueAndValuesOfOutputsAndReturnAllSubsOfOutputs(outputs);
+        if (isNeedParseSubs(allSubsOfOuputs)) {
+            parseValueAndValuesOfOutputsThenParseSubsIfCan(allSubsOfOuputs);
         }
     }
 
-    private List<OutputParamModel> parseOutputsAndReturnSubs(List<OutputParamModel> outputs) {
-        List<OutputParamModel> subOutputs = new ArrayList<>();
+    private List<OutputParamModel> parseValueAndValuesOfOutputsAndReturnAllSubsOfOutputs(List<OutputParamModel> outputs) {
+        List<OutputParamModel> subsOfOutputs = new ArrayList<>();
         for (OutputParamModel output : outputs) {
-            List<OutputParamModel> models = output.getType().parseSubsIfCan(this, output);
-            if (models.size() > 0) {
-                subOutputs.addAll(models);
+            List<OutputParamModel> subsOfOutput = parseValueAndValuesOfOutputAndReturnSubsOfOutput(output);
+            if (isNeedAdd(subsOfOutput)) {
+                subsOfOutputs.addAll(subsOfOutput);
             }
         }
-        return subOutputs;
+        return subsOfOutputs;
     }
 
-    private boolean isNeedParseSubs(List<OutputParamModel> subOutputs) {
-        return subOutputs.size() > 0;
+    private List<OutputParamModel> parseValueAndValuesOfOutputAndReturnSubsOfOutput(OutputParamModel output) {
+        output.getType().parseValueAndValuesIfCan(this, output);
+        return output.getSubs();
+    }
+
+    private boolean isNeedAdd(List<OutputParamModel> subsOfOutput) {
+        return subsOfOutput.size() > 0;
+    }
+
+    private boolean isNeedParseSubs(List<OutputParamModel> allSubsOfOuputs) {
+        return allSubsOfOuputs.size() > 0;
     }
 
 }
