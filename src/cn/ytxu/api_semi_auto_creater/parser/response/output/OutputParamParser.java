@@ -2,6 +2,7 @@ package cn.ytxu.api_semi_auto_creater.parser.response.output;
 
 import cn.ytxu.api_semi_auto_creater.model.response.OutputParamModel;
 import cn.ytxu.api_semi_auto_creater.model.response.ResponseModel;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import java.util.*;
@@ -89,10 +90,54 @@ public class OutputParamParser {
 
 
     //********************** parse value and values of output **********************
-    public void parseValueAndValuesOfObjectType(OutputParamModel output) {
+    public void parseValueAndValuesForObjectTypeOutput(OutputParamModel output) {
+        parseValueForObjectTypeOutput(output);
+        parseValuesForObjectTypeOutput(output);
     }
 
+    private void parseValueForObjectTypeOutput(OutputParamModel output) {
+        JSONObject jObj = (JSONObject) output.getValue();
+        Set<Map.Entry<String, Object>> entrys = jObj.entrySet();
+        List<OutputParamModel> outputs = getOutputs(entrys, output);
+        output.setSubs(outputs);
+    }
 
-    public void parseValueAndValuesOfArrayType(OutputParamModel output) {
+    private void parseValuesForObjectTypeOutput(OutputParamModel output) {
+        List<Object> values = output.getValues();
+        for (Object value : values) {
+            if (Objects.isNull(value)) {
+                continue;
+            }
+            parseOneOfValuesForObjectType(output, (JSONObject) value);
+        }
+    }
+
+    private void parseOneOfValuesForObjectType(OutputParamModel output, JSONObject value) {
+        Set<Map.Entry<String, Object>> entrys = value.entrySet();
+        List<OutputParamModel> outputs = getOutputs(entrys, output);
+        // TODO 过滤后才能添加到subs中
+    }
+
+    public void parseValueAndValuesForArrayTypeOutput(OutputParamModel output) {
+        parseValueForArrayTypeOutput(output);
+        parseValuesForArrayTypeOutput(output);
+    }
+
+    private void parseValueForArrayTypeOutput(OutputParamModel output) {
+        JSONArray jArr = (JSONArray) output.getValue();
+        if (jArr.size() == 0) {
+            output.setSubType(OutputParamType.NULL);
+            return;
+        }
+
+        OutputParamType subType = OutputParamType.get(jArr.get(0));
+        output.setSubType(subType);
+        // 只有是JSONObject类型才能解析，其他的都不需要解析的；
+        // tip:并且不能是JSONArray类型，这个类型我不解析；即：JSONArray中不能包含JSONArray，这种的数据结构，我不解析
+        subType.parseValueOfArrayType(this, output);
+    }
+
+    private void parseValuesForArrayTypeOutput(OutputParamModel output) {
+        // TODO 解析values
     }
 }

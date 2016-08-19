@@ -35,14 +35,11 @@ public enum OutputParamType {
     JSON_OBJECT(JSONObject.class) {
         @Override
         public void parseValueAndValuesIfCan(OutputParamParser parser, OutputParamModel output) {
-            parser.parseValueAndValuesOfObjectType(output);
-            JSONObject jObj = (JSONObject) output.getValue();
-            Set<Map.Entry<String, Object>> entrys = jObj.entrySet();
-            List<OutputParamModel> outputs = parser.getOutputs(entrys, output);
-            output.setSubs(outputs);
+            parser.parseValueAndValuesForObjectTypeOutput(output);
             // 解析values，生成outputs，再与output中的outputs进行对比过滤，将有效的数据添加到outputs中
+            // TODO need remove
             parseValuesThenAdd2OutputsAfterFilter(parser, output);
-            return outputs;
+            return ;
         }
 
         private void parseValuesThenAdd2OutputsAfterFilter(OutputParamParser parser, OutputParamModel output) {
@@ -56,7 +53,7 @@ public enum OutputParamType {
         }
 
         @Override
-        protected List<OutputParamModel> parseListTypeOutput(OutputParamParser parser, OutputParamModel output) {
+        protected List<OutputParamModel> parseValueOfArrayType(OutputParamParser parser, OutputParamModel output) {
             JSONArray jArr = (JSONArray) output.getValue();
             List<OutputParamModel> outputs = new ArrayList<>();
             for (int i = 0, size = jArr.size(); i < size; i++) {
@@ -79,25 +76,11 @@ public enum OutputParamType {
     JSON_ARRAY(JSONArray.class) {
         @Override
         public void parseValueAndValuesIfCan(OutputParamParser parser, OutputParamModel output) {
-            parser.parseValueAndValuesOfArrayType(output);
-
-            JSONArray jArr = (JSONArray) output.getValue();
-            int size = jArr.size();
-            if (size == 0) {
-                output.setSubType(OutputParamType.NULL);
-                return Collections.EMPTY_LIST;
-            }
-
-            OutputParamType subType = OutputParamType.get(jArr.get(0));
-            output.setSubType(subType);
-            // 只有是JSONObject类型才能解析，其他的都不需要解析的；
-            // tip:并且不能是JSONArray类型，这个类型我不解析；即：JSONArray中不能包含JSONArray，这种的数据结构，我不解析
-            return subType.parseListTypeOutput(parser, output);
-            // TODO 解析values
+            parser.parseValueAndValuesForArrayTypeOutput(output);
         }
 
         @Override
-        protected List<OutputParamModel> parseListTypeOutput(OutputParamParser parser, OutputParamModel output) {
+        protected List<OutputParamModel> parseValueOfArrayType(OutputParamParser parser, OutputParamModel output) {
             throw new IllegalStateException("JSONArray中不能包含JSONArray，这种的数据结构，我不解析");
         }
 
@@ -148,7 +131,7 @@ public enum OutputParamType {
     /**
      * @return output中的subs 默认是不需要解析的
      */
-    protected List<OutputParamModel> parseListTypeOutput(OutputParamParser parser, OutputParamModel output) {
+    protected List<OutputParamModel> parseValueOfArrayType(OutputParamParser parser, OutputParamModel output) {
         return Collections.EMPTY_LIST;
     }
 
