@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.Exchanger;
 
 /**
  * Created by ytxu on 2016/8/17.
@@ -21,7 +20,7 @@ public class OutputParamModel extends BaseModel<ResponseModel> {
     private String fieldName;
     private Object fieldValue;
     private List<Object> values = Collections.EMPTY_LIST;// 只有object与array，才会有的
-    private List<OutputParamModel> outputs = Collections.EMPTY_LIST;
+    private List<OutputParamModel> subs = Collections.EMPTY_LIST;
 
     public OutputParamModel(ResponseModel higherLevel, OutputParamModel parent, OutputParamType type) {
         super(higherLevel, null);
@@ -34,12 +33,12 @@ public class OutputParamModel extends BaseModel<ResponseModel> {
         this.fieldValue = fieldValue;
     }
 
-    public void setOutputs(List<OutputParamModel> outputs) {
-        this.outputs = outputs;
+    public void setSubs(List<OutputParamModel> subs) {
+        this.subs = subs;
     }
 
-    public List<OutputParamModel> getOutputs() {
-        return outputs;
+    public List<OutputParamModel> getSubs() {
+        return subs;
     }
 
     /**
@@ -71,8 +70,8 @@ public class OutputParamModel extends BaseModel<ResponseModel> {
     }
 
     public List<OutputParamModel> addOutputsAfterFilter(List<OutputParamModel> models) {
-        if (outputs.size() == 0) {
-            outputs = models;
+        if (subs.size() == 0) {
+            subs = models;
             return models;
         }
 
@@ -80,12 +79,12 @@ public class OutputParamModel extends BaseModel<ResponseModel> {
         for (OutputParamModel model : models) {
             try {
                 OutputParamModel target = findSameNameItemFromOutputsByModel(model);
-                boolean needAdd = target.getType().replaceOutputOrAddValue(outputs, target, model);
+                boolean needAdd = target.getType().replaceOutputOrAddValue(subs, target, model);
                 if (needAdd) {
                     filtedOutputs.add(model);
                 }
             } catch (NotFoundSameNameItemException ignore) {
-                outputs.add(model);
+                subs.add(model);
                 filtedOutputs.add(model);
             }
         }
@@ -93,7 +92,7 @@ public class OutputParamModel extends BaseModel<ResponseModel> {
     }
 
     private OutputParamModel findSameNameItemFromOutputsByModel(OutputParamModel model) throws NotFoundSameNameItemException {
-        for (OutputParamModel output : outputs) {
+        for (OutputParamModel output : subs) {
             if (output.getName().equals(model.getName())) {
                 return output;
             }

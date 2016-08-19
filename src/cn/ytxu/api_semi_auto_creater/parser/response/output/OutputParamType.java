@@ -38,7 +38,7 @@ public enum OutputParamType {
             JSONObject jObj = (JSONObject) output.getValue();
             Set<Map.Entry<String, Object>> entrys = jObj.entrySet();
             List<OutputParamModel> outputs = parser.getOutputs(entrys, output);
-            output.setOutputs(outputs);
+            output.setSubs(outputs);
             // 解析values，生成outputs，再与output中的outputs进行对比过滤，将有效的数据添加到outputs中
             parseValuesThenAdd2OutputsAfterFilter(parser, output);
             return outputs;
