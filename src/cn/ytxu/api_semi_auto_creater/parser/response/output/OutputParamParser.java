@@ -29,7 +29,15 @@ public class OutputParamParser {
     }
 
     private List<OutputParamModel> getOutputsOfResponse(Collection<Map.Entry<String, Object>> entrys) {
-        return getOutputs(entrys, null);
+        List<OutputParamModel> outputs = new ArrayList<>(entrys.size());
+        for (Map.Entry<String, Object> entry : entrys) {
+            String fieldName = entry.getKey();
+            Object fieldValue = entry.getValue();
+            OutputParamType type = OutputParamType.get(fieldValue);
+            OutputParamModel output = type.createOutput(response, null, fieldName, fieldValue);
+            outputs.add(output);
+        }
+        return outputs;
     }
 
     public List<OutputParamModel> getOutputs(Collection<Map.Entry<String, Object>> entrys, OutputParamModel parent) {
