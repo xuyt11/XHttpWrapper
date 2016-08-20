@@ -34,21 +34,8 @@ public enum OutputParamType {
     JSON_OBJECT(JSONObject.class) {
         @Override
         public void parseValueAndValuesIfCan(OutputParamParser parser, OutputParamModel output) {
-            parser.parseValueAndValuesForObjectTypeOutput(output);
-            // 解析values，生成outputs，再与output中的outputs进行对比过滤，将有效的数据添加到outputs中
-            // TODO need remove
-            parseValuesThenAdd2OutputsAfterFilter(parser, output);
+            new ObjectTypeOutputParser(parser, output).start();
             return;
-        }
-
-        private void parseValuesThenAdd2OutputsAfterFilter(OutputParamParser parser, OutputParamModel output) {
-            List<Object> values = output.getValues();
-            for (Object val : values) {
-                JSONObject vJObj = (JSONObject) val;
-                Set<Map.Entry<String, Object>> vEntrys = vJObj.entrySet();
-                List<OutputParamModel> models = parser.getOutputs(vEntrys, output);
-                output.addOutputsAfterFilter(models);
-            }
         }
 
         @Override
