@@ -19,10 +19,9 @@ public enum OutputParamType {
         }
 
         @Override
-        public boolean replaceOutputOrAddValue(List<OutputParamModel> outputs, OutputParamModel target, OutputParamModel model) {
+        public void replaceOutputIfIsNULLOrAddModelSValue2TargetSValuesIfIsObjectOrArrayOtherwiseDoNothing(List<OutputParamModel> outputs, OutputParamModel target, OutputParamModel model) {
             int index = outputs.indexOf(target);
             outputs.set(index, model);
-            return true;
         }
     },
     INTEGER(Integer.class),
@@ -39,7 +38,7 @@ public enum OutputParamType {
             // 解析values，生成outputs，再与output中的outputs进行对比过滤，将有效的数据添加到outputs中
             // TODO need remove
             parseValuesThenAdd2OutputsAfterFilter(parser, output);
-            return ;
+            return;
         }
 
         private void parseValuesThenAdd2OutputsAfterFilter(OutputParamParser parser, OutputParamModel output) {
@@ -69,8 +68,8 @@ public enum OutputParamType {
         }
 
         @Override
-        public boolean replaceOutputOrAddValue(List<OutputParamModel> outputs, OutputParamModel target, OutputParamModel model) {
-            return addValueIfNeed(target, model);
+        public void replaceOutputIfIsNULLOrAddModelSValue2TargetSValuesIfIsObjectOrArrayOtherwiseDoNothing(List<OutputParamModel> outputs, OutputParamModel target, OutputParamModel model) {
+            addValueIfNeed(target, model);
         }
     },
     JSON_ARRAY(JSONArray.class) {
@@ -85,8 +84,8 @@ public enum OutputParamType {
         }
 
         @Override
-        public boolean replaceOutputOrAddValue(List<OutputParamModel> outputs, OutputParamModel target, OutputParamModel model) {
-            return addValueIfNeed(target, model);
+        public void replaceOutputIfIsNULLOrAddModelSValue2TargetSValuesIfIsObjectOrArrayOtherwiseDoNothing(List<OutputParamModel> outputs, OutputParamModel target, OutputParamModel model) {
+            addValueIfNeed(target, model);
         }
     },
     UNKNOWN(null) {
@@ -135,22 +134,27 @@ public enum OutputParamType {
         return Collections.EMPTY_LIST;
     }
 
-    public boolean replaceOutputOrAddValue(List<OutputParamModel> outputs, OutputParamModel target, OutputParamModel model) {
-        return false;
+    /**
+     * tips:
+     * if tagettype is NULL, replace it with model;
+     * else if targetType is Object or Array, add model`s value to target`s values
+     * otherwise, do nothing...
+     */
+    public void replaceOutputIfIsNULLOrAddModelSValue2TargetSValuesIfIsObjectOrArrayOtherwiseDoNothing(List<OutputParamModel> outputs, OutputParamModel target, OutputParamModel model) {
     }
 
-    protected boolean addValueIfNeed(OutputParamModel target, OutputParamModel model) {
+    protected void addValueIfNeed(OutputParamModel target, OutputParamModel model) {
         Object value = model.getValue();
         OutputParamType type = OutputParamType.get(value);
-        if (type == NULL) {
-            return false;
+        if (type == NULL) {// model`s type is NULL, so do nothing...
+            return;
         }
-        if (type != this) {
+        if (type != this) {// model`s type is not same for target`s type
             throw new IllegalStateException("the value type is not match" +
                     "\nin request " + model.getHigherLevel().getHigherLevel().getName() +
                     "\n and the output name is " + model.getName() + ", its previous type is " + this.name() + ", but curr type is " + type.name());
         }
         target.addValue(value);
-        return false;
+        return;
     }
 }

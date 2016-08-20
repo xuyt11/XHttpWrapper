@@ -115,8 +115,49 @@ public class OutputParamParser {
     private void parseOneOfValuesForObjectType(OutputParamModel output, JSONObject value) {
         Set<Map.Entry<String, Object>> entrys = value.entrySet();
         List<OutputParamModel> outputs = getOutputs(entrys, output);
-        // TODO 过滤后才能添加到subs中
+        if (isNotNeedFilter(output)) {
+            output.setSubs(outputs);
+            return;
+        }
+        addOutputsAfterFilter(output, outputs);
     }
+
+    private boolean isNotNeedFilter(OutputParamModel output) {
+        return output.getSubs().size() == 0;
+    }
+
+    public void addOutputsAfterFilter(OutputParamModel output, List<OutputParamModel> models) {
+        for (OutputParamModel model : models) {
+            addModel(output, model);
+        }
+    }
+
+    private void addModel(OutputParamModel output, OutputParamModel model) {
+        List<OutputParamModel> subs = output.getSubs();
+        try {
+            OutputParamModel target = findSameNameItemFromSubsByModel(subs, model);
+            OutputParamType targetType = target.getType();
+            targetType.replaceOutputIfIsNULLOrAddModelSValue2TargetSValuesIfIsObjectOrArrayOtherwiseDoNothing(subs, target, model);
+        } catch (NotFoundSameNameItemException ignore) {
+            subs.add(model);
+        }
+    }
+
+    private OutputParamModel findSameNameItemFromSubsByModel(List<OutputParamModel> subs, OutputParamModel model) throws NotFoundSameNameItemException {
+        for (OutputParamModel sub : subs) {
+            if (sub.getName().equals(model.getName())) {
+                return sub;
+            }
+        }
+        throw new NotFoundSameNameItemException("");
+    }
+
+    private static class NotFoundSameNameItemException extends Exception {
+        public NotFoundSameNameItemException(String message) {
+            super(message);
+        }
+    }
+
 
     public void parseValueAndValuesForArrayTypeOutput(OutputParamModel output) {
         parseValueForArrayTypeOutput(output);

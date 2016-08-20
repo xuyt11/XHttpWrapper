@@ -79,7 +79,7 @@ public class OutputParamModel extends BaseModel<ResponseModel> {
         for (OutputParamModel model : models) {
             try {
                 OutputParamModel target = findSameNameItemFromOutputsByModel(model);
-                boolean needAdd = target.getType().replaceOutputOrAddValue(subs, target, model);
+                boolean needAdd = target.getType().replaceOutputIfIsNULLOrAddModelSValue2TargetSValuesIfIsObjectOrArrayOtherwiseDoNothing(subs, target, model);
                 if (needAdd) {
                     filtedOutputs.add(model);
                 }
