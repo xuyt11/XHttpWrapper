@@ -90,27 +90,4 @@ public class OutputParamParser {
 
 
     //********************** parse value and values of output **********************
-
-    public void parseValueAndValuesForArrayTypeOutput(OutputParamModel output) {
-        parseValueForArrayTypeOutput(output);
-        parseValuesForArrayTypeOutput(output);
-    }
-
-    private void parseValueForArrayTypeOutput(OutputParamModel output) {
-        JSONArray jArr = (JSONArray) output.getValue();
-        if (jArr.size() == 0) {
-            output.setSubType(OutputParamType.NULL);
-            return;
-        }
-
-        OutputParamType subType = OutputParamType.get(jArr.get(0));
-        output.setSubType(subType);
-        // 只有是JSONObject类型才能解析，其他的都不需要解析的；
-        // tip:并且不能是JSONArray类型，这个类型我不解析；即：JSONArray中不能包含JSONArray，这种的数据结构，我不解析
-        subType.parseValueOfArrayType(this, output);
-    }
-
-    private void parseValuesForArrayTypeOutput(OutputParamModel output) {
-        // TODO 解析values
-    }
 }

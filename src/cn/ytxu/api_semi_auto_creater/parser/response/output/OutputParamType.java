@@ -62,7 +62,7 @@ public enum OutputParamType {
     JSON_ARRAY(JSONArray.class) {
         @Override
         public void parseValueAndValuesIfCan(OutputParamParser parser, OutputParamModel output) {
-            parser.parseValueAndValuesForArrayTypeOutput(output);
+            new ArrayTypeOutputParser(parser, output).start();
         }
 
         @Override
