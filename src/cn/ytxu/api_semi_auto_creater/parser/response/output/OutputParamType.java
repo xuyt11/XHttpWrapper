@@ -39,35 +39,15 @@ public enum OutputParamType {
         }
 
         @Override
-        protected List<OutputParamModel> parseValueOfArrayType(OutputParamParser parser, OutputParamModel output) {
-            JSONArray jArr = (JSONArray) output.getValue();
-            List<OutputParamModel> outputs = new ArrayList<>();
-            for (int i = 0, size = jArr.size(); i < size; i++) {
-                JSONObject jObj = jArr.getJSONObject(i);
-                Set<Map.Entry<String, Object>> entrys = jObj.entrySet();
-                List<OutputParamModel> models = parser.getOutputs(entrys, output);
-                List<OutputParamModel> filterModels = output.addOutputsAfterFilter(models);
-                if (filterModels.size() > 0) {
-                    outputs.addAll(filterModels);
-                }
-            }
-            return outputs;
-        }
-
-        @Override
         public void replaceOutputIfIsNULLOrAddModelSValue2TargetSValuesIfIsObjectOrArrayOtherwiseDoNothing(List<OutputParamModel> outputs, OutputParamModel target, OutputParamModel model) {
             addValueIfNeed(target, model);
         }
     },
+    //tip: JSONArray中不能包含JSONArray，这种的数据结构，我不解析
     JSON_ARRAY(JSONArray.class) {
         @Override
         public void parseValueAndValuesIfCan(OutputParamParser parser, OutputParamModel output) {
             new ArrayTypeOutputParser(parser, output).start();
-        }
-
-        @Override
-        protected List<OutputParamModel> parseValueOfArrayType(OutputParamParser parser, OutputParamModel output) {
-            throw new IllegalStateException("JSONArray中不能包含JSONArray，这种的数据结构，我不解析");
         }
 
         @Override
@@ -81,15 +61,11 @@ public enum OutputParamType {
             return true;
         }
     };
+
     private Class clazz;
 
     OutputParamType(Class clazz) {
         this.clazz = clazz;
-    }
-
-    boolean isThisType(Object obj) {
-        Class objType = obj.getClass();
-        return objType == clazz;
     }
 
     public static OutputParamType get(Object obj) {
@@ -99,6 +75,11 @@ public enum OutputParamType {
             }
         }
         return UNKNOWN;
+    }
+
+    boolean isThisType(Object obj) {
+        Class objType = obj.getClass();
+        return objType == clazz;
     }
 
     public OutputParamModel createOutput(ResponseModel response, OutputParamModel parent, String fieldName, Object fieldValue) {
@@ -112,13 +93,6 @@ public enum OutputParamType {
      */
     public void parseValueAndValuesIfCan(OutputParamParser parser, OutputParamModel output) {
         return;
-    }
-
-    /**
-     * @return output中的subs 默认是不需要解析的
-     */
-    protected List<OutputParamModel> parseValueOfArrayType(OutputParamParser parser, OutputParamModel output) {
-        return Collections.EMPTY_LIST;
     }
 
     /**

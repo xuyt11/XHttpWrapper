@@ -11,6 +11,7 @@ import java.util.Set;
 /**
  * Created by ytxu on 2016/8/21.
  * 数组类型的输出参数的解析器
+ * tip: JSONArray中不能包含JSONArray，这种的数据结构，我不解析
  */
 public class ArrayTypeOutputParser {
 

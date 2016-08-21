@@ -69,37 +69,6 @@ public class OutputParamModel extends BaseModel<ResponseModel> {
         this.subType = subType;
     }
 
-    public List<OutputParamModel> addOutputsAfterFilter(List<OutputParamModel> models) {
-        if (subs.size() == 0) {
-            subs = models;
-            return models;
-        }
-
-        List<OutputParamModel> filtedOutputs = new ArrayList<>();
-        for (OutputParamModel model : models) {
-            try {
-                OutputParamModel target = findSameNameItemFromOutputsByModel(model);
-                boolean needAdd = target.getType().replaceOutputIfIsNULLOrAddModelSValue2TargetSValuesIfIsObjectOrArrayOtherwiseDoNothing(subs, target, model);
-                if (needAdd) {
-                    filtedOutputs.add(model);
-                }
-            } catch (NotFoundSameNameItemException ignore) {
-                subs.add(model);
-                filtedOutputs.add(model);
-            }
-        }
-        return filtedOutputs;
-    }
-
-    private OutputParamModel findSameNameItemFromOutputsByModel(OutputParamModel model) throws NotFoundSameNameItemException {
-        for (OutputParamModel output : subs) {
-            if (output.getName().equals(model.getName())) {
-                return output;
-            }
-        }
-        throw new NotFoundSameNameItemException("");
-    }
-
     public void addValue(Object value) {
         if (values == Collections.EMPTY_LIST) {
             values = new ArrayList<>();
@@ -107,10 +76,4 @@ public class OutputParamModel extends BaseModel<ResponseModel> {
         values.add(value);
     }
 
-
-    private static class NotFoundSameNameItemException extends Exception {
-        public NotFoundSameNameItemException(String message) {
-            super(message);
-        }
-    }
 }

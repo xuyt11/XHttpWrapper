@@ -2,7 +2,6 @@ package cn.ytxu.api_semi_auto_creater.parser.response.output;
 
 import cn.ytxu.api_semi_auto_creater.model.response.OutputParamModel;
 import cn.ytxu.api_semi_auto_creater.model.response.ResponseModel;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import java.util.*;
