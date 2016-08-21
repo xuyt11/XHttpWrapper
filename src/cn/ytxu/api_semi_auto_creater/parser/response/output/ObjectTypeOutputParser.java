@@ -37,9 +37,6 @@ public class ObjectTypeOutputParser {
     private void parseValues() {
         List<Object> values = output.getValues();
         for (Object value : values) {
-            if (Objects.isNull(value)) {
-                continue;
-            }
             parseOneOfValues((JSONObject) value);
         }
     }
