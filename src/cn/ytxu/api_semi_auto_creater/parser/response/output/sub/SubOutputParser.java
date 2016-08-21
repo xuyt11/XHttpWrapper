@@ -12,12 +12,12 @@ import java.util.Set;
 /**
  * 解析JSONObject与JSONArray子output
  */
-public class JSONObjectOrJSONArraySubOutputParser {
+public class SubOutputParser {
     private OutputParamParser parser;
     private OutputParamModel output;
     private JSONObject valueOfJSONObjectType;
 
-    public JSONObjectOrJSONArraySubOutputParser(OutputParamParser parser, OutputParamModel output, JSONObject valueOfJSONObjectType) {
+    public SubOutputParser(OutputParamParser parser, OutputParamModel output, JSONObject valueOfJSONObjectType) {
         this.parser = parser;
         this.output = output;
         this.valueOfJSONObjectType = valueOfJSONObjectType;

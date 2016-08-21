@@ -22,7 +22,6 @@ public class OutputParamParser {
     public void start() {
         Set<Map.Entry<String, Object>> entrys = bodyJObj.entrySet();
         List<OutputParamModel> outputs = getOutputsOfResponse(entrys);
-        // TODO 需要在output中获取outputs循环遍历，知道所有的outputs都没有JSONObject,JSONArray了
         // 判断依据是当前是否需要解析outputs,若需要，则需要解析子outputs
         parseValueAndValuesOfOutputsThenParseSubsIfCan(outputs);
         response.setOutputs(outputs);
@@ -88,5 +87,4 @@ public class OutputParamParser {
     }
 
 
-    //********************** parse value and values of output **********************
 }

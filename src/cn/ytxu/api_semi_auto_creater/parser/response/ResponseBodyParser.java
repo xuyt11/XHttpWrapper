@@ -25,8 +25,6 @@ public class ResponseBodyParser {
         //1 解析出body中json格式数据的所有字段；
         JSONObject bodyJObj;
         try {
-            // TODO 循环遍历JsonArray对象，而不只是获取第一个对象，
-            // TODO 并且要将所有的字段中，若value为null的字段，判断之后是否有值，有值的话就要替换掉
             bodyJObj = JSON.parseObject(body);
         } catch (JSONException e) {
             e.printStackTrace();

@@ -1,7 +1,7 @@
 package cn.ytxu.api_semi_auto_creater.parser.response.output;
 
 import cn.ytxu.api_semi_auto_creater.model.response.OutputParamModel;
-import cn.ytxu.api_semi_auto_creater.parser.response.output.sub.JSONObjectOrJSONArraySubOutputParser;
+import cn.ytxu.api_semi_auto_creater.parser.response.output.sub.SubOutputParser;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
@@ -84,7 +84,7 @@ public class ArrayTypeOutputParser {
     private void parseJSONArray(JSONArray value) {
         for (int i = 0, size = value.size(); i < size; i++) {
             JSONObject subOfValue = value.getJSONObject(i);
-            new JSONObjectOrJSONArraySubOutputParser(parser, output, subOfValue).parse();
+            new SubOutputParser(parser, output, subOfValue).parse();
         }
     }
 

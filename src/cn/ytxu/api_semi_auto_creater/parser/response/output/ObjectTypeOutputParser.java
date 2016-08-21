@@ -1,7 +1,7 @@
 package cn.ytxu.api_semi_auto_creater.parser.response.output;
 
 import cn.ytxu.api_semi_auto_creater.model.response.OutputParamModel;
-import cn.ytxu.api_semi_auto_creater.parser.response.output.sub.JSONObjectOrJSONArraySubOutputParser;
+import cn.ytxu.api_semi_auto_creater.parser.response.output.sub.SubOutputParser;
 import com.alibaba.fastjson.JSONObject;
 
 import java.util.List;
@@ -37,7 +37,7 @@ public class ObjectTypeOutputParser {
     }
 
     private void parseJSONObject(JSONObject value) {
-        new JSONObjectOrJSONArraySubOutputParser(parser, output, value).parse();
+        new SubOutputParser(parser, output, value).parse();
     }
 
 }
