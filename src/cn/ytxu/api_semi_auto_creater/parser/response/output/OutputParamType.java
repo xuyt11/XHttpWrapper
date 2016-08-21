@@ -83,9 +83,7 @@ public enum OutputParamType {
     }
 
     public OutputParamModel createOutput(ResponseModel response, OutputParamModel parent, String fieldName, Object fieldValue) {
-        OutputParamModel output = new OutputParamModel(response, parent, this);
-        output.setNameAndValue(fieldName, fieldValue);
-        return output;
+        return new OutputParamModel(response, parent, this, fieldName, fieldValue);
     }
 
     /**

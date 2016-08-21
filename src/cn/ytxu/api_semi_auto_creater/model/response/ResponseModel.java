@@ -52,4 +52,8 @@ public class ResponseModel extends BaseModel<RequestModel> {
     public void setOutputs(List<OutputParamModel> outputs) {
         this.outputs = outputs;
     }
+
+    public List<OutputParamModel> getOutputs() {
+        return outputs;
+    }
 }

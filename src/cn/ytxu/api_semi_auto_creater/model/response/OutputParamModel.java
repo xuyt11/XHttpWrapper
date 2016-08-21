@@ -1,6 +1,7 @@
 package cn.ytxu.api_semi_auto_creater.model.response;
 
 import cn.ytxu.api_semi_auto_creater.model.BaseModel;
+import cn.ytxu.api_semi_auto_creater.model.request.DefinedParamModel;
 import cn.ytxu.api_semi_auto_creater.parser.response.output.OutputParamType;
 
 import java.util.ArrayList;
@@ -16,19 +17,18 @@ public class OutputParamModel extends BaseModel<ResponseModel> {
     private final OutputParamModel parent;
     private final OutputParamType type;
     private OutputParamType subType;// 只有array才有，如：List<Integer>,List<Long>,List<String>...
+    private DefinedParamModel defined;
 
-    private String fieldName;
-    private Object fieldValue;
+    private final String fieldName;
+    private final Object fieldValue;
     private List<Object> values = Collections.EMPTY_LIST;// 只有object与array，才会有的
     private List<OutputParamModel> subs = Collections.EMPTY_LIST;
 
-    public OutputParamModel(ResponseModel higherLevel, OutputParamModel parent, OutputParamType type) {
+    public OutputParamModel(ResponseModel higherLevel, OutputParamModel parent, OutputParamType type,
+                            String fieldName, Object fieldValue) {
         super(higherLevel, null);
         this.parent = parent;
         this.type = type;
-    }
-
-    public void setNameAndValue(String fieldName, Object fieldValue) {
         this.fieldName = fieldName;
         this.fieldValue = fieldValue;
     }
@@ -53,6 +53,10 @@ public class OutputParamModel extends BaseModel<ResponseModel> {
         return fieldName;
     }
 
+    public void setDefined(DefinedParamModel defined) {
+        this.defined = defined;
+    }
+
     public Object getValue() {
         return fieldValue;
     }
@@ -75,5 +79,4 @@ public class OutputParamModel extends BaseModel<ResponseModel> {
         }
         values.add(value);
     }
-
 }
