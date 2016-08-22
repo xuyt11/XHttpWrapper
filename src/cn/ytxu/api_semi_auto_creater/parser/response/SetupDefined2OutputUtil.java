@@ -23,6 +23,7 @@ public class SetupDefined2OutputUtil {
         List<DefinedParamModel> defineds = getDefineds();
         List<OutputParamModel> outputs = getAllOutput();
         loopSetupDefined2Output(defineds, outputs);
+        setupDontRequireAutomaticGenerationOutputObjectFileOfOutput(outputs);
     }
 
     private List<DefinedParamModel> getDefineds() {
@@ -74,6 +75,7 @@ public class SetupDefined2OutputUtil {
     }
 
 
+    //********************** loop setup defined to output **********************
     private void loopSetupDefined2Output(List<DefinedParamModel> defineds, List<OutputParamModel> outputs) {
         for (OutputParamModel output : outputs) {
             setupDefined2Output(output, defineds);
@@ -93,5 +95,29 @@ public class SetupDefined2OutputUtil {
     private boolean findTargetDefined(String outputName, DefinedParamModel defined) {
         return outputName.equals(defined.getName());
     }
+
+
+    //********************** loop setup defined to output **********************
+    private void setupDontRequireAutomaticGenerationOutputObjectFileOfOutput(List<OutputParamModel> outputs) {
+        List<OutputParamModel> oaOutputs = getOutputsOfJSONObjectAndJSONArrayType(outputs);
+        for (OutputParamModel output : oaOutputs) {
+            // TODO
+
+        }
+    }
+
+    private List<OutputParamModel> getOutputsOfJSONObjectAndJSONArrayType(List<OutputParamModel> outputs) {
+        List<OutputParamModel> oaOutputs = new ArrayList<>();
+        for (OutputParamModel output : oaOutputs) {
+            switch (output.getType()) {
+                case JSON_OBJECT:
+                case JSON_ARRAY:
+                    oaOutputs.add(output);
+                    break;
+            }
+        }
+        return oaOutputs;
+    }
+
 
 }
