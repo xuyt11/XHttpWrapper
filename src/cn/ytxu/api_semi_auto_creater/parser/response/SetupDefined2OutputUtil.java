@@ -7,6 +7,7 @@ import com.sun.istack.internal.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by ytxu on 2016/8/21.
@@ -97,18 +98,21 @@ public class SetupDefined2OutputUtil {
     }
 
 
-    //********************** loop setup defined to output **********************
+    //********************** loop not need generation response file to object and array type`s output **********************
     private void setupDontRequireAutomaticGenerationOutputObjectFileOfOutput(List<OutputParamModel> outputs) {
         List<OutputParamModel> oaOutputs = getOutputsOfJSONObjectAndJSONArrayType(outputs);
-        for (OutputParamModel output : oaOutputs) {
-            // TODO
-
+        List<OutputParamModel> hasDataTypeOutputs = getAllOutputs4HasDataTypeFromOAOutputs(oaOutputs);
+        for (OutputParamModel output : hasDataTypeOutputs) {
+            if (hasSetAutoGenerationTag(output)) {
+                continue;
+            }
+            loopSetDontRequireGenerationResponseEntityFileTag2TheSameDataTypeOutput(output, hasDataTypeOutputs);
         }
     }
 
     private List<OutputParamModel> getOutputsOfJSONObjectAndJSONArrayType(List<OutputParamModel> outputs) {
         List<OutputParamModel> oaOutputs = new ArrayList<>();
-        for (OutputParamModel output : oaOutputs) {
+        for (OutputParamModel output : outputs) {
             switch (output.getType()) {
                 case JSON_OBJECT:
                 case JSON_ARRAY:
@@ -117,6 +121,43 @@ public class SetupDefined2OutputUtil {
             }
         }
         return oaOutputs;
+    }
+
+    private List<OutputParamModel> getAllOutputs4HasDataTypeFromOAOutputs(List<OutputParamModel> oaOutputs) {
+        List<OutputParamModel> hasDataTypes = new ArrayList<>();
+        for (OutputParamModel output : oaOutputs) {
+            if (notHasDataType(output)) {
+                continue;
+            }
+            hasDataTypes.add(output);
+        }
+        return hasDataTypes;
+    }
+
+    private boolean notHasDataType(OutputParamModel output) {
+        return Objects.isNull(output.getDefined()) || Objects.isNull(output.getDefined().getDataType());
+    }
+
+    private boolean hasSetAutoGenerationTag(OutputParamModel output) {
+        return output.isDontRequireGenerationResponseEntityFileTag();
+    }
+
+    /**
+     * 将oaOutputs中多有defined相同的output，设置为不需要再生成response entity file的
+     */
+    private void loopSetDontRequireGenerationResponseEntityFileTag2TheSameDataTypeOutput(OutputParamModel target, List<OutputParamModel> hasDataTypeOutputs) {
+        for (OutputParamModel output : hasDataTypeOutputs) {
+            if (output == target) {
+                continue;
+            }
+            if (isTheSameDataType(target, output)) {
+                output.setDontRequireGenerationResponseEntityFileTag();
+            }
+        }
+    }
+
+    private boolean isTheSameDataType(OutputParamModel target, OutputParamModel output) {
+        return target.getDefined().getDataType().equals(output.getDefined().getDataType());
     }
 
 

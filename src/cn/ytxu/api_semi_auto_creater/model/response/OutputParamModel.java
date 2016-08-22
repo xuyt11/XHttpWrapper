@@ -18,6 +18,7 @@ public class OutputParamModel extends BaseModel<ResponseModel> {
     private final OutputParamType type;
     private OutputParamType subType;// 只有array才有，如：List<Integer>,List<Long>,List<String>...
     private DefinedParamModel defined;
+    private boolean dontRequireGenerationResponseEntityFileTag = false;// 是否需要生成响应实体文件标记，默认为需要
 
     private final String fieldName;
     private final Object fieldValue;
@@ -57,6 +58,10 @@ public class OutputParamModel extends BaseModel<ResponseModel> {
         this.defined = defined;
     }
 
+    public DefinedParamModel getDefined() {
+        return defined;
+    }
+
     public Object getValue() {
         return fieldValue;
     }
@@ -78,5 +83,13 @@ public class OutputParamModel extends BaseModel<ResponseModel> {
             values = new ArrayList<>();
         }
         values.add(value);
+    }
+
+    public void setDontRequireGenerationResponseEntityFileTag() {
+        dontRequireGenerationResponseEntityFileTag = true;
+    }
+
+    public boolean isDontRequireGenerationResponseEntityFileTag() {
+        return dontRequireGenerationResponseEntityFileTag;
     }
 }
