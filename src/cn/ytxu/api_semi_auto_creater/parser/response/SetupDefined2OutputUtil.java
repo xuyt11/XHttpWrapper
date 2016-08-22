@@ -36,9 +36,11 @@ public class SetupDefined2OutputUtil {
         }
 
         List<OutputParamModel> allOutputs = new ArrayList<>();
-        List<OutputParamModel> allSubs;
+        allOutputs.addAll(outputs);
+
+        List<OutputParamModel> allSubs = outputs;
         do {
-            allSubs = getSubsFromOutputs(outputs);
+            allSubs = getSubsFromOutputs(allSubs);
             if (canAddAllSubs2AllOutputs(allSubs)) {
                 allOutputs.addAll(allSubs);
             }
