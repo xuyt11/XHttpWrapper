@@ -14,4 +14,5 @@ hs_err_pid*
 /out
 
 # 指定要将哪些文件添加到版本管理中
-!/lib
+!/lib/kxml2-2.3.0.jar
+!/lib/xmlpull_1_1_3_4c.jar
