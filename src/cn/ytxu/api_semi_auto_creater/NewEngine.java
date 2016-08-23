@@ -3,7 +3,6 @@ package cn.ytxu.api_semi_auto_creater;
 import cn.ytxu.apacer.entity.RetainEntity;
 import cn.ytxu.apacer.fileCreater.newchama.BaseCreater;
 import cn.ytxu.api_semi_auto_creater.config.Property;
-import cn.ytxu.api_semi_auto_creater.entity.DocumentEntity;
 import cn.ytxu.api_semi_auto_creater.model.base.DocModel;
 import cn.ytxu.api_semi_auto_creater.model.RequestModel;
 import cn.ytxu.api_semi_auto_creater.model.base.SectionModel;
@@ -64,16 +63,6 @@ public class NewEngine {
             }
         }
         return requests;
-    }
-
-    private static void old() {
-        long start = System.currentTimeMillis();
-
-        Parser parser = new Parser();
-        DocumentEntity document = parser.start();
-
-        long end = System.currentTimeMillis();
-        LogUtil.w("duration time is " + (end - start));
     }
 
     public static void create(DocModel docModel) {
