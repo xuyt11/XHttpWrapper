@@ -2,6 +2,7 @@ package cn.ytxu.api_semi_auto_creater.parser.response.output.defined;
 
 import cn.ytxu.api_semi_auto_creater.model.response.OutputParamModel;
 import cn.ytxu.api_semi_auto_creater.model.response.ResponseModel;
+import cn.ytxu.api_semi_auto_creater.parser.response.output.sub.GetOAOutputsUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +22,7 @@ public class HandleSameDataTypeOutputUtil {
     }
 
     public void start() {
-        List<OutputParamModel> outputs = response.getOutputs();
-        List<OutputParamModel> oaOutputs = getOutputsOfJSONObjectAndJSONArrayType(outputs);
+        List<OutputParamModel> oaOutputs = new GetOAOutputsUtil(response).start();
         List<OutputParamModel> hasDataTypeOutputs = getAllOutputs4HasDataTypeFromOAOutputs(oaOutputs);
 
         for (OutputParamModel output : hasDataTypeOutputs) {
@@ -31,19 +31,6 @@ public class HandleSameDataTypeOutputUtil {
             }
             loopSetDontRequireGenerationResponseEntityFileTag2TheSameDataTypeOutput(output, hasDataTypeOutputs);
         }
-    }
-
-    private List<OutputParamModel> getOutputsOfJSONObjectAndJSONArrayType(List<OutputParamModel> outputs) {
-        List<OutputParamModel> oaOutputs = new ArrayList<>();
-        for (OutputParamModel output : outputs) {
-            switch (output.getType()) {
-                case JSON_OBJECT:
-                case JSON_ARRAY:
-                    oaOutputs.add(output);
-                    break;
-            }
-        }
-        return oaOutputs;
     }
 
     private List<OutputParamModel> getAllOutputs4HasDataTypeFromOAOutputs(List<OutputParamModel> oaOutputs) {
