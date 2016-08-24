@@ -49,6 +49,10 @@ public class ResponseModel extends BaseModel<RequestModel> {
         this.statusCode = statusCode;
     }
 
+    public String getStatusCode() {
+        return statusCode;
+    }
+
     public void setOutputs(List<OutputParamModel> outputs) {
         this.outputs = outputs;
     }
@@ -56,4 +60,6 @@ public class ResponseModel extends BaseModel<RequestModel> {
     public List<OutputParamModel> getOutputs() {
         return outputs;
     }
+
+
 }

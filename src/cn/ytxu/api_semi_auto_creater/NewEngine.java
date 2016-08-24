@@ -7,6 +7,7 @@ import cn.ytxu.api_semi_auto_creater.model.base.DocModel;
 import cn.ytxu.api_semi_auto_creater.model.RequestModel;
 import cn.ytxu.api_semi_auto_creater.model.base.SectionModel;
 import cn.ytxu.api_semi_auto_creater.model.base.VersionModel;
+import cn.ytxu.api_semi_auto_creater.model.response.OutputParamModel;
 import cn.ytxu.api_semi_auto_creater.model.response.ResponseModel;
 import cn.ytxu.api_semi_auto_creater.parser.request.RequestParser;
 import cn.ytxu.api_semi_auto_creater.parser.base.BaseParser;
@@ -68,7 +69,8 @@ public class NewEngine {
     public static void create(DocModel docModel) {
         createHttpApi(docModel);
         createRequest(docModel);
-//        responseCreate();
+        createResponseEntity(docModel);
+        // TODO create status code file, base response entity file
     }
 
     private static void createHttpApi(DocModel docModel) {
@@ -103,6 +105,49 @@ public class NewEngine {
                 });
             }
         }
+    }
+
+    private static void createResponseEntity(DocModel docModel) {
+        XTempModel model = new XTempUtil(XTempUtil.Suffix.Response).start();
+        List<StatementRecord> records = StatementRecord.getRecords(model.getContents());
+        StatementRecord.parseRecords(records);
+
+        List<ResponseModel> successResponses = getSuccessResponses(docModel);
+        List<OutputParamModel> outputs = getOutputsThatCanGenerateResponseEntityFile(successResponses);
+
+        for (OutputParamModel output : outputs) {
+            String dirPath = getString(model.getFileDir(), output);
+            String fileName = getString(model.getFileName(), output);
+
+            BaseCreater.getWriter4TargetFile(dirPath, fileName, (Writer writer, RetainEntity retain) -> {
+                StringBuffer contentBuffer = StatementRecord.getWriteBuffer(records, output, retain);
+                writer.write(contentBuffer.toString());
+            });
+        }
+    }
+
+    private static List<ResponseModel> getSuccessResponses(DocModel docModel) {
+        List<ResponseModel> successResponses = new ArrayList<>();
+        for (RequestModel request : getRequests(docModel)) {
+            for (ResponseModel response : request.getResponses()) {
+                // TODO need set to properties file
+                if ("0".equals(response.getStatusCode())) {// it`s succes response
+                    successResponses.add(response);
+                }
+            }
+        }
+        return successResponses;
+    }
+
+    // TODO get all JSONObject and JSONArray output and it`s not ignore generation
+    private static List<OutputParamModel> getOutputsThatCanGenerateResponseEntityFile(List<ResponseModel> successResponses) {
+        List<OutputParamModel> outputs = new ArrayList<>();
+        for (ResponseModel response : successResponses) {
+            
+
+
+        }
+        return outputs;
     }
 
     private static String getString(String content, Object reflectModel) {
