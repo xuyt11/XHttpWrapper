@@ -12,6 +12,7 @@ import cn.ytxu.api_semi_auto_creater.model.response.ResponseModel;
 import cn.ytxu.api_semi_auto_creater.parser.request.RequestParser;
 import cn.ytxu.api_semi_auto_creater.parser.base.BaseParser;
 import cn.ytxu.api_semi_auto_creater.parser.response.ResponseParser;
+import cn.ytxu.api_semi_auto_creater.parser.response.output.sub.GetOutputsThatCanGenerateResponseEntityFileUtil;
 import cn.ytxu.api_semi_auto_creater.util.XTempModel;
 import cn.ytxu.api_semi_auto_creater.util.XTempUtil;
 import cn.ytxu.api_semi_auto_creater.util.statement.StatementRecord;
@@ -139,13 +140,11 @@ public class NewEngine {
         return successResponses;
     }
 
-    // TODO get all JSONObject and JSONArray output and it`s not ignore generation
     private static List<OutputParamModel> getOutputsThatCanGenerateResponseEntityFile(List<ResponseModel> successResponses) {
         List<OutputParamModel> outputs = new ArrayList<>();
         for (ResponseModel response : successResponses) {
-            
-
-
+            List<OutputParamModel> outputs4ThisResponse = new GetOutputsThatCanGenerateResponseEntityFileUtil(response).start();
+            outputs.addAll(outputs4ThisResponse);
         }
         return outputs;
     }
