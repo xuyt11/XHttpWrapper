@@ -3,9 +3,8 @@ package cn.ytxu.api_semi_auto_creater.parser.response.output.defined;
 import cn.ytxu.api_semi_auto_creater.model.request.DefinedParamModel;
 import cn.ytxu.api_semi_auto_creater.model.response.OutputParamModel;
 import cn.ytxu.api_semi_auto_creater.model.response.ResponseModel;
-import com.sun.istack.internal.NotNull;
+import cn.ytxu.api_semi_auto_creater.parser.response.output.sub.GetAllOutputUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,56 +21,12 @@ public class SetupDefined2OutputUtil {
 
     public void start() {
         List<DefinedParamModel> defineds = getDefineds();
-        List<OutputParamModel> outputs = getAllOutput();
+        List<OutputParamModel> outputs = new GetAllOutputUtil(response).start();
         loopSetupDefined2Output(defineds, outputs);
     }
 
     private List<DefinedParamModel> getDefineds() {
         return response.getHigherLevel().getDefinedParams();
-    }
-
-    private List<OutputParamModel> getAllOutput() {
-        List<OutputParamModel> outputs = response.getOutputs();
-        if (outputs.size() == 0) {
-            return outputs;
-        }
-
-        List<OutputParamModel> allOutputs = new ArrayList<>();
-        allOutputs.addAll(outputs);
-
-        List<OutputParamModel> allSubs = outputs;
-        do {
-            allSubs = getSubsFromOutputs(allSubs);
-            if (canAddAllSubs2AllOutputs(allSubs)) {
-                allOutputs.addAll(allSubs);
-            }
-        } while (canGetSubsAgain(allSubs));
-
-        return allOutputs;
-    }
-
-    @NotNull
-    private List<OutputParamModel> getSubsFromOutputs(List<OutputParamModel> outputs) {
-        List<OutputParamModel> allSubs = new ArrayList<>();
-        for (OutputParamModel output : outputs) {
-            List<OutputParamModel> subs = output.getSubs();
-            if (canAddSubs2AllSubs(subs)) {
-                allSubs.addAll(subs);
-            }
-        }
-        return allSubs;
-    }
-
-    private boolean canAddSubs2AllSubs(List<OutputParamModel> subs) {
-        return subs.size() > 0;
-    }
-
-    private boolean canAddAllSubs2AllOutputs(List<OutputParamModel> allSubs) {
-        return allSubs.size() > 0;
-    }
-
-    private boolean canGetSubsAgain(List<OutputParamModel> allSubs) {
-        return allSubs.size() > 0;
     }
 
 
