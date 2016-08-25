@@ -78,6 +78,10 @@ public class OutputParamModel extends BaseModel<ResponseModel> {
         this.subType = subType;
     }
 
+    public OutputParamType getSubType() {
+        return subType;
+    }
+
     public void addValue(Object value) {
         if (values == Collections.EMPTY_LIST) {
             values = new ArrayList<>();

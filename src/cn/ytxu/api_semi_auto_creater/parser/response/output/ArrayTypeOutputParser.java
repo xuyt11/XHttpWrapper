@@ -24,8 +24,10 @@ public class ArrayTypeOutputParser {
 
     public void start() {
         setSubType();
-        parseValue();
-        parseValues();
+        if (needParseValueAndValues()) {
+            parseValue();
+            parseValues();
+        }
     }
 
     private void setSubType() {
@@ -70,6 +72,11 @@ public class ArrayTypeOutputParser {
         return jArr.size() != 0;
     }
 
+    private boolean needParseValueAndValues() {
+        return OutputParamType.JSON_OBJECT == output.getSubType();
+    }
+
+
     private void parseValue() {
         parseJSONArray((JSONArray) output.getValue());
     }
@@ -83,7 +90,13 @@ public class ArrayTypeOutputParser {
 
     private void parseJSONArray(JSONArray value) {
         for (int i = 0, size = value.size(); i < size; i++) {
-            JSONObject subOfValue = value.getJSONObject(i);
+            JSONObject subOfValue = null;
+            try {
+                subOfValue = value.getJSONObject(i);
+            } catch (ClassCastException e) {
+                e.printStackTrace();
+                throw new ClassCastException(e.getMessage());
+            }
             new SubOutputParser(parser, output, subOfValue).parse();
         }
     }
