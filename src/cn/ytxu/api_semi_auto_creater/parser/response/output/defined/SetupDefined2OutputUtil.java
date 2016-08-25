@@ -6,6 +6,7 @@ import cn.ytxu.api_semi_auto_creater.model.response.ResponseModel;
 import cn.ytxu.api_semi_auto_creater.parser.response.output.sub.GetAllOutputUtil;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by ytxu on 2016/8/21.
@@ -21,8 +22,15 @@ public class SetupDefined2OutputUtil {
 
     public void start() {
         List<DefinedParamModel> defineds = getDefineds();
+        if (isNotNeed2LoopSetup(defineds)) {
+            return;
+        }
         List<OutputParamModel> outputs = new GetAllOutputUtil(response).start();
         loopSetupDefined2Output(defineds, outputs);
+    }
+
+    private boolean isNotNeed2LoopSetup(List<DefinedParamModel> defineds) {
+        return Objects.isNull(defineds);
     }
 
     private List<DefinedParamModel> getDefineds() {
