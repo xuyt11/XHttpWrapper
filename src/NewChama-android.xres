@@ -1,3 +1,11 @@
+<header>
+    <fileDir>
+        <value osName="Windows" val="I:/NewChamaStudio/newchama_android/NewChama/newchama.model/src/main/java/com/newchama/api/V${version_code}/entity/${section}/" />
+        <value osName="Mac OS X" val="/Users/newchama/Documents/ytxu/newchama_android/NewChama/newchama.model/src/main/java/com/newchama/api/V${version_code}/entity/${section}/" />
+    </fileDir>
+
+    <fileName val="${section_class_name}.java" />
+</header>
 package com.newchama.api.V${version_code}.entity.${section_name};
 
 import java.io.Serializable;
