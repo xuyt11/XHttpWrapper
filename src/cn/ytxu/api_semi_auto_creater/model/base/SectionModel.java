@@ -34,14 +34,19 @@ public class SectionModel extends BaseModel<VersionModel> {
 
 
     //*************** reflect method area ***************
+
     public String section_class_name() {
         String className = FileUtil.getClassFileName(name);
         return className;
     }
+    public String section() {
+        String className = section_class_name();
+        String fieldName = className.substring(0, 1).toLowerCase() + className.substring(1);
+        return fieldName;
+    }
 
     public String section_name() {
-        String className = FileUtil.getClassFileName(name);
-        String fieldName = className.substring(0, 1).toLowerCase() + className.substring(1);
+        String fieldName = section();
         if ("notify".equals(fieldName)) {
             fieldName += "0";
         }

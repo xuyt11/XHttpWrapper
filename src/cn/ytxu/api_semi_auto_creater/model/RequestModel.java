@@ -6,6 +6,7 @@ import cn.ytxu.api_semi_auto_creater.model.request.InputParamModel;
 import cn.ytxu.api_semi_auto_creater.model.request.restful_url.RESTfulParamModel;
 import cn.ytxu.api_semi_auto_creater.model.request.restful_url.RESTfulUrlModel;
 import cn.ytxu.api_semi_auto_creater.model.response.ResponseModel;
+import cn.ytxu.util.FileUtil;
 import org.jsoup.nodes.Element;
 
 import java.util.Collections;
@@ -103,6 +104,11 @@ public class RequestModel extends BaseModel<SectionModel> {
 
     public String request_name() {
         return name;
+    }
+
+    public String request_class_name() {
+        String className = FileUtil.getClassFileName(name);
+        return className;
     }
 
     public String request_version() {
