@@ -6,7 +6,7 @@
 
     <fileName val="${entity_class_name}.java" />
 </header>
-package com.newchama.api.V${version_code}.entity.${section_name};
+package com.newchama.api.V${version_code}.entity.${section};
 
 import java.io.Serializable;
 import java.util.List;

@@ -28,6 +28,20 @@ public class FileUtil {
         return classFileName.substring(0, 1).toLowerCase() + classFileName.substring(1);
     }
 
+    /**  生成的包名:由下划线组成的全小写字符串 */
+    public static String getPackageName(String name) {
+        String packageName;
+
+        if (name.contains(" ")) {// 包含有空格，需要先将空格转换为下划线，在转换为驼峰法
+            packageName = CamelCaseUtils.convertSpace2UnderLine(name);
+        } else {
+            packageName = name;
+        }
+
+        packageName = packageName.toLowerCase();
+        return packageName;
+    }
+
     private static int testCount = 0;
     public static Writer getWriter(String classFileFullName, String dirPath) throws UnsupportedEncodingException, FileNotFoundException {
         if (dirPath == null) {

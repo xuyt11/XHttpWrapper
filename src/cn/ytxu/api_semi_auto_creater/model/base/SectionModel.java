@@ -40,13 +40,12 @@ public class SectionModel extends BaseModel<VersionModel> {
         return className;
     }
     public String section() {
-        String className = section_class_name();
-        String fieldName = className.substring(0, 1).toLowerCase() + className.substring(1);
-        return fieldName;
+        return FileUtil.getPackageName(name);
     }
 
     public String section_name() {
-        String fieldName = section();
+        String className = section_class_name();
+        String fieldName = className.substring(0, 1).toLowerCase() + className.substring(1);
         if ("notify".equals(fieldName)) {
             fieldName += "0";
         }
