@@ -3,6 +3,7 @@ package cn.ytxu.api_semi_auto_creater.config;
 import cn.ytxu.api_semi_auto_creater.config.property.FilterRequestHeaderProperty;
 import cn.ytxu.api_semi_auto_creater.config.property.element_type.ElementTypeProperty;
 import cn.ytxu.api_semi_auto_creater.config.property.base_response_entity_name.BaseResponseEntityNameProperty;
+import cn.ytxu.api_semi_auto_creater.util.XTempUtil;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,27 +14,37 @@ import java.util.*;
  */
 public class Property {
 
-    public static void load() {
+    public static void load(String xtempPrefixName) {
         InputStream in = null;
         try {
             Properties pps = new Properties();
-            in = Property.class.getClassLoader().getResourceAsStream("NewChama-android.properties");
+            String fileName = XTempUtil.Suffix.Properties.getTempFileName(xtempPrefixName);
+            in = Property.class.getClassLoader().getResourceAsStream(fileName);
             pps.load(in);
-            FilterRequestHeaderProperty.load(pps);
-            BaseResponseEntityNameProperty.createByParseProperties(pps);
-            ElementTypeProperty.createProperties(pps);
+            load(pps);
             pps.clear();
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("init properties file failure...");
         } finally {
-            if (in != null) {
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            close(in);
+        }
+    }
+
+    private static void load(Properties pps) {
+        FilterRequestHeaderProperty.load(pps);
+        BaseResponseEntityNameProperty.load(pps);
+        ElementTypeProperty.load(pps);
+    }
+
+    private static void close(InputStream in) {
+        if (in == null) {
+            return;
+        }
+        try {
+            in.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -41,18 +52,8 @@ public class Property {
         return FilterRequestHeaderProperty.getInstance();
     }
 
-    public static BaseResponseEntityNameProperty getBreNameProperty() {
+    public static BaseResponseEntityNameProperty getBRENameProperty() {
         return BaseResponseEntityNameProperty.get();
-    }
-
-
-    public static void main(String... args) {
-//        String filterHeadersStr = null;
-//        String[] filterHeaders = filterHeadersStr.split(",");
-//        Arrays.asList(filterHeaders);
-
-        load();
-
     }
 
 }

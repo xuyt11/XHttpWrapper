@@ -18,6 +18,7 @@ public class XTempUtil {
      * 需要解析的文件的后缀
      */
     public enum Suffix {
+        Properties("properties"),
         HttpApi("xha"),
         Request("xreq"),
         Response("xres");
@@ -35,22 +36,14 @@ public class XTempUtil {
         public String getTempFileName(String tempPrefixName) {
             return tempPrefixName + "." + name;
         }
-
     }
 
     /**
      * @param suffix
+     * @param tempPrefixName 需要解析的模板文件的名称
      */
-    public XTempUtil(Suffix suffix) {
-        this.tempFileName = suffix.getTempFileName("NewChama-android");
-    }
-
-    /**
-     * @param suffix
-     * @param tempName 需要解析的模板文件的名称
-     */
-    public XTempUtil(Suffix suffix, String tempName) {
-        this.tempFileName = suffix.getTempFileName(tempName);
+    public XTempUtil(Suffix suffix, String tempPrefixName) {
+        this.tempFileName = suffix.getTempFileName(tempPrefixName);
     }
 
     public XTempModel start() {

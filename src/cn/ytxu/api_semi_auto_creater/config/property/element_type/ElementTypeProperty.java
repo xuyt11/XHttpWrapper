@@ -43,7 +43,7 @@ public class ElementTypeProperty {
         return element_request_type;
     }
 
-    public static void createProperties(Properties pps) {
+    public static void load(Properties pps) {
         for (ElementType type : ElementType.values()) {
             String propertyKey = type.getPropertyKey();
             String value = pps.getProperty(propertyKey, null);

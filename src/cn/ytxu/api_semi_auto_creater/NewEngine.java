@@ -27,11 +27,12 @@ import java.util.List;
  * Created by ytxu on 2016/6/16.
  */
 public class NewEngine {
+    private static final String TEMP_PREFIX_NAME = "NewChama-android";
 
     public static void main(String... args) {
         long start = System.currentTimeMillis();
 
-        Property.load();
+        Property.load(TEMP_PREFIX_NAME);
         DocModel docModel = new BaseParser().start();
         parse(docModel);
         create(docModel);
@@ -93,7 +94,7 @@ public class NewEngine {
     }
 
     private static void createHttpApi(DocModel docModel) {
-        XTempModel model = new XTempUtil(XTempUtil.Suffix.HttpApi).start();
+        XTempModel model = new XTempUtil(XTempUtil.Suffix.HttpApi, TEMP_PREFIX_NAME).start();
         List<StatementRecord> records = StatementRecord.getRecords(model.getContents());
         StatementRecord.parseRecords(records);
 
@@ -109,7 +110,7 @@ public class NewEngine {
     }
 
     private static void createRequest(DocModel docModel) {
-        XTempModel model = new XTempUtil(XTempUtil.Suffix.Request).start();
+        XTempModel model = new XTempUtil(XTempUtil.Suffix.Request, TEMP_PREFIX_NAME).start();
         List<StatementRecord> records = StatementRecord.getRecords(model.getContents());
         StatementRecord.parseRecords(records);
 
@@ -125,7 +126,7 @@ public class NewEngine {
     }
 
     private static void createResponseEntity(DocModel docModel) {
-        XTempModel model = new XTempUtil(XTempUtil.Suffix.Response).start();
+        XTempModel model = new XTempUtil(XTempUtil.Suffix.Response, TEMP_PREFIX_NAME).start();
         List<StatementRecord> records = StatementRecord.getRecords(model.getContents());
         StatementRecord.parseRecords(records);
 

@@ -11,7 +11,7 @@ import java.util.Properties;
  */
 public class BaseResponseEntityNameProperty {
 
-    private static BaseResponseEntityNameProperty breName;
+    private static final BaseResponseEntityNameProperty instance = new BaseResponseEntityNameProperty();
 
     private String statusCode;
     private String message;
@@ -50,11 +50,10 @@ public class BaseResponseEntityNameProperty {
         this.data = data;
     }
 
-    public static void createByParseProperties(Properties pps) {
-        breName = new BaseResponseEntityNameProperty();
+    public static void load(Properties pps) {
         for (BaseResponseEntity entity : BaseResponseEntity.values()) {
             String entityName = pps.getProperty(entity.getKey(), null);
-            entity.setValue2Object(breName, entityName);
+            entity.setValue2Object(instance, entityName);
             if (Objects.isNull(entityName)) {
                 LogUtil.ee(Property.class, "cant find ", entity.getKey());
             }
@@ -62,6 +61,6 @@ public class BaseResponseEntityNameProperty {
     }
 
     public static BaseResponseEntityNameProperty get() {
-        return breName;
+        return instance;
     }
 }
