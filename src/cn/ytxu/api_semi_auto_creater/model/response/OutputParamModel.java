@@ -151,6 +151,11 @@ public class OutputParamModel extends BaseModel<ResponseModel> {
     }
 
     public String output_getter() {
+        if (type == OutputParamType.BOOLEAN) {
+            String classFileName = FileUtil.getClassFileName(fieldName);
+            classFileName = classFileName.substring(0, 1).toLowerCase() + classFileName.substring(1);
+            return classFileName;
+        }
         return "get" + FileUtil.getClassFileName(fieldName);
     }
 
