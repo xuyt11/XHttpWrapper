@@ -1,5 +1,7 @@
 package cn.ytxu.api_semi_auto_creater.util;
 
+import cn.ytxu.api_semi_auto_creater.config.Suffix;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,30 +15,6 @@ import java.util.regex.Pattern;
 public class XTempUtil {
 
     private String tempFileName;// 模板文件的全称
-
-    /**
-     * 需要解析的文件的后缀
-     */
-    public enum Suffix {
-        Properties("properties"),
-        HttpApi("xha"),
-        Request("xreq"),
-        Response("xres");
-
-        private final String name;
-
-        Suffix(String name) {
-            this.name = name;
-        }
-
-        /**
-         * @param tempPrefixName 前缀名
-         * @return temp文件的名称
-         */
-        public String getTempFileName(String tempPrefixName) {
-            return tempPrefixName + "." + name;
-        }
-    }
 
     /**
      * @param suffix

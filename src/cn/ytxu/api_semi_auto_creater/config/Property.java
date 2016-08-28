@@ -3,7 +3,6 @@ package cn.ytxu.api_semi_auto_creater.config;
 import cn.ytxu.api_semi_auto_creater.config.property.FilterRequestHeaderProperty;
 import cn.ytxu.api_semi_auto_creater.config.property.element_type.ElementTypeProperty;
 import cn.ytxu.api_semi_auto_creater.config.property.base_response_entity_name.BaseResponseEntityNameProperty;
-import cn.ytxu.api_semi_auto_creater.util.XTempUtil;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,7 +17,7 @@ public class Property {
         InputStream in = null;
         try {
             Properties pps = new Properties();
-            String fileName = XTempUtil.Suffix.Properties.getTempFileName(xtempPrefixName);
+            String fileName = Suffix.Properties.getTempFileName(xtempPrefixName);
             in = Property.class.getClassLoader().getResourceAsStream(fileName);
             pps.load(in);
             load(pps);

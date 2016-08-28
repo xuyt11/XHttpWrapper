@@ -3,6 +3,7 @@ package cn.ytxu.api_semi_auto_creater;
 import cn.ytxu.apacer.entity.RetainEntity;
 import cn.ytxu.apacer.fileCreater.newchama.BaseCreater;
 import cn.ytxu.api_semi_auto_creater.config.Property;
+import cn.ytxu.api_semi_auto_creater.config.Suffix;
 import cn.ytxu.api_semi_auto_creater.model.base.DocModel;
 import cn.ytxu.api_semi_auto_creater.model.RequestModel;
 import cn.ytxu.api_semi_auto_creater.model.base.SectionModel;
@@ -98,7 +99,7 @@ public class NewEngine {
     }
 
     private static void createHttpApi(DocModel docModel, String xTempPrefixName) {
-        XTempModel model = new XTempUtil(XTempUtil.Suffix.HttpApi, xTempPrefixName).start();
+        XTempModel model = new XTempUtil(Suffix.HttpApi, xTempPrefixName).start();
         List<StatementRecord> records = StatementRecord.getRecords(model.getContents());
         StatementRecord.parseRecords(records);
 
@@ -114,7 +115,7 @@ public class NewEngine {
     }
 
     private static void createRequest(DocModel docModel, String xTempPrefixName) {
-        XTempModel model = new XTempUtil(XTempUtil.Suffix.Request, xTempPrefixName).start();
+        XTempModel model = new XTempUtil(Suffix.Request, xTempPrefixName).start();
         List<StatementRecord> records = StatementRecord.getRecords(model.getContents());
         StatementRecord.parseRecords(records);
 
@@ -130,7 +131,7 @@ public class NewEngine {
     }
 
     private static void createResponseEntity(DocModel docModel, String xTempPrefixName) {
-        XTempModel model = new XTempUtil(XTempUtil.Suffix.Response, xTempPrefixName).start();
+        XTempModel model = new XTempUtil(Suffix.Response, xTempPrefixName).start();
         List<StatementRecord> records = StatementRecord.getRecords(model.getContents());
         StatementRecord.parseRecords(records);
 
