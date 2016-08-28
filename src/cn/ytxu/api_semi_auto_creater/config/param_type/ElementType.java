@@ -14,6 +14,7 @@ public enum ElementType {
     NULL("type.null", OutputParamType.NULL),
     DATE("type.date", null, "Date", "DateTime"),// date类型不会出现在json中，
     FILE("type.file", null, "File") {// 只有请求方法中有file类型
+
         @Override
         public String getETContentByOutput(OutputParamModel output) {
             throw new IllegalArgumentException("output param can not object type, output:" + output.toString());
@@ -42,9 +43,19 @@ public enum ElementType {
         public String getETContentByOutput(OutputParamModel output) {
             String name = super.getETContentByOutput(output);
             ElementType subElementType = ElementType.getTypeByOutputType(output.getSubType());
-            String subElementTypeStr = subElementType.getETContentByOutput(output);
+            String subElementTypeStr = getSubTypeContent(output, subElementType);
             name = name.replace("${object}", subElementTypeStr);
             return name;
+        }
+
+        private String getSubTypeContent(OutputParamModel output, ElementType subElementType) {
+            String subElementTypeStr;
+            if (subElementType == OBJECT) {
+                subElementTypeStr = subElementType.getETContentByOutput(output);
+            } else {
+                subElementTypeStr = getElementRequestTypeContent(subElementType);
+            }
+            return subElementTypeStr;
         }
     };
 
@@ -63,21 +74,25 @@ public enum ElementType {
     }
 
     public String getETContenByInput(InputParamModel input) {
-        return getElementTypeContent();
+        return getElementTypeContent(this);
+    }
+
+    private static String getElementTypeContent(ElementType elementType) {
+        ElementTypeProperty property = ElementTypeProperty.getByElementType(elementType);
+        return property.getElementType();
     }
 
     public String getRequestETContentByInput(InputParamModel input) {
-        ElementTypeProperty property = ElementTypeProperty.getByElementType(this);
+        return getElementRequestTypeContent(this);
+    }
+
+    private static String getElementRequestTypeContent(ElementType elementType) {
+        ElementTypeProperty property = ElementTypeProperty.getByElementType(elementType);
         return property.getElementRequestType();
     }
 
     public String getETContentByOutput(OutputParamModel output) {
-        return getElementTypeContent();
-    }
-
-    private String getElementTypeContent() {
-        ElementTypeProperty property = ElementTypeProperty.getByElementType(this);
-        return property.getElementType();
+        return getElementTypeContent(this);
     }
 
     public static ElementType getTypeByOutputType(OutputParamType outputType) {

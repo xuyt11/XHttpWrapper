@@ -19,7 +19,7 @@ public class ElementTypeProperty {
 
     private ElementType elementType;//
     private String element_type;// 请求与实体类中参数的类型
-    private String element_request_type;// 请求中可选参数的类型
+    private String element_request_type;// 请求中可选参数的类型，或者是数组类型参数在请求中的类型
 
     private ElementTypeProperty(ElementType elementType) {
         this(elementType, null, null);
