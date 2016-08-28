@@ -15,7 +15,7 @@ import java.util.Properties;
  */
 public class ElementTypeProperty {
 
-    private static List<ElementTypeProperty> properties = new ArrayList<>(ElementType.values().length);
+    private static List<ElementTypeProperty> properties;
 
     private ElementType elementType;//
     private String element_type;// 请求与实体类中参数的类型
@@ -44,6 +44,7 @@ public class ElementTypeProperty {
     }
 
     public static void load(Properties pps) {
+        properties = new ArrayList<>(ElementType.values().length);
         for (ElementType type : ElementType.values()) {
             String propertyKey = type.getPropertyKey();
             String value = pps.getProperty(propertyKey, null);

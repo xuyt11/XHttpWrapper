@@ -11,7 +11,7 @@ import java.util.Properties;
  */
 public class BaseResponseEntityNameProperty {
 
-    private static final BaseResponseEntityNameProperty instance = new BaseResponseEntityNameProperty();
+    private static BaseResponseEntityNameProperty instance;
 
     private String statusCode;
     private String message;
@@ -51,6 +51,7 @@ public class BaseResponseEntityNameProperty {
     }
 
     public static void load(Properties pps) {
+        instance = new BaseResponseEntityNameProperty();
         for (BaseResponseEntity entity : BaseResponseEntity.values()) {
             String entityName = pps.getProperty(entity.getKey(), null);
             entity.setValue2Object(instance, entityName);

@@ -21,8 +21,8 @@ public class FilterRequestHeaderProperty {
 
     private static final FilterRequestHeaderProperty instance = new FilterRequestHeaderProperty();
 
-    private List<String> filterHeaders = Collections.EMPTY_LIST;
-    private List<String> outputVersions = Collections.EMPTY_LIST;// 需要输出的版本号列表
+    private List<String> filterHeaders;
+    private List<String> outputVersions;// 需要输出的版本号列表
 
     private FilterRequestHeaderProperty() {
     }
@@ -36,6 +36,7 @@ public class FilterRequestHeaderProperty {
         String filterHeadersStr = pps.getProperty(FILTER_HEADERS_KEY, null);
         if (Objects.isNull(filterHeadersStr)) {
             LogUtil.i(FilterRequestHeaderProperty.class, "non need filter any headers...");
+            instance.filterHeaders = Collections.EMPTY_LIST;
             return;
         }
         instance.filterHeaders = Arrays.asList(filterHeadersStr.split(","));
@@ -45,6 +46,7 @@ public class FilterRequestHeaderProperty {
         String outputVersionStr = pps.getProperty(FILTER_OUTPUT_VERSIONS_KEY, null);
         if (Objects.isNull(outputVersionStr)) {
             LogUtil.i(FilterRequestHeaderProperty.class, "non need filter any versions...");
+            instance.outputVersions = Collections.EMPTY_LIST;
             return;
         }
         instance.outputVersions = Arrays.asList(outputVersionStr.split(","));
