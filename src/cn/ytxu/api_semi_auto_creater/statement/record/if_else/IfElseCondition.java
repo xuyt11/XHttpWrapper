@@ -1,4 +1,4 @@
-package cn.ytxu.api_semi_auto_creater.util.statement.record.if_else;
+package cn.ytxu.api_semi_auto_creater.statement.record.if_else;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

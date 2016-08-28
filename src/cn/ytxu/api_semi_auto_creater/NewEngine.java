@@ -16,8 +16,8 @@ import cn.ytxu.api_semi_auto_creater.parser.response.ResponseParser;
 import cn.ytxu.api_semi_auto_creater.parser.response.output.sub.GetOutputsThatCanGenerateResponseEntityFileUtil;
 import cn.ytxu.api_semi_auto_creater.util.XTempModel;
 import cn.ytxu.api_semi_auto_creater.util.XTempUtil;
-import cn.ytxu.api_semi_auto_creater.util.statement.StatementRecord;
-import cn.ytxu.api_semi_auto_creater.util.statement.record.TextStatementRecord;
+import cn.ytxu.api_semi_auto_creater.statement.StatementRecord;
+import cn.ytxu.api_semi_auto_creater.statement.record.TextStatementRecord;
 import cn.ytxu.util.LogUtil;
 
 import java.io.Writer;

@@ -1,9 +1,8 @@
-package cn.ytxu.api_semi_auto_creater.util.statement.record.list_single_line;
+package cn.ytxu.api_semi_auto_creater.statement.record.list_single_line;
 
-import cn.ytxu.api_semi_auto_creater.util.statement.Statement;
-import cn.ytxu.api_semi_auto_creater.util.statement.StatementRecord;
-import cn.ytxu.api_semi_auto_creater.util.statement.record.TextStatementRecord;
-import cn.ytxu.api_semi_auto_creater.util.statement.record.helper.PatternHelper;
+import cn.ytxu.api_semi_auto_creater.statement.Statement;
+import cn.ytxu.api_semi_auto_creater.statement.record.TextStatementRecord;
+import cn.ytxu.api_semi_auto_creater.statement.record.helper.PatternHelper;
 
 import java.util.List;
 import java.util.regex.Matcher;

@@ -1,8 +1,8 @@
-package cn.ytxu.api_semi_auto_creater.util.statement.record.list_replace;
+package cn.ytxu.api_semi_auto_creater.statement.record.list_replace;
 
 import cn.ytxu.apacer.entity.RetainEntity;
-import cn.ytxu.api_semi_auto_creater.util.statement.Statement;
-import cn.ytxu.api_semi_auto_creater.util.statement.StatementRecord;
+import cn.ytxu.api_semi_auto_creater.statement.Statement;
+import cn.ytxu.api_semi_auto_creater.statement.StatementRecord;
 
 import java.util.List;
 

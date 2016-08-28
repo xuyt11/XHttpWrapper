@@ -1,9 +1,9 @@
-package cn.ytxu.api_semi_auto_creater.util.statement.record;
+package cn.ytxu.api_semi_auto_creater.statement.record;
 
 import cn.ytxu.apacer.entity.RetainEntity;
 import cn.ytxu.api_semi_auto_creater.util.ReflectiveUtil;
-import cn.ytxu.api_semi_auto_creater.util.statement.Statement;
-import cn.ytxu.api_semi_auto_creater.util.statement.StatementRecord;
+import cn.ytxu.api_semi_auto_creater.statement.Statement;
+import cn.ytxu.api_semi_auto_creater.statement.StatementRecord;
 
 import java.util.List;
 import java.util.regex.Matcher;
