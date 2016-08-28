@@ -2,6 +2,7 @@ package cn.ytxu.api_semi_auto_creater.parser.response.output.sub;
 
 import cn.ytxu.api_semi_auto_creater.model.response.OutputParamModel;
 import cn.ytxu.api_semi_auto_creater.model.response.ResponseModel;
+import cn.ytxu.api_semi_auto_creater.parser.response.output.OutputParamType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,11 +26,20 @@ public class GetOutputsThatCanGenerateResponseEntityFileUtil {
     private List<OutputParamModel> getOutputsThatCanGenerateResponseEntityFile(List<OutputParamModel> oaOutputs) {
         List<OutputParamModel> outputs = new ArrayList<>();
         for (OutputParamModel oaOutput : oaOutputs) {
-            if (oaOutput.isDontRequireGenerationResponseEntityFileTag()) {
-                continue;
+            if (canGenerateResponseEntityFile(oaOutput)) {
+                outputs.add(oaOutput);
             }
-            outputs.add(oaOutput);
         }
         return outputs;
+    }
+
+    private boolean canGenerateResponseEntityFile(OutputParamModel output) {
+        if (output.isDontRequireGenerationResponseEntityFileTag()) {
+            return false;
+        }
+        if (output.getType() == OutputParamType.JSON_ARRAY && output.getSubType() != OutputParamType.JSON_OBJECT) {
+            return false;
+        }
+        return true;
     }
 }
