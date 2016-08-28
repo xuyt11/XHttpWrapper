@@ -19,6 +19,8 @@ import com.newchama.tool.net.NetRequest;
 import com.newchama.tool.net.NetRequest.Method;
 import com.newchama.tool.net.NetWorker;
 
+import java.io.File;
+
 <retain type="import"/>
 
 public class ${section_class_name} extends BaseApi {
