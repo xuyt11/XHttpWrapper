@@ -100,52 +100,44 @@ public class NewEngine {
 
     private static void createHttpApi(DocModel docModel, String xTempPrefixName) {
         XTempModel model = new XTempUtil(Suffix.HttpApi, xTempPrefixName).start();
-        List<StatementRecord> records = StatementRecord.getRecords(model.getContents());
-        StatementRecord.parseRecords(records);
 
         for (VersionModel version : getVersionsAfterFilter(docModel)) {
-            String dirPath = getString(model.getFileDir(), version);
-            String fileName = getString(model.getFileName(), version);
-
-            BaseCreater.getWriter4TargetFile(dirPath, fileName, (Writer writer, RetainEntity retain) -> {
-                StringBuffer contentBuffer = StatementRecord.getWriteBuffer(records, version, retain);
-                writer.write(contentBuffer.toString());
-            });
+            writeContent2TargetFileByXTempAndReflectModel(model, version);
         }
+    }
+
+    private static void writeContent2TargetFileByXTempAndReflectModel(XTempModel model, Object reflectModel) {
+        String dirPath = getString(model.getFileDir(), reflectModel);
+        String fileName = getString(model.getFileName(), reflectModel);
+
+        BaseCreater.getWriter4TargetFile(dirPath, fileName, (Writer writer, RetainEntity retain) -> {
+            StringBuffer contentBuffer = StatementRecord.getWriteBuffer(model.getRecords(), reflectModel, retain);
+            writer.write(contentBuffer.toString());
+        });
+    }
+
+    private static String getString(String content, Object reflectModel) {
+        TextStatementRecord record = new TextStatementRecord(null, content);
+        record.parse();
+        return record.getWriteBuffer(reflectModel, null).toString().trim();
     }
 
     private static void createRequest(DocModel docModel, String xTempPrefixName) {
         XTempModel model = new XTempUtil(Suffix.Request, xTempPrefixName).start();
-        List<StatementRecord> records = StatementRecord.getRecords(model.getContents());
-        StatementRecord.parseRecords(records);
 
         for (SectionModel section : getSections(docModel)) {
-            String dirPath = getString(model.getFileDir(), section);
-            String fileName = getString(model.getFileName(), section);
-
-            BaseCreater.getWriter4TargetFile(dirPath, fileName, (Writer writer, RetainEntity retain) -> {
-                StringBuffer contentBuffer = StatementRecord.getWriteBuffer(records, section, retain);
-                writer.write(contentBuffer.toString());
-            });
+            writeContent2TargetFileByXTempAndReflectModel(model, section);
         }
     }
 
     private static void createResponseEntity(DocModel docModel, String xTempPrefixName) {
         XTempModel model = new XTempUtil(Suffix.Response, xTempPrefixName).start();
-        List<StatementRecord> records = StatementRecord.getRecords(model.getContents());
-        StatementRecord.parseRecords(records);
 
         List<ResponseModel> successResponses = getSuccessResponses(docModel);
         List<OutputParamModel> outputs = getOutputsThatCanGenerateResponseEntityFile(successResponses);
 
         for (OutputParamModel output : outputs) {
-            String dirPath = getString(model.getFileDir(), output);
-            String fileName = getString(model.getFileName(), output);
-
-            BaseCreater.getWriter4TargetFile(dirPath, fileName, (Writer writer, RetainEntity retain) -> {
-                StringBuffer contentBuffer = StatementRecord.getWriteBuffer(records, output, retain);
-                writer.write(contentBuffer.toString());
-            });
+            writeContent2TargetFileByXTempAndReflectModel(model, output);
         }
     }
 
@@ -167,12 +159,6 @@ public class NewEngine {
             outputs.addAll(outputs4ThisResponse);
         }
         return outputs;
-    }
-
-    private static String getString(String content, Object reflectModel) {
-        TextStatementRecord record = new TextStatementRecord(null, content);
-        record.parse();
-        return record.getWriteBuffer(reflectModel, null).toString().trim();
     }
 
 

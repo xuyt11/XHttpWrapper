@@ -1,6 +1,7 @@
 package cn.ytxu.api_semi_auto_creater.xtemp_parser;
 
 import cn.ytxu.api_semi_auto_creater.config.Suffix;
+import cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.StatementRecord;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -26,7 +27,10 @@ public class XTempUtil {
 
     public XTempModel start() {
         List<String> contents = getContents();
-        return new XTempParser(contents).start();
+        XTempModel model = new XTempParser(contents).start();
+        List<StatementRecord> records = parseStatementRecordsByXTempModel(model);
+        model.setRecords(records);
+        return model;
     }
 
     private List<String> getContents() {
@@ -67,6 +71,11 @@ public class XTempUtil {
         }
     }
 
+    private List<StatementRecord> parseStatementRecordsByXTempModel(XTempModel model) {
+        List<StatementRecord> records = StatementRecord.getRecords(model.getContents());
+        StatementRecord.parseRecords(records);
+        return records;
+    }
 
     public static void main(String... args) {
         String regStr = "<foreach each=\"sections\">";

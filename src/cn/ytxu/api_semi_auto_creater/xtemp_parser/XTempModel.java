@@ -1,6 +1,7 @@
 package cn.ytxu.api_semi_auto_creater.xtemp_parser;
 
 import cn.ytxu.api_semi_auto_creater.config.OSPlatform;
+import cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.StatementRecord;
 
 import java.util.List;
 
@@ -11,20 +12,13 @@ public class XTempModel {
     private List<FileDir> fileDirs;
     private String fileName;
     private List<String> contents;
+    private List<StatementRecord> records;
 
     XTempModel() {
     }
 
     void setFileDirs(List<FileDir> fileDirs) {
         this.fileDirs = fileDirs;
-    }
-
-    void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
-    void setContents(List<String> contents) {
-        this.contents = contents;
     }
 
     void addFileDir(FileDir fileDir) {
@@ -42,12 +36,28 @@ public class XTempModel {
         throw new NullPointerException("not find target file dir");
     }
 
+    void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
     public String getFileName() {
         return fileName;
     }
 
-    public List<String> getContents() {
+    void setContents(List<String> contents) {
+        this.contents = contents;
+    }
+
+    List<String> getContents() {
         return contents;
+    }
+
+    void setRecords(List<StatementRecord> records) {
+        this.records = records;
+    }
+
+    public List<StatementRecord> getRecords() {
+        return records;
     }
 
     static class FileDir {
