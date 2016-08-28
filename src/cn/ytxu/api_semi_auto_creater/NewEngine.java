@@ -32,15 +32,17 @@ public class NewEngine {
         long start = System.currentTimeMillis();
 
         Property.load();
-
         DocModel docModel = new BaseParser().start();
-        parseRequests(docModel);
-        parseResponses(docModel);
-
+        parse(docModel);
         create(docModel);
 
         long end = System.currentTimeMillis();
         LogUtil.w("duration time is " + (end - start));
+    }
+
+    private static void parse(DocModel docModel) {
+        parseRequests(docModel);
+        parseResponses(docModel);
     }
 
     private static void parseRequests(DocModel docModel) {
@@ -49,25 +51,41 @@ public class NewEngine {
         }
     }
 
-    private static void parseResponses(DocModel docModel) {
-        for (RequestModel request : getRequests(docModel)) {
-            for (ResponseModel response : request.getResponses()) {
-                new ResponseParser(response).start();
-            }
-        }
-    }
-
     private static List<RequestModel> getRequests(DocModel docModel) {
         List<RequestModel> requests = new ArrayList<>();
-        for (VersionModel version : docModel.getVersions()) {
-            for (SectionModel section : version.getSections()) {
-                requests.addAll(section.getRequests());
-            }
+        for (SectionModel section : getSections(docModel)) {
+            requests.addAll(section.getRequests());
         }
         return requests;
     }
 
-    public static void create(DocModel docModel) {
+    private static List<SectionModel> getSections(DocModel docModel) {
+        List<SectionModel> sections = new ArrayList<>();
+        for (VersionModel version : getVersionsAfterFilter(docModel)) {
+            sections.addAll(version.getSections());
+        }
+        return sections;
+    }
+
+    private static List<VersionModel> getVersionsAfterFilter(DocModel docModel) {
+        return Property.getFilterRequestHeaderProperty().getVersionsAfterFilter(docModel);
+    }
+
+    private static void parseResponses(DocModel docModel) {
+        for (ResponseModel response : getResponses(docModel)) {
+            new ResponseParser(response).start();
+        }
+    }
+
+    private static List<ResponseModel> getResponses(DocModel docModel) {
+        List<ResponseModel> responses = new ArrayList<>();
+        for (RequestModel request : getRequests(docModel)) {
+            responses.addAll(request.getResponses());
+        }
+        return responses;
+    }
+
+    private static void create(DocModel docModel) {
         createHttpApi(docModel);
         createRequest(docModel);
         createResponseEntity(docModel);
@@ -79,7 +97,7 @@ public class NewEngine {
         List<StatementRecord> records = StatementRecord.getRecords(model.getContents());
         StatementRecord.parseRecords(records);
 
-        for (VersionModel version : docModel.getVersions()) {
+        for (VersionModel version : getVersionsAfterFilter(docModel)) {
             String dirPath = getString(model.getFileDir(), version);
             String fileName = getString(model.getFileName(), version);
 
@@ -95,16 +113,14 @@ public class NewEngine {
         List<StatementRecord> records = StatementRecord.getRecords(model.getContents());
         StatementRecord.parseRecords(records);
 
-        for (VersionModel version : docModel.getVersions()) {
-            for (SectionModel section : version.getSections()) {
-                String dirPath = getString(model.getFileDir(), section);
-                String fileName = getString(model.getFileName(), section);
+        for (SectionModel section : getSections(docModel)) {
+            String dirPath = getString(model.getFileDir(), section);
+            String fileName = getString(model.getFileName(), section);
 
-                BaseCreater.getWriter4TargetFile(dirPath, fileName, (Writer writer, RetainEntity retain) -> {
-                    StringBuffer contentBuffer = StatementRecord.getWriteBuffer(records, section, retain);
-                    writer.write(contentBuffer.toString());
-                });
-            }
+            BaseCreater.getWriter4TargetFile(dirPath, fileName, (Writer writer, RetainEntity retain) -> {
+                StringBuffer contentBuffer = StatementRecord.getWriteBuffer(records, section, retain);
+                writer.write(contentBuffer.toString());
+            });
         }
     }
 
@@ -129,12 +145,10 @@ public class NewEngine {
 
     private static List<ResponseModel> getSuccessResponses(DocModel docModel) {
         List<ResponseModel> successResponses = new ArrayList<>();
-        for (RequestModel request : getRequests(docModel)) {
-            for (ResponseModel response : request.getResponses()) {
-                // TODO need set to properties file
-                if ("0".equals(response.getStatusCode())) {// it`s succes response
-                    successResponses.add(response);
-                }
+        for (ResponseModel response : getResponses(docModel)) {
+            // TODO need set to properties file
+            if ("0".equals(response.getStatusCode())) {// it`s succes response
+                successResponses.add(response);
             }
         }
         return successResponses;
