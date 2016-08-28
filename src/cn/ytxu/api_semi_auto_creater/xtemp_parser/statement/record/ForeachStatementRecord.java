@@ -1,9 +1,9 @@
-package cn.ytxu.api_semi_auto_creater.statement.record;
+package cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.record;
 
 import cn.ytxu.apacer.entity.RetainEntity;
 import cn.ytxu.api_semi_auto_creater.util.ReflectiveUtil;
-import cn.ytxu.api_semi_auto_creater.statement.Statement;
-import cn.ytxu.api_semi_auto_creater.statement.StatementRecord;
+import cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.Statement;
+import cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.StatementRecord;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -11,22 +11,21 @@ import java.util.regex.Pattern;
 
 /**
  * Created by ytxu on 2016/7/18.
- * 整体逻辑与Foreach一样，只是我定义的是foreach能包含list、list_replace、list_singleLine等等遍历标签
+ * 一级遍历标签：foreach能包含list、list_replace、list_singleLine等等遍历标签
  */
-public class ListStatementRecord extends StatementRecord {
+public class ForeachStatementRecord extends StatementRecord {
     private static final String PATTERN_FRONT = "each=\"";
     private static final String PATTERN_END = "\">";
     private static final Pattern PATTERN = Pattern.compile("(each=\")\\w+(\">)");
 
     private String methodName;
 
-    public ListStatementRecord(Statement statement, String startTagContent, List<String> contents) {
+    public ForeachStatementRecord(Statement statement, String startTagContent, List<String> contents) {
         super(statement, startTagContent, contents);
         if (contents != null) {
             this.subs = StatementRecord.getRecords(contents);
         }
     }
-
 
     @Override
     public void parse() {
@@ -61,5 +60,6 @@ public class ListStatementRecord extends StatementRecord {
         }
         return foreachBuffer;
     }
+
 
 }

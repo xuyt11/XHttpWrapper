@@ -1,8 +1,8 @@
-package cn.ytxu.api_semi_auto_creater.statement.record.list_replace;
+package cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.record.list_replace;
 
-import cn.ytxu.api_semi_auto_creater.statement.Statement;
-import cn.ytxu.api_semi_auto_creater.statement.record.TextStatementRecord;
-import cn.ytxu.api_semi_auto_creater.statement.record.helper.PatternHelper;
+import cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.Statement;
+import cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.record.TextStatementRecord;
+import cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.record.helper.PatternHelper;
 
 import java.util.regex.Pattern;
 

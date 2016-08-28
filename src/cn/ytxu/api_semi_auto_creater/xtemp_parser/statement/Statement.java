@@ -1,9 +1,9 @@
-package cn.ytxu.api_semi_auto_creater.statement;
+package cn.ytxu.api_semi_auto_creater.xtemp_parser.statement;
 
-import cn.ytxu.api_semi_auto_creater.statement.record.*;
-import cn.ytxu.api_semi_auto_creater.statement.record.if_else.IfElseStatementRecord;
-import cn.ytxu.api_semi_auto_creater.statement.record.list_replace.ListReplaceStatementRecord;
-import cn.ytxu.api_semi_auto_creater.statement.record.list_single_line.ListSingleLineStatementRecord;
+import cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.record.*;
+import cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.record.if_else.IfElseStatementRecord;
+import cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.record.list_replace.ListReplaceStatementRecord;
+import cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.record.list_single_line.ListSingleLineStatementRecord;
 
 import java.util.ArrayList;
 import java.util.Iterator;

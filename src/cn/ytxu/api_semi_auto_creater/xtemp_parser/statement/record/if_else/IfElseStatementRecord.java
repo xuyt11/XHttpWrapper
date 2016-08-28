@@ -1,9 +1,9 @@
-package cn.ytxu.api_semi_auto_creater.statement.record.if_else;
+package cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.record.if_else;
 
 import cn.ytxu.apacer.entity.RetainEntity;
 import cn.ytxu.api_semi_auto_creater.util.ReflectiveUtil;
-import cn.ytxu.api_semi_auto_creater.statement.Statement;
-import cn.ytxu.api_semi_auto_creater.statement.StatementRecord;
+import cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.Statement;
+import cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.StatementRecord;
 
 import java.util.Collections;
 import java.util.List;

@@ -1,4 +1,4 @@
-package cn.ytxu.api_semi_auto_creater.statement.record.helper;
+package cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.record.helper;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

@@ -1,4 +1,4 @@
-package cn.ytxu.api_semi_auto_creater.util;
+package cn.ytxu.api_semi_auto_creater.xtemp_parser;
 
 import cn.ytxu.api_semi_auto_creater.config.Suffix;
 

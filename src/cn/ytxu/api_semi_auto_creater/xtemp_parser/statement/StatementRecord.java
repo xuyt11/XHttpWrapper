@@ -1,4 +1,4 @@
-package cn.ytxu.api_semi_auto_creater.statement;
+package cn.ytxu.api_semi_auto_creater.xtemp_parser.statement;
 
 import cn.ytxu.apacer.entity.RetainEntity;
 
