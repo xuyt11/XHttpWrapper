@@ -1,6 +1,7 @@
 package cn.ytxu.api_semi_auto_creater.config;
 
-import cn.ytxu.api_semi_auto_creater.config.param_type.ElementTypeProperty;
+import cn.ytxu.api_semi_auto_creater.config.property.param_type.ElementTypeProperty;
+import cn.ytxu.api_semi_auto_creater.config.property.BaseResponseEntityNameProperty;
 import cn.ytxu.util.LogUtil;
 
 import java.io.IOException;

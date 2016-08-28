@@ -1,6 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.model.response;
 
-import cn.ytxu.api_semi_auto_creater.config.param_type.ElementType;
+import cn.ytxu.api_semi_auto_creater.config.property.param_type.ElementType;
 import cn.ytxu.api_semi_auto_creater.model.BaseModel;
 import cn.ytxu.api_semi_auto_creater.model.request.DefinedParamModel;
 import cn.ytxu.api_semi_auto_creater.parser.response.output.OutputParamType;

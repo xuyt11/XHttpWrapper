@@ -1,5 +1,6 @@
-package cn.ytxu.api_semi_auto_creater.config;
+package cn.ytxu.api_semi_auto_creater.config.property;
 
+import cn.ytxu.api_semi_auto_creater.config.Property;
 import cn.ytxu.util.LogUtil;
 
 import java.util.Objects;
