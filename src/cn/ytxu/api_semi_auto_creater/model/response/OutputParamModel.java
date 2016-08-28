@@ -115,7 +115,7 @@ public class OutputParamModel extends BaseModel<ResponseModel> {
     }
 
     private boolean needUseDefinedDataName() {
-        return Objects.nonNull(defined);
+        return Objects.nonNull(defined) && Objects.nonNull(defined.getDataType());
     }
 
 
