@@ -12,7 +12,13 @@ import java.util.Objects;
  */
 public enum ElementType {
     NULL("type.null", OutputParamType.NULL),
-    DATE("type.date", OutputParamType.UNKNOWN, "Date", "DateTime"),// date类型不会出现在json中，也就不会出现在output中
+    DATE("type.date", null, "Date", "DateTime"),// date类型不会出现在json中，
+    FILE("type.file", null, "File") {// 只有请求方法中有file类型
+        @Override
+        public String getETContentByOutput(OutputParamModel output) {
+            throw new IllegalArgumentException("output param can not object type, output:" + output.toString());
+        }
+    },
     INTEGER("type.integer", OutputParamType.INTEGER, "Integer"),
     LONG("type.long", OutputParamType.LONG, "Long"),
     FLOAT("type.float", OutputParamType.FLOAT, "Float"),
