@@ -1,4 +1,4 @@
-package cn.ytxu.api_semi_auto_creater.config.property.param_type;
+package cn.ytxu.api_semi_auto_creater.config.property.element_type;
 
 import java.util.ArrayList;
 import java.util.List;
