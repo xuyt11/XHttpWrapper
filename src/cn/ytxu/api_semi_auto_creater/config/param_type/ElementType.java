@@ -83,14 +83,15 @@ public enum ElementType {
         return NULL;
     }
 
-    public static ElementType getTypeByInputType(String inputType) {
+    public static ElementType getTypeByInput(InputParamModel input) {
+        String inputTypeStr = input.getType();
         for (ElementType type : ElementType.values()) {
             String[] inputTypes = type.inputTypes;
             if (Objects.isNull(inputTypes)) {
                 continue;
             }
-            for (String input : inputTypes) {
-                if (input.equalsIgnoreCase(inputType)) {
+            for (String inputType : inputTypes) {
+                if (inputType.equalsIgnoreCase(inputTypeStr)) {
                     return type;
                 }
             }

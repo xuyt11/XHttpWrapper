@@ -1,8 +1,8 @@
 package cn.ytxu.api_semi_auto_creater.model.request;
 
+import cn.ytxu.api_semi_auto_creater.config.param_type.ElementType;
 import cn.ytxu.api_semi_auto_creater.model.BaseModel;
 import cn.ytxu.api_semi_auto_creater.model.RequestModel;
-import org.jsoup.helper.StringUtil;
 import org.jsoup.nodes.Element;
 
 import java.util.Objects;
@@ -60,11 +60,33 @@ public class InputParamModel extends BaseModel<RequestModel> {
 
     //*************** reflect method area ***************
     public String header_type() {
-        return type;
+        return type();
     }
 
     public String input_type() {
-        return type;
+        return type();
+    }
+
+    private String type() {
+        ElementType elementType = getElementType();
+        return elementType.getETContenByInput(this);
+    }
+
+    private ElementType getElementType() {
+        return ElementType.getTypeByInput(this);
+    }
+
+    public String header_request_param_type() {
+        return requestParamType();
+    }
+
+    public String input_request_param_type() {
+        return requestParamType();
+    }
+
+    private String requestParamType() {
+        ElementType elementType = getElementType();
+        return elementType.getRequestETContentByInput(this);
     }
 
     public String header_name() {
