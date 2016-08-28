@@ -1,5 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.config;
 
+import cn.ytxu.api_semi_auto_creater.config.param_type.ElementTypeProperty;
 import cn.ytxu.util.LogUtil;
 
 import java.io.IOException;
@@ -26,6 +27,7 @@ public class Property {
             pps.load(in);
             getFilterHeaders(pps);
             breName = BaseResponseEntityName.createByParseProperties(pps);
+            ElementTypeProperty.createProperties(pps);
             pps.clear();
         } catch (IOException e) {
             e.printStackTrace();

@@ -48,6 +48,16 @@ public class InputParamModel extends BaseModel<RequestModel> {
         return isFilterTag;
     }
 
+    @Override
+    public String toString() {
+        return "InputParamModel{" +
+                "name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", defind=" + defind +
+                ", isFilterTag=" + isFilterTag +
+                '}';
+    }
+
     //*************** reflect method area ***************
     public String header_type() {
         return type;
