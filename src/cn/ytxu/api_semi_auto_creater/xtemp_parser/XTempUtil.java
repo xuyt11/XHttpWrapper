@@ -26,7 +26,7 @@ public class XTempUtil {
 
     public XTempModel start() {
         List<String> contents = getContents();
-        return new XTempModel(contents);
+        return new XTempParser(contents).start();
     }
 
     private List<String> getContents() {
