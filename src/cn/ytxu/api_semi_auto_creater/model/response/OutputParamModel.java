@@ -118,5 +118,28 @@ public class OutputParamModel extends BaseModel<ResponseModel> {
         return Objects.nonNull(defined) && Objects.nonNull(defined.getDataType());
     }
 
+    public List<OutputParamModel> outputs() {
+        return subs;
+    }
+
+    public String output_type() {
+        return type.name();
+    }
+
+    public String output_name() {
+        return fieldName;
+    }
+
+    public String output_original_type() {
+        return type.name();
+    }
+
+    public String output_getter() {
+        return "get" + FileUtil.getClassFileName(fieldName);
+    }
+
+    public String output_setter() {
+        return "set" + FileUtil.getClassFileName(fieldName);
+    }
 
 }
