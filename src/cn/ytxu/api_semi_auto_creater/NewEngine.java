@@ -27,23 +27,27 @@ import java.util.List;
  * Created by ytxu on 2016/6/16.
  */
 public class NewEngine {
-    private static final String TEMP_PREFIX_NAME = "NewChama-android";
+    // 配置文件与xtemp模板文件的前缀名称(可以有多个目标版本)
+    private static final String[] XTEMP_PREFIX_NAMES = {"NewChama-android"};//, "NewChama-ios"};
 
     public static void main(String... args) {
-        long start = System.currentTimeMillis();
+        for (int i = 0; i < XTEMP_PREFIX_NAMES.length; i++) {
+            long start = System.currentTimeMillis();
+            final String xTempPrefixName = XTEMP_PREFIX_NAMES[i];
+            Property.load(xTempPrefixName);
+            DocModel docModel = parseApiDocJs();
+            createTargetFile(docModel, xTempPrefixName);
 
-        Property.load(TEMP_PREFIX_NAME);
-        DocModel docModel = new BaseParser().start();
-        parse(docModel);
-        create(docModel);
-
-        long end = System.currentTimeMillis();
-        LogUtil.w("duration time is " + (end - start));
+            long end = System.currentTimeMillis();
+            LogUtil.w("duration time is " + (end - start));
+        }
     }
 
-    private static void parse(DocModel docModel) {
+    private static DocModel parseApiDocJs() {
+        DocModel docModel = new BaseParser().start();
         parseRequests(docModel);
         parseResponses(docModel);
+        return docModel;
     }
 
     private static void parseRequests(DocModel docModel) {
@@ -86,15 +90,15 @@ public class NewEngine {
         return responses;
     }
 
-    private static void create(DocModel docModel) {
-        createHttpApi(docModel);
-        createRequest(docModel);
-        createResponseEntity(docModel);
+    private static void createTargetFile(DocModel docModel, String xTempPrefixName) {
+        createHttpApi(docModel, xTempPrefixName);
+        createRequest(docModel, xTempPrefixName);
+        createResponseEntity(docModel, xTempPrefixName);
         // TODO create status code file, base response entity file
     }
 
-    private static void createHttpApi(DocModel docModel) {
-        XTempModel model = new XTempUtil(XTempUtil.Suffix.HttpApi, TEMP_PREFIX_NAME).start();
+    private static void createHttpApi(DocModel docModel, String xTempPrefixName) {
+        XTempModel model = new XTempUtil(XTempUtil.Suffix.HttpApi, xTempPrefixName).start();
         List<StatementRecord> records = StatementRecord.getRecords(model.getContents());
         StatementRecord.parseRecords(records);
 
@@ -109,8 +113,8 @@ public class NewEngine {
         }
     }
 
-    private static void createRequest(DocModel docModel) {
-        XTempModel model = new XTempUtil(XTempUtil.Suffix.Request, TEMP_PREFIX_NAME).start();
+    private static void createRequest(DocModel docModel, String xTempPrefixName) {
+        XTempModel model = new XTempUtil(XTempUtil.Suffix.Request, xTempPrefixName).start();
         List<StatementRecord> records = StatementRecord.getRecords(model.getContents());
         StatementRecord.parseRecords(records);
 
@@ -125,8 +129,8 @@ public class NewEngine {
         }
     }
 
-    private static void createResponseEntity(DocModel docModel) {
-        XTempModel model = new XTempUtil(XTempUtil.Suffix.Response, TEMP_PREFIX_NAME).start();
+    private static void createResponseEntity(DocModel docModel, String xTempPrefixName) {
+        XTempModel model = new XTempUtil(XTempUtil.Suffix.Response, xTempPrefixName).start();
         List<StatementRecord> records = StatementRecord.getRecords(model.getContents());
         StatementRecord.parseRecords(records);
 
