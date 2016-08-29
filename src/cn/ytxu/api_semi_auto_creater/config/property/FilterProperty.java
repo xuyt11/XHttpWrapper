@@ -5,12 +5,11 @@ import cn.ytxu.api_semi_auto_creater.model.base.VersionModel;
 import cn.ytxu.util.LogUtil;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Created by ytxu on 2016/8/28.
  */
-public class FilterRequestHeaderProperty {
+public class FilterProperty {
     /**
      * 过滤request中header参数的key
      */
@@ -20,19 +19,19 @@ public class FilterRequestHeaderProperty {
      */
     private static final String FILTER_OUTPUT_VERSIONS_KEY = "filter.output_versions";
 
-    private static FilterRequestHeaderProperty instance;
+    private static FilterProperty instance;
 
     private final List<String> filterHeaders;
     private final boolean nonNeedFilterVersion;// 是否不需要过滤版本号
     private final List<String> outputVersions;// 需要输出的版本号列表
 
-    private FilterRequestHeaderProperty(List<String> filterHeaders, boolean nonNeedFilterVersion, List<String> outputVersions) {
+    private FilterProperty(List<String> filterHeaders, boolean nonNeedFilterVersion, List<String> outputVersions) {
         this.filterHeaders = filterHeaders;
         this.nonNeedFilterVersion = nonNeedFilterVersion;
         this.outputVersions = outputVersions;
     }
 
-    public static FilterRequestHeaderProperty getInstance() {
+    public static FilterProperty getInstance() {
         return instance;
     }
 
@@ -48,13 +47,13 @@ public class FilterRequestHeaderProperty {
             outputVersions = Collections.EMPTY_LIST;
             nonNeedFilterVersion = true;
         }
-        instance = new FilterRequestHeaderProperty(filterHeaders, nonNeedFilterVersion, outputVersions);
+        instance = new FilterProperty(filterHeaders, nonNeedFilterVersion, outputVersions);
     }
 
     private static List<String> getFilterHeaders(Properties pps) {
         String filterHeadersStr = pps.getProperty(FILTER_HEADERS_KEY, null);
         if (Objects.isNull(filterHeadersStr)) {
-            LogUtil.i(FilterRequestHeaderProperty.class, "non need filter any headers...");
+            LogUtil.i(FilterProperty.class, "non need filter any headers...");
             return Collections.EMPTY_LIST;
         }
         return Arrays.asList(filterHeadersStr.split(","));

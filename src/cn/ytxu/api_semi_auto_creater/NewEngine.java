@@ -74,7 +74,7 @@ public class NewEngine {
     }
 
     private static List<VersionModel> getVersionsAfterFilter(DocModel docModel) {
-        return Property.getFilterRequestHeaderProperty().getVersionsAfterFilter(docModel);
+        return Property.getFilterProperty().getVersionsAfterFilter(docModel);
     }
 
     private static void parseResponses(DocModel docModel) {

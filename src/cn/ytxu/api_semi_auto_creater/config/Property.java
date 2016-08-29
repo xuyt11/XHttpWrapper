@@ -1,6 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.config;
 
-import cn.ytxu.api_semi_auto_creater.config.property.FilterRequestHeaderProperty;
+import cn.ytxu.api_semi_auto_creater.config.property.FilterProperty;
 import cn.ytxu.api_semi_auto_creater.config.property.element_type.ElementTypeProperty;
 import cn.ytxu.api_semi_auto_creater.config.property.base_response_entity_name.BaseResponseEntityNameProperty;
 
@@ -31,7 +31,7 @@ public class Property {
     }
 
     private static void load(Properties pps) {
-        FilterRequestHeaderProperty.load(pps);
+        FilterProperty.load(pps);
         BaseResponseEntityNameProperty.load(pps);
         ElementTypeProperty.load(pps);
     }
@@ -47,8 +47,8 @@ public class Property {
         }
     }
 
-    public static FilterRequestHeaderProperty getFilterRequestHeaderProperty() {
-        return FilterRequestHeaderProperty.getInstance();
+    public static FilterProperty getFilterProperty() {
+        return FilterProperty.getInstance();
     }
 
     public static BaseResponseEntityNameProperty getBRENameProperty() {
