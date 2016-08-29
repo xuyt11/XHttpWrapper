@@ -5,6 +5,7 @@ import cn.ytxu.api_semi_auto_creater.model.base.VersionModel;
 import cn.ytxu.util.LogUtil;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by ytxu on 2016/8/28.
@@ -19,42 +20,60 @@ public class FilterRequestHeaderProperty {
      */
     private static final String FILTER_OUTPUT_VERSIONS_KEY = "filter.output_versions";
 
-    private static final FilterRequestHeaderProperty instance = new FilterRequestHeaderProperty();
+    private static FilterRequestHeaderProperty instance;
 
-    private List<String> filterHeaders;
-    private List<String> outputVersions;// 需要输出的版本号列表
+    private final List<String> filterHeaders;
+    private final boolean nonNeedFilterVersion;// 是否不需要过滤版本号
+    private final List<String> outputVersions;// 需要输出的版本号列表
 
-    private FilterRequestHeaderProperty() {
-    }
-
-    public static void load(Properties pps) {
-        setFilterHeaders(pps);
-        setOutputVersions(pps);
-    }
-
-    private static void setFilterHeaders(Properties pps) {
-        String filterHeadersStr = pps.getProperty(FILTER_HEADERS_KEY, null);
-        if (Objects.isNull(filterHeadersStr)) {
-            LogUtil.i(FilterRequestHeaderProperty.class, "non need filter any headers...");
-            instance.filterHeaders = Collections.EMPTY_LIST;
-            return;
-        }
-        instance.filterHeaders = Arrays.asList(filterHeadersStr.split(","));
-    }
-
-    private static void setOutputVersions(Properties pps) {
-        String outputVersionStr = pps.getProperty(FILTER_OUTPUT_VERSIONS_KEY, null);
-        if (Objects.isNull(outputVersionStr)) {
-            LogUtil.i(FilterRequestHeaderProperty.class, "non need filter any versions...");
-            instance.outputVersions = Collections.EMPTY_LIST;
-            return;
-        }
-        instance.outputVersions = Arrays.asList(outputVersionStr.split(","));
+    private FilterRequestHeaderProperty(List<String> filterHeaders, boolean nonNeedFilterVersion, List<String> outputVersions) {
+        this.filterHeaders = filterHeaders;
+        this.nonNeedFilterVersion = nonNeedFilterVersion;
+        this.outputVersions = outputVersions;
     }
 
     public static FilterRequestHeaderProperty getInstance() {
         return instance;
     }
+
+    public static void load(Properties pps) {
+        List<String> filterHeaders = getFilterHeaders(pps);
+        boolean nonNeedFilterVersion;
+        List<String> outputVersions;
+        try {
+            outputVersions = getOutputVersions(pps);
+            nonNeedFilterVersion = false;
+        } catch (NonNeedFilterVersionException ignore) {
+            ignore.printStackTrace();
+            outputVersions = Collections.EMPTY_LIST;
+            nonNeedFilterVersion = true;
+        }
+        instance = new FilterRequestHeaderProperty(filterHeaders, nonNeedFilterVersion, outputVersions);
+    }
+
+    private static List<String> getFilterHeaders(Properties pps) {
+        String filterHeadersStr = pps.getProperty(FILTER_HEADERS_KEY, null);
+        if (Objects.isNull(filterHeadersStr)) {
+            LogUtil.i(FilterRequestHeaderProperty.class, "non need filter any headers...");
+            return Collections.EMPTY_LIST;
+        }
+        return Arrays.asList(filterHeadersStr.split(","));
+    }
+
+    private static List<String> getOutputVersions(Properties pps) {
+        String outputVersionStr = pps.getProperty(FILTER_OUTPUT_VERSIONS_KEY, null);
+        if (Objects.isNull(outputVersionStr)) {
+            throw new NonNeedFilterVersionException("non need filter any versions...");
+        }
+        return Arrays.asList(outputVersionStr.split(","));
+    }
+
+    private static class NonNeedFilterVersionException extends RuntimeException {
+        NonNeedFilterVersionException(String message) {
+            super(message);
+        }
+    }
+
 
     public boolean hasThisHeaderInFilterHeaders(String headerName) {
         for (String filterHeader : filterHeaders) {
@@ -66,7 +85,7 @@ public class FilterRequestHeaderProperty {
     }
 
     public List<VersionModel> getVersionsAfterFilter(DocModel docModel) {
-        if (nonNeedFilterVersion()) {
+        if (nonNeedFilterVersion) {
             return docModel.getVersions();
         }
 
@@ -77,13 +96,6 @@ public class FilterRequestHeaderProperty {
             }
         }
         return versions;
-    }
-
-    /**
-     * 是否需要过滤版本号
-     */
-    private boolean nonNeedFilterVersion() {
-        return outputVersions == Collections.EMPTY_LIST;
     }
 
     private boolean isOutputVersion(VersionModel version) {
