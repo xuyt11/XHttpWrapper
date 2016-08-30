@@ -10,6 +10,7 @@ import java.util.List;
 public class VersionModel extends BaseModel<DocModel> {
     private String name;// 版本名称
     private List<SectionModel> sections;
+    private List<StatusCodeModel> statusCodes;// TODO
 
     public VersionModel(DocModel higherLevel, String name) {
         super(higherLevel, null);
@@ -28,7 +29,9 @@ public class VersionModel extends BaseModel<DocModel> {
         this.sections = sections;
     }
 
-
+    public void setStatusCodes(List<StatusCodeModel> statusCodes) {
+        this.statusCodes = statusCodes;
+    }
 
     //*************** reflect method area ***************
     public String version_code() {

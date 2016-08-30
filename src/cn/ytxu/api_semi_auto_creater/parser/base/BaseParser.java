@@ -47,8 +47,7 @@ public class BaseParser {
         public DocEntity start() {
             createDoc();
             getVersionCodes();
-            List<DocEntity.SectionEntity> sections = getAllSections();
-            findAndSetStatusCodeAndSections(sections);
+            getAllSections();
             parseSections();
             return docEntity;
         }
@@ -67,7 +66,7 @@ public class BaseParser {
             docEntity.setVersions(versions);
         }
 
-        private List<DocEntity.SectionEntity> getAllSections() {
+        private void getAllSections() {
             Elements sectionEls = JsoupParserUtil.getEles(docEntity.getElement(), CSS_QUERY_GET_SECTION);
 
             List<DocEntity.SectionEntity> sections = new ArrayList<>(sectionEls.size());
@@ -76,7 +75,7 @@ public class BaseParser {
                 sections.add(section);
             }
 
-            return sections;
+            docEntity.setSections(sections);
         }
 
         private DocEntity.SectionEntity getSection(Element sectionEle) {
@@ -87,18 +86,6 @@ public class BaseParser {
         private String findSectionName(Element sectionEle) {
             Elements h1Els = JsoupParserUtil.getEles(sectionEle, CSS_QUERY_FIND_CATEGORY_NAME);
             return JsoupParserUtil.getText(h1Els.first());
-        }
-
-        private void findAndSetStatusCodeAndSections(List<DocEntity.SectionEntity> sections) {
-            try {
-                DocEntity.SectionEntity statusCode = findStatusCodeSection(sections);
-                docEntity.setStatusCode(statusCode);
-                sections.remove(statusCode);
-            } catch (RuntimeException ignore) {
-                ignore.printStackTrace();
-            }
-
-            docEntity.setSections(sections);
         }
 
         private DocEntity.SectionEntity findStatusCodeSection(List<DocEntity.SectionEntity> sections) {

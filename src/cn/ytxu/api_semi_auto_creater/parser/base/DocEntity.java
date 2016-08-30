@@ -8,7 +8,6 @@ import java.util.List;
 
 public class DocEntity extends BaseEntity {
     private List<String> versions;// API所有的版本号
-    private SectionEntity statusCode;
     private List<SectionEntity> sections;
 
     public DocEntity(BaseEntity higherLevel, Element element) {
@@ -21,14 +20,6 @@ public class DocEntity extends BaseEntity {
 
     public void setVersions(List<String> versions) {
         this.versions = versions;
-    }
-
-    public SectionEntity getStatusCode() {
-        return statusCode;
-    }
-
-    public void setStatusCode(SectionEntity statusCode) {
-        this.statusCode = statusCode;
     }
 
     public List<SectionEntity> getSections() {
