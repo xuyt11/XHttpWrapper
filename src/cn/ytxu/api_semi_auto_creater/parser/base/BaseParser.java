@@ -5,6 +5,7 @@ import cn.ytxu.apacer.dataParser.jsoupUtil.JsoupParserUtil;
 import cn.ytxu.api_semi_auto_creater.model.base.DocModel;
 import cn.ytxu.api_semi_auto_creater.model.RequestModel;
 import cn.ytxu.api_semi_auto_creater.model.base.SectionModel;
+import cn.ytxu.api_semi_auto_creater.model.base.StatusCodeModel;
 import cn.ytxu.api_semi_auto_creater.model.base.VersionModel;
 import cn.ytxu.util.CamelCaseUtils;
 import cn.ytxu.util.LogUtil;
@@ -88,16 +89,6 @@ public class BaseParser {
             return JsoupParserUtil.getText(h1Els.first());
         }
 
-        private DocEntity.SectionEntity findStatusCodeSection(List<DocEntity.SectionEntity> sections) {
-            for (DocEntity.SectionEntity section : sections) {
-                if (!Config.statusCode.StatusCode.equals(section.getName())) {
-                    continue;
-                }
-                return section;
-            }
-            throw new RuntimeException("没有找到状态码字段");
-        }
-
         private void parseSections() {
             for (DocEntity.SectionEntity section : docEntity.getSections()) {
                 new SectionParser(section).start();
@@ -177,7 +168,7 @@ public class BaseParser {
         }
 
         public DocModel invoke() {
-            DocModel docModel = new DocModel(doc.getElement(), doc.getStatusCode());
+            DocModel docModel = new DocModel(doc.getElement());
 
             List<VersionModel> versionModels = new VersionConverter(doc, docModel).invoke();
             docModel.setVersions(versionModels);
@@ -226,7 +217,16 @@ public class BaseParser {
                 return;
             }
 
-            List<SectionModel> sectionModels = new SectionConverter(versionModel, sectionEntities).invoke();
+            try {
+                DocEntity.SectionEntity statusCodeSection = findStatusCodeSection(sectionEntities);
+                sectionEntities.remove(statusCodeSection);
+                // TODO convert status code model,then add status code entity parser to convert model
+                List<StatusCodeModel> statusCodeModels = null;
+                versionModel.setStatusCodes(statusCodeModels);
+            } catch (StatusCodeSectionNotFoundException ignore) {
+            }
+            List<DocEntity.SectionEntity> requestSections = sectionEntities;
+            List<SectionModel> sectionModels = new SectionConverter(versionModel, requestSections).invoke();
             versionModel.setSections(sectionModels);
         }
 
@@ -259,6 +259,22 @@ public class BaseParser {
 
         private boolean notNeedSetSections(List<DocEntity.SectionEntity> sectionEntities) {
             return sectionEntities.size() <= 0;
+        }
+
+        private DocEntity.SectionEntity findStatusCodeSection(List<DocEntity.SectionEntity> sections) {
+            for (DocEntity.SectionEntity section : sections) {
+                if (!Config.statusCode.StatusCode.equals(section.getName())) {
+                    continue;
+                }
+                return section;
+            }
+            throw new StatusCodeSectionNotFoundException("没有找到状态码字段");
+        }
+
+        private static final class StatusCodeSectionNotFoundException extends RuntimeException {
+            public StatusCodeSectionNotFoundException(String message) {
+                super(message);
+            }
         }
     }
 
