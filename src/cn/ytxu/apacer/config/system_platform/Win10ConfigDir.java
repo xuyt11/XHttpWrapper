@@ -4,6 +4,8 @@ import cn.ytxu.apacer.config.Config;
 
 /**
  * Created by Administrator on 2016/5/8.
+ * TODO 需要删除的文件，该功能已经使用了配置，进行处理
+ * TODO 但是apidoc.html文件需要放到properties中，且有不同系统的控制
  */
 public class Win10ConfigDir implements Config.ConfigDir {
     private static final String INPUT_FILE_DIR = "E:\\NewChama\\";
