@@ -31,12 +31,12 @@ import java.util.List;
  * ${object}:子类型的替换字符串<br>
  */
 public class PropertyEntity {
+    // TODO 替换掉apidoc 与所有的properties中的解析，同时更改statuscode的解析
     private FilterBean filter;
     private ResponseBean response;
     private String status_code;
     private ElementTypeEnumBean element_type_enum;
     private List<ApidocFileAddressesBean> apidoc_file_addresses;
-    private InputStream in;
 
     public FilterBean getFilter() {
         return filter;
