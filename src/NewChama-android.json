@@ -1,0 +1,86 @@
+{
+  "filter": {
+    "headers": [
+      "Authorization"
+    ],
+    "output_versions": [
+      "1.3.1",
+      "1.4.0",
+      "1.5.0"
+    ]
+  },
+  "response": {
+    "statusCode": "status_code",
+    "message": "message",
+    "error": "error",
+    "data": "data"
+  },
+  "status_code": "StatusCode",
+  "apidoc_file_addresses": [
+    {
+      "OSName": "Windows",
+      "address": "E:/NewChama/apidoc.html"
+    },
+    {
+      "OSName": "MacOS",
+      "address": "/Users/newchama/Desktop/NewChama-Data/apidoc.html"
+    }
+  ],
+  "element_type_enum": {
+    "null_et": {
+      "element_type": "String",
+      "element_request_type": "String"
+    },
+    "date_et": {
+      "element_type": "String",
+      "element_request_type": "String"
+    },
+    "file_et": {
+      "element_type": "File",
+      "element_request_type": "File"
+    },
+    "integer_et": {
+      "element_type": "int",
+      "element_request_type": "Integer"
+    },
+    "long_et": {
+      "element_type": "long",
+      "element_request_type": "Long"
+    },
+    "boolean_et": {
+      "element_type": "boolean",
+      "element_request_type": "Boolean"
+    },
+    "float_et": {
+      "element_type": "float",
+      "element_request_type": "Float"
+    },
+    "double_et": {
+      "element_type": "double",
+      "element_request_type": "Double"
+    },
+    "number_et": {
+      "element_type": "long",
+      "element_request_type": "Long"
+    },
+    "string_et": {
+      "element_type": "String",
+      "element_request_type": "String"
+    },
+    "array_et": {
+      "element_type": "List<${object}>",
+      "element_request_type": "String"
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
