@@ -4,6 +4,7 @@ import cn.ytxu.api_semi_auto_creater.config.property.apidoc.ApidocFileAddressesB
 import cn.ytxu.api_semi_auto_creater.config.property.base_response_entity_name.ResponseBean;
 import cn.ytxu.api_semi_auto_creater.config.property.element_type.ElementTypeEnumBean;
 import cn.ytxu.api_semi_auto_creater.config.property.filter.FilterBean;
+import cn.ytxu.api_semi_auto_creater.config.property.status_code.StatusCodeBean;
 import com.alibaba.fastjson.JSON;
 
 import java.io.InputStream;
@@ -18,10 +19,9 @@ import java.util.List;
  * <p>
  */
 public class PropertyEntity {
-    // TODO 替换掉apidoc 与所有的properties中的解析，同时更改statuscode的解析
     private FilterBean filter = FilterBean.DEFAULT;
     private ResponseBean response;
-    private String status_code;
+    private StatusCodeBean status_code;
     private ElementTypeEnumBean element_type_enum;
     private List<ApidocFileAddressesBean> apidoc_file_addresses;
 
@@ -41,11 +41,11 @@ public class PropertyEntity {
         this.response = response;
     }
 
-    public String getStatus_code() {
+    public StatusCodeBean getStatus_code() {
         return status_code;
     }
 
-    public void setStatus_code(String status_code) {
+    public void setStatus_code(StatusCodeBean status_code) {
         this.status_code = status_code;
     }
 

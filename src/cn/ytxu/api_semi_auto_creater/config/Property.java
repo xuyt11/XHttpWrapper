@@ -4,6 +4,7 @@ import cn.ytxu.api_semi_auto_creater.config.property.apidoc.ApidocProperty;
 import cn.ytxu.api_semi_auto_creater.config.property.filter.FilterProperty;
 import cn.ytxu.api_semi_auto_creater.config.property.element_type.ElementTypeProperty;
 import cn.ytxu.api_semi_auto_creater.config.property.base_response_entity_name.BaseResponseEntityNameProperty;
+import cn.ytxu.api_semi_auto_creater.config.property.status_code.StatusCodeProperty;
 import com.alibaba.fastjson.JSON;
 
 import java.io.IOException;
@@ -34,6 +35,7 @@ public class Property {
         BaseResponseEntityNameProperty.load(object.getResponse());
         ElementTypeProperty.load(object.getElement_type_enum());
         ApidocProperty.load(object.getApidoc_file_addresses());
+        StatusCodeProperty.load(object.getStatus_code());
     }
 
     private static void close(InputStream in) {
