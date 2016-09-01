@@ -27,13 +27,14 @@ public enum ElementType {
     },
     // 只有请求方法中有file类型
     FILE(null, "File") {
-        public String getETContentByOutput(OutputParamModel output) {
-            throw new IllegalArgumentException("output param can not object type, output:" + output.toString());
-        }
-
         @Override
         protected PropertyEntity.ElementTypeEnumBean.EtBean getEtBean(ElementTypeProperty elementTypeEnum) {
             return elementTypeEnum.getFileET();
+        }
+
+        @Override
+        protected String getElementTypeByOutput(ElementTypeProperty etProperty, OutputParamModel output) {
+            throw new RuntimeException("output param must not be file type");
         }
     },
     INTEGER(OutputParamType.INTEGER, "Integer") {
@@ -124,16 +125,6 @@ public enum ElementType {
                 subElementTypeStr = subElementType.getElementRequestTypeByInput(etProperty, null);
             }
             return subElementTypeStr;
-        }
-
-        @Override
-        protected String getElementRequestTypeByInput(ElementTypeProperty etProperty, InputParamModel input) {
-            return getEtBean(etProperty).getElement_request_type();
-        }
-
-        @Override
-        protected String getElementTypeByInput(ElementTypeProperty etProperty, InputParamModel input) {
-            return getEtBean(etProperty).getElement_type();
         }
     };
 

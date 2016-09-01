@@ -64,12 +64,12 @@ public class ${section_class_name} extends BaseApi {
 	    </list>
 	    <list each="filtered_headers" singleLine>
             <start value="   	    "/>
-            <eachTemp value="${header_type} ${header_name}, "/>
+            <eachTemp value="${header_request_param_type} ${header_name}, "/>
             <end value=""/>
 	    </list>
 	    <list each="inputs" singleLine>
 	        <start value="   	    "/>
-	        <eachTemp value="${input_type} ${input_name}, "/>
+	        <eachTemp value="${input_request_param_type} ${input_name}, "/>
 	        <end value=""/>
 	    </list>
 		ResponseHandlerInterface response) {
