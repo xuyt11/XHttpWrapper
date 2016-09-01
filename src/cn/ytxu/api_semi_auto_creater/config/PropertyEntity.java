@@ -3,6 +3,7 @@ package cn.ytxu.api_semi_auto_creater.config;
 import com.alibaba.fastjson.JSON;
 
 import java.io.InputStream;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -32,7 +33,7 @@ import java.util.List;
  */
 public class PropertyEntity {
     // TODO 替换掉apidoc 与所有的properties中的解析，同时更改statuscode的解析
-    private FilterBean filter;
+    private FilterBean filter = FilterBean.DEFAULT;
     private ResponseBean response;
     private String status_code;
     private ElementTypeEnumBean element_type_enum;
@@ -79,9 +80,10 @@ public class PropertyEntity {
     }
 
     public static class FilterBean {
-        private List<String> headers;
-        private boolean use_output_versions;
-        private List<String> output_versions;
+        public static final FilterBean DEFAULT = new FilterBean();
+        private List<String> headers = Collections.EMPTY_LIST;
+        private boolean use_output_versions = false;
+        private List<String> output_versions = Collections.EMPTY_LIST;
 
         public List<String> getHeaders() {
             return headers;
@@ -293,7 +295,7 @@ public class PropertyEntity {
 
 
     public static void main(String... args) {
-        InputStream in =  PropertyEntity.class.getClassLoader().getResourceAsStream("NewChama-android.json");
+        InputStream in = PropertyEntity.class.getClassLoader().getResourceAsStream("NewChama-android.json");
         try {
             PropertyEntity object = JSON.parseObject(in, PropertyEntity.class);
             System.out.println("object:" + object.toString());
