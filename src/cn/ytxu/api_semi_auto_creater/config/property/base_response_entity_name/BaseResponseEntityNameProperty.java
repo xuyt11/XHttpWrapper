@@ -1,10 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.config.property.base_response_entity_name;
 
-import cn.ytxu.api_semi_auto_creater.config.Property;
-import cn.ytxu.util.LogUtil;
-
-import java.util.Objects;
-import java.util.Properties;
+import cn.ytxu.api_semi_auto_creater.config.PropertyEntity;
 
 /**
  * 基础response必须的字段的字段名称
@@ -13,55 +9,33 @@ public class BaseResponseEntityNameProperty {
 
     private static BaseResponseEntityNameProperty instance;
 
-    private String statusCode;
-    private String message;
-    private String error;
-    private String data;
-
-    public String getStatusCode() {
-        return statusCode;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public String getError() {
-        return error;
-    }
-
-    public String getData() {
-        return data;
-    }
-
-    void setStatusCode(String statusCode) {
-        this.statusCode = statusCode;
-    }
-
-    void setMessage(String message) {
-        this.message = message;
-    }
-
-    void setError(String error) {
-        this.error = error;
-    }
-
-    void setData(String data) {
-        this.data = data;
-    }
-
-    public static void load(Properties pps) {
-        instance = new BaseResponseEntityNameProperty();
-        for (BaseResponseEntity entity : BaseResponseEntity.values()) {
-            String entityName = pps.getProperty(entity.getKey(), null);
-            entity.setValue2Object(instance, entityName);
-            if (Objects.isNull(entityName)) {
-                LogUtil.ee(Property.class, "cant find ", entity.getKey());
-            }
-        }
-    }
+    private PropertyEntity.ResponseBean response;
 
     public static BaseResponseEntityNameProperty get() {
         return instance;
+    }
+
+    public static void load(PropertyEntity.ResponseBean response) {
+        instance = new BaseResponseEntityNameProperty(response);
+    }
+
+    private BaseResponseEntityNameProperty(PropertyEntity.ResponseBean response) {
+        this.response = response;
+    }
+
+    public String getStatusCode() {
+        return response.getStatusCode();
+    }
+
+    public String getMessage() {
+        return response.getMessage();
+    }
+
+    public String getError() {
+        return response.getError();
+    }
+
+    public String getData() {
+        return response.getData();
     }
 }
