@@ -1,5 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.config;
 
+import cn.ytxu.api_semi_auto_creater.config.property.apidoc.ApidocFileAddressesBean;
 import cn.ytxu.api_semi_auto_creater.config.property.base_response_entity_name.ResponseBean;
 import cn.ytxu.api_semi_auto_creater.config.property.element_type.ElementTypeEnumBean;
 import cn.ytxu.api_semi_auto_creater.config.property.filter.FilterBean;
@@ -14,7 +15,6 @@ import java.util.List;
  * <p>
  * status code 在Section中的名称的配置<br>
  * <p>
- * apidoc.html文件地址的配置，包括多操作系统的配置<br>
  * <p>
  */
 public class PropertyEntity {
@@ -63,29 +63,6 @@ public class PropertyEntity {
 
     public void setApidoc_file_addresses(List<ApidocFileAddressesBean> apidoc_file_addresses) {
         this.apidoc_file_addresses = apidoc_file_addresses;
-    }
-
-
-
-    public static class ApidocFileAddressesBean {
-        private String OSName;
-        private String address;
-
-        public String getOSName() {
-            return OSName;
-        }
-
-        public void setOSName(String OSName) {
-            this.OSName = OSName;
-        }
-
-        public String getAddress() {
-            return address;
-        }
-
-        public void setAddress(String address) {
-            this.address = address;
-        }
     }
 
 

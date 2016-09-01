@@ -2,6 +2,7 @@ package cn.ytxu.api_semi_auto_creater.parser.base;
 
 import cn.ytxu.apacer.config.Config;
 import cn.ytxu.apacer.dataParser.jsoupUtil.JsoupParserUtil;
+import cn.ytxu.api_semi_auto_creater.config.Property;
 import cn.ytxu.api_semi_auto_creater.model.base.DocModel;
 import cn.ytxu.api_semi_auto_creater.model.RequestModel;
 import cn.ytxu.api_semi_auto_creater.model.base.SectionModel;
@@ -54,7 +55,8 @@ public class BaseParser {
         }
 
         private void createDoc() {
-            Document doc = JsoupParserUtil.getDocument(Config.getApiDocHtmlPath());
+            String apidocHtmlPath = Property.getApidocProperty().getHtmlPath();
+            Document doc = JsoupParserUtil.getDocument(apidocHtmlPath);
             docEntity = new DocEntity(null, doc);
         }
 

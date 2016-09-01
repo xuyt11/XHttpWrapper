@@ -1,5 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.config;
 
+import cn.ytxu.api_semi_auto_creater.config.property.apidoc.ApidocProperty;
 import cn.ytxu.api_semi_auto_creater.config.property.filter.FilterProperty;
 import cn.ytxu.api_semi_auto_creater.config.property.element_type.ElementTypeProperty;
 import cn.ytxu.api_semi_auto_creater.config.property.base_response_entity_name.BaseResponseEntityNameProperty;
@@ -32,6 +33,7 @@ public class Property {
         FilterProperty.load(object.getFilter());
         BaseResponseEntityNameProperty.load(object.getResponse());
         ElementTypeProperty.load(object.getElement_type_enum());
+        ApidocProperty.load(object.getApidoc_file_addresses());
     }
 
     private static void close(InputStream in) {
@@ -51,6 +53,10 @@ public class Property {
 
     public static BaseResponseEntityNameProperty getBRENameProperty() {
         return BaseResponseEntityNameProperty.get();
+    }
+
+    public static ApidocProperty getApidocProperty() {
+        return ApidocProperty.getInstance();
     }
 
 }
