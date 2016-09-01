@@ -1,5 +1,16 @@
 package cn.ytxu.api_semi_auto_creater.config.property.element_type;
 
+/**
+ * 请求参数与响应体中输出参数类型的枚举
+ * statement-format:key=value
+ * key:类型名称；value：类型的输出值
+ * value-format:element_type[,element_request_type]
+ * element_type:请求与实体类中参数的类型; element_request_type:请求中可选参数的类型，或者是数组类型参数在请求中的类型<br>
+ * <p>
+ * 只有请求方法中有file类型<br>
+ * <p>
+ * ${object}:子类型的替换字符串<br>
+ */
 public class ElementTypeEnumBean {
     private EtBean null_et;
     private EtBean date_et;

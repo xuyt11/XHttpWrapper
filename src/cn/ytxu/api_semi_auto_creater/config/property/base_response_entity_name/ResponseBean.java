@@ -1,5 +1,9 @@
 package cn.ytxu.api_semi_auto_creater.config.property.base_response_entity_name;
 
+/**
+ * 基础response必须的字段的字段名称；
+ * format(key:value-->value:base response entity name)
+ */
 public class ResponseBean {
     private String statusCode;
     private String message;

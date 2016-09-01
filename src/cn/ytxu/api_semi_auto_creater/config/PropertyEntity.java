@@ -10,28 +10,12 @@ import java.util.List;
 
 /**
  * Created by Administrator on 2016/8/31.<br>
- * 过滤request中header参数；如：Authorization,userId....<br>
  * <p>
- * use_output_versions:是否使用版本输出过滤；若为false，则下面的output_versions参数就失效
- * 过滤版本：枚举出需要输出的版本号
- * temp:(filter.output_versions=1.3.1)-->只输出‘1.3.1’版本的API接口以及实体类
- * temp:(filter.output_versions=1.3.1,1.5.0)-->输出‘1.3.1’以及‘1.5.0’版本的API接口以及实体类<br>
- * <p>
- * 基础response必须的字段的字段名称；format(key:value-->value:base response entity name)<br>
  * <p>
  * status code 在Section中的名称的配置<br>
  * <p>
  * apidoc.html文件地址的配置，包括多操作系统的配置<br>
  * <p>
- * 请求参数与响应体中输出参数类型的枚举
- * statement-format:key=value
- * key:类型名称；value：类型的输出值
- * value-format:element_type[,element_request_type]
- * element_type:请求与实体类中参数的类型; element_request_type:请求中可选参数的类型，或者是数组类型参数在请求中的类型<br>
- * <p>
- * 只有请求方法中有file类型<br>
- * <p>
- * ${object}:子类型的替换字符串<br>
  */
 public class PropertyEntity {
     // TODO 替换掉apidoc 与所有的properties中的解析，同时更改statuscode的解析
