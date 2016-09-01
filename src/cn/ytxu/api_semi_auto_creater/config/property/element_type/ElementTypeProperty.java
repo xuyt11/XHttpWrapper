@@ -1,9 +1,8 @@
 package cn.ytxu.api_semi_auto_creater.config.property.element_type;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Properties;
+import cn.ytxu.api_semi_auto_creater.config.PropertyEntity;
+import cn.ytxu.api_semi_auto_creater.model.request.InputParamModel;
+import cn.ytxu.api_semi_auto_creater.model.response.OutputParamModel;
 
 /**
  * Created by ytxu on 2016/8/28.
@@ -11,72 +10,83 @@ import java.util.Properties;
  * statement-format:key=value
  * key:类型名称；value：类型的输出值
  * value-format:element_type[,element_request_type]
- * element_type:请求与实体类中参数的类型; element_request_type:请求中可选参数的类型
+ * element_type:请求与实体类中参数的类型; element_request_type:请求中可选参数的类型，或者是数组类型参数在请求中的类型
  */
 public class ElementTypeProperty {
 
-    private static List<ElementTypeProperty> properties;
+    private static ElementTypeProperty instance;
+    private PropertyEntity.ElementTypeEnumBean elementTypeEnum;
 
-    private ElementType elementType;//
-    private String element_type;// 请求与实体类中参数的类型
-    private String element_request_type;// 请求中可选参数的类型，或者是数组类型参数在请求中的类型
-
-    private ElementTypeProperty(ElementType elementType) {
-        this(elementType, null, null);
+    public static ElementTypeProperty getInstance() {
+        return instance;
     }
 
-    private ElementTypeProperty(ElementType elementType, String element_type) {
-        this(elementType, element_type, element_type);
+    public static void load(PropertyEntity.ElementTypeEnumBean elementTypeEnum) {
+        instance = new ElementTypeProperty(elementTypeEnum);
     }
 
-    private ElementTypeProperty(ElementType elementType, String element_type, String element_request_type) {
-        this.elementType = elementType;
-        this.element_type = element_type;
-        this.element_request_type = element_request_type;
+    private ElementTypeProperty(PropertyEntity.ElementTypeEnumBean elementTypeEnum) {
+        this.elementTypeEnum = elementTypeEnum;
     }
 
-    public String getElementType() {
-        return element_type;
+    public String getElementType(InputParamModel input) {
+        ElementType etEnum = ElementType.getTypeByInput(input);
+        return etEnum.getElementTypeByInput(this, input);
     }
 
-    public String getElementRequestType() {
-        return element_request_type;
+    public String getElementRequestType(InputParamModel input) {
+        ElementType etEnum = ElementType.getTypeByInput(input);
+        return etEnum.getElementRequestTypeByInput(this, input);
     }
 
-    public static void load(Properties pps) {
-        properties = new ArrayList<>(ElementType.values().length);
-        for (ElementType type : ElementType.values()) {
-            String propertyKey = type.getPropertyKey();
-            String value = pps.getProperty(propertyKey, null);
-            ElementTypeProperty property = getParamTypeProperty(type, value);
-            properties.add(property);
-        }
+    public String getElementTypeByOutput(OutputParamModel output) {
+        ElementType etEnum = ElementType.getTypeByOutputType(output.getType());
+        return etEnum.getElementTypeByOutput(this, output);
     }
 
-    /**
-     * value-format:element_type[,element_request_type]
-     */
-    private static ElementTypeProperty getParamTypeProperty(ElementType type, String value) {
-        if (Objects.isNull(value)) {
-            return new ElementTypeProperty(type);
-        }
-        String[] types = value.trim().split(",");
-        if (types.length == 0) {
-            return new ElementTypeProperty(type);
-        }
-        if (types.length == 1) {
-            return new ElementTypeProperty(type, value.trim());
-        }
-        return new ElementTypeProperty(type, types[0].trim(), types[1].trim());
+    public PropertyEntity.ElementTypeEnumBean.EtBean getNullET() {
+        return elementTypeEnum.getNull_et();
     }
 
-    public static ElementTypeProperty getByElementType(ElementType elementType) {
-        for (ElementTypeProperty property : properties) {
-            if (property.elementType == elementType) {
-                return property;
-            }
-        }
-        throw new IllegalArgumentException("it can not happend, but log element type name is " + elementType.name());
+    public PropertyEntity.ElementTypeEnumBean.EtBean getDateET() {
+        return elementTypeEnum.getDate_et();
     }
+
+    public PropertyEntity.ElementTypeEnumBean.EtBean getFileET() {
+        return elementTypeEnum.getFile_et();
+    }
+
+    public PropertyEntity.ElementTypeEnumBean.EtBean getIntegerET() {
+        return elementTypeEnum.getInteger_et();
+    }
+
+    public PropertyEntity.ElementTypeEnumBean.EtBean getLongET() {
+        return elementTypeEnum.getLong_et();
+    }
+
+    public PropertyEntity.ElementTypeEnumBean.EtBean getBooleanET() {
+        return elementTypeEnum.getBoolean_et();
+    }
+
+    public PropertyEntity.ElementTypeEnumBean.EtBean getFloatET() {
+        return elementTypeEnum.getFloat_et();
+    }
+
+    public PropertyEntity.ElementTypeEnumBean.EtBean getDoubleET() {
+        return elementTypeEnum.getDouble_et();
+    }
+
+    public PropertyEntity.ElementTypeEnumBean.EtBean getNumberET() {
+        return elementTypeEnum.getNumber_et();
+    }
+
+    public PropertyEntity.ElementTypeEnumBean.EtBean getStringET() {
+        return elementTypeEnum.getString_et();
+    }
+
+    public PropertyEntity.ElementTypeEnumBean.EtBean getArrayET() {
+        return elementTypeEnum.getArray_et();
+    }
+
 
 }

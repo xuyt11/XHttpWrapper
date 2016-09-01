@@ -1,6 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.model.response;
 
-import cn.ytxu.api_semi_auto_creater.config.property.element_type.ElementType;
+import cn.ytxu.api_semi_auto_creater.config.property.element_type.ElementTypeProperty;
 import cn.ytxu.api_semi_auto_creater.model.BaseModel;
 import cn.ytxu.api_semi_auto_creater.model.request.DefinedParamModel;
 import cn.ytxu.api_semi_auto_creater.parser.response.output.OutputParamType;
@@ -138,8 +138,7 @@ public class OutputParamModel extends BaseModel<ResponseModel> {
     }
 
     public String output_type() {
-        ElementType elementType = ElementType.getTypeByOutputType(type);
-        return elementType.getETContentByOutput(this);
+        return ElementTypeProperty.getInstance().getElementTypeByOutput(this);
     }
 
     public String output_name() {

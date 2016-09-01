@@ -1,6 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.model.request;
 
-import cn.ytxu.api_semi_auto_creater.config.property.element_type.ElementType;
+import cn.ytxu.api_semi_auto_creater.config.property.element_type.ElementTypeProperty;
 import cn.ytxu.api_semi_auto_creater.model.BaseModel;
 import cn.ytxu.api_semi_auto_creater.model.RequestModel;
 import org.jsoup.nodes.Element;
@@ -68,12 +68,7 @@ public class InputParamModel extends BaseModel<RequestModel> {
     }
 
     private String type() {
-        ElementType elementType = getElementType();
-        return elementType.getETContenByInput(this);
-    }
-
-    private ElementType getElementType() {
-        return ElementType.getTypeByInput(this);
+        return ElementTypeProperty.getInstance().getElementType(this);
     }
 
     public String header_request_param_type() {
@@ -85,8 +80,7 @@ public class InputParamModel extends BaseModel<RequestModel> {
     }
 
     private String requestParamType() {
-        ElementType elementType = getElementType();
-        return elementType.getRequestETContentByInput(this);
+        return ElementTypeProperty.getInstance().getElementRequestType(this);
     }
 
     public String header_name() {
