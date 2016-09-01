@@ -3,10 +3,10 @@ package cn.ytxu.api_semi_auto_creater.config;
 import cn.ytxu.api_semi_auto_creater.config.property.FilterProperty;
 import cn.ytxu.api_semi_auto_creater.config.property.element_type.ElementTypeProperty;
 import cn.ytxu.api_semi_auto_creater.config.property.base_response_entity_name.BaseResponseEntityNameProperty;
+import com.alibaba.fastjson.JSON;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.*;
 
 /**
  * Created by ytxu on 2016/8/14.
@@ -16,12 +16,10 @@ public class Property {
     public static void load(String xtempPrefixName) {
         InputStream in = null;
         try {
-            Properties pps = new Properties();
-            String fileName = Suffix.Properties.getTempFileName(xtempPrefixName);
+            String fileName = Suffix.Json.getTempFileName(xtempPrefixName);
             in = Property.class.getClassLoader().getResourceAsStream(fileName);
-            pps.load(in);
-            load(pps);
-            pps.clear();
+            PropertyEntity object = JSON.parseObject(in, PropertyEntity.class);
+            load(object);
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("init properties file failure...");
@@ -30,10 +28,10 @@ public class Property {
         }
     }
 
-    private static void load(Properties pps) {
-        FilterProperty.load(pps);
-        BaseResponseEntityNameProperty.load(pps);
-        ElementTypeProperty.load(pps);
+    private static void load(PropertyEntity object) {
+        FilterProperty.load(object.getFilter());
+        BaseResponseEntityNameProperty.load(object.getResponse());
+        ElementTypeProperty.load(object.getElement_type_enum());
     }
 
     private static void close(InputStream in) {

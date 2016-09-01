@@ -4,7 +4,7 @@ package cn.ytxu.api_semi_auto_creater.config;
  * 需要解析的文件的后缀
  */
 public enum Suffix {
-    Properties("properties"),
+    Json("json"),
     HttpApi("xha"),
     Request("xreq"),
     Response("xres");
