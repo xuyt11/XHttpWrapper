@@ -1,6 +1,5 @@
 package cn.ytxu.api_semi_auto_creater.config.property.element_type;
 
-import cn.ytxu.api_semi_auto_creater.config.PropertyEntity;
 import cn.ytxu.api_semi_auto_creater.model.request.InputParamModel;
 import cn.ytxu.api_semi_auto_creater.model.response.OutputParamModel;
 
@@ -15,17 +14,17 @@ import cn.ytxu.api_semi_auto_creater.model.response.OutputParamModel;
 public class ElementTypeProperty {
 
     private static ElementTypeProperty instance;
-    private PropertyEntity.ElementTypeEnumBean elementTypeEnum;
+    private ElementTypeEnumBean elementTypeEnum;
 
     public static ElementTypeProperty getInstance() {
         return instance;
     }
 
-    public static void load(PropertyEntity.ElementTypeEnumBean elementTypeEnum) {
+    public static void load(ElementTypeEnumBean elementTypeEnum) {
         instance = new ElementTypeProperty(elementTypeEnum);
     }
 
-    private ElementTypeProperty(PropertyEntity.ElementTypeEnumBean elementTypeEnum) {
+    private ElementTypeProperty(ElementTypeEnumBean elementTypeEnum) {
         this.elementTypeEnum = elementTypeEnum;
     }
 
@@ -44,47 +43,47 @@ public class ElementTypeProperty {
         return etEnum.getElementTypeByOutput(this, output);
     }
 
-    public PropertyEntity.ElementTypeEnumBean.EtBean getNullET() {
+    public ElementTypeEnumBean.EtBean getNullET() {
         return elementTypeEnum.getNull_et();
     }
 
-    public PropertyEntity.ElementTypeEnumBean.EtBean getDateET() {
+    public ElementTypeEnumBean.EtBean getDateET() {
         return elementTypeEnum.getDate_et();
     }
 
-    public PropertyEntity.ElementTypeEnumBean.EtBean getFileET() {
+    public ElementTypeEnumBean.EtBean getFileET() {
         return elementTypeEnum.getFile_et();
     }
 
-    public PropertyEntity.ElementTypeEnumBean.EtBean getIntegerET() {
+    public ElementTypeEnumBean.EtBean getIntegerET() {
         return elementTypeEnum.getInteger_et();
     }
 
-    public PropertyEntity.ElementTypeEnumBean.EtBean getLongET() {
+    public ElementTypeEnumBean.EtBean getLongET() {
         return elementTypeEnum.getLong_et();
     }
 
-    public PropertyEntity.ElementTypeEnumBean.EtBean getBooleanET() {
+    public ElementTypeEnumBean.EtBean getBooleanET() {
         return elementTypeEnum.getBoolean_et();
     }
 
-    public PropertyEntity.ElementTypeEnumBean.EtBean getFloatET() {
+    public ElementTypeEnumBean.EtBean getFloatET() {
         return elementTypeEnum.getFloat_et();
     }
 
-    public PropertyEntity.ElementTypeEnumBean.EtBean getDoubleET() {
+    public ElementTypeEnumBean.EtBean getDoubleET() {
         return elementTypeEnum.getDouble_et();
     }
 
-    public PropertyEntity.ElementTypeEnumBean.EtBean getNumberET() {
+    public ElementTypeEnumBean.EtBean getNumberET() {
         return elementTypeEnum.getNumber_et();
     }
 
-    public PropertyEntity.ElementTypeEnumBean.EtBean getStringET() {
+    public ElementTypeEnumBean.EtBean getStringET() {
         return elementTypeEnum.getString_et();
     }
 
-    public PropertyEntity.ElementTypeEnumBean.EtBean getArrayET() {
+    public ElementTypeEnumBean.EtBean getArrayET() {
         return elementTypeEnum.getArray_et();
     }
 

@@ -1,6 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.config;
 
-import cn.ytxu.api_semi_auto_creater.config.property.FilterProperty;
+import cn.ytxu.api_semi_auto_creater.config.property.filter.FilterProperty;
 import cn.ytxu.api_semi_auto_creater.config.property.element_type.ElementTypeProperty;
 import cn.ytxu.api_semi_auto_creater.config.property.base_response_entity_name.BaseResponseEntityNameProperty;
 import com.alibaba.fastjson.JSON;

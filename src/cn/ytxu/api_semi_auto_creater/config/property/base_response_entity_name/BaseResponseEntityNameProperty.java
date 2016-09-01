@@ -1,7 +1,5 @@
 package cn.ytxu.api_semi_auto_creater.config.property.base_response_entity_name;
 
-import cn.ytxu.api_semi_auto_creater.config.PropertyEntity;
-
 /**
  * 基础response必须的字段的字段名称
  */
@@ -9,17 +7,17 @@ public class BaseResponseEntityNameProperty {
 
     private static BaseResponseEntityNameProperty instance;
 
-    private PropertyEntity.ResponseBean response;
+    private ResponseBean response;
 
     public static BaseResponseEntityNameProperty get() {
         return instance;
     }
 
-    public static void load(PropertyEntity.ResponseBean response) {
+    public static void load(ResponseBean response) {
         instance = new BaseResponseEntityNameProperty(response);
     }
 
-    private BaseResponseEntityNameProperty(PropertyEntity.ResponseBean response) {
+    private BaseResponseEntityNameProperty(ResponseBean response) {
         this.response = response;
     }
 

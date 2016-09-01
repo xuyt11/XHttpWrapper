@@ -1,6 +1,5 @@
-package cn.ytxu.api_semi_auto_creater.config.property;
+package cn.ytxu.api_semi_auto_creater.config.property.filter;
 
-import cn.ytxu.api_semi_auto_creater.config.PropertyEntity;
 import cn.ytxu.api_semi_auto_creater.model.base.DocModel;
 import cn.ytxu.api_semi_auto_creater.model.base.VersionModel;
 
@@ -14,10 +13,10 @@ public class FilterProperty {// 需要输出的版本号列表
 
     private static FilterProperty instance;
 
-    private PropertyEntity.FilterBean filter;
+    private FilterBean filter;
     private boolean useHeaderFilter = false;// 是否使用过滤request header的功能
 
-    private FilterProperty(PropertyEntity.FilterBean filter) {
+    private FilterProperty(FilterBean filter) {
         this.filter = filter;
     }
 
@@ -25,12 +24,12 @@ public class FilterProperty {// 需要输出的版本号列表
         return instance;
     }
 
-    public static void load(PropertyEntity.FilterBean filter) {
+    public static void load(FilterBean filter) {
         instance = new FilterProperty(filter);
         configHeaderFilterFun(filter);
     }
 
-    private static void configHeaderFilterFun(PropertyEntity.FilterBean filter) {
+    private static void configHeaderFilterFun(FilterBean filter) {
         instance.useHeaderFilter = filter.getHeaders().size() > 0;
     }
 

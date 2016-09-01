@@ -1,6 +1,5 @@
 package cn.ytxu.api_semi_auto_creater.config.property.element_type;
 
-import cn.ytxu.api_semi_auto_creater.config.PropertyEntity;
 import cn.ytxu.api_semi_auto_creater.model.request.InputParamModel;
 import cn.ytxu.api_semi_auto_creater.model.response.OutputParamModel;
 import cn.ytxu.api_semi_auto_creater.parser.response.output.OutputParamType;
@@ -14,21 +13,21 @@ import java.util.Objects;
 public enum ElementType {
     NULL(OutputParamType.NULL) {
         @Override
-        protected PropertyEntity.ElementTypeEnumBean.EtBean getEtBean(ElementTypeProperty elementTypeEnum) {
+        protected ElementTypeEnumBean.EtBean getEtBean(ElementTypeProperty elementTypeEnum) {
             return elementTypeEnum.getNullET();
         }
     },
     // date类型不会出现在json中，
     DATE(null, "Date", "DateTime") {
         @Override
-        protected PropertyEntity.ElementTypeEnumBean.EtBean getEtBean(ElementTypeProperty elementTypeEnum) {
+        protected ElementTypeEnumBean.EtBean getEtBean(ElementTypeProperty elementTypeEnum) {
             return elementTypeEnum.getDateET();
         }
     },
     // 只有请求方法中有file类型
     FILE(null, "File") {
         @Override
-        protected PropertyEntity.ElementTypeEnumBean.EtBean getEtBean(ElementTypeProperty elementTypeEnum) {
+        protected ElementTypeEnumBean.EtBean getEtBean(ElementTypeProperty elementTypeEnum) {
             return elementTypeEnum.getFileET();
         }
 
@@ -39,51 +38,51 @@ public enum ElementType {
     },
     INTEGER(OutputParamType.INTEGER, "Integer") {
         @Override
-        protected PropertyEntity.ElementTypeEnumBean.EtBean getEtBean(ElementTypeProperty elementTypeEnum) {
+        protected ElementTypeEnumBean.EtBean getEtBean(ElementTypeProperty elementTypeEnum) {
             return elementTypeEnum.getIntegerET();
         }
     },
     LONG(OutputParamType.LONG, "Long") {
         @Override
-        protected PropertyEntity.ElementTypeEnumBean.EtBean getEtBean(ElementTypeProperty elementTypeEnum) {
+        protected ElementTypeEnumBean.EtBean getEtBean(ElementTypeProperty elementTypeEnum) {
             return elementTypeEnum.getLongET();
         }
     },
     FLOAT(OutputParamType.FLOAT, "Float") {
         @Override
-        protected PropertyEntity.ElementTypeEnumBean.EtBean getEtBean(ElementTypeProperty elementTypeEnum) {
+        protected ElementTypeEnumBean.EtBean getEtBean(ElementTypeProperty elementTypeEnum) {
             return elementTypeEnum.getFloatET();
         }
     },
     DOUBLE(OutputParamType.DOUBLE, "Double") {
         @Override
-        protected PropertyEntity.ElementTypeEnumBean.EtBean getEtBean(ElementTypeProperty elementTypeEnum) {
+        protected ElementTypeEnumBean.EtBean getEtBean(ElementTypeProperty elementTypeEnum) {
             return elementTypeEnum.getDoubleET();
         }
     },
     // FUTURE 未来将会删除掉的类型，这样的类型，不能知道精确类型
     NUMBER(OutputParamType.NUMBER, "Number") {
         @Override
-        protected PropertyEntity.ElementTypeEnumBean.EtBean getEtBean(ElementTypeProperty elementTypeEnum) {
+        protected ElementTypeEnumBean.EtBean getEtBean(ElementTypeProperty elementTypeEnum) {
             return elementTypeEnum.getNumberET();
         }
     },
     BOOLEAN(OutputParamType.BOOLEAN, "Boolean") {
         @Override
-        protected PropertyEntity.ElementTypeEnumBean.EtBean getEtBean(ElementTypeProperty elementTypeEnum) {
+        protected ElementTypeEnumBean.EtBean getEtBean(ElementTypeProperty elementTypeEnum) {
             return elementTypeEnum.getBooleanET();
         }
     },
     STRING(OutputParamType.STRING, "String") {
         @Override
-        protected PropertyEntity.ElementTypeEnumBean.EtBean getEtBean(ElementTypeProperty elementTypeEnum) {
+        protected ElementTypeEnumBean.EtBean getEtBean(ElementTypeProperty elementTypeEnum) {
             return elementTypeEnum.getStringET();
         }
     },
     // tip: 对象类型不能在request parameter list中出现
     OBJECT(OutputParamType.JSON_OBJECT) {
         @Override
-        protected PropertyEntity.ElementTypeEnumBean.EtBean getEtBean(ElementTypeProperty elementTypeEnum) {
+        protected ElementTypeEnumBean.EtBean getEtBean(ElementTypeProperty elementTypeEnum) {
             throw new RuntimeException("program can not call this");
         }
 
@@ -104,7 +103,7 @@ public enum ElementType {
     },
     // ${object} -->使用其进行替换
     ARRAY(OutputParamType.JSON_ARRAY, "Array", "List") {
-        protected PropertyEntity.ElementTypeEnumBean.EtBean getEtBean(ElementTypeProperty elementTypeEnum) {
+        protected ElementTypeEnumBean.EtBean getEtBean(ElementTypeProperty elementTypeEnum) {
             return elementTypeEnum.getArrayET();
         }
 
@@ -173,5 +172,5 @@ public enum ElementType {
         return getEtBean(etProperty).getElement_request_type();
     }
 
-    protected abstract PropertyEntity.ElementTypeEnumBean.EtBean getEtBean(ElementTypeProperty elementTypeEnum);
+    protected abstract ElementTypeEnumBean.EtBean getEtBean(ElementTypeProperty elementTypeEnum);
 }
