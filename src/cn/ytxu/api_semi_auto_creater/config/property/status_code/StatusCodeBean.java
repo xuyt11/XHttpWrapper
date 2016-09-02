@@ -1,5 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.config.property.status_code;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -7,9 +8,9 @@ import java.util.List;
  */
 public class StatusCodeBean {
 
-    private String section_name;// status_code在Section(分类)中的名称
-    private boolean use_version_filter;// 是否使用版本过滤
-    private List<String> filted_versions;// 需要过滤的版本号
+    private String section_name;// status_code在Section(分类)中的名称(在Section中的名称的配置)
+    private boolean use_version_filter = false;// 是否使用版本过滤
+    private List<String> filted_versions = Collections.EMPTY_LIST;// 过滤之后的版本号
 
     public String getSection_name() {
         return section_name;

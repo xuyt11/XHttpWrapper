@@ -11,12 +11,7 @@ import java.io.InputStream;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016/8/31.<br>
- * <p>
- * <p>
- * status code 在Section中的名称的配置<br>
- * <p>
- * <p>
+ * Created by ytxu on 2016/8/31.<br>
  */
 public class PropertyEntity {
     private FilterBean filter = FilterBean.DEFAULT;
