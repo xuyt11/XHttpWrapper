@@ -6,7 +6,6 @@ import cn.ytxu.api_semi_auto_creater.config.Property;
 import cn.ytxu.api_semi_auto_creater.model.base.DocModel;
 import cn.ytxu.api_semi_auto_creater.model.RequestModel;
 import cn.ytxu.api_semi_auto_creater.model.base.SectionModel;
-import cn.ytxu.api_semi_auto_creater.model.base.StatusCodeModel;
 import cn.ytxu.api_semi_auto_creater.model.base.VersionModel;
 import cn.ytxu.util.CamelCaseUtils;
 import cn.ytxu.util.LogUtil;
@@ -222,9 +221,8 @@ public class BaseParser {
             try {
                 DocEntity.SectionEntity statusCodeSection = findStatusCodeSection(sectionEntities);
                 sectionEntities.remove(statusCodeSection);
-                // TODO convert status code model,then add status code entity parser to convert model
-                List<StatusCodeModel> statusCodeModels = null;
-                versionModel.setStatusCodes(statusCodeModels);
+                SectionModel statusCode = new SingleSectionConverter(versionModel, statusCodeSection).invoke();
+                versionModel.setStatusCode(statusCode);
             } catch (StatusCodeSectionNotFoundException ignore) {
             }
             List<DocEntity.SectionEntity> requestSections = sectionEntities;
@@ -292,16 +290,28 @@ public class BaseParser {
         public List<SectionModel> invoke() {
             List<SectionModel> sectionModels = new ArrayList<>(sectionEntities.size());
             for (DocEntity.SectionEntity sectionEntity : sectionEntities) {
-                SectionModel sectionModel = new SectionModel(versionModel, sectionEntity.getElement(), sectionEntity.getName());
-
-                List<RequestModel> requestModels = new RequestConverter(sectionEntity, sectionModel).invoke();
-                sectionModel.setRequests(requestModels);
-
+                SectionModel sectionModel = new SingleSectionConverter(versionModel, sectionEntity).invoke();
                 sectionModels.add(sectionModel);
             }
             return sectionModels;
         }
+    }
 
+    private static class SingleSectionConverter {
+        private VersionModel versionModel;
+        private DocEntity.SectionEntity sectionEntity;
+
+        public SingleSectionConverter(VersionModel versionModel, DocEntity.SectionEntity sectionEntity) {
+            this.versionModel = versionModel;
+            this.sectionEntity = sectionEntity;
+        }
+
+        public SectionModel invoke() {
+            SectionModel sectionModel = new SectionModel(versionModel, sectionEntity.getElement(), sectionEntity.getName());
+            List<RequestModel> requestModels = new RequestConverter(sectionEntity, sectionModel).invoke();
+            sectionModel.setRequests(requestModels);
+            return sectionModel;
+        }
     }
 
     private static class RequestConverter {
