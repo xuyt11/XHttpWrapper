@@ -6,6 +6,7 @@ import cn.ytxu.api_semi_auto_creater.model.base.VersionModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by ytxu on 2016/9/2.
@@ -41,7 +42,10 @@ public class StatusCodeProperty {
     private List<SectionModel> getAllStatusCodes(DocModel docModel) {
         List<SectionModel> statusCodes = new ArrayList<>();
         for (VersionModel versionModel : docModel.getVersions()) {
-            statusCodes.add(versionModel.getStatusCode());
+           SectionModel statusCode =  versionModel.getStatusCode();
+            if (Objects.nonNull(statusCode)) {
+                statusCodes.add(statusCode);
+            }
         }
         return statusCodes;
     }
