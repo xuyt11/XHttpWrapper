@@ -4,12 +4,14 @@ import cn.ytxu.apacer.entity.RetainEntity;
 import cn.ytxu.apacer.fileCreater.newchama.BaseCreater;
 import cn.ytxu.api_semi_auto_creater.config.Property;
 import cn.ytxu.api_semi_auto_creater.config.Suffix;
+import cn.ytxu.api_semi_auto_creater.config.property.status_code.StatusCodeProperty;
 import cn.ytxu.api_semi_auto_creater.model.base.DocModel;
 import cn.ytxu.api_semi_auto_creater.model.RequestModel;
 import cn.ytxu.api_semi_auto_creater.model.base.SectionModel;
 import cn.ytxu.api_semi_auto_creater.model.base.VersionModel;
 import cn.ytxu.api_semi_auto_creater.model.response.OutputParamModel;
 import cn.ytxu.api_semi_auto_creater.model.response.ResponseModel;
+import cn.ytxu.api_semi_auto_creater.parser.StatusCodeParser;
 import cn.ytxu.api_semi_auto_creater.parser.request.RequestParser;
 import cn.ytxu.api_semi_auto_creater.parser.base.BaseParser;
 import cn.ytxu.api_semi_auto_creater.parser.response.ResponseParser;
@@ -46,9 +48,19 @@ public class NewEngine {
 
     private static DocModel parseApiDocJs() {
         DocModel docModel = new BaseParser().start();
+        parseStatusCodes(docModel);
         parseRequests(docModel);
         parseResponses(docModel);
         return docModel;
+    }
+
+    private static void parseStatusCodes(DocModel docModel) {
+        List<SectionModel> statusCodes = StatusCodeProperty.getInstance().getStatusCodes(docModel);
+        for (SectionModel statusCode : statusCodes) {
+            for (RequestModel request : statusCode.getRequests()) {
+                new StatusCodeParser(request).start();
+            }
+        }
     }
 
     private static void parseRequests(DocModel docModel) {

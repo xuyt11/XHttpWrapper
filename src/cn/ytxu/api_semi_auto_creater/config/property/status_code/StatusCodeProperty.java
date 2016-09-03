@@ -1,6 +1,8 @@
 package cn.ytxu.api_semi_auto_creater.config.property.status_code;
 
-import cn.ytxu.api_semi_auto_creater.model.base.StatusCodeModel;
+import cn.ytxu.api_semi_auto_creater.model.base.DocModel;
+import cn.ytxu.api_semi_auto_creater.model.base.SectionModel;
+import cn.ytxu.api_semi_auto_creater.model.base.VersionModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,20 +31,28 @@ public class StatusCodeProperty {
         return statusCodeBean.getSection_name();
     }
 
-    public List<StatusCodeModel> getStatusCodes(List<StatusCodeModel> statusCodes) {
+    public List<SectionModel> getStatusCodes(DocModel docModel) {
         if (!isUseVersionFilter()) {
-            return statusCodes;
+            return getAllStatusCodes(docModel);
         }
-        return getFiltedStatusCodes(statusCodes);
+        return getFiltedStatusCodes(docModel);
+    }
+
+    private List<SectionModel> getAllStatusCodes(DocModel docModel) {
+        List<SectionModel> statusCodes = new ArrayList<>();
+        for (VersionModel versionModel : docModel.getVersions()) {
+            statusCodes.add(versionModel.getStatusCode());
+        }
+        return statusCodes;
     }
 
     private boolean isUseVersionFilter() {
         return statusCodeBean.isUse_version_filter();
     }
 
-    private List<StatusCodeModel> getFiltedStatusCodes(List<StatusCodeModel> statusCodes) {
-        List<StatusCodeModel> filtedStatusCodes = new ArrayList<>();
-        for (StatusCodeModel statusCode : statusCodes) {
+    private List<SectionModel> getFiltedStatusCodes(DocModel docModel) {
+        List<SectionModel> filtedStatusCodes = new ArrayList<>();
+        for (SectionModel statusCode : getAllStatusCodes(docModel)) {
             if (isOutputVersion(statusCode)) {
                 filtedStatusCodes.add(statusCode);
             }
@@ -50,7 +60,7 @@ public class StatusCodeProperty {
         return filtedStatusCodes;
     }
 
-    private boolean isOutputVersion(StatusCodeModel statusCode) {
+    private boolean isOutputVersion(SectionModel statusCode) {
         String version = statusCode.getHigherLevel().getName();
         for (String outputVersion : statusCodeBean.getFilted_versions()) {
             if (outputVersion.equals(version)) {

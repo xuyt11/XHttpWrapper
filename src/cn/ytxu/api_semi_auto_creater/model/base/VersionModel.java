@@ -29,6 +29,10 @@ public class VersionModel extends BaseModel<DocModel> {
         this.sections = sections;
     }
 
+    public SectionModel getStatusCode() {
+        return statusCode;
+    }
+
     public void setStatusCode(SectionModel statusCode) {
         this.statusCode = statusCode;
     }
@@ -41,5 +45,4 @@ public class VersionModel extends BaseModel<DocModel> {
     public List sections() {
         return sections;
     }
-
 }
