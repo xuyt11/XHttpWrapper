@@ -1,4 +1,4 @@
-package cn.ytxu.api_semi_auto_creater.parser.request.defined;
+package cn.ytxu.api_semi_auto_creater.parser.defined;
 
 import cn.ytxu.apacer.dataParser.jsoupUtil.JsoupParserUtil;
 import cn.ytxu.api_semi_auto_creater.model.request.DefinedParamModel;

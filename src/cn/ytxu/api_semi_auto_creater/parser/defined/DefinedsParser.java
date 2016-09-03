@@ -1,4 +1,4 @@
-package cn.ytxu.api_semi_auto_creater.parser.request.defined;
+package cn.ytxu.api_semi_auto_creater.parser.defined;
 
 import cn.ytxu.apacer.dataParser.jsoupUtil.JsoupParserUtil;
 import cn.ytxu.api_semi_auto_creater.model.request.DefinedParamModel;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class DefinedsParser {
+public abstract class DefinedsParser {
     private static final String CSS_QUERY_TABLE = "table";
     private static final String CSS_QUERY_GET_DESC_PARAM = "tbody > tr";
     private static final String PARAM_CATEGORY_NAME_TAG_NAME = "h2";
@@ -76,9 +76,11 @@ public class DefinedsParser {
 
     private DefinedParamModel getDefinedParamModel(String categoryName, Element descParamEle) {
         DefinedParamModel definedParam = new DefinedParamModel(request, descParamEle, categoryName);
-        new DefinedParser(definedParam).start();
+        parseDefined(definedParam);
         return definedParam;
     }
 
+    /** 解析已定义参数的内部数据 */
+    protected abstract void parseDefined(DefinedParamModel definedParam);
 
 }

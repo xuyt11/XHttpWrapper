@@ -1,9 +1,11 @@
 package cn.ytxu.api_semi_auto_creater.parser.request;
 
 import cn.ytxu.apacer.dataParser.jsoupUtil.JsoupParserUtil;
+import cn.ytxu.api_semi_auto_creater.model.request.DefinedParamModel;
 import cn.ytxu.api_semi_auto_creater.model.request.restful_url.RESTfulUrlModel;
 import cn.ytxu.api_semi_auto_creater.model.RequestModel;
-import cn.ytxu.api_semi_auto_creater.parser.request.defined.DefinedsParser;
+import cn.ytxu.api_semi_auto_creater.parser.defined.DefinedParser;
+import cn.ytxu.api_semi_auto_creater.parser.defined.DefinedsParser;
 import cn.ytxu.api_semi_auto_creater.parser.request.input.InputsParser;
 import cn.ytxu.api_semi_auto_creater.parser.request.restful_url.RESTfulUrlParser;
 import cn.ytxu.api_semi_auto_creater.parser.response.ResponsesParser;
@@ -14,7 +16,7 @@ import org.jsoup.nodes.Element;
  * Created by ytxu on 2016/6/26.
  */
 public class RequestParser {
-    private static final String CSS_QUERY_ARTICLE = "article";
+    public static final String CSS_QUERY_ARTICLE = "article";
     private static final String CSS_QUERY_GET_METHOD_DESC = "div.pull-left > h1";
     private static final String CSS_QUERY_GET_TYPE_AND_URL_FOR_METHOD = "pre.prettyprint.language-html";
     private static final String ATTR_DATA_TYPE = "data-type";
@@ -37,7 +39,12 @@ public class RequestParser {
         getMethodDescription();
         getMethodTypeAndUrl();
 
-        new DefinedsParser(request, articleEle).start();
+        new DefinedsParser(request, articleEle){
+            @Override
+            protected void parseDefined(DefinedParamModel definedParam) {
+                new DefinedParser(definedParam).start();
+            }
+        }.start();
         new InputsParser(request, articleEle).start();
         new ResponsesParser(request, articleEle).start();
     }
