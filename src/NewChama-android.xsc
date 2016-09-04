@@ -1,0 +1,26 @@
+<header>
+    <fileDir>
+        <value osName="Windows" val="I:/NewChamaStudio/newchama_android/NewChama/newchama.common/src/main/java/com/newchama/api/" />
+        <value osName="Mac OS X" val="/Users/newchama/Documents/ytxu/newchama_android/NewChama/newchama.common/src/main/java/com/newchama/api/" />
+    </fileDir>
+
+    <fileName val="StatusCode.java" />
+</header>
+package com.newchama.api;
+
+<retain type="import"/>
+
+public class StatusCode {
+
+<retain type="field"/>
+
+<foreach each="status_codes">
+    public static final ${status_code_name} = ${status_code_number};// ${status_code_desc}
+
+</foreach>
+
+<retain type="method"/>
+
+<retain type="other"/>
+
+}
