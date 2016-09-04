@@ -7,6 +7,7 @@ import cn.ytxu.api_semi_auto_creater.model.base.DocModel;
 import cn.ytxu.api_semi_auto_creater.model.RequestModel;
 import cn.ytxu.api_semi_auto_creater.model.base.SectionModel;
 import cn.ytxu.api_semi_auto_creater.model.base.VersionModel;
+import cn.ytxu.api_semi_auto_creater.model.status_code.StatusCodeCategoryModel;
 import cn.ytxu.util.CamelCaseUtils;
 import cn.ytxu.util.LogUtil;
 import com.sun.istack.internal.NotNull;
@@ -221,8 +222,8 @@ public class BaseParser {
             try {
                 DocEntity.SectionEntity statusCodeSection = findStatusCodeSection(sectionEntities);
                 sectionEntities.remove(statusCodeSection);
-                SectionModel statusCode = new SingleSectionConverter(versionModel, statusCodeSection).invoke();
-                versionModel.setStatusCode(statusCode);
+                List<StatusCodeCategoryModel> statusCodes = new StatusCodeCategoryConverter(versionModel, statusCodeSection).invoke();
+                versionModel.setStatusCodes(statusCodes);
             } catch (StatusCodeSectionNotFoundException ignore) {
             }
             List<DocEntity.SectionEntity> requestSections = sectionEntities;
@@ -333,6 +334,25 @@ public class BaseParser {
         }
     }
 
+    private static class StatusCodeCategoryConverter {
+        private VersionModel versionModel;
+        private DocEntity.SectionEntity sectionEntity;
+
+        public StatusCodeCategoryConverter(VersionModel versionModel, DocEntity.SectionEntity sectionEntity) {
+            this.versionModel = versionModel;
+            this.sectionEntity = sectionEntity;
+        }
+
+        public List<StatusCodeCategoryModel> invoke() {
+            List<StatusCodeCategoryModel> sccModels = new ArrayList<>(sectionEntity.getRequests().size());
+            for (DocEntity.RequestEntity requestEntity : sectionEntity.getRequests()) {
+                StatusCodeCategoryModel sccModel = new StatusCodeCategoryModel(versionModel, requestEntity.getElement(), requestEntity.getName(), requestEntity.getVersion());
+                sccModels.add(sccModel);
+            }
+            return sccModels;
+        }
+
+    }
 
     public static void main(String... args) {
         new BaseParser().start();
