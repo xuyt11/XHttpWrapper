@@ -72,12 +72,27 @@ public class StatusCodeParser {
 
     private String getStatusCodeNumber(String description, int separatorIndex) {
         String statusCodeStr = description.substring(0, separatorIndex).trim();
-        try {
-            Long.parseLong(statusCodeStr);
-        } catch (NumberFormatException e) {// 不能转换成数字,有问题
-            e.printStackTrace();
-            throw new RuntimeException("the status code string can not convert long type value");
+        if (isLongStr(statusCodeStr)) {
+            return statusCodeStr;
         }
-        return statusCodeStr;
+
+        // 防止在状态码前面有其他字符串
+        while (statusCodeStr.length() > 1) {
+            statusCodeStr = statusCodeStr.substring(1, statusCodeStr.length());
+            if (isLongStr(statusCodeStr)) {
+                return statusCodeStr;
+            }
+        }
+        throw new RuntimeException("the status code string can not convert long type value");
     }
+
+    private boolean isLongStr(String content) {
+        try {
+            Long.parseLong(content);
+            return true;
+        } catch (NumberFormatException ignore) {// 不能转换成数字,有问题
+            return false;
+        }
+    }
+
 }
