@@ -1,6 +1,7 @@
 package cn.ytxu.api_semi_auto_creater.model.base;
 
 import cn.ytxu.api_semi_auto_creater.model.BaseModel;
+import cn.ytxu.api_semi_auto_creater.model.status_code.StatusCodeCategoryModel;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
 public class VersionModel extends BaseModel<DocModel> {
     private String name;// 版本名称
     private List<SectionModel> sections;
-    private SectionModel statusCode;
+    private StatusCodeCategoryModel statusCode;
 
     public VersionModel(DocModel higherLevel, String name) {
         super(higherLevel, null);
@@ -29,11 +30,11 @@ public class VersionModel extends BaseModel<DocModel> {
         this.sections = sections;
     }
 
-    public SectionModel getStatusCode() {
+    public StatusCodeCategoryModel getStatusCode() {
         return statusCode;
     }
 
-    public void setStatusCode(SectionModel statusCode) {
+    public void setStatusCode(StatusCodeCategoryModel statusCode) {
         this.statusCode = statusCode;
     }
 

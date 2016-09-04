@@ -1,6 +1,7 @@
-package cn.ytxu.api_semi_auto_creater.model.base;
+package cn.ytxu.api_semi_auto_creater.model.status_code;
 
 import cn.ytxu.api_semi_auto_creater.model.BaseModel;
+import cn.ytxu.api_semi_auto_creater.model.base.VersionModel;
 import org.jsoup.nodes.Element;
 
 /**
