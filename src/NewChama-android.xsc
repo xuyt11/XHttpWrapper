@@ -15,8 +15,8 @@ public class StatusCode {
 <retain type="field"/>
 
 <foreach each="status_codes">
-    public static final ${status_code_name} = ${status_code_number};// ${status_code_desc}
-
+    /** ${status_code_desc} */
+    public static final int ${status_code_name} = ${status_code_number};
 </foreach>
 
 <retain type="method"/>
