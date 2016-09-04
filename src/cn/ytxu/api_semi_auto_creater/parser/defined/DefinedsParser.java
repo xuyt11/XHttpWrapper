@@ -24,16 +24,16 @@ public abstract class DefinedsParser {
         this.articleEle = articleEle;
     }
 
-    public void start() {
+    public List<DefinedParamModel> start() {
         Elements descParamCategoryEles = JsoupParserUtil.getEles(articleEle, CSS_QUERY_TABLE);// table elements
         if (ListUtil.isEmpty(descParamCategoryEles)) {
-            return;
+            return Collections.EMPTY_LIST;
         }
 
-        setDefinedParams(descParamCategoryEles);
+       return getDefinedParams(descParamCategoryEles);
     }
 
-    private void setDefinedParams(Elements descParamCategoryEles) {
+    private List<DefinedParamModel> getDefinedParams(Elements descParamCategoryEles) {
         List<DefinedParamModel> definedParams = new ArrayList<>();
         for (Element descParamCategoryEle : descParamCategoryEles) {
             List<DefinedParamModel> defineds = getDefinedParams(descParamCategoryEle);
@@ -42,7 +42,7 @@ public abstract class DefinedsParser {
             }
             definedParams.addAll(defineds);
         }
-        request.setDefinedParams(definedParams);
+        return definedParams;
     }
 
     private List<DefinedParamModel> getDefinedParams(Element descParamCategoryEle) {

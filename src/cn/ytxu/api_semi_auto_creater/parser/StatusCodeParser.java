@@ -1,12 +1,15 @@
 package cn.ytxu.api_semi_auto_creater.parser;
 
 import cn.ytxu.apacer.dataParser.jsoupUtil.JsoupParserUtil;
-import cn.ytxu.api_semi_auto_creater.entity.StatusCodeEntity;
+import cn.ytxu.api_semi_auto_creater.model.request.DefinedParamModel;
+import cn.ytxu.api_semi_auto_creater.model.status_code.StatusCodeCategoryModel;
+import cn.ytxu.api_semi_auto_creater.model.status_code.StatusCodeModel;
+import cn.ytxu.api_semi_auto_creater.parser.defined.Defined4StatusCodeTypeParser;
+import cn.ytxu.api_semi_auto_creater.parser.request.RequestParser;
+import cn.ytxu.api_semi_auto_creater.parser.defined.DefinedsParser;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -14,24 +17,29 @@ import java.util.List;
  * 2016-03-30
  */
 public class StatusCodeParser {
-    private static final String CSS_QUERY_GET_ALL_FIELD = "div > article > table > tbody > tr";
-    private static final String CSS_QUERY_GET_CONTENT = "td";
 
-    public List<StatusCodeEntity> parseStatusCodes(Element sectionEle) {
-        Elements statusCodeEles = JsoupParserUtil.getEles(sectionEle, CSS_QUERY_GET_ALL_FIELD);
+    private StatusCodeCategoryModel sccModel;
+    private Element baseEle;
 
-        if (null == statusCodeEles || statusCodeEles.size() <= 0) {
-            return null;
+    public StatusCodeParser(StatusCodeCategoryModel sccModel) {
+        this.sccModel = sccModel;
+        this.baseEle = sccModel.getElement();
+    }
+
+    public void start() {
+        Element articleEle = JsoupParserUtil.getFirstEle(baseEle, RequestParser.CSS_QUERY_ARTICLE);
+        List<DefinedParamModel> definds = new DefinedsParser(null, articleEle) {
+            @Override
+            protected void parseDefined(DefinedParamModel definedParam) {
+                new Defined4StatusCodeTypeParser(definedParam).start();
+            }
+        }.start();
+
+        List<StatusCodeModel> statusCodes = new ArrayList<>(definds.size());
+        for (DefinedParamModel defind : definds) {
+            statusCodes.add(getStatusCode(defind));
         }
-
-        List<StatusCodeEntity> statusCodes = new ArrayList<>(statusCodeEles.size());
-
-        for (Iterator<Element> iterator = statusCodeEles.iterator(); iterator.hasNext(); ) {
-            StatusCodeEntity statusCode = getStatusCode(iterator.next());
-            statusCodes.add(statusCode);
-        }
-
-        return statusCodes;
+        sccModel.setStatusCodes(statusCodes);
     }
 
     /**
@@ -40,41 +48,14 @@ public class StatusCodeParser {
      * (1, '登录状态已过期，请重新登入')<br>
      * (5, '服务器错误') # 5XX 服务器错误
      */
-    private StatusCodeEntity getStatusCode(Element statusCodeEle) {
-        Elements tdEls = getTdEles(statusCodeEle);
-
-        String statusCodeName = getStatusCodeName(tdEls);
-        String description = getDescription(tdEls);
+    private StatusCodeModel getStatusCode(DefinedParamModel defind) {
+        String statusCodeName = defind.getName();
+        String description = defind.getDescription();
         int separatorIndex = getSeparatorIndex(description);
         String statusCodeDesc = getStatusCodeDesc(description, separatorIndex);
         String statusCodeNumber = getStatusCodeNumber(description, separatorIndex);
 
-        return new StatusCodeEntity(statusCodeName, statusCodeDesc, statusCodeNumber);
-    }
-
-    private Elements getTdEles(Element statusCodeEle) {
-        Elements tdEls = JsoupParserUtil.getEles(statusCodeEle, CSS_QUERY_GET_CONTENT);
-        if (null == tdEls) {
-            throw new RuntimeException("tdEls is null");
-        }
-
-        if (tdEls.size() != 2) {
-            throw new RuntimeException("the size of tdEls is not 2");
-        }
-        return tdEls;
-    }
-
-    private String getStatusCodeName(Elements tdEls) {
-        return JsoupParserUtil.getText(tdEls.get(0));
-    }
-
-    private String getDescription(Elements tdEls) {
-        String description = JsoupParserUtil.getText(tdEls.get(1));
-        if (null == description) {
-            throw new RuntimeException("the description message is null");
-        }
-        description = description.substring(1);// 真有不是以)结尾的状态码描述:第五,六两个就是
-        return description;
+        return new StatusCodeModel(sccModel, statusCodeName, statusCodeNumber, statusCodeDesc);
     }
 
     private int getSeparatorIndex(String description) {
@@ -99,5 +80,4 @@ public class StatusCodeParser {
         }
         return statusCodeStr;
     }
-
 }

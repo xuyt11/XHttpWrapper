@@ -11,6 +11,8 @@ import cn.ytxu.api_semi_auto_creater.parser.request.restful_url.RESTfulUrlParser
 import cn.ytxu.api_semi_auto_creater.parser.response.ResponsesParser;
 import org.jsoup.nodes.Element;
 
+import java.util.List;
+
 /**
  * 分类的解析类
  * Created by ytxu on 2016/6/26.
@@ -39,12 +41,14 @@ public class RequestParser {
         getMethodDescription();
         getMethodTypeAndUrl();
 
-        new DefinedsParser(request, articleEle){
+        List<DefinedParamModel> definedParams = new DefinedsParser(request, articleEle){
             @Override
             protected void parseDefined(DefinedParamModel definedParam) {
                 new DefinedParser(definedParam).start();
             }
         }.start();
+        request.setDefinedParams(definedParams);
+
         new InputsParser(request, articleEle).start();
         new ResponsesParser(request, articleEle).start();
     }
