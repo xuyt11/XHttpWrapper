@@ -8,8 +8,15 @@ import cn.ytxu.api_semi_auto_creater.model.BaseModel;
  * Field            Description<br>
  * OK               (0, '')<br>
  * UNAUTHORIZED     (1, '登录状态已过期，请重新登入')<br>
+ * SERVER_ERROR     (5, '服务器错误') # 5XX 服务器错误<br>
+ *
  * Field        format:statusCodeName<br>
- * Description  format：(statusCodeNumber, statusCodeDesc)<br>
+ * Description  format1：statusCodeNumber, statusCodeDesc<br>
+ *     statusCodeDesc String-->statusCodeDesc<br>
+ * Description  format2：(statusCodeNumber, statusCodeDesc)<br>
+ *     statusCodeDesc String-->statusCodeDesc)<br>
+ * Description  format3：(statusCodeNumber, statusCodeDesc)xxx<br>
+ *     statusCodeDesc String-->statusCodeDesc)xxx<br>
  */
 public class StatusCodeModel extends BaseModel<StatusCodeCategoryModel> {
     private final String name;
