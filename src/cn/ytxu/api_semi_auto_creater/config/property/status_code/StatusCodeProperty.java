@@ -31,8 +31,8 @@ public class StatusCodeProperty {
         return statusCodeBean.getSection_name();
     }
 
-    public List<StatusCodeCategoryModel> getStatusCodes(DocModel docModel) {
-        if (!isUseVersionFilter()) {
+    public List<StatusCodeCategoryModel> getStatusCodes(DocModel docModel, boolean filter) {
+        if (!filter || !isUseVersionFilter()) {
             return getAllStatusCodes(docModel);
         }
         return getFiltedStatusCodes(docModel);
@@ -41,7 +41,7 @@ public class StatusCodeProperty {
     private List<StatusCodeCategoryModel> getAllStatusCodes(DocModel docModel) {
         List<StatusCodeCategoryModel> statusCodes = new ArrayList<>();
         for (VersionModel versionModel : docModel.getVersions()) {
-            List<StatusCodeCategoryModel> vStatusCodes =  versionModel.getStatusCodes();
+            List<StatusCodeCategoryModel> vStatusCodes = versionModel.getStatusCodes();
             if (vStatusCodes.size() > 0) {
                 statusCodes.addAll(vStatusCodes);
             }

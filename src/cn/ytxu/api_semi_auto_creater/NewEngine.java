@@ -56,47 +56,51 @@ public class NewEngine {
     }
 
     private static void parseStatusCodes(DocModel docModel) {
-        List<StatusCodeCategoryModel> statusCodes = StatusCodeProperty.getInstance().getStatusCodes(docModel);
+        List<StatusCodeCategoryModel> statusCodes = StatusCodeProperty.getInstance().getStatusCodes(docModel, false);
         for (StatusCodeCategoryModel statusCode : statusCodes) {
             new StatusCodeParser(statusCode).start();
         }
     }
 
     private static void parseRequests(DocModel docModel) {
-        for (RequestModel request : getRequests(docModel)) {
+        for (RequestModel request : getRequests(docModel, false)) {
             new RequestParser(request).start();
         }
     }
 
-    private static List<RequestModel> getRequests(DocModel docModel) {
+    private static List<RequestModel> getRequests(DocModel docModel, boolean filter) {
         List<RequestModel> requests = new ArrayList<>();
-        for (SectionModel section : getSections(docModel)) {
+        for (SectionModel section : getSections(docModel, filter)) {
             requests.addAll(section.getRequests());
         }
         return requests;
     }
 
-    private static List<SectionModel> getSections(DocModel docModel) {
+    private static List<SectionModel> getSections(DocModel docModel, boolean filter) {
         List<SectionModel> sections = new ArrayList<>();
-        for (VersionModel version : getVersionsAfterFilter(docModel)) {
+        for (VersionModel version : getVersionsAfterFilter(docModel, filter)) {
             sections.addAll(version.getSections());
         }
         return sections;
     }
 
-    private static List<VersionModel> getVersionsAfterFilter(DocModel docModel) {
-        return Property.getFilterProperty().getVersionsAfterFilter(docModel);
+    private static List<VersionModel> getVersionsAfterFilter(DocModel docModel, boolean filter) {
+        if (filter) {
+            return Property.getFilterProperty().getVersionsAfterFilter(docModel);
+        } else {
+            return docModel.getVersions();
+        }
     }
 
     private static void parseResponses(DocModel docModel) {
-        for (ResponseModel response : getResponses(docModel)) {
+        for (ResponseModel response : getResponses(docModel, false)) {
             new ResponseParser(response).start();
         }
     }
 
-    private static List<ResponseModel> getResponses(DocModel docModel) {
+    private static List<ResponseModel> getResponses(DocModel docModel, boolean filter) {
         List<ResponseModel> responses = new ArrayList<>();
-        for (RequestModel request : getRequests(docModel)) {
+        for (RequestModel request : getRequests(docModel, filter)) {
             responses.addAll(request.getResponses());
         }
         return responses;
@@ -113,7 +117,7 @@ public class NewEngine {
     private static void createHttpApi(DocModel docModel, String xTempPrefixName) {
         XTempModel model = new XTempUtil(Suffix.HttpApi, xTempPrefixName).start();
 
-        for (VersionModel version : getVersionsAfterFilter(docModel)) {
+        for (VersionModel version : getVersionsAfterFilter(docModel, true)) {
             writeContent2TargetFileByXTempAndReflectModel(model, version);
         }
     }
@@ -137,7 +141,7 @@ public class NewEngine {
     private static void createRequest(DocModel docModel, String xTempPrefixName) {
         XTempModel model = new XTempUtil(Suffix.Request, xTempPrefixName).start();
 
-        for (SectionModel section : getSections(docModel)) {
+        for (SectionModel section : getSections(docModel, true)) {
             writeContent2TargetFileByXTempAndReflectModel(model, section);
         }
     }
@@ -155,7 +159,7 @@ public class NewEngine {
 
     private static List<ResponseModel> getSuccessResponses(DocModel docModel) {
         List<ResponseModel> successResponses = new ArrayList<>();
-        for (ResponseModel response : getResponses(docModel)) {
+        for (ResponseModel response : getResponses(docModel, true)) {
             // TODO need set to properties file
             if ("0".equals(response.getStatusCode())) {// it`s succes response
                 successResponses.add(response);
@@ -177,7 +181,7 @@ public class NewEngine {
     private static void createStatusCode(DocModel docModel, String xTempPrefixName) {
         XTempModel model = new XTempUtil(Suffix.StatusCode, xTempPrefixName).start();
 
-        List<StatusCodeCategoryModel> statusCodes = StatusCodeProperty.getInstance().getStatusCodes(docModel);
+        List<StatusCodeCategoryModel> statusCodes = StatusCodeProperty.getInstance().getStatusCodes(docModel, true);
         for (StatusCodeCategoryModel statusCode : statusCodes) {
             writeContent2TargetFileByXTempAndReflectModel(model, statusCode);
         }
