@@ -11,6 +11,7 @@ import cn.ytxu.api_semi_auto_creater.model.base.SectionModel;
 import cn.ytxu.api_semi_auto_creater.model.base.VersionModel;
 import cn.ytxu.api_semi_auto_creater.model.response.OutputParamModel;
 import cn.ytxu.api_semi_auto_creater.model.response.ResponseModel;
+import cn.ytxu.api_semi_auto_creater.model.status_code.StatusCodeCategoryModel;
 import cn.ytxu.api_semi_auto_creater.parser.StatusCodeParser;
 import cn.ytxu.api_semi_auto_creater.parser.request.RequestParser;
 import cn.ytxu.api_semi_auto_creater.parser.base.BaseParser;
@@ -55,11 +56,9 @@ public class NewEngine {
     }
 
     private static void parseStatusCodes(DocModel docModel) {
-        List<SectionModel> statusCodes = StatusCodeProperty.getInstance().getStatusCodes(docModel);
-        for (SectionModel statusCode : statusCodes) {
-            for (RequestModel request : statusCode.getRequests()) {
-                new StatusCodeParser(request).start();
-            }
+        List<StatusCodeCategoryModel> statusCodes = StatusCodeProperty.getInstance().getStatusCodes(docModel);
+        for (StatusCodeCategoryModel statusCode : statusCodes) {
+            new StatusCodeParser(statusCode).start();
         }
     }
 

@@ -1,12 +1,11 @@
 package cn.ytxu.api_semi_auto_creater.config.property.status_code;
 
 import cn.ytxu.api_semi_auto_creater.model.base.DocModel;
-import cn.ytxu.api_semi_auto_creater.model.base.SectionModel;
 import cn.ytxu.api_semi_auto_creater.model.base.VersionModel;
+import cn.ytxu.api_semi_auto_creater.model.status_code.StatusCodeCategoryModel;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Created by ytxu on 2016/9/2.
@@ -32,19 +31,19 @@ public class StatusCodeProperty {
         return statusCodeBean.getSection_name();
     }
 
-    public List<SectionModel> getStatusCodes(DocModel docModel) {
+    public List<StatusCodeCategoryModel> getStatusCodes(DocModel docModel) {
         if (!isUseVersionFilter()) {
             return getAllStatusCodes(docModel);
         }
         return getFiltedStatusCodes(docModel);
     }
 
-    private List<SectionModel> getAllStatusCodes(DocModel docModel) {
-        List<SectionModel> statusCodes = new ArrayList<>();
+    private List<StatusCodeCategoryModel> getAllStatusCodes(DocModel docModel) {
+        List<StatusCodeCategoryModel> statusCodes = new ArrayList<>();
         for (VersionModel versionModel : docModel.getVersions()) {
-           SectionModel statusCode =  versionModel.getStatusCode();
-            if (Objects.nonNull(statusCode)) {
-                statusCodes.add(statusCode);
+            List<StatusCodeCategoryModel> vStatusCodes =  versionModel.getStatusCodes();
+            if (vStatusCodes.size() > 0) {
+                statusCodes.addAll(vStatusCodes);
             }
         }
         return statusCodes;
@@ -54,9 +53,9 @@ public class StatusCodeProperty {
         return statusCodeBean.isUse_version_filter();
     }
 
-    private List<SectionModel> getFiltedStatusCodes(DocModel docModel) {
-        List<SectionModel> filtedStatusCodes = new ArrayList<>();
-        for (SectionModel statusCode : getAllStatusCodes(docModel)) {
+    private List<StatusCodeCategoryModel> getFiltedStatusCodes(DocModel docModel) {
+        List<StatusCodeCategoryModel> filtedStatusCodes = new ArrayList<>();
+        for (StatusCodeCategoryModel statusCode : getAllStatusCodes(docModel)) {
             if (isOutputVersion(statusCode)) {
                 filtedStatusCodes.add(statusCode);
             }
@@ -64,8 +63,8 @@ public class StatusCodeProperty {
         return filtedStatusCodes;
     }
 
-    private boolean isOutputVersion(SectionModel statusCode) {
-        String version = statusCode.getHigherLevel().getName();
+    private boolean isOutputVersion(StatusCodeCategoryModel statusCode) {
+        String version = statusCode.getName();
         for (String outputVersion : statusCodeBean.getFilted_versions()) {
             if (outputVersion.equals(version)) {
                 return true;
