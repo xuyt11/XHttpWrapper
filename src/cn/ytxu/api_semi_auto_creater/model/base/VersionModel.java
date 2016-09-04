@@ -10,6 +10,9 @@ import java.util.List;
  * Created by ytxu on 2016/7/20.
  */
 public class VersionModel extends BaseModel<DocModel> {
+    /** 无版本号模式时的model */
+    public static final VersionModel NON_VERSION_MODEL = new VersionModel(null, null);
+
     private String name;// 版本名称
     private List<SectionModel> sections;
     private List<StatusCodeCategoryModel> statusCodes = Collections.EMPTY_LIST;
