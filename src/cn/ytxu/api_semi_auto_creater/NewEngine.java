@@ -12,7 +12,7 @@ import cn.ytxu.api_semi_auto_creater.model.base.VersionModel;
 import cn.ytxu.api_semi_auto_creater.model.response.OutputParamModel;
 import cn.ytxu.api_semi_auto_creater.model.response.ResponseModel;
 import cn.ytxu.api_semi_auto_creater.model.status_code.StatusCodeCategoryModel;
-import cn.ytxu.api_semi_auto_creater.parser.StatusCodeParser;
+import cn.ytxu.api_semi_auto_creater.parser.status_code.StatusCodeParser;
 import cn.ytxu.api_semi_auto_creater.parser.request.RequestParser;
 import cn.ytxu.api_semi_auto_creater.parser.base.BaseParser;
 import cn.ytxu.api_semi_auto_creater.parser.response.ResponseParser;
