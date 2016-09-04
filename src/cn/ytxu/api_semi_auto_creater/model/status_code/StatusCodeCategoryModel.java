@@ -39,4 +39,11 @@ public class StatusCodeCategoryModel extends BaseModel<VersionModel> {
     public void setStatusCodes(List<StatusCodeModel> statusCodes) {
         this.statusCodes = statusCodes;
     }
+
+
+    //*************** reflect method area ***************
+    public List<StatusCodeModel> status_codes() {
+        return statusCodes;
+    }
+
 }

@@ -106,7 +106,8 @@ public class NewEngine {
         createHttpApi(docModel, xTempPrefixName);
         createRequest(docModel, xTempPrefixName);
         createResponseEntity(docModel, xTempPrefixName);
-        // TODO create status code file, base response entity file
+        createStatusCode(docModel, xTempPrefixName);
+        // TODO create base response entity file
     }
 
     private static void createHttpApi(DocModel docModel, String xTempPrefixName) {
@@ -172,5 +173,14 @@ public class NewEngine {
         return outputs;
     }
 
+
+    private static void createStatusCode(DocModel docModel, String xTempPrefixName) {
+        XTempModel model = new XTempUtil(Suffix.StatusCode, xTempPrefixName).start();
+
+        List<StatusCodeCategoryModel> statusCodes = StatusCodeProperty.getInstance().getStatusCodes(docModel);
+        for (StatusCodeCategoryModel statusCode : statusCodes) {
+            writeContent2TargetFileByXTempAndReflectModel(model, statusCode);
+        }
+    }
 
 }

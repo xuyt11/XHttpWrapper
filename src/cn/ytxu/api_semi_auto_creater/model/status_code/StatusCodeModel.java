@@ -41,4 +41,18 @@ public class StatusCodeModel extends BaseModel<StatusCodeCategoryModel> {
     public String getDesc() {
         return desc;
     }
+
+
+    //*************** reflect method area ***************
+    public String status_code_name() {
+        return name;
+    }
+
+    public String status_code_number() {
+        return value;
+    }
+
+    public String status_code_desc() {
+        return desc;
+    }
 }

@@ -7,7 +7,8 @@ public enum Suffix {
     Json("json"),
     HttpApi("xha"),
     Request("xreq"),
-    Response("xres");
+    Response("xres"),
+    StatusCode("xsc");
 
     private final String name;
 
