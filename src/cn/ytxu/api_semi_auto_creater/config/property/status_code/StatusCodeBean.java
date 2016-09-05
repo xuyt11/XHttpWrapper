@@ -11,6 +11,8 @@ public class StatusCodeBean {
     private String section_name;// status_code在Section(分类)中的名称(在Section中的名称的配置)
     private boolean use_version_filter = false;// 是否使用版本过滤
     private List<String> filted_versions = Collections.EMPTY_LIST;// 过滤之后的版本号
+    /** response success时，status code的值 */
+    private String ok_number;
 
     public String getSection_name() {
         return section_name;
@@ -34,5 +36,13 @@ public class StatusCodeBean {
 
     public void setFilted_versions(List<String> filted_versions) {
         this.filted_versions = filted_versions;
+    }
+
+    public String getOk_number() {
+        return ok_number;
+    }
+
+    public void setOk_number(String ok_number) {
+        this.ok_number = ok_number;
     }
 }

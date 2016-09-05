@@ -158,10 +158,10 @@ public class NewEngine {
     }
 
     private static List<ResponseModel> getSuccessResponses(DocModel docModel) {
+        final String statusCodeOKNumber = StatusCodeProperty.getInstance().getOkNumber();
         List<ResponseModel> successResponses = new ArrayList<>();
         for (ResponseModel response : getResponses(docModel, true)) {
-            // TODO need set to properties file
-            if ("0".equals(response.getStatusCode())) {// it`s succes response
+            if (statusCodeOKNumber.equals(response.getStatusCode())) {// it`s ok response
                 successResponses.add(response);
             }
         }

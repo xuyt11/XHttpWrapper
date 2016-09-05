@@ -73,4 +73,8 @@ public class StatusCodeProperty {
         return false;
     }
 
+    public String getOkNumber() {
+        return statusCodeBean.getOk_number();
+    }
+
 }
