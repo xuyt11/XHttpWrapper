@@ -30,4 +30,8 @@ public class RequestProperty {
     public List<DateReplaceBean> getDateReplaces() {
         return requestBean.getRESTful().getDate_replace();
     }
+
+    public String getReplaceString() {
+        return requestBean.getRESTful().getReplaceString();
+    }
 }

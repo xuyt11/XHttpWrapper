@@ -12,6 +12,7 @@
   },
   "request": {
     "RESTful": {
+      "replaceString": "%s",
       "multi_replace": [
         "android"
       ],

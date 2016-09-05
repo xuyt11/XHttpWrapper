@@ -1,5 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.model.request.restful_url;
 
+import cn.ytxu.api_semi_auto_creater.config.property.request.RequestProperty;
 import cn.ytxu.api_semi_auto_creater.model.BaseModel;
 import cn.ytxu.api_semi_auto_creater.model.RequestModel;
 
@@ -103,8 +104,9 @@ public class RESTfulUrlModel extends BaseModel<RequestModel> {
 
     private String executeReplace2CreateConvertUrl(List<String> replaceContents) {
         String url = request_normal_url();
+        String replaceStr = RequestProperty.getInstance().getReplaceString();
         for (String replace : replaceContents) {
-            url = url.replace(replace, "%s");// TODO future 未来可能要适配ios等平台，不一定使用‘%s’进行替换
+            url = url.replace(replace, replaceStr);
         }
         return url;
     }
