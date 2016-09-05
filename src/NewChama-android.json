@@ -10,6 +10,19 @@
       "1.5.0"
     ]
   },
+  "request": {
+    "RESTful": {
+      "multi_replace": [
+        "android"
+      ],
+      "date_replace": [
+        {
+          "date_format": "YYYY-MM-DD",
+          "date_request_param": "restful_date_param"
+        }
+      ]
+    }
+  },
   "response": {
     "statusCode": "status_code",
     "message": "message",

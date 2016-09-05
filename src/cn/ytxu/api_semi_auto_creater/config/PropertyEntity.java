@@ -4,6 +4,7 @@ import cn.ytxu.api_semi_auto_creater.config.property.apidoc.ApidocFileAddressesB
 import cn.ytxu.api_semi_auto_creater.config.property.base_response_entity_name.ResponseBean;
 import cn.ytxu.api_semi_auto_creater.config.property.element_type.ElementTypeEnumBean;
 import cn.ytxu.api_semi_auto_creater.config.property.filter.FilterBean;
+import cn.ytxu.api_semi_auto_creater.config.property.request.RequestBean;
 import cn.ytxu.api_semi_auto_creater.config.property.status_code.StatusCodeBean;
 import com.alibaba.fastjson.JSON;
 
@@ -15,6 +16,7 @@ import java.util.List;
  */
 public class PropertyEntity {
     private FilterBean filter = FilterBean.DEFAULT;
+    private RequestBean request;
     private ResponseBean response;
     private StatusCodeBean status_code;
     private ElementTypeEnumBean element_type_enum;
@@ -26,6 +28,14 @@ public class PropertyEntity {
 
     public void setFilter(FilterBean filter) {
         this.filter = filter;
+    }
+
+    public RequestBean getRequest() {
+        return request;
+    }
+
+    public void setRequest(RequestBean request) {
+        this.request = request;
     }
 
     public ResponseBean getResponse() {
