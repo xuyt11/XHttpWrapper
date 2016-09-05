@@ -1,5 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.parser.request.restful_url;
 
+import cn.ytxu.api_semi_auto_creater.config.property.request.RequestProperty;
 import cn.ytxu.api_semi_auto_creater.model.request.restful_url.RESTfulParamModel;
 import cn.ytxu.api_semi_auto_creater.model.request.restful_url.RESTfulUrlModel;
 
@@ -44,13 +45,25 @@ public class RESTfulUrlParser {
         String multiUrl = model.getUrl();
         do {
             String group = m.group();
-            if (group.contains("android")) {// 现阶段只匹配不同平台的接口
-                multiUrl = multiUrl.replace(group, "android");// 直接替换requestUrl，不需要进行参数的添加等的处理
-            } else {// 直接抛出异常，在控制台中查看requestUrl、group，再去进行代码的添加
-                throw new RuntimeException("you need fix it, this requestUrl is " + model.getUrl() + ", and the multi pattern group is " + group);
-            }
+            multiUrl = getMultiUrl(multiUrl, group);
         } while (m.find());
         model.setMultiUrl(multiUrl);
+    }
+
+    private String getMultiUrl(String multiUrl, String group) {
+        List<String> multis = RequestProperty.getInstance().getMultis();
+        for (String multi : multis) {
+            if (group.contains(multi)) {
+                return multiUrl.replace(group, multi);// 直接替换requestUrl，不需要进行参数的添加等的处理
+            }
+        }
+        throw new NotFoundTargetMultiUrlReplaceContentException(group);
+    }
+
+    private static class NotFoundTargetMultiUrlReplaceContentException extends RuntimeException {
+        public NotFoundTargetMultiUrlReplaceContentException(String group) {
+            super("you must add this multi replace content in .json config file, and this multi pattern group is " + group);
+        }
     }
 
     private void parseIdOrDateParam() {
@@ -84,18 +97,6 @@ public class RESTfulUrlParser {
             }
         }
         return new RESTfulParamModel(model, restfulParam, start, end);
-    }
-
-    private enum FieldType {
-        id("id型的：{id}、{feedback_id}、{recommend_id}..."),
-        multi("多选型的：[ios|android|web]"),
-        date("时间型的：{YYYY-MM-DD}");
-
-        private String tag;
-
-        FieldType(String tag) {
-            this.tag = tag;
-        }
     }
 
 }

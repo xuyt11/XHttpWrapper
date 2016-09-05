@@ -1,5 +1,7 @@
 package cn.ytxu.api_semi_auto_creater.config.property.request;
 
+import java.util.List;
+
 /**
  * Created by ytxu on 2016/9/5.
  */
@@ -19,5 +21,9 @@ public class RequestProperty {
 
     private RequestProperty(RequestBean request) {
         this.requestBean = request;
+    }
+
+    public List<String> getMultis() {
+        return requestBean.getRESTful().getMulti_replace();
     }
 }
