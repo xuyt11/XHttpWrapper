@@ -26,4 +26,8 @@ public class RequestProperty {
     public List<String> getMultis() {
         return requestBean.getRESTful().getMulti_replace();
     }
+
+    public List<DateReplaceBean> getDateReplaces() {
+        return requestBean.getRESTful().getDate_replace();
+    }
 }

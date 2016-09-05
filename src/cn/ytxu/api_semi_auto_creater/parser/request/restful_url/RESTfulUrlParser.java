@@ -1,5 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.parser.request.restful_url;
 
+import cn.ytxu.api_semi_auto_creater.config.property.request.DateReplaceBean;
 import cn.ytxu.api_semi_auto_creater.config.property.request.RequestProperty;
 import cn.ytxu.api_semi_auto_creater.model.request.restful_url.RESTfulParamModel;
 import cn.ytxu.api_semi_auto_creater.model.request.restful_url.RESTfulUrlModel;
@@ -86,17 +87,25 @@ public class RESTfulUrlParser {
         int end = m.end();
         String group = m.group();
 
-        String restfulParam = group.substring(1, group.length() - 1);
+        String restfulParam = getRestfulParam(group);
         if (restfulParam.contains("-") || restfulParam.contains(":") || restfulParam.contains(" ")) {
-            if ("YYYY-MM-DD".equals(restfulParam)) {
-                restfulParam = "restfulDateParam" + "/** " + restfulParam + " */ ";
-            } else {
-                throw new RuntimeException("the RESTful request url is" + model.getUrl() +
-                        ", and the restfulParam is " + restfulParam +
-                        ", and ytxu need parse this param, so i throw exception...");
-            }
+            throw new RuntimeException("the RESTful request url is" + model.getUrl() +
+                    ", and the restfulParam is " + restfulParam +
+                    ", and ytxu need parse this param, so i throw exception...");
         }
         return new RESTfulParamModel(model, restfulParam, start, end);
+    }
+
+    private String getRestfulParam(String group) {
+        String restfulParam = group.substring(1, group.length() - 1);
+        List<DateReplaceBean> dateReplaces = RequestProperty.getInstance().getDateReplaces();
+        for (int i = 0; i < dateReplaces.size(); i++) {
+            DateReplaceBean dateReplace = dateReplaces.get(i);
+            if (dateReplace.getDate_format().equals(restfulParam)) {
+                restfulParam = dateReplace.getDate_request_param();
+            }
+        }
+        return restfulParam;
     }
 
 }
