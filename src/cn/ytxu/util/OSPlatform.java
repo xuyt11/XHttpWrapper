@@ -1,4 +1,4 @@
-package cn.ytxu.api_semi_auto_creater.config;
+package cn.ytxu.util;
 
 /**
  * 操作系统平台：

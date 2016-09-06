@@ -1,4 +1,4 @@
-package cn.ytxu.api_semi_auto_creater.util;
+package cn.ytxu.util;
 
 import cn.ytxu.api_semi_auto_creater.model.BaseModel;
 

@@ -1,6 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.xtemp_parser;
 
-import cn.ytxu.api_semi_auto_creater.config.OSPlatform;
+import cn.ytxu.util.OSPlatform;
 import cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.StatementRecord;
 
 import java.util.List;

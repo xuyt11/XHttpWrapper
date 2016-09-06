@@ -1,7 +1,7 @@
 package cn.ytxu.api_semi_auto_creater.config.property.apidoc;
 
 
-import cn.ytxu.api_semi_auto_creater.config.OSPlatform;
+import cn.ytxu.util.OSPlatform;
 
 import java.util.List;
 import java.util.Objects;
