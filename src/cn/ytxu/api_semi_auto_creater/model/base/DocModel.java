@@ -1,6 +1,7 @@
 package cn.ytxu.api_semi_auto_creater.model.base;
 
 import cn.ytxu.api_semi_auto_creater.model.BaseModel;
+import cn.ytxu.api_semi_auto_creater.model.response.OutputParamModel;
 import org.jsoup.nodes.Element;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
  */
 public class DocModel extends BaseModel {
     private List<VersionModel> versions;
+    private List<OutputParamModel> subsOfErrors;// base response 中所有的error内的字段
 
     public DocModel(Element element) {
         super(null, element);
@@ -23,4 +25,11 @@ public class DocModel extends BaseModel {
         this.versions = versions;
     }
 
+    public List<OutputParamModel> getSubsOfErrors() {
+        return subsOfErrors;
+    }
+
+    public void setSubsOfErrors(List<OutputParamModel> subsOfErrors) {
+        this.subsOfErrors = subsOfErrors;
+    }
 }

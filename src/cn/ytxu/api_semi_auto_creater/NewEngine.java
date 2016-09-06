@@ -12,6 +12,7 @@ import cn.ytxu.api_semi_auto_creater.model.base.VersionModel;
 import cn.ytxu.api_semi_auto_creater.model.response.OutputParamModel;
 import cn.ytxu.api_semi_auto_creater.model.response.ResponseModel;
 import cn.ytxu.api_semi_auto_creater.model.status_code.StatusCodeCategoryModel;
+import cn.ytxu.api_semi_auto_creater.parser.response.ResponseSErrorParser;
 import cn.ytxu.api_semi_auto_creater.parser.status_code.StatusCodeParser;
 import cn.ytxu.api_semi_auto_creater.parser.request.RequestParser;
 import cn.ytxu.api_semi_auto_creater.parser.base.BaseParser;
@@ -52,6 +53,7 @@ public class NewEngine {
         parseStatusCodes(docModel);
         parseRequests(docModel);
         parseResponses(docModel);
+        parseResponseSErrors(docModel);
         return docModel;
     }
 
@@ -105,6 +107,11 @@ public class NewEngine {
         }
         return responses;
     }
+
+    private static void parseResponseSErrors(DocModel docModel) {
+        new ResponseSErrorParser(docModel, getResponses(docModel, false)).start();
+    }
+
 
     private static void createTargetFile(DocModel docModel, String xTempPrefixName) {
         createHttpApi(docModel, xTempPrefixName);
