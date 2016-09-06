@@ -1,6 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.record.list_replace;
 
-import cn.ytxu.apacer.entity.RetainEntity;
+import cn.ytxu.api_semi_auto_creater.model.RetainModel;
 import cn.ytxu.api_semi_auto_creater.util.ReflectiveUtil;
 import cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.Statement;
 import cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.StatementRecord;
@@ -27,7 +27,7 @@ public class LRSRCreater {
         this.contents = contents;
     }
 
-    public StringBuffer getWriteBuffer(Object reflectModel, RetainEntity retain) {
+    public StringBuffer getWriteBuffer(Object reflectModel, RetainModel retain) {
         List subModels = ReflectiveUtil.getList(reflectModel, methodName);
         if (ListUtil.isEmpty(subModels)) {
             return new StringBuffer();
@@ -41,7 +41,7 @@ public class LRSRCreater {
         return getListReplaceBufferBySubs(reflectModel, retain, subs);
     }
 
-    private String parseAndGetListValue(RetainEntity retain, List subModels) {
+    private String parseAndGetListValue(RetainModel retain, List subModels) {
         StringBuffer listValueBuffer = new StringBuffer();
         TextStatementRecord record = listValueRecord;
         for (Object subModel : subModels) {
@@ -74,7 +74,7 @@ public class LRSRCreater {
         return subs;
     }
 
-    private StringBuffer getListReplaceBufferBySubs(Object reflectModel, RetainEntity retain, List<StatementRecord> subs) {
+    private StringBuffer getListReplaceBufferBySubs(Object reflectModel, RetainModel retain, List<StatementRecord> subs) {
         StringBuffer listReplaceBuffer = new StringBuffer();
         for (StatementRecord sub : subs) {
             listReplaceBuffer.append(sub.getWriteBuffer(reflectModel, retain));

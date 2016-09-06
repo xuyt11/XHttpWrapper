@@ -1,27 +1,17 @@
-package cn.ytxu.apacer.entity;
+package cn.ytxu.api_semi_auto_creater.parser;
 
+import cn.ytxu.api_semi_auto_creater.model.RetainModel;
 import cn.ytxu.util.LogUtil;
 
 import java.io.*;
 
 /**
  * 自动生成文件中需要保留的数据:有可能是我自己后面加的,也有可能是其他coder加的<br>
- *     例如:简化网络请求中参数的长度<br>
+ * 例如:简化网络请求中参数的长度<br>
  * 2016-04-18<br>
  * version v6
- *
  */
-public class RetainEntity {
-//    要将文件中添加了数据保留：下面是保留的格式：
-    //** ytxu.retain-start *//** ytxu.import */
-    //** ytxu.retain-end */
-    //** ytxu.retain-start *//** ytxu.field */
-    //** ytxu.retain-end */
-    //** ytxu.retain-start *//** ytxu.method */
-    //** ytxu.retain-end */
-    //** ytxu.retain-start *//** ytxu.other */
-    //** ytxu.retain-end */
-
+public class RetainParser {
     private static final String StartTag = "//** ytxu.retain-start */";
     private static final String EndTag = "//** ytxu.retain-end */";
     private static final String CategoryImportTag = "//** ytxu.import */";
@@ -29,27 +19,16 @@ public class RetainEntity {
     private static final String CategoryMethodTag = "//** ytxu.method */";
     private static final String CategoryOtherTag = "//** ytxu.other */";
 
-    private StringBuffer importSb;// 需要保留的import语句
-    private StringBuffer fieldSb;// 需要保留的所有字段
-    private StringBuffer methodSb;// 需要保留的所有方法
-    private StringBuffer otherSb;// 需要保留的其他东东
-
-    private static final RetainEntity EmptyRetain = new RetainEntity();
-
-    private RetainEntity() {super();}
-
-
-    //********************* parserApiDocHtmlCode2DocumentEntity file data, and create RetainEntity *********************
     /**
      * 1、先要判断目标文件是否存在；<br>
      * 2、若存在，在判断该文件是否有数据；<br>
      * 3、若有数据，则打开输入流，获取到以上几个需要保留（retain）的数据；-->输出为一个对象<br>
      * 4、在解析文档对象，并输出文件数据时，将几个分类的数据，插入其中；
-     * */
-    public static RetainEntity getRetainEntity(String classFileFullName, String dirPath) {
+     */
+    public static RetainModel getRetainByFile(String classFileFullName, String dirPath) {
         File targetFile = new File(dirPath, classFileFullName);
         if (!targetFile.exists()) {
-            return EmptyRetain;
+            return RetainModel.EmptyRetain;
         }
 
         BufferedReader reader = null;
@@ -59,10 +38,10 @@ public class RetainEntity {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             LogUtil.e("target file`s name is " + classFileFullName);
-            return EmptyRetain;
+            return RetainModel.EmptyRetain;
         } catch (IOException e) {
             e.printStackTrace();
-            return EmptyRetain;
+            return RetainModel.EmptyRetain;
         } finally {
             if (null != reader) {
                 try {
@@ -74,7 +53,7 @@ public class RetainEntity {
         }
     }
 
-    private static RetainEntity parserReaderAndGetRetain(BufferedReader reader) throws IOException {
+    private static RetainModel parserReaderAndGetRetain(BufferedReader reader) throws IOException {
         StringBuffer importSb = new StringBuffer();
         StringBuffer fieldSb = new StringBuffer();
         StringBuffer methodSb = new StringBuffer();
@@ -86,22 +65,23 @@ public class RetainEntity {
                 continue;
             }
 
+            StringBuffer retain = getRetainData(reader);
             if (strLine.contains(CategoryImportTag)) {
-                importSb.append(getRetainData(reader));
+                importSb.append(getData(CategoryImportTag, retain));
             } else if (strLine.contains(CategoryFieldTag)) {
-                fieldSb.append(getRetainData(reader));
+                fieldSb.append(getData(CategoryFieldTag, retain));
             } else if (strLine.contains(CategoryMethodTag)) {
-                methodSb.append(getRetainData(reader));
+                methodSb.append(getData(CategoryMethodTag, retain));
             } else {// contains other tag or not, but it is all other category retain data
-                otherSb.append(getRetainData(reader));
+                otherSb.append(getData(CategoryOtherTag, retain));
             }
         }
 
-        RetainEntity retain = new RetainEntity();
-        retain.importSb = importSb;
-        retain.fieldSb = fieldSb;
-        retain.methodSb = methodSb;
-        retain.otherSb = otherSb;
+        RetainModel retain = new RetainModel();
+        retain.setImportSb(importSb);
+        retain.setFieldSb(fieldSb);
+        retain.setMethodSb(methodSb);
+        retain.setOtherSb(otherSb);
         return retain;
     }
 
@@ -121,27 +101,8 @@ public class RetainEntity {
         return sb;
     }
 
-
-    //********************* getter *********************
-    public StringBuffer getImportData() {
-        return getData(CategoryImportTag, importSb);
-    }
-
-    public StringBuffer getFieldData() {
-        return getData(CategoryFieldTag, fieldSb);
-    }
-
-    public StringBuffer getMethodData() {
-        return getData(CategoryMethodTag, methodSb);
-    }
-
-    public StringBuffer getOtherData() {
-        return getData(CategoryOtherTag, otherSb);
-    }
-
-    private StringBuffer getData(String categoryTag, StringBuffer input) {
+    private static StringBuffer getData(String categoryTag, StringBuffer input) {
         StringBuffer rtn = new StringBuffer();
-
         // retain start tag
         rtn.append(StartTag).append(categoryTag).append("\n");
         // retain data
@@ -150,7 +111,6 @@ public class RetainEntity {
         }
         // retain end tag
         rtn.append(EndTag).append("\n");
-
         return rtn;
     }
 

@@ -1,6 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.record;
 
-import cn.ytxu.apacer.entity.RetainEntity;
+import cn.ytxu.api_semi_auto_creater.model.RetainModel;
 import cn.ytxu.api_semi_auto_creater.util.ReflectiveUtil;
 import cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.Statement;
 import cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.StatementRecord;
@@ -34,11 +34,11 @@ public class TextStatementRecord extends StatementRecord {
 
 
     @Override
-    public StringBuffer getWriteBuffer(Object reflectModel, RetainEntity retain) {
+    public StringBuffer getWriteBuffer(Object reflectModel, RetainModel retain) {
         return getNormalWriteBuffer(reflectModel, retain).append(NextLine);
     }
 
-    public StringBuffer getNormalWriteBuffer(Object reflectModel, RetainEntity retain) {
+    public StringBuffer getNormalWriteBuffer(Object reflectModel, RetainModel retain) {
         getAndSetContent2Range(reflectModel);
         return getFragmentBuffer();
     }

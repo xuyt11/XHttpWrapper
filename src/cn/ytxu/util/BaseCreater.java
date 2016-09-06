@@ -1,8 +1,7 @@
 package cn.ytxu.util;
 
-import cn.ytxu.apacer.entity.RetainEntity;
-import cn.ytxu.util.FileUtil;
-import cn.ytxu.util.LogUtil;
+import cn.ytxu.api_semi_auto_creater.model.RetainModel;
+import cn.ytxu.api_semi_auto_creater.parser.RetainParser;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,13 +14,13 @@ import java.io.Writer;
 public class BaseCreater {
 
     public interface OnGetWriter {
-        void onGetWriter(Writer writer, RetainEntity retain) throws IOException;
+        void onGetWriter(Writer writer, RetainModel retain) throws IOException;
     }
 
     public static void getWriter4TargetFile(String dirPath, String fileName, OnGetWriter onGetWriter) {
         Writer writer = null;
         try {
-            RetainEntity retain = RetainEntity.getRetainEntity(fileName, dirPath);
+            RetainModel retain = RetainParser.getRetainByFile(fileName, dirPath);
             writer = FileUtil.getWriter(fileName, dirPath);
             if (null == onGetWriter) {
                 LogUtil.w("OnGetWriter listener is null...");

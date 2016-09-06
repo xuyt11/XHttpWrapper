@@ -1,6 +1,6 @@
 package cn.ytxu.api_semi_auto_creater;
 
-import cn.ytxu.apacer.entity.RetainEntity;
+import cn.ytxu.api_semi_auto_creater.model.RetainModel;
 import cn.ytxu.util.BaseCreater;
 import cn.ytxu.api_semi_auto_creater.config.Property;
 import cn.ytxu.api_semi_auto_creater.config.Suffix;
@@ -133,7 +133,7 @@ public class NewEngine {
         String dirPath = getString(model.getFileDir(), reflectModel);
         String fileName = getString(model.getFileName(), reflectModel);
 
-        BaseCreater.getWriter4TargetFile(dirPath, fileName, (Writer writer, RetainEntity retain) -> {
+        BaseCreater.getWriter4TargetFile(dirPath, fileName, (Writer writer, RetainModel retain) -> {
             StringBuffer contentBuffer = StatementRecord.getWriteBuffer(model.getRecords(), reflectModel, retain);
             writer.write(contentBuffer.toString());
         });

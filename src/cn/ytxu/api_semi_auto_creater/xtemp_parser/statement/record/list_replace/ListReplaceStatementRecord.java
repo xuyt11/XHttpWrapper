@@ -1,6 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.record.list_replace;
 
-import cn.ytxu.apacer.entity.RetainEntity;
+import cn.ytxu.api_semi_auto_creater.model.RetainModel;
 import cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.Statement;
 import cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.StatementRecord;
 
@@ -25,7 +25,7 @@ public class ListReplaceStatementRecord extends StatementRecord {
     }
 
     @Override
-    public StringBuffer getWriteBuffer(Object reflectModel, RetainEntity retain) {
+    public StringBuffer getWriteBuffer(Object reflectModel, RetainModel retain) {
         LRSRCreater creater = new LRSRCreater(parser.getMethodName(), parser.getListValueRecord(),
                 parser.getReplaceContent(), contents);
         return creater.getWriteBuffer(reflectModel, retain);

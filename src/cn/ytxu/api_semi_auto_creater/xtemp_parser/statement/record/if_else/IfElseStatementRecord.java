@@ -1,6 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.record.if_else;
 
-import cn.ytxu.apacer.entity.RetainEntity;
+import cn.ytxu.api_semi_auto_creater.model.RetainModel;
 import cn.ytxu.api_semi_auto_creater.util.ReflectiveUtil;
 import cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.Statement;
 import cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.StatementRecord;
@@ -94,12 +94,12 @@ public class IfElseStatementRecord extends StatementRecord {
     }
 
     @Override
-    public StringBuffer getWriteBuffer(Object reflectModel, RetainEntity retain) {
+    public StringBuffer getWriteBuffer(Object reflectModel, RetainModel retain) {
         boolean isTrue = ReflectiveUtil.getBoolean(reflectModel, methodName);
         return getWriteBuffer(reflectModel, retain, isTrue ? ifRecords : elseRecords);
     }
 
-    private StringBuffer getWriteBuffer(Object reflectModel, RetainEntity retain, List<StatementRecord> records) {
+    private StringBuffer getWriteBuffer(Object reflectModel, RetainModel retain, List<StatementRecord> records) {
         StringBuffer buffer = new StringBuffer();
         for (StatementRecord record : records) {
             buffer.append(record.getWriteBuffer(reflectModel, retain));

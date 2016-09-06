@@ -1,6 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.record;
 
-import cn.ytxu.apacer.entity.RetainEntity;
+import cn.ytxu.api_semi_auto_creater.model.RetainModel;
 import cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.Statement;
 import cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.StatementRecord;
 
@@ -18,25 +18,25 @@ public class RetainStatementRecord extends StatementRecord {
     public enum RetainType {
         Import("import") {
             @Override
-            public StringBuffer getRetainContent(RetainEntity retain) {
+            public StringBuffer getRetainContent(RetainModel retain) {
                 return retain.getImportData();
             }
         },
         Field("field") {
             @Override
-            public StringBuffer getRetainContent(RetainEntity retain) {
+            public StringBuffer getRetainContent(RetainModel retain) {
                 return retain.getFieldData();
             }
         },
         Method("method") {
             @Override
-            public StringBuffer getRetainContent(RetainEntity retain) {
+            public StringBuffer getRetainContent(RetainModel retain) {
                 return retain.getMethodData();
             }
         },
         Other("other") {
             @Override
-            public StringBuffer getRetainContent(RetainEntity retain) {
+            public StringBuffer getRetainContent(RetainModel retain) {
                 return retain.getOtherData();
             }
         };
@@ -47,7 +47,7 @@ public class RetainStatementRecord extends StatementRecord {
             this.name = name;
         }
 
-        public abstract StringBuffer getRetainContent(RetainEntity retain);
+        public abstract StringBuffer getRetainContent(RetainModel retain);
 
         public static RetainType get(String retainTypeName) {
             for (RetainType type : RetainType.values()) {
@@ -83,7 +83,7 @@ public class RetainStatementRecord extends StatementRecord {
     }
 
     @Override
-    public StringBuffer getWriteBuffer(Object reflectModel, RetainEntity retain) {
+    public StringBuffer getWriteBuffer(Object reflectModel, RetainModel retain) {
         return type.getRetainContent(retain);
     }
 

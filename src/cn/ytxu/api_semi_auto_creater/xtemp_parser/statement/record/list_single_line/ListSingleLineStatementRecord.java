@@ -1,6 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.record.list_single_line;
 
-import cn.ytxu.apacer.entity.RetainEntity;
+import cn.ytxu.api_semi_auto_creater.model.RetainModel;
 import cn.ytxu.api_semi_auto_creater.util.ReflectiveUtil;
 import cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.Statement;
 import cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.StatementRecord;
@@ -32,7 +32,7 @@ public class ListSingleLineStatementRecord extends StatementRecord {
     }
 
     @Override
-    public StringBuffer getWriteBuffer(Object reflectModel, RetainEntity retain) {
+    public StringBuffer getWriteBuffer(Object reflectModel, RetainModel retain) {
         List subModels = ReflectiveUtil.getList(reflectModel, parser.getMethodName());
         StringBuffer listSingleLineBuffer = new StringBuffer();
 
