@@ -35,6 +35,10 @@ public class BaseResponseEntityNameProperty {
         return response.getError();
     }
 
+    public String getErrorType() {
+        return response.getErrorType();
+    }
+
     public String getData() {
         return response.getData();
     }

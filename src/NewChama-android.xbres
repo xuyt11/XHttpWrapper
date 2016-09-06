@@ -29,12 +29,12 @@ public class ResponseEntity<T> {
 
 	public static class ${error_bro_type} {
         <list each="subs_of_errors">
-        private ${soe_type} ${soe_name};
+        private ${output_type} ${output_name};
         </list>
 
         <list each="subs_of_errors">
-        public ${soe_type} ${soe_getter}() {return ${soe_name};}
-        public void ${soe_setter}(${soe_type} ${soe_name}) {this.${soe_name} = ${soe_name};}
+        public ${output_type} ${output_getter}() {return ${output_name};}
+        public void ${output_setter}(${output_type} ${output_name}) {this.${output_name} = ${output_name};}
         </list>
     }
 

@@ -1,5 +1,7 @@
 package cn.ytxu.api_semi_auto_creater.config.property.base_response_entity_name;
 
+import cn.ytxu.util.FileUtil;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -49,6 +51,10 @@ public class ResponseBean {
         return Arrays.asList(statusCode, message, error, data);
     }
 
+    public String getErrorType() {
+        return error.getType();
+    }
+
     public static class BaseResponseParamBean {
         private String name;
         private String type;
@@ -68,5 +74,24 @@ public class ResponseBean {
         public void setType(String type) {
             this.type = type;
         }
+
+
+        //*************** reflect method area ***************
+        public String bro_type() {
+            return type;
+        }
+
+        public String bro_name() {
+            return name;
+        }
+
+        public String bro_getter() {
+            return "get" + FileUtil.getClassFileName(name);
+        }
+
+        public String bro_setter() {
+            return "set" + FileUtil.getClassFileName(name);
+        }
+
     }
 }
