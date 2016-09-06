@@ -1,6 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.parser.status_code;
 
-import cn.ytxu.apacer.dataParser.jsoupUtil.JsoupParserUtil;
+import cn.ytxu.util.JsoupParserUtil;
 import cn.ytxu.api_semi_auto_creater.model.request.DefinedParamModel;
 import cn.ytxu.api_semi_auto_creater.model.status_code.StatusCodeCategoryModel;
 import cn.ytxu.api_semi_auto_creater.model.status_code.StatusCodeModel;

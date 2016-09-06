@@ -1,7 +1,7 @@
 package cn.ytxu.api_semi_auto_creater;
 
 import cn.ytxu.apacer.entity.RetainEntity;
-import cn.ytxu.apacer.fileCreater.newchama.BaseCreater;
+import cn.ytxu.util.BaseCreater;
 import cn.ytxu.api_semi_auto_creater.config.Property;
 import cn.ytxu.api_semi_auto_creater.config.Suffix;
 import cn.ytxu.api_semi_auto_creater.config.property.status_code.StatusCodeProperty;

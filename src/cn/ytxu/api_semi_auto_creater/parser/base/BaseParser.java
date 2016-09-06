@@ -1,6 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.parser.base;
 
-import cn.ytxu.apacer.dataParser.jsoupUtil.JsoupParserUtil;
+import cn.ytxu.util.JsoupParserUtil;
 import cn.ytxu.api_semi_auto_creater.config.Property;
 import cn.ytxu.api_semi_auto_creater.config.property.status_code.StatusCodeProperty;
 import cn.ytxu.api_semi_auto_creater.model.base.DocModel;

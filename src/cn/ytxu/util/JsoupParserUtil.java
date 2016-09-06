@@ -1,4 +1,4 @@
-package cn.ytxu.apacer.dataParser.jsoupUtil;
+package cn.ytxu.util;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

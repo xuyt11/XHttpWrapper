@@ -1,6 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.parser.request;
 
-import cn.ytxu.apacer.dataParser.jsoupUtil.JsoupParserUtil;
+import cn.ytxu.util.JsoupParserUtil;
 import cn.ytxu.api_semi_auto_creater.model.request.DefinedParamModel;
 import cn.ytxu.api_semi_auto_creater.model.request.restful_url.RESTfulUrlModel;
 import cn.ytxu.api_semi_auto_creater.model.RequestModel;
