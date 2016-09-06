@@ -92,6 +92,27 @@ public class OutputParamModel extends BaseModel<ResponseModel> {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        OutputParamModel that = (OutputParamModel) o;
+
+        if (type != that.type) return false;
+        if (subType != that.subType) return false;
+        return fieldName != null ? fieldName.equals(that.fieldName) : that.fieldName == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = type != null ? type.hashCode() : 0;
+        result = 31 * result + (subType != null ? subType.hashCode() : 0);
+        result = 31 * result + (fieldName != null ? fieldName.hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "OutputParamModel{" +
                 "parent=" + parent +

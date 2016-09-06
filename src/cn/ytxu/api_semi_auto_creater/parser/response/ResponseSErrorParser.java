@@ -6,6 +6,7 @@ import cn.ytxu.api_semi_auto_creater.model.response.OutputParamModel;
 import cn.ytxu.api_semi_auto_creater.model.response.ResponseModel;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -23,8 +24,13 @@ public class ResponseSErrorParser {
 
     public void start() {
         List<OutputParamModel> errors = getErrors();
-        List<OutputParamModel> subs = getSubsOfErrors(errors);
+        List<OutputParamModel> subsOfErrors = getSubsOfErrors(errors);
+        List<OutputParamModel> subs = deduplicated(subsOfErrors);
         doc.setSubsOfErrors(subs);
+    }
+
+    private List<OutputParamModel> deduplicated(List<OutputParamModel> subsOfErrors) {
+        return new ArrayList<>(new HashSet(subsOfErrors));
     }
 
     private List<OutputParamModel> getErrors() {
