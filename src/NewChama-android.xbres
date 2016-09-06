@@ -1,0 +1,44 @@
+<header>
+    <fileDir>
+        <value osName="Windows" val="I:/NewChamaStudio/newchama_android/NewChama/newchama.model/src/main/java/com/newchama/api/" />
+        <value osName="Mac OS X" val="/Users/newchama/Documents/ytxu/newchama_android/NewChama/newchama.model/src/main/java/com/newchama/api/" />
+    </fileDir>
+
+    <fileName val="ResponseEntity.java" />
+</header>
+package com.newchama.api;
+
+import java.util.List;
+
+<retain type="import"/>
+
+public class ResponseEntity<T> {
+
+    <list each="base_response_outputs">
+	private ${bro_type} ${bro_name};
+	</list>
+
+<retain type="field"/>
+
+    <list each="base_response_outputs">
+    public ${bro_type} ${bro_getter}() {return ${bro_name};}
+    public void ${bro_setter}(${bro_type} ${bro_name}) {this.${bro_name} = ${bro_name};}
+	</list>
+
+<retain type="method"/>
+
+	public static class ${error_bro_type} {
+        <list each="subs_of_errors">
+        private ${soe_type} ${soe_name};
+        </list>
+
+        <list each="subs_of_errors">
+        public ${soe_type} ${soe_getter}() {return ${soe_name};}
+        public void ${soe_setter}(${soe_type} ${soe_name}) {this.${soe_name} = ${soe_name};}
+        </list>
+    }
+
+<retain type="other"/>
+
+}
+
