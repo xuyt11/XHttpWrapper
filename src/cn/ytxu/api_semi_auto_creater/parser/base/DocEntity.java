@@ -1,6 +1,5 @@
 package cn.ytxu.api_semi_auto_creater.parser.base;
 
-import cn.ytxu.api_semi_auto_creater.entity.BaseEntity;
 import org.jsoup.nodes.Element;
 
 import java.util.List;
