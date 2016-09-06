@@ -28,12 +28,13 @@ public class ResponseSErrorParser {
     }
 
     private List<OutputParamModel> getErrors() {
+        final String errorName = BaseResponseEntityNameProperty.get().getError();
         List<OutputParamModel> errors = new ArrayList<>();
         for (int i = 0; i < responses.size(); i++) {
             ResponseModel response = responses.get(i);
             List<OutputParamModel> outputs = response.getOutputs();
             try {
-                OutputParamModel error = getError(outputs);
+                OutputParamModel error = getError(errorName, outputs);
                 errors.add(error);
             } catch (NotFoundErrorParamException ignore) {
             }
@@ -41,8 +42,7 @@ public class ResponseSErrorParser {
         return errors;
     }
 
-    private OutputParamModel getError(List<OutputParamModel> outputs) {
-        final String errorName = BaseResponseEntityNameProperty.get().getError();
+    private OutputParamModel getError(String errorName, List<OutputParamModel> outputs) {
         for (int i = 0; i < outputs.size(); i++) {
             OutputParamModel output = outputs.get(i);
             if (errorName.equalsIgnoreCase(output.getName())) {

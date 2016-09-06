@@ -1,5 +1,7 @@
 package cn.ytxu.api_semi_auto_creater.config.property.base_response_entity_name;
 
+import java.util.List;
+
 /**
  * 基础response必须的字段的字段名称
  */
@@ -35,5 +37,9 @@ public class BaseResponseEntityNameProperty {
 
     public String getData() {
         return response.getData();
+    }
+
+    public List<ResponseBean.BaseResponseParamBean> getAll() {
+        return response.getAll();
     }
 }

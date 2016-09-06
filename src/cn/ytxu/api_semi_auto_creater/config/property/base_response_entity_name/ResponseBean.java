@@ -1,44 +1,72 @@
 package cn.ytxu.api_semi_auto_creater.config.property.base_response_entity_name;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * 基础response必须的字段的字段名称；
  * format(key:value-->value:base response entity name)
  */
 public class ResponseBean {
-    private String statusCode;
-    private String message;
-    private String error;
-    private String data;
+    private BaseResponseParamBean statusCode;
+    private BaseResponseParamBean message;
+    private BaseResponseParamBean error;
+    private BaseResponseParamBean data;
 
     public String getStatusCode() {
-        return statusCode;
+        return statusCode.getName();
     }
 
-    public void setStatusCode(String statusCode) {
+    public void setStatusCode(BaseResponseParamBean statusCode) {
         this.statusCode = statusCode;
     }
 
     public String getMessage() {
-        return message;
+        return message.getName();
     }
 
-    public void setMessage(String message) {
+    public void setMessage(BaseResponseParamBean message) {
         this.message = message;
     }
 
     public String getError() {
-        return error;
+        return error.getName();
     }
 
-    public void setError(String error) {
+    public void setError(BaseResponseParamBean error) {
         this.error = error;
     }
 
     public String getData() {
-        return data;
+        return data.getName();
     }
 
-    public void setData(String data) {
+    public void setData(BaseResponseParamBean data) {
         this.data = data;
+    }
+
+    public List<BaseResponseParamBean> getAll() {
+        return Arrays.asList(statusCode, message, error, data);
+    }
+
+    public static class BaseResponseParamBean {
+        private String name;
+        private String type;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
     }
 }

@@ -25,10 +25,22 @@
     }
   },
   "response": {
-    "statusCode": "status_code",
-    "message": "message",
-    "error": "error",
-    "data": "data"
+    "statusCode": {
+      "name": "status_code",
+      "type": "int"
+    },
+    "message": {
+      "name": "message",
+      "type": "String"
+    },
+    "error": {
+      "name": "error",
+      "type": "Error"
+    },
+    "data": {
+      "name": "data",
+      "type": "T"
+    }
   },
   "status_code": {
     "section_name": "StatusCode",
@@ -37,7 +49,7 @@
       "1.3.1",
       "1.4.0"
     ],
-    "ok_number":"0"
+    "ok_number": "0"
   },
   "apidoc_file_addresses": [
     {

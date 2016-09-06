@@ -8,6 +8,7 @@ public enum Suffix {
     HttpApi("xha"),
     Request("xreq"),
     Response("xres"),
+    BaseResponse("xbres"),
     StatusCode("xsc");
 
     private final String name;
