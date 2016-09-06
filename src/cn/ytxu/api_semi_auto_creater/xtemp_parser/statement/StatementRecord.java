@@ -1,6 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.xtemp_parser.statement;
 
-import cn.ytxu.api_semi_auto_creater.model.RetainModel;
+import cn.ytxu.api_semi_auto_creater.parser.retain.RetainModel;
 
 import java.util.ArrayList;
 import java.util.Iterator;

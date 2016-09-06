@@ -1,6 +1,6 @@
 package cn.ytxu.api_semi_auto_creater;
 
-import cn.ytxu.api_semi_auto_creater.model.RetainModel;
+import cn.ytxu.api_semi_auto_creater.parser.retain.RetainModel;
 import cn.ytxu.util.BaseCreater;
 import cn.ytxu.api_semi_auto_creater.config.Property;
 import cn.ytxu.api_semi_auto_creater.config.Suffix;

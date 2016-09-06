@@ -1,7 +1,7 @@
 package cn.ytxu.util;
 
-import cn.ytxu.api_semi_auto_creater.model.RetainModel;
-import cn.ytxu.api_semi_auto_creater.parser.RetainParser;
+import cn.ytxu.api_semi_auto_creater.parser.retain.RetainModel;
+import cn.ytxu.api_semi_auto_creater.parser.retain.RetainParser;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

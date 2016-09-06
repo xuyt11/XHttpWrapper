@@ -1,6 +1,5 @@
-package cn.ytxu.api_semi_auto_creater.parser;
+package cn.ytxu.api_semi_auto_creater.parser.retain;
 
-import cn.ytxu.api_semi_auto_creater.model.RetainModel;
 import cn.ytxu.util.LogUtil;
 
 import java.io.*;
