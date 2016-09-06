@@ -1,6 +1,5 @@
 package cn.ytxu.apacer.fileCreater.newchama;
 
-import cn.ytxu.apacer.entity.OutputParamEntity;
 import cn.ytxu.apacer.entity.RetainEntity;
 import cn.ytxu.util.FileUtil;
 import cn.ytxu.util.LogUtil;

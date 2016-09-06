@@ -1,8 +1,8 @@
 package cn.ytxu.api_semi_auto_creater.parser.base;
 
-import cn.ytxu.apacer.config.Config;
 import cn.ytxu.apacer.dataParser.jsoupUtil.JsoupParserUtil;
 import cn.ytxu.api_semi_auto_creater.config.Property;
+import cn.ytxu.api_semi_auto_creater.config.property.status_code.StatusCodeProperty;
 import cn.ytxu.api_semi_auto_creater.model.base.DocModel;
 import cn.ytxu.api_semi_auto_creater.model.RequestModel;
 import cn.ytxu.api_semi_auto_creater.model.base.SectionModel;
@@ -263,8 +263,9 @@ public class BaseParser {
         }
 
         private DocEntity.SectionEntity findStatusCodeSection(List<DocEntity.SectionEntity> sections) {
+            final String statusCodeSectionName = StatusCodeProperty.getInstance().getSectionName4StatusCode();
             for (DocEntity.SectionEntity section : sections) {
-                if (!Config.statusCode.StatusCode.equals(section.getName())) {
+                if (!statusCodeSectionName.equals(section.getName())) {
                     continue;
                 }
                 return section;

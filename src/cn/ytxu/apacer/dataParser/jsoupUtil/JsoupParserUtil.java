@@ -1,6 +1,5 @@
 package cn.ytxu.apacer.dataParser.jsoupUtil;
 
-import cn.ytxu.apacer.config.Config;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -16,12 +15,14 @@ import java.util.List;
  * Created by ytxu on 2016/5/14.
  */
 public class JsoupParserUtil {
+    /** 编码格式 */
+    public static final String CharsetName = "UTF-8";
 
     public static Document getDocument(String apiDocHtmlPath) {
 //		Connection conn = Jsoup.connect(ApiEnitity.ApiDocUrl);
 //		conn.userAgent(UserAgentConfig.getWithRandom());
         try {
-            Document doc = Jsoup.parse(new File(apiDocHtmlPath), Config.CharsetName);
+            Document doc = Jsoup.parse(new File(apiDocHtmlPath), CharsetName);
             return doc;
         } catch (IOException e) {
             e.printStackTrace();
