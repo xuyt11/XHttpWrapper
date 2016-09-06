@@ -1,4 +1,4 @@
-package cn.ytxu.api_semi_auto_creater.parser.base;
+package cn.ytxu.api_semi_auto_creater.parser.base.entity;
 
 import org.jsoup.nodes.Element;
 
