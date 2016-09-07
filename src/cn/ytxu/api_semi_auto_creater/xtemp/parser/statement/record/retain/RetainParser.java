@@ -13,10 +13,10 @@ import java.io.*;
 public class RetainParser {
     private static final String StartTag = "//** ytxu.retain-start */";
     private static final String EndTag = "//** ytxu.retain-end */";
-    private static final String CategoryImportTag = "//** ytxu.import */";
-    private static final String CategoryFieldTag = "//** ytxu.field */";
-    private static final String CategoryMethodTag = "//** ytxu.method */";
-    private static final String CategoryOtherTag = "//** ytxu.other */";
+    static final String CategoryImportTag = "//** ytxu.import */";
+    static final String CategoryFieldTag = "//** ytxu.field */";
+    static final String CategoryMethodTag = "//** ytxu.method */";
+    static final String CategoryOtherTag = "//** ytxu.other */";
 
     /**
      * 1、先要判断目标文件是否存在；<br>
@@ -100,7 +100,7 @@ public class RetainParser {
         return sb;
     }
 
-    private static StringBuffer getData(String categoryTag, StringBuffer input) {
+    static StringBuffer getData(String categoryTag, StringBuffer input) {
         StringBuffer rtn = new StringBuffer();
         // retain start tag
         rtn.append(StartTag).append(categoryTag).append("\n");

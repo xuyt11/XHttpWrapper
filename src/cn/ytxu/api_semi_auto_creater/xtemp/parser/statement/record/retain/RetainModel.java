@@ -17,10 +17,10 @@ public class RetainModel {
     //** ytxu.retain-start *//** ytxu.other */
     //** ytxu.retain-end */
 
-    private StringBuffer importSb;// 需要保留的import语句
-    private StringBuffer fieldSb;// 需要保留的所有字段
-    private StringBuffer methodSb;// 需要保留的所有方法
-    private StringBuffer otherSb;// 需要保留的其他东东
+    private StringBuffer importSb = RetainParser.getData(RetainParser.CategoryImportTag, null);// 需要保留的import语句
+    private StringBuffer fieldSb = RetainParser.getData(RetainParser.CategoryFieldTag, null);// 需要保留的所有字段
+    private StringBuffer methodSb = RetainParser.getData(RetainParser.CategoryMethodTag, null);// 需要保留的所有方法
+    private StringBuffer otherSb = RetainParser.getData(RetainParser.CategoryOtherTag, null);// 需要保留的其他东东
 
     public static final RetainModel EmptyRetain = new RetainModel();
 
