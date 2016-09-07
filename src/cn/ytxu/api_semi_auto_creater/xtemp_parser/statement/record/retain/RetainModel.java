@@ -1,4 +1,4 @@
-package cn.ytxu.api_semi_auto_creater.apidocjs_parser.retain;
+package cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.record.retain;
 
 /**
  * 自动生成文件中需要保留的数据:有可能是我自己后面加的,也有可能是其他coder加的<br>

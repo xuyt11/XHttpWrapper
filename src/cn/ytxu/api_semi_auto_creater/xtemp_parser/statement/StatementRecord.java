@@ -1,6 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.xtemp_parser.statement;
 
-import cn.ytxu.api_semi_auto_creater.apidocjs_parser.retain.RetainModel;
+import cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.record.retain.RetainModel;
 
 import java.util.ArrayList;
 import java.util.Iterator;

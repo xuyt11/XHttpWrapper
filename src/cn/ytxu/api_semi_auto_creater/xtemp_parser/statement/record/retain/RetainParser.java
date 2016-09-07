@@ -1,4 +1,4 @@
-package cn.ytxu.api_semi_auto_creater.apidocjs_parser.retain;
+package cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.record.retain;
 
 import cn.ytxu.util.LogUtil;
 

@@ -1,6 +1,5 @@
-package cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.record;
+package cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.record.retain;
 
-import cn.ytxu.api_semi_auto_creater.apidocjs_parser.retain.RetainModel;
 import cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.Statement;
 import cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.StatementRecord;
 
