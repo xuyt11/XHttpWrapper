@@ -1,6 +1,6 @@
 package cn.ytxu.util;
 
-import cn.ytxu.apacer.config.Config;
+import cn.ytxu.api_semi_auto_creater.config.property.config.ConfigProperty;
 
 import java.io.*;
 
@@ -22,13 +22,17 @@ public class FileUtil {
         return classFileName;
     }
 
-    /**  生成分类的包名--->v5 */
+    /**
+     * 生成分类的包名--->v5
+     */
     public static String getCategoryPackageName(String name) {
         String classFileName = getClassFileName(name);
         return classFileName.substring(0, 1).toLowerCase() + classFileName.substring(1);
     }
 
-    /**  生成的包名:由下划线组成的全小写字符串 */
+    /**
+     * 生成的包名:由下划线组成的全小写字符串
+     */
     public static String getPackageName(String name) {
         String packageName;
 
@@ -43,6 +47,7 @@ public class FileUtil {
     }
 
     private static int testCount = 0;
+
     public static Writer getWriter(String classFileFullName, String dirPath) throws UnsupportedEncodingException, FileNotFoundException {
         if (dirPath == null) {
             LogUtil.e("dir path is null error :" + testCount++);
@@ -53,7 +58,7 @@ public class FileUtil {
         }
 
         Writer writer = new OutputStreamWriter(new FileOutputStream(
-                new File(dir, classFileFullName)), Config.CharsetName);
+                new File(dir, classFileFullName)), ConfigProperty.getInstance().getAutoGenerateFileCharset());
         return writer;
     }
 

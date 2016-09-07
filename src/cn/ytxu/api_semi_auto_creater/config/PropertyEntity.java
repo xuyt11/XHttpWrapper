@@ -2,6 +2,7 @@ package cn.ytxu.api_semi_auto_creater.config;
 
 import cn.ytxu.api_semi_auto_creater.config.property.apidoc.ApidocFileAddressesBean;
 import cn.ytxu.api_semi_auto_creater.config.property.base_response_entity_name.ResponseBean;
+import cn.ytxu.api_semi_auto_creater.config.property.config.ConfigBean;
 import cn.ytxu.api_semi_auto_creater.config.property.element_type.ElementTypeEnumBean;
 import cn.ytxu.api_semi_auto_creater.config.property.filter.FilterBean;
 import cn.ytxu.api_semi_auto_creater.config.property.request.RequestBean;
@@ -15,12 +16,17 @@ import java.util.List;
  * Created by ytxu on 2016/8/31.<br>
  */
 public class PropertyEntity {
+    private ConfigBean config = ConfigBean.DEFAULT;
     private FilterBean filter = FilterBean.DEFAULT;
     private RequestBean request;
     private ResponseBean response;
     private StatusCodeBean status_code;
     private ElementTypeEnumBean element_type_enum;
     private List<ApidocFileAddressesBean> apidoc_file_addresses;
+
+    public ConfigBean getConfig() {
+        return config;
+    }
 
     public FilterBean getFilter() {
         return filter;
@@ -80,4 +86,5 @@ public class PropertyEntity {
             e.printStackTrace();
         }
     }
+
 }

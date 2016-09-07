@@ -1,4 +1,4 @@
-package cn.ytxu.util;
+package cn.ytxu.api_semi_auto_creater.xtemp_parser;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;

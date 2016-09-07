@@ -1,4 +1,7 @@
 {
+  "config": {
+    "auto_generate_file_charset":"UTF-8"
+  },
   "filter": {
     "headers": [
       "Authorization"

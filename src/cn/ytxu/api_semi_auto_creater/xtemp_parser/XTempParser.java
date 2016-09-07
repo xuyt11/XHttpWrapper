@@ -1,6 +1,5 @@
 package cn.ytxu.api_semi_auto_creater.xtemp_parser;
 
-import cn.ytxu.util.XmlParseUtil;
 import org.xmlpull.v1.XmlPullParser;
 
 import java.io.ByteArrayInputStream;
