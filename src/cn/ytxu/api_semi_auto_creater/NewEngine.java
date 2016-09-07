@@ -1,7 +1,7 @@
 package cn.ytxu.api_semi_auto_creater;
 
 import cn.ytxu.api_semi_auto_creater.creater.Creater;
-import cn.ytxu.api_semi_auto_creater.parser.Parser;
+import cn.ytxu.api_semi_auto_creater.apidocjs_parser.Parser;
 import cn.ytxu.api_semi_auto_creater.config.Property;
 import cn.ytxu.api_semi_auto_creater.model.base.DocModel;
 import cn.ytxu.util.LogUtil;

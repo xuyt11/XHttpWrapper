@@ -2,7 +2,7 @@ package cn.ytxu.api_semi_auto_creater.config.property.element_type;
 
 import cn.ytxu.api_semi_auto_creater.model.request.InputParamModel;
 import cn.ytxu.api_semi_auto_creater.model.response.OutputParamModel;
-import cn.ytxu.api_semi_auto_creater.parser.response.output.OutputParamType;
+import cn.ytxu.api_semi_auto_creater.apidocjs_parser.response.output.OutputParamType;
 
 import java.util.Objects;
 
