@@ -1,4 +1,4 @@
-package cn.ytxu.util;
+package cn.ytxu.api_semi_auto_creater.apidocjs_parser.util;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

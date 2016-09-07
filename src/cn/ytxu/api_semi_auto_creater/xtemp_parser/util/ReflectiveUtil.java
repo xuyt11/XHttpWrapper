@@ -1,4 +1,4 @@
-package cn.ytxu.util;
+package cn.ytxu.api_semi_auto_creater.xtemp_parser.util;
 
 import cn.ytxu.api_semi_auto_creater.model.BaseModel;
 
