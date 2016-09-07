@@ -17,30 +17,37 @@ public class RetainModel {
     //** ytxu.retain-start *//** ytxu.other */
     //** ytxu.retain-end */
 
-    private StringBuffer importSb = RetainParser.getData(RetainParser.CategoryImportTag, null);// 需要保留的import语句
-    private StringBuffer fieldSb = RetainParser.getData(RetainParser.CategoryFieldTag, null);// 需要保留的所有字段
-    private StringBuffer methodSb = RetainParser.getData(RetainParser.CategoryMethodTag, null);// 需要保留的所有方法
-    private StringBuffer otherSb = RetainParser.getData(RetainParser.CategoryOtherTag, null);// 需要保留的其他东东
+    private StringBuffer importSb;// 需要保留的import语句
+    private StringBuffer fieldSb;// 需要保留的所有字段
+    private StringBuffer methodSb;// 需要保留的所有方法
+    private StringBuffer otherSb;// 需要保留的其他东东
 
-    public static final RetainModel EmptyRetain = new RetainModel();
+    public static RetainModel EmptyRetain = new RetainModel();
+
+    static {
+        EmptyRetain.importSb = RetainParser.getData(RetainParser.CategoryImportTag, null);
+        EmptyRetain.fieldSb = RetainParser.getData(RetainParser.CategoryFieldTag, null);
+        EmptyRetain.methodSb = RetainParser.getData(RetainParser.CategoryMethodTag, null);
+        EmptyRetain.otherSb = RetainParser.getData(RetainParser.CategoryOtherTag, null);
+    }
 
     RetainModel() {
         super();
     }
 
-    public void setImportSb(StringBuffer importSb) {
+    void setImportSb(StringBuffer importSb) {
         this.importSb = importSb;
     }
 
-    public void setFieldSb(StringBuffer fieldSb) {
+    void setFieldSb(StringBuffer fieldSb) {
         this.fieldSb = fieldSb;
     }
 
-    public void setMethodSb(StringBuffer methodSb) {
+    void setMethodSb(StringBuffer methodSb) {
         this.methodSb = methodSb;
     }
 
-    public void setOtherSb(StringBuffer otherSb) {
+    void setOtherSb(StringBuffer otherSb) {
         this.otherSb = otherSb;
     }
 
