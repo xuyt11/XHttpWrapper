@@ -8,9 +8,7 @@
     ],
     "use_output_versions": true,
     "output_versions": [
-      "1.3.1",
-      "1.4.0",
-      "1.5.0"
+      "2.0.0"
     ]
   },
   "request": {
@@ -49,8 +47,7 @@
     "section_name": "StatusCode",
     "use_version_filter": false,
     "filted_versions": [
-      "1.3.1",
-      "1.4.0"
+      "1.3.1"
     ],
     "ok_number": "0"
   },
@@ -60,7 +57,7 @@
       "address": "E:/NewChama/apidoc.html"
     },
     {
-      "OSName": "MacOS",
+      "OSName": "Mac OS X",
       "address": "/Users/newchama/Desktop/NewChama-Data/apidoc.html"
     }
   ],
