@@ -1,7 +1,7 @@
 package cn.ytxu.api_semi_auto_creater;
 
+import cn.ytxu.api_semi_auto_creater.parser.Parser;
 import cn.ytxu.api_semi_auto_creater.parser.retain.RetainModel;
-import cn.ytxu.util.BaseCreater;
 import cn.ytxu.api_semi_auto_creater.config.Property;
 import cn.ytxu.api_semi_auto_creater.config.Suffix;
 import cn.ytxu.api_semi_auto_creater.config.property.status_code.StatusCodeProperty;
@@ -40,78 +40,13 @@ public class NewEngine {
             long start = System.currentTimeMillis();
             final String xTempPrefixName = XTEMP_PREFIX_NAMES[i];
             Property.load(xTempPrefixName);
-            DocModel docModel = parseApiDocJs();
+            DocModel docModel = new Parser().start();
             createTargetFile(docModel, xTempPrefixName);
 
             long end = System.currentTimeMillis();
             LogUtil.w("duration time is " + (end - start));
         }
     }
-
-    private static DocModel parseApiDocJs() {
-        DocModel docModel = new BaseParser().start();
-        parseStatusCodes(docModel);
-        parseRequests(docModel);
-        parseResponses(docModel);
-        parseResponseSErrors(docModel);
-        return docModel;
-    }
-
-    private static void parseStatusCodes(DocModel docModel) {
-        List<StatusCodeCategoryModel> statusCodes = StatusCodeProperty.getInstance().getStatusCodes(docModel, false);
-        for (StatusCodeCategoryModel statusCode : statusCodes) {
-            new StatusCodeParser(statusCode).start();
-        }
-    }
-
-    private static void parseRequests(DocModel docModel) {
-        for (RequestModel request : getRequests(docModel, false)) {
-            new RequestParser(request).start();
-        }
-    }
-
-    private static List<RequestModel> getRequests(DocModel docModel, boolean filter) {
-        List<RequestModel> requests = new ArrayList<>();
-        for (SectionModel section : getSections(docModel, filter)) {
-            requests.addAll(section.getRequests());
-        }
-        return requests;
-    }
-
-    private static List<SectionModel> getSections(DocModel docModel, boolean filter) {
-        List<SectionModel> sections = new ArrayList<>();
-        for (VersionModel version : getVersionsAfterFilter(docModel, filter)) {
-            sections.addAll(version.getSections());
-        }
-        return sections;
-    }
-
-    private static List<VersionModel> getVersionsAfterFilter(DocModel docModel, boolean filter) {
-        if (filter) {
-            return Property.getFilterProperty().getVersionsAfterFilter(docModel);
-        } else {
-            return docModel.getVersions();
-        }
-    }
-
-    private static void parseResponses(DocModel docModel) {
-        for (ResponseModel response : getResponses(docModel, false)) {
-            new ResponseParser(response).start();
-        }
-    }
-
-    private static List<ResponseModel> getResponses(DocModel docModel, boolean filter) {
-        List<ResponseModel> responses = new ArrayList<>();
-        for (RequestModel request : getRequests(docModel, filter)) {
-            responses.addAll(request.getResponses());
-        }
-        return responses;
-    }
-
-    private static void parseResponseSErrors(DocModel docModel) {
-        new ResponseSErrorParser(docModel, getResponses(docModel, false)).start();
-    }
-
 
     private static void createTargetFile(DocModel docModel, String xTempPrefixName) {
         createHttpApi(docModel, xTempPrefixName);
