@@ -39,8 +39,13 @@ public class SectionModel extends BaseModel<VersionModel> {
         String className = FileUtil.getClassFileName(name);
         return className;
     }
+
     public String section() {
         return FileUtil.getPackageName(name);
+    }
+
+    public String section_newchama() {
+        return FileUtil.getCategoryPackageName(name);
     }
 
     public String section_name() {
