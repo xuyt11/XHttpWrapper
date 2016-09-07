@@ -1,32 +1,10 @@
 package cn.ytxu.api_semi_auto_creater;
 
+import cn.ytxu.api_semi_auto_creater.creater.Creater;
 import cn.ytxu.api_semi_auto_creater.parser.Parser;
-import cn.ytxu.api_semi_auto_creater.parser.retain.RetainModel;
 import cn.ytxu.api_semi_auto_creater.config.Property;
-import cn.ytxu.api_semi_auto_creater.config.Suffix;
-import cn.ytxu.api_semi_auto_creater.config.property.status_code.StatusCodeProperty;
 import cn.ytxu.api_semi_auto_creater.model.base.DocModel;
-import cn.ytxu.api_semi_auto_creater.model.RequestModel;
-import cn.ytxu.api_semi_auto_creater.model.base.SectionModel;
-import cn.ytxu.api_semi_auto_creater.model.base.VersionModel;
-import cn.ytxu.api_semi_auto_creater.model.response.OutputParamModel;
-import cn.ytxu.api_semi_auto_creater.model.response.ResponseModel;
-import cn.ytxu.api_semi_auto_creater.model.status_code.StatusCodeCategoryModel;
-import cn.ytxu.api_semi_auto_creater.parser.response.ResponseSErrorParser;
-import cn.ytxu.api_semi_auto_creater.parser.status_code.StatusCodeParser;
-import cn.ytxu.api_semi_auto_creater.parser.request.RequestParser;
-import cn.ytxu.api_semi_auto_creater.parser.base.BaseParser;
-import cn.ytxu.api_semi_auto_creater.parser.response.ResponseParser;
-import cn.ytxu.api_semi_auto_creater.parser.response.output.sub.GetOutputsThatCanGenerateResponseEntityFileUtil;
-import cn.ytxu.api_semi_auto_creater.xtemp_parser.XTempModel;
-import cn.ytxu.api_semi_auto_creater.xtemp_parser.XTempUtil;
-import cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.StatementRecord;
-import cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.record.TextStatementRecord;
 import cn.ytxu.util.LogUtil;
-
-import java.io.Writer;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by ytxu on 2016/6/16.
@@ -41,97 +19,10 @@ public class NewEngine {
             final String xTempPrefixName = XTEMP_PREFIX_NAMES[i];
             Property.load(xTempPrefixName);
             DocModel docModel = new Parser().start();
-            createTargetFile(docModel, xTempPrefixName);
+            new Creater(docModel, xTempPrefixName).start();
 
             long end = System.currentTimeMillis();
             LogUtil.w("duration time is " + (end - start));
         }
     }
-
-    private static void createTargetFile(DocModel docModel, String xTempPrefixName) {
-        createHttpApi(docModel, xTempPrefixName);
-        createRequest(docModel, xTempPrefixName);
-        createResponseEntity(docModel, xTempPrefixName);
-        createStatusCode(docModel, xTempPrefixName);
-        createBaseResponse(docModel, xTempPrefixName);
-    }
-
-    private static void createHttpApi(DocModel docModel, String xTempPrefixName) {
-        XTempModel model = new XTempUtil(Suffix.HttpApi, xTempPrefixName).start();
-
-        for (VersionModel version : getVersionsAfterFilter(docModel, true)) {
-            writeContent2TargetFileByXTempAndReflectModel(model, version);
-        }
-    }
-
-    private static void writeContent2TargetFileByXTempAndReflectModel(XTempModel model, Object reflectModel) {
-        String dirPath = getString(model.getFileDir(), reflectModel);
-        String fileName = getString(model.getFileName(), reflectModel);
-
-        BaseCreater.getWriter4TargetFile(dirPath, fileName, (Writer writer, RetainModel retain) -> {
-            StringBuffer contentBuffer = StatementRecord.getWriteBuffer(model.getRecords(), reflectModel, retain);
-            writer.write(contentBuffer.toString());
-        });
-    }
-
-    private static String getString(String content, Object reflectModel) {
-        TextStatementRecord record = new TextStatementRecord(null, content);
-        record.parse();
-        return record.getWriteBuffer(reflectModel, null).toString().trim();
-    }
-
-    private static void createRequest(DocModel docModel, String xTempPrefixName) {
-        XTempModel model = new XTempUtil(Suffix.Request, xTempPrefixName).start();
-
-        for (SectionModel section : getSections(docModel, true)) {
-            writeContent2TargetFileByXTempAndReflectModel(model, section);
-        }
-    }
-
-    private static void createResponseEntity(DocModel docModel, String xTempPrefixName) {
-        XTempModel model = new XTempUtil(Suffix.Response, xTempPrefixName).start();
-
-        List<ResponseModel> successResponses = getSuccessResponses(docModel);
-        List<OutputParamModel> outputs = getOutputsThatCanGenerateResponseEntityFile(successResponses);
-
-        for (OutputParamModel output : outputs) {
-            writeContent2TargetFileByXTempAndReflectModel(model, output);
-        }
-    }
-
-    private static List<ResponseModel> getSuccessResponses(DocModel docModel) {
-        final String statusCodeOKNumber = StatusCodeProperty.getInstance().getOkNumber();
-        List<ResponseModel> successResponses = new ArrayList<>();
-        for (ResponseModel response : getResponses(docModel, true)) {
-            if (statusCodeOKNumber.equals(response.getStatusCode())) {// it`s ok response
-                successResponses.add(response);
-            }
-        }
-        return successResponses;
-    }
-
-    private static List<OutputParamModel> getOutputsThatCanGenerateResponseEntityFile(List<ResponseModel> successResponses) {
-        List<OutputParamModel> outputs = new ArrayList<>();
-        for (ResponseModel response : successResponses) {
-            List<OutputParamModel> outputs4ThisResponse = new GetOutputsThatCanGenerateResponseEntityFileUtil(response).start();
-            outputs.addAll(outputs4ThisResponse);
-        }
-        return outputs;
-    }
-
-
-    private static void createStatusCode(DocModel docModel, String xTempPrefixName) {
-        XTempModel model = new XTempUtil(Suffix.StatusCode, xTempPrefixName).start();
-
-        List<StatusCodeCategoryModel> statusCodes = StatusCodeProperty.getInstance().getStatusCodes(docModel, true);
-        for (StatusCodeCategoryModel statusCode : statusCodes) {
-            writeContent2TargetFileByXTempAndReflectModel(model, statusCode);
-        }
-    }
-
-    private static void createBaseResponse(DocModel docModel, String xTempPrefixName) {
-        XTempModel model = new XTempUtil(Suffix.BaseResponse, xTempPrefixName).start();
-        writeContent2TargetFileByXTempAndReflectModel(model, docModel);
-    }
-
 }

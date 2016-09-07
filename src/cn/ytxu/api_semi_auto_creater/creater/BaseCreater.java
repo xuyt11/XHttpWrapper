@@ -1,7 +1,10 @@
-package cn.ytxu.api_semi_auto_creater;
+package cn.ytxu.api_semi_auto_creater.creater;
 
 import cn.ytxu.api_semi_auto_creater.parser.retain.RetainModel;
 import cn.ytxu.api_semi_auto_creater.parser.retain.RetainParser;
+import cn.ytxu.api_semi_auto_creater.xtemp_parser.XTempModel;
+import cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.StatementRecord;
+import cn.ytxu.api_semi_auto_creater.xtemp_parser.statement.record.TextStatementRecord;
 import cn.ytxu.util.FileUtil;
 import cn.ytxu.util.LogUtil;
 
@@ -19,7 +22,24 @@ public class BaseCreater {
         void onGetWriter(Writer writer, RetainModel retain) throws IOException;
     }
 
-    public static void getWriter4TargetFile(String dirPath, String fileName, OnGetWriter onGetWriter) {
+
+    public static void writeContent2TargetFileByXTempAndReflectModel(XTempModel model, Object reflectModel) {
+        String dirPath = getString(model.getFileDir(), reflectModel);
+        String fileName = getString(model.getFileName(), reflectModel);
+
+        getWriter4TargetFile(dirPath, fileName, (Writer writer, RetainModel retain) -> {
+            StringBuffer contentBuffer = StatementRecord.getWriteBuffer(model.getRecords(), reflectModel, retain);
+            writer.write(contentBuffer.toString());
+        });
+    }
+
+    private static String getString(String content, Object reflectModel) {
+        TextStatementRecord record = new TextStatementRecord(null, content);
+        record.parse();
+        return record.getWriteBuffer(reflectModel, null).toString().trim();
+    }
+
+    private static void getWriter4TargetFile(String dirPath, String fileName, OnGetWriter onGetWriter) {
         Writer writer = null;
         try {
             RetainModel retain = RetainParser.getRetainByFile(fileName, dirPath);
