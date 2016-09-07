@@ -67,19 +67,6 @@ public class JsoupParserUtil {
         return ele.attr(attributeKey).trim();
     }
 
-    public static boolean isNullOrEmpty(List list) {
-        if (null == list || list.size() <= 0) {
-            return true;
-        }
-        return false;
-    }
-
-    public static int getSize(Elements eles) {
-        if (null == eles) {
-            return 0;
-        }
-        return eles.size();
-    }
 
 
 

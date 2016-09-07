@@ -17,4 +17,10 @@ public class ListUtil {
         return false;
     }
 
+    public static int getSize(Collection eles) {
+        if (null == eles) {
+            return 0;
+        }
+        return eles.size();
+    }
 }

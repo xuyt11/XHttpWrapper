@@ -37,7 +37,7 @@ public abstract class DefinedsParser {
         List<DefinedParamModel> definedParams = new ArrayList<>();
         for (Element descParamCategoryEle : descParamCategoryEles) {
             List<DefinedParamModel> defineds = getDefinedParams(descParamCategoryEle);
-            if (JsoupParserUtil.isNullOrEmpty(defineds)) {
+            if (ListUtil.isEmpty(defineds)) {
                 continue;
             }
             definedParams.addAll(defineds);
@@ -47,7 +47,7 @@ public abstract class DefinedsParser {
 
     private List<DefinedParamModel> getDefinedParams(Element descParamCategoryEle) {
         Elements descParamEles = JsoupParserUtil.getEles(descParamCategoryEle, CSS_QUERY_GET_DESC_PARAM);
-        if (JsoupParserUtil.isNullOrEmpty(descParamEles)) {
+        if (ListUtil.isEmpty(descParamEles)) {
             return Collections.EMPTY_LIST;
         }
 
