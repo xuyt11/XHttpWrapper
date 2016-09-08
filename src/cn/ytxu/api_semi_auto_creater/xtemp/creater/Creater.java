@@ -43,7 +43,7 @@ public class Creater {
     private void createHttpApi(DocModel docModel, String xTempPrefixName) {
         XTempModel model = new XTempUtil(Suffix.HttpApi, xTempPrefixName).start();
 
-        for (VersionModel version : docModel.getVersionsAfterFilter(true)) {
+        for (VersionModel version : docModel.getVersions(true)) {
             BaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, version);
         }
     }

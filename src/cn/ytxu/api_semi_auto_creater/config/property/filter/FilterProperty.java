@@ -1,6 +1,7 @@
 package cn.ytxu.api_semi_auto_creater.config.property.filter;
 
 import cn.ytxu.api_semi_auto_creater.model.base.DocModel;
+import cn.ytxu.api_semi_auto_creater.model.base.SectionModel;
 import cn.ytxu.api_semi_auto_creater.model.base.VersionModel;
 
 import java.util.ArrayList;
@@ -51,26 +52,42 @@ public class FilterProperty {// 需要输出的版本号列表
     /**
      * 过滤api中版本的key，获取到需要输出的版本号
      */
-    public List<VersionModel> getVersionsAfterFilter(DocModel docModel) {
+    public List<VersionModel> getVersionsAfterFilted(DocModel docModel) {
         if (!filter.isUse_output_versions()) {
             return docModel.getVersions();
         }
 
         List<VersionModel> versions = new ArrayList<>();
         for (VersionModel version : docModel.getVersions()) {
-            if (isOutputVersion(version)) {
-                versions.add(version);
+            try {
+                filter.findOutputVersionByVersionModel(version);
+            } catch (FilterBean.NotFoundOutputVersionException ignore) {
+                continue;
             }
+            versions.add(version);
         }
         return versions;
     }
 
-    private boolean isOutputVersion(VersionModel version) {
-        for (FilterVersionBean outputVersion : filter.getOutput_versions()) {
-            if (outputVersion.getOutput_version_name().equals(version.getName())) {
-                return true;
-            }
+    /**
+     * 获取到需要输出的分类
+     */
+    public List<SectionModel> getSectionsAfterFilted(DocModel docModel) {
+        if (!filter.isUse_output_versions()) {
+            return docModel.getSections(false);
         }
-        return false;
+
+        List<SectionModel> sections = new ArrayList<>();
+        for (VersionModel version : docModel.getVersions()) {
+            FilterVersionBean filterVersionBean;
+            try {
+                filterVersionBean = filter.findOutputVersionByVersionModel(version);
+            } catch (FilterBean.NotFoundOutputVersionException ignore) {
+                continue;
+            }
+            sections.addAll(filter.getSectionsAfterFilted(version, filterVersionBean));
+        }
+        return sections;
     }
+
 }

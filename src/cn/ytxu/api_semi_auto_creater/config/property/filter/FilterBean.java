@@ -1,12 +1,16 @@
 package cn.ytxu.api_semi_auto_creater.config.property.filter;
 
+import cn.ytxu.api_semi_auto_creater.model.base.SectionModel;
+import cn.ytxu.api_semi_auto_creater.model.base.VersionModel;
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 /**
  * 过滤request中header参数；如：Authorization,userId....<br>
- * <p>
- * use_output_versions:是否使用版本输出过滤；若为false，则下面的output_versions参数就失效
+ * use_output_versions:是否使用版本输出过滤；若为false，则下面的output_versions参数就失效<br>
+ * output_versions:过滤版本与过滤该版本下的分类
  */
 public class FilterBean {
     public static final FilterBean DEFAULT = new FilterBean();
@@ -37,5 +41,44 @@ public class FilterBean {
 
     public void setOutput_versions(List<FilterVersionBean> output_versions) {
         this.output_versions = output_versions;
+    }
+
+    public FilterVersionBean findOutputVersionByVersionModel(VersionModel version) {
+        final String targetVersionName = version.getName();
+        for (FilterVersionBean outputVersion : getOutput_versions()) {
+            if (isOutputVersionByVersionName(targetVersionName, outputVersion)) {
+                return outputVersion;
+            }
+        }
+        throw new NotFoundOutputVersionException();
+    }
+
+    private boolean isOutputVersionByVersionName(String targetVersionName, FilterVersionBean output_version) {
+        return output_version.getOutput_version_name().equals(targetVersionName);
+    }
+
+    public static class NotFoundOutputVersionException extends RuntimeException {
+    }
+
+
+    public List<SectionModel> getSectionsAfterFilted(VersionModel version, FilterVersionBean outputVersion) {
+        if (!outputVersion.isUse_output_sections()) {
+            return version.getSections();
+        }
+
+        List<String> sectionNames = outputVersion.getOutput_sections();
+        if (sectionNames.size() <= 0) {
+            return Collections.EMPTY_LIST;
+        }
+
+        List<SectionModel> sections = new ArrayList<>(sectionNames.size());
+        for (String sectionName : sectionNames) {
+            for (SectionModel sectionModel : version.getSections()) {
+                if (sectionModel.getName().equals(sectionName)) {
+                    sections.add(sectionModel);
+                }
+            }
+        }
+        return sections;
     }
 }
