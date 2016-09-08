@@ -12,7 +12,7 @@
         "output_version_name": "2.0.0",
         "use_output_sections": true,
         "output_sections": [
-          ""
+          "deal management"
         ]
       }
     ]
