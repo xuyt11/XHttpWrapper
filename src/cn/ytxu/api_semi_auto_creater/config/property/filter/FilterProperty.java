@@ -66,8 +66,8 @@ public class FilterProperty {// 需要输出的版本号列表
     }
 
     private boolean isOutputVersion(VersionModel version) {
-        for (String outputVersion : filter.getOutput_versions()) {
-            if (outputVersion.equals(version.getName())) {
+        for (FilterVersionBean outputVersion : filter.getOutput_versions()) {
+            if (outputVersion.getOutput_version_name().equals(version.getName())) {
                 return true;
             }
         }

@@ -42,6 +42,8 @@ public class ${section_class_name} extends BaseApi {
 <foreach each="requests">
 	/**
 	 * ${request_desc}
+	 * @version ${request_version}
+	 * @requestUrl ${request_url}
 	 *
 	 <list each="headers">
 	 * @param ${header_name} ${header_desc}
@@ -53,8 +55,6 @@ public class ${section_class_name} extends BaseApi {
 	 * @param ${input_name} ${input_desc}
 	 </if_end>
 	 </list>
-	 * @version ${request_version}
-	 * @requestUrl ${request_url}
 	 */
 	public RequestHandle ${request_name}(Context cxt001,
 	    <list each="RESTful_fields" singleLine>

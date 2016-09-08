@@ -1,6 +1,6 @@
 {
   "config": {
-    "auto_generate_file_charset":"UTF-8"
+    "auto_generate_file_charset": "UTF-8"
   },
   "filter": {
     "headers": [
@@ -8,7 +8,13 @@
     ],
     "use_output_versions": true,
     "output_versions": [
-      "2.0.0"
+      {
+        "output_version_name": "2.0.0",
+        "use_output_sections": true,
+        "output_sections": [
+          ""
+        ]
+      }
     ]
   },
   "request": {
