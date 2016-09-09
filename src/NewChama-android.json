@@ -1,4 +1,14 @@
 {
+  "apidoc_file_addresses": [
+    {
+      "OSName": "Windows",
+      "address": "E:/NewChama/apidoc.html"
+    },
+    {
+      "OSName": "Mac OS X",
+      "address": "/Users/newchama/Desktop/NewChama-Data/apidoc.html"
+    }
+  ],
   "config": {
     "auto_generate_file_charset": "UTF-8"
   },
@@ -57,16 +67,6 @@
     ],
     "ok_number": "0"
   },
-  "apidoc_file_addresses": [
-    {
-      "OSName": "Windows",
-      "address": "E:/NewChama/apidoc.html"
-    },
-    {
-      "OSName": "Mac OS X",
-      "address": "/Users/newchama/Desktop/NewChama-Data/apidoc.html"
-    }
-  ],
   "element_type_enum": {
     "null_et": {
       "element_type": "String",

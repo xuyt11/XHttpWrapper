@@ -17,15 +17,23 @@ import java.util.List;
  */
 public class PropertyEntity {
     private ConfigBean config = ConfigBean.DEFAULT;
+    private List<ApidocFileAddressesBean> apidoc_file_addresses;
     private FilterBean filter = FilterBean.DEFAULT;
     private RequestBean request;
     private ResponseBean response;
     private StatusCodeBean status_code;
     private ElementTypeEnumBean element_type_enum;
-    private List<ApidocFileAddressesBean> apidoc_file_addresses;
 
     public ConfigBean getConfig() {
         return config;
+    }
+
+    public List<ApidocFileAddressesBean> getApidoc_file_addresses() {
+        return apidoc_file_addresses;
+    }
+
+    public void setApidoc_file_addresses(List<ApidocFileAddressesBean> apidoc_file_addresses) {
+        this.apidoc_file_addresses = apidoc_file_addresses;
     }
 
     public FilterBean getFilter() {
@@ -66,14 +74,6 @@ public class PropertyEntity {
 
     public void setElement_type_enum(ElementTypeEnumBean element_type_enum) {
         this.element_type_enum = element_type_enum;
-    }
-
-    public List<ApidocFileAddressesBean> getApidoc_file_addresses() {
-        return apidoc_file_addresses;
-    }
-
-    public void setApidoc_file_addresses(List<ApidocFileAddressesBean> apidoc_file_addresses) {
-        this.apidoc_file_addresses = apidoc_file_addresses;
     }
 
 
