@@ -4,14 +4,18 @@ import java.util.List;
 import java.util.Map;
 
 public class Bean {
-    private Map<String, FieldBean> fields;
+    /**
+     * k:field group name
+     * v:fields
+     */
+    private Map<String, List<FieldBean>> fields;
     private List<ExampleBean> examples;
 
-    public Map<String, FieldBean> getFields() {
+    public Map<String, List<FieldBean>> getFields() {
         return fields;
     }
 
-    public void setFields(Map<String, FieldBean> fields) {
+    public void setFields(Map<String, List<FieldBean>> fields) {
         this.fields = fields;
     }
 
