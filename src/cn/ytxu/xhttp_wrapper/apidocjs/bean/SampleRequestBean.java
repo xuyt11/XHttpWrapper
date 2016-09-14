@@ -1,4 +1,4 @@
-package cn.ytxu.restful.apidocjs.bean;
+package cn.ytxu.xhttp_wrapper.apidocjs.bean;
 
 /**
  * 接口测试地址以供测试，发送请求时，@api method必须为POST/GET等其中一种

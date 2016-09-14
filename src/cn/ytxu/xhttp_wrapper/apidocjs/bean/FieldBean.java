@@ -1,4 +1,4 @@
-package cn.ytxu.restful.apidocjs.bean;
+package cn.ytxu.xhttp_wrapper.apidocjs.bean;
 
 public class FieldBean {
     /**

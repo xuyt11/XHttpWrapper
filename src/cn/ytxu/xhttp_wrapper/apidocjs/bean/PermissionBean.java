@@ -1,4 +1,4 @@
-package cn.ytxu.restful.apidocjs.bean;
+package cn.ytxu.xhttp_wrapper.apidocjs.bean;
 
 /**
  * name必须独一无二，描述@api的访问权限，如admin/anyone
