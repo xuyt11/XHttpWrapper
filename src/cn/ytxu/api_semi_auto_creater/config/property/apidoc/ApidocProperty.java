@@ -30,7 +30,7 @@ public class ApidocProperty {
         }
     }
 
-    public String getHtmlPath() {
+    public String getApiDataJsonPath() {
         OSPlatform os = OSPlatform.getCurrentOSPlatform();
         String osName = os.getOsName();
         for (ApidocOutputDataFileBean bean : apidocFileAddresses) {

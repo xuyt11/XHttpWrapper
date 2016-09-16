@@ -62,4 +62,29 @@ public class FileUtil {
         return writer;
     }
 
+    //将file转化成string
+    public static String getContent(String filePath) throws IOException {
+        //对一串字符进行操作
+        StringBuffer fileData = new StringBuffer();
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader(filePath));
+            char[] buf = new char[1024];
+            int numRead;
+            while ((numRead = reader.read(buf)) != -1) {
+                String readData = String.valueOf(buf, 0, numRead);
+                fileData.append(readData);
+            }
+            return fileData.toString();
+        } finally {
+            try {
+                if (reader != null) {
+                    reader.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }
