@@ -1,4 +1,4 @@
-package cn.ytxu.api_semi_auto_creater.config.property.status_code;
+package cn.ytxu.xhttp_wrapper.config.property.status_code;
 
 import java.util.Collections;
 import java.util.List;

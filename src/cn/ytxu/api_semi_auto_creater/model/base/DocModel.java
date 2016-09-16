@@ -1,8 +1,8 @@
 package cn.ytxu.api_semi_auto_creater.model.base;
 
-import cn.ytxu.api_semi_auto_creater.config.Property;
-import cn.ytxu.api_semi_auto_creater.config.property.base_response_entity_name.BaseResponseEntityNameProperty;
-import cn.ytxu.api_semi_auto_creater.config.property.base_response_entity_name.ResponseBean;
+import cn.ytxu.xhttp_wrapper.config.Property;
+import cn.ytxu.xhttp_wrapper.config.property.base_response_entity_name.BaseResponseEntityNameProperty;
+import cn.ytxu.xhttp_wrapper.config.property.base_response_entity_name.ResponseBean;
 import cn.ytxu.api_semi_auto_creater.model.BaseModel;
 import cn.ytxu.api_semi_auto_creater.model.RequestModel;
 import cn.ytxu.api_semi_auto_creater.model.response.OutputParamModel;

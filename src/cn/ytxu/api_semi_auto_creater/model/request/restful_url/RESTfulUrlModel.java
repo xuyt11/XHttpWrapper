@@ -1,6 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.model.request.restful_url;
 
-import cn.ytxu.api_semi_auto_creater.config.property.request.RequestProperty;
+import cn.ytxu.xhttp_wrapper.config.property.request.RequestProperty;
 import cn.ytxu.api_semi_auto_creater.model.BaseModel;
 import cn.ytxu.api_semi_auto_creater.model.RequestModel;
 

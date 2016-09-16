@@ -1,4 +1,4 @@
-package cn.ytxu.api_semi_auto_creater.config.property.apidoc;
+package cn.ytxu.xhttp_wrapper.config.property.apidoc;
 
 
 import cn.ytxu.util.OSPlatform;

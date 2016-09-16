@@ -1,7 +1,7 @@
 package cn.ytxu.api_semi_auto_creater.apidocjs_parser.request.input;
 
 import cn.ytxu.api_semi_auto_creater.apidocjs_parser.util.JsoupParserUtil;
-import cn.ytxu.api_semi_auto_creater.config.Property;
+import cn.ytxu.xhttp_wrapper.config.Property;
 import cn.ytxu.api_semi_auto_creater.model.request.InputParamModel;
 import cn.ytxu.api_semi_auto_creater.model.RequestModel;
 import cn.ytxu.util.ListUtil;

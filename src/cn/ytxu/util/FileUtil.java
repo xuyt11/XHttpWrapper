@@ -1,6 +1,6 @@
 package cn.ytxu.util;
 
-import cn.ytxu.api_semi_auto_creater.config.property.config.ConfigProperty;
+import cn.ytxu.xhttp_wrapper.config.property.config.ConfigProperty;
 
 import java.io.*;
 

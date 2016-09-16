@@ -1,4 +1,4 @@
-package cn.ytxu.api_semi_auto_creater.config.property.filter;
+package cn.ytxu.xhttp_wrapper.config.property.filter;
 
 import java.util.Collections;
 import java.util.List;

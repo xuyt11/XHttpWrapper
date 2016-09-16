@@ -1,12 +1,12 @@
-package cn.ytxu.api_semi_auto_creater.config;
+package cn.ytxu.xhttp_wrapper.config;
 
-import cn.ytxu.api_semi_auto_creater.config.property.apidoc.ApidocOutputDataFileBean;
-import cn.ytxu.api_semi_auto_creater.config.property.base_response_entity_name.ResponseBean;
-import cn.ytxu.api_semi_auto_creater.config.property.config.ConfigBean;
-import cn.ytxu.api_semi_auto_creater.config.property.element_type.ElementTypeEnumBean;
-import cn.ytxu.api_semi_auto_creater.config.property.filter.FilterBean;
-import cn.ytxu.api_semi_auto_creater.config.property.request.RequestBean;
-import cn.ytxu.api_semi_auto_creater.config.property.status_code.StatusCodeBean;
+import cn.ytxu.xhttp_wrapper.config.property.apidoc.ApidocOutputDataFileBean;
+import cn.ytxu.xhttp_wrapper.config.property.base_response_entity_name.ResponseBean;
+import cn.ytxu.xhttp_wrapper.config.property.config.ConfigBean;
+import cn.ytxu.xhttp_wrapper.config.property.element_type.ElementTypeEnumBean;
+import cn.ytxu.xhttp_wrapper.config.property.filter.FilterBean;
+import cn.ytxu.xhttp_wrapper.config.property.request.RequestBean;
+import cn.ytxu.xhttp_wrapper.config.property.status_code.StatusCodeBean;
 import com.alibaba.fastjson.JSON;
 
 import java.io.InputStream;

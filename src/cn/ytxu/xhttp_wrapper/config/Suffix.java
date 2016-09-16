@@ -1,4 +1,4 @@
-package cn.ytxu.api_semi_auto_creater.config;
+package cn.ytxu.xhttp_wrapper.config;
 
 /**
  * 需要解析的文件的后缀

@@ -1,4 +1,4 @@
-package cn.ytxu.api_semi_auto_creater.config.property.request;
+package cn.ytxu.xhttp_wrapper.config.property.request;
 
 /**
  * Created by Administrator on 2016/9/5.

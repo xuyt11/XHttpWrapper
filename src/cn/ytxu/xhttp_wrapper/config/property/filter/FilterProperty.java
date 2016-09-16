@@ -1,4 +1,4 @@
-package cn.ytxu.api_semi_auto_creater.config.property.filter;
+package cn.ytxu.xhttp_wrapper.config.property.filter;
 
 import cn.ytxu.api_semi_auto_creater.model.base.DocModel;
 import cn.ytxu.api_semi_auto_creater.model.base.SectionModel;

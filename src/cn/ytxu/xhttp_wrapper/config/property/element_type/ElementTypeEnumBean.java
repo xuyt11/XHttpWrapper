@@ -1,4 +1,4 @@
-package cn.ytxu.api_semi_auto_creater.config.property.element_type;
+package cn.ytxu.xhttp_wrapper.config.property.element_type;
 
 /**
  * 请求参数与响应体中输出参数类型的枚举

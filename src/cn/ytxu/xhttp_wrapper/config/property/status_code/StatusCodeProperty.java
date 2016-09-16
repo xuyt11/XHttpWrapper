@@ -1,4 +1,4 @@
-package cn.ytxu.api_semi_auto_creater.config.property.status_code;
+package cn.ytxu.xhttp_wrapper.config.property.status_code;
 
 import cn.ytxu.api_semi_auto_creater.model.base.DocModel;
 import cn.ytxu.api_semi_auto_creater.model.base.VersionModel;

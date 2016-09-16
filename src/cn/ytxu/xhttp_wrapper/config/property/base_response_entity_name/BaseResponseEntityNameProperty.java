@@ -1,4 +1,4 @@
-package cn.ytxu.api_semi_auto_creater.config.property.base_response_entity_name;
+package cn.ytxu.xhttp_wrapper.config.property.base_response_entity_name;
 
 import java.util.List;
 

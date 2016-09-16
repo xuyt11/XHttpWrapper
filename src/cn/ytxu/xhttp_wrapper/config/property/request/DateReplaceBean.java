@@ -1,4 +1,4 @@
-package cn.ytxu.api_semi_auto_creater.config.property.request;
+package cn.ytxu.xhttp_wrapper.config.property.request;
 
 /**
  * RESTful风格url中，date参数的格式与在输出文件中在url上请求参数的名称

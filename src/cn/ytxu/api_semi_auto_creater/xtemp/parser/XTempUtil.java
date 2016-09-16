@@ -1,6 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.xtemp.parser;
 
-import cn.ytxu.api_semi_auto_creater.config.Suffix;
+import cn.ytxu.xhttp_wrapper.config.Suffix;
 import cn.ytxu.api_semi_auto_creater.xtemp.parser.statement.StatementRecord;
 
 import java.io.*;

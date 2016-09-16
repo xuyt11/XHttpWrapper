@@ -1,6 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.apidocjs_parser.response;
 
-import cn.ytxu.api_semi_auto_creater.config.Property;
+import cn.ytxu.xhttp_wrapper.config.Property;
 import cn.ytxu.api_semi_auto_creater.model.response.ResponseModel;
 import cn.ytxu.api_semi_auto_creater.apidocjs_parser.response.output.OutputParamParser;
 import cn.ytxu.util.LogUtil;

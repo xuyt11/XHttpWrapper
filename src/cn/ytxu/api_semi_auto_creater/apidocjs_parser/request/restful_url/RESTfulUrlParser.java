@@ -1,7 +1,7 @@
 package cn.ytxu.api_semi_auto_creater.apidocjs_parser.request.restful_url;
 
-import cn.ytxu.api_semi_auto_creater.config.property.request.DateReplaceBean;
-import cn.ytxu.api_semi_auto_creater.config.property.request.RequestProperty;
+import cn.ytxu.xhttp_wrapper.config.property.request.DateReplaceBean;
+import cn.ytxu.xhttp_wrapper.config.property.request.RequestProperty;
 import cn.ytxu.api_semi_auto_creater.model.request.restful_url.RESTfulParamModel;
 import cn.ytxu.api_semi_auto_creater.model.request.restful_url.RESTfulUrlModel;
 

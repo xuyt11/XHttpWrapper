@@ -1,6 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.apidocjs_parser;
 
-import cn.ytxu.api_semi_auto_creater.config.property.status_code.StatusCodeProperty;
+import cn.ytxu.xhttp_wrapper.config.property.status_code.StatusCodeProperty;
 import cn.ytxu.api_semi_auto_creater.model.RequestModel;
 import cn.ytxu.api_semi_auto_creater.model.base.DocModel;
 import cn.ytxu.api_semi_auto_creater.model.response.ResponseModel;

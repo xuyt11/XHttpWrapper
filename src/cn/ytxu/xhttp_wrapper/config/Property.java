@@ -1,12 +1,12 @@
-package cn.ytxu.api_semi_auto_creater.config;
+package cn.ytxu.xhttp_wrapper.config;
 
-import cn.ytxu.api_semi_auto_creater.config.property.apidoc.ApidocProperty;
-import cn.ytxu.api_semi_auto_creater.config.property.config.ConfigProperty;
-import cn.ytxu.api_semi_auto_creater.config.property.filter.FilterProperty;
-import cn.ytxu.api_semi_auto_creater.config.property.element_type.ElementTypeProperty;
-import cn.ytxu.api_semi_auto_creater.config.property.base_response_entity_name.BaseResponseEntityNameProperty;
-import cn.ytxu.api_semi_auto_creater.config.property.request.RequestProperty;
-import cn.ytxu.api_semi_auto_creater.config.property.status_code.StatusCodeProperty;
+import cn.ytxu.xhttp_wrapper.config.property.apidoc.ApidocProperty;
+import cn.ytxu.xhttp_wrapper.config.property.config.ConfigProperty;
+import cn.ytxu.xhttp_wrapper.config.property.filter.FilterProperty;
+import cn.ytxu.xhttp_wrapper.config.property.element_type.ElementTypeProperty;
+import cn.ytxu.xhttp_wrapper.config.property.base_response_entity_name.BaseResponseEntityNameProperty;
+import cn.ytxu.xhttp_wrapper.config.property.request.RequestProperty;
+import cn.ytxu.xhttp_wrapper.config.property.status_code.StatusCodeProperty;
 import com.alibaba.fastjson.JSON;
 
 import java.io.IOException;

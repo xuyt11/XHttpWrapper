@@ -1,4 +1,4 @@
-package cn.ytxu.api_semi_auto_creater.config.property.apidoc;
+package cn.ytxu.xhttp_wrapper.config.property.apidoc;
 
 /**
  * api_data.json文件地址的配置，包括多操作系统的配置
