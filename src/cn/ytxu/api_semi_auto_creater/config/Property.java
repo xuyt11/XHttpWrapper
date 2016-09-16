@@ -38,7 +38,7 @@ public class Property {
         RequestProperty.load(object.getRequest());
         BaseResponseEntityNameProperty.load(object.getResponse());
         ElementTypeProperty.load(object.getElement_type_enum());
-        ApidocProperty.load(object.getApidoc_file_addresses());
+        ApidocProperty.load(object.getApidoc_output_data_file());
         StatusCodeProperty.load(object.getStatus_code());
     }
 

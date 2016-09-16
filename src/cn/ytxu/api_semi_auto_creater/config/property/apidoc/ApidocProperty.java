@@ -13,17 +13,17 @@ public class ApidocProperty {
 
     private static ApidocProperty instance;
 
-    private List<ApidocFileAddressesBean> apidocFileAddresses;
+    private List<ApidocOutputDataFileBean> apidocFileAddresses;
 
     public static ApidocProperty getInstance() {
         return instance;
     }
 
-    public static void load(List<ApidocFileAddressesBean> apidocFileAddresses) {
+    public static void load(List<ApidocOutputDataFileBean> apidocFileAddresses) {
         instance = new ApidocProperty(apidocFileAddresses);
     }
 
-    private ApidocProperty(List<ApidocFileAddressesBean> apidocFileAddresses) {
+    private ApidocProperty(List<ApidocOutputDataFileBean> apidocFileAddresses) {
         this.apidocFileAddresses = apidocFileAddresses;
         if (Objects.isNull(apidocFileAddresses) || apidocFileAddresses.size() < 1) {
             throw new RuntimeException("u don`t set apidoc path");
@@ -33,7 +33,7 @@ public class ApidocProperty {
     public String getHtmlPath() {
         OSPlatform os = OSPlatform.getCurrentOSPlatform();
         String osName = os.getOsName();
-        for (ApidocFileAddressesBean bean : apidocFileAddresses) {
+        for (ApidocOutputDataFileBean bean : apidocFileAddresses) {
             if (osName.equalsIgnoreCase(bean.getOSName())) {
                 return bean.getAddress();
             }

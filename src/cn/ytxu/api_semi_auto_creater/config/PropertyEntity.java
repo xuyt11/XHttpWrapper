@@ -1,6 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.config;
 
-import cn.ytxu.api_semi_auto_creater.config.property.apidoc.ApidocFileAddressesBean;
+import cn.ytxu.api_semi_auto_creater.config.property.apidoc.ApidocOutputDataFileBean;
 import cn.ytxu.api_semi_auto_creater.config.property.base_response_entity_name.ResponseBean;
 import cn.ytxu.api_semi_auto_creater.config.property.config.ConfigBean;
 import cn.ytxu.api_semi_auto_creater.config.property.element_type.ElementTypeEnumBean;
@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class PropertyEntity {
     private ConfigBean config = ConfigBean.DEFAULT;
-    private List<ApidocFileAddressesBean> apidoc_file_addresses;
+    private List<ApidocOutputDataFileBean> apidoc_output_data_file;
     private FilterBean filter = FilterBean.DEFAULT;
     private RequestBean request;
     private ResponseBean response;
@@ -28,12 +28,12 @@ public class PropertyEntity {
         return config;
     }
 
-    public List<ApidocFileAddressesBean> getApidoc_file_addresses() {
-        return apidoc_file_addresses;
+    public List<ApidocOutputDataFileBean> getApidoc_output_data_file() {
+        return apidoc_output_data_file;
     }
 
-    public void setApidoc_file_addresses(List<ApidocFileAddressesBean> apidoc_file_addresses) {
-        this.apidoc_file_addresses = apidoc_file_addresses;
+    public void setApidoc_output_data_file(List<ApidocOutputDataFileBean> apidoc_output_data_file) {
+        this.apidoc_output_data_file = apidoc_output_data_file;
     }
 
     public FilterBean getFilter() {

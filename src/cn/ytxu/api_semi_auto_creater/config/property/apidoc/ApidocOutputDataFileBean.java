@@ -1,9 +1,9 @@
 package cn.ytxu.api_semi_auto_creater.config.property.apidoc;
 
 /**
- * apidoc.html文件地址的配置，包括多操作系统的配置
+ * api_data.json文件地址的配置，包括多操作系统的配置
  */
-public class ApidocFileAddressesBean {
+public class ApidocOutputDataFileBean {
     private String OSName;
     private String address;
 

@@ -1,8 +1,8 @@
 {
-  "apidoc_file_addresses": [
+  "apidoc_output_data_file": [
     {
       "OSName": "Windows",
-      "address": "E:/NewChama/apidoc.html"
+      "address": "E:\NewChama\apidoc\api_data.json"
     },
     {
       "OSName": "Mac OS X",
