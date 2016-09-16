@@ -1,5 +1,7 @@
 package cn.ytxu.xhttp_wrapper.config.property.config;
 
+import java.util.List;
+
 /**
  * Created by Administrator on 2016/9/7.
  */
@@ -26,4 +28,11 @@ public class ConfigProperty {
         return config.getAuto_generate_file_charset();
     }
 
+    public CompileModel getCompileModel() {
+        return CompileModel.getByName(config.getCompile_model());
+    }
+
+    public List<String> getOrderVersions() {
+        return config.getOrder_versions();
+    }
 }
