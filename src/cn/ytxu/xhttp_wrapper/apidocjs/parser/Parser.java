@@ -3,6 +3,8 @@ package cn.ytxu.xhttp_wrapper.apidocjs.parser;
 import cn.ytxu.xhttp_wrapper.config.Property;
 import cn.ytxu.util.FileUtil;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApiDataBean;
+import cn.ytxu.xhttp_wrapper.config.property.config.CompileModel;
+import cn.ytxu.xhttp_wrapper.model.VersionModel;
 import com.alibaba.fastjson.JSON;
 
 import java.io.IOException;
@@ -16,15 +18,10 @@ public class Parser {
     public Parser() {
     }
 
-    public void start() throws IOException {
+    public List<VersionModel> start() throws IOException {
         List<ApiDataBean> apiDatas = getApiDatas();
-        // TODO
-        // 1 get compile model
-        // 2 create a order version model list
-        // 3 dependent by compile model to create a object tree
-        // 3.1 if is mutil_version, version-->section-->request
-        // 3.2 else is no_version, section-->request, and must remove old version request, just keep the latest version
-
+        CompileModel compileModel = Property.getConfigProperty().getCompileModel();
+        return compileModel.generateApiTreeDependentByCompileModel(apiDatas);
     }
 
     private List<ApiDataBean> getApiDatas() throws IOException {
@@ -35,6 +32,5 @@ public class Parser {
         // 3 get java object array by json data
         return JSON.parseArray(apiDataJsonStr, ApiDataBean.class);
     }
-
 
 }

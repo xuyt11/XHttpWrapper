@@ -14,7 +14,7 @@ public class ConfigBean {
     private String auto_generate_file_charset = "UTF-8";
     /**
      * 编译模式
-     * enum:mutil_version,no_version;
+     * enum:mutil_version,non_version;
      * default:mutil_version;
      */
     private String compile_model;

@@ -53,6 +53,10 @@ public class Property {
         }
     }
 
+    public static ConfigProperty getConfigProperty() {
+        return ConfigProperty.getInstance();
+    }
+
     public static FilterProperty getFilterProperty() {
         return FilterProperty.getInstance();
     }
