@@ -1,21 +1,21 @@
 package cn.ytxu.xhttp_wrapper.model;
 
-import cn.ytxu.api_semi_auto_creater.model.base.SectionModel;
-import cn.ytxu.api_semi_auto_creater.model.status_code.StatusCodeCategoryModel;
-
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 /**
- * Created by ytxu on 2016/7/20.
+ * Created by ytxu on 2016-9-18
  */
 public class VersionModel extends BaseModel {
-    /** 无版本号模式时的model */
+    /**
+     * 无版本号模式时的model
+     */
     public static final VersionModel NON_VERSION_MODEL = new VersionModel("non_version");
 
     private String name;// 版本名称
-    private List<SectionModel> sections;
-    private List<StatusCodeCategoryModel> statusCodes = Collections.EMPTY_LIST;
+    private List<StatusCodeGroupModel> statusCodeGroups = Collections.EMPTY_LIST;
+    private List<RequestGroupModel> requestGroups = Collections.EMPTY_LIST;
 
     public VersionModel(String name) {
         super(null, null);
@@ -26,21 +26,28 @@ public class VersionModel extends BaseModel {
         return name;
     }
 
-    public List<SectionModel> getSections() {
-        return sections;
+    public void addStatusCodeGroup(StatusCodeGroupModel statusCodeGroup) {
+        if (statusCodeGroups == Collections.EMPTY_LIST) {
+            statusCodeGroups = new ArrayList<>();
+        }
+        statusCodeGroups.add(statusCodeGroup);
     }
 
-    public void setSections(List<SectionModel> sections) {
-        this.sections = sections;
+    public List<StatusCodeGroupModel> getStatusCodeGroups() {
+        return statusCodeGroups;
     }
 
-    public void setStatusCodes(List<StatusCodeCategoryModel> statusCodes) {
-        this.statusCodes = statusCodes;
+    public void addRequestGroup(RequestGroupModel requestGroup) {
+        if (requestGroups == Collections.EMPTY_LIST) {
+            requestGroups = new ArrayList<>(10);
+        }
+        requestGroups.add(requestGroup);
     }
 
-    public List<StatusCodeCategoryModel> getStatusCodes() {
-        return statusCodes;
+    public List<RequestGroupModel> getRequestGroups() {
+        return requestGroups;
     }
+
 
     //*************** reflect method area ***************
     public String version_code() {
@@ -48,7 +55,7 @@ public class VersionModel extends BaseModel {
     }
 
     public List sections() {
-        return sections;
+        return requestGroups;
     }
 
 }
