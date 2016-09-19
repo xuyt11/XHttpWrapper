@@ -3,6 +3,7 @@ package cn.ytxu.xhttp_wrapper.apidocjs.parser;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.config.Property;
 import cn.ytxu.xhttp_wrapper.config.property.status_code.StatusCodeProperty;
+import cn.ytxu.xhttp_wrapper.model.StatusCodeGroupModel;
 import cn.ytxu.xhttp_wrapper.model.VersionModel;
 
 import java.util.*;
@@ -14,15 +15,16 @@ import java.util.*;
  */
 public class NonVersionCompileModelParser {
     private List<ApiDataBean> apiDatas;
+    private Map<String, Integer> orderVersionIndexs;
 
     public NonVersionCompileModelParser(List<ApiDataBean> apiDatas) {
         this.apiDatas = apiDatas;
     }
 
     public List<VersionModel> start() {
-        Map<String, Integer> orderVersionIndexs = getOrderVersionIndexs();
+        orderVersionIndexs = getOrderVersionIndexs();
         VersionModel version = VersionModel.NON_VERSION_MODEL;
-        foreachStoreLatestVersionSApiData(version, orderVersionIndexs);
+        foreachStoreLatestVersionSApiData(version);
         return Collections.singletonList(version);
     }
 
@@ -38,10 +40,9 @@ public class NonVersionCompileModelParser {
         return orderVersionIndexs;
     }
 
-    private void foreachStoreLatestVersionSApiData(VersionModel version, Map<String, Integer> orderVersionIndexs) {
+    private void foreachStoreLatestVersionSApiData(VersionModel version) {
         for (ApiDataBean apiData : apiDatas) {
-            final Integer index = orderVersionIndexs.get(apiData.getVersion());
-            if (isNotNeedParsedVersion(index)) {
+            if (isNotNeedParsedVersion(apiData)) {
                 continue;
             }
             if (isAStatusCodeGroup4ApiData(apiData)) {
@@ -52,21 +53,56 @@ public class NonVersionCompileModelParser {
         }
     }
 
-    private boolean isNotNeedParsedVersion(Integer index) {
+    private boolean isNotNeedParsedVersion(ApiDataBean apiData) {
+        final Integer index = findVersionIndex(apiData.getVersion());
         return Objects.isNull(index);
+    }
+
+    private Integer findVersionIndex(String version) {
+        return orderVersionIndexs.get(version);
     }
 
     private boolean isAStatusCodeGroup4ApiData(ApiDataBean apiData) {
         return StatusCodeProperty.getInstance().isStatusCodeGroup(apiData.getGroup());
     }
 
-    private void setApiData2StatusCodesIfIsLatestVersion(VersionModel version, ApiDataBean apiData) {
-
-
+    private void setApiData2StatusCodesIfIsLatestVersion(VersionModel version, ApiDataBean scApiData) {
+        try {
+            StatusCodeGroupModel scGroup = findSameNameSCGroup(version, scApiData);
+            if (needStoreTheApiData(scGroup, scApiData)) {
+                setApiData2StatusCodes(version, scApiData);
+            }
+        } catch (NotFoundSameNameGroupException ignore) {
+            setApiData2StatusCodes(version, scApiData);
+        }
     }
 
+    private StatusCodeGroupModel findSameNameSCGroup(VersionModel version, ApiDataBean scApiData) {
+        List<StatusCodeGroupModel> scGroups = version.getStatusCodeGroups();
+        for (StatusCodeGroupModel scGroup : scGroups) {
+            if (scGroup.getName().equals(scApiData.getName())) {
+                return scGroup;
+            }
+        }
+        throw new NotFoundSameNameGroupException();
+    }
+
+    private static final class NotFoundSameNameGroupException extends RuntimeException {
+    }
+
+    private boolean needStoreTheApiData(StatusCodeGroupModel scGroup, ApiDataBean scApiData) {
+        final Integer currIndex = findVersionIndex(scApiData.getVersion());
+        final Integer storeIndex = findVersionIndex(scGroup.getVersion());
+        return currIndex > storeIndex;
+    }
+
+    private void setApiData2StatusCodes(VersionModel version, ApiDataBean apiData) {
+        StatusCodeGroupModel scGroup = new StatusCodeGroupModel(version, apiData);
+        version.addStatusCodeGroup(scGroup);
+    }
 
     private void setApiData2RequestGroupIfIsLatestVersion(VersionModel version, ApiDataBean apiData) {
+        // TODO
     }
 
 }

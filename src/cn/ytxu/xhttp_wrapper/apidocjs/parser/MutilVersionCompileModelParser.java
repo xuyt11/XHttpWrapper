@@ -63,7 +63,7 @@ public class MutilVersionCompileModelParser {
     }
 
     private void setApiData2StatusCodes(VersionModel version, ApiDataBean apiData) {
-        StatusCodeGroupModel scGroup = new StatusCodeGroupModel(version, apiData, apiData.getTitle(), apiData.getName());
+        StatusCodeGroupModel scGroup = new StatusCodeGroupModel(version, apiData);
         version.addStatusCodeGroup(scGroup);
     }
 

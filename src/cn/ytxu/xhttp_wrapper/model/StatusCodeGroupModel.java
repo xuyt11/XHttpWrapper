@@ -25,12 +25,15 @@ public class StatusCodeGroupModel extends BaseModel<VersionModel, ApiDataBean> {
      */
     private String name;
 
+    private String version;
+
     private List<StatusCodeModel> statusCodes = Collections.EMPTY_LIST;
 
-    public StatusCodeGroupModel(VersionModel higherLevel, ApiDataBean element, String title, String name) {
+    public StatusCodeGroupModel(VersionModel higherLevel, ApiDataBean element) {
         super(higherLevel, element);
-        this.title = title;
-        this.name = name;
+        this.title = element.getTitle();
+        this.name = element.getName();
+        this.version = element.getVersion();
     }
 
     public String getTitle() {
@@ -39,6 +42,10 @@ public class StatusCodeGroupModel extends BaseModel<VersionModel, ApiDataBean> {
 
     public String getName() {
         return name;
+    }
+
+    public String getVersion() {
+        return version;
     }
 
     public List<StatusCodeModel> getStatusCodes() {
