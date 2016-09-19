@@ -1,6 +1,5 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.parser;
 
-import cn.ytxu.api_semi_auto_creater.model.RequestModel;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.config.Property;
 import cn.ytxu.xhttp_wrapper.config.property.status_code.StatusCodeProperty;
@@ -8,7 +7,7 @@ import cn.ytxu.xhttp_wrapper.model.RequestGroupModel;
 import cn.ytxu.xhttp_wrapper.model.StatusCodeGroupModel;
 import cn.ytxu.xhttp_wrapper.model.VersionModel;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -32,7 +31,7 @@ public class MutilVersionCompileModelParser {
 
     private Map<String, VersionModel> getOrderVersionMap() {
         List<String> orderVersions = Property.getConfigProperty().getOrderVersions();
-        Map<String, VersionModel> orderVersionMap = new HashMap<>(orderVersions.size());
+        Map<String, VersionModel> orderVersionMap = new LinkedHashMap<>(orderVersions.size());
         for (String versionCode : orderVersions) {
             orderVersionMap.put(versionCode, new VersionModel(versionCode));
         }
