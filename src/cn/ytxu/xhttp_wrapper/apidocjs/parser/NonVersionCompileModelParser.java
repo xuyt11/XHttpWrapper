@@ -3,6 +3,8 @@ package cn.ytxu.xhttp_wrapper.apidocjs.parser;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.config.Property;
 import cn.ytxu.xhttp_wrapper.config.property.status_code.StatusCodeProperty;
+import cn.ytxu.xhttp_wrapper.model.RequestGroupModel;
+import cn.ytxu.xhttp_wrapper.model.RequestModel;
 import cn.ytxu.xhttp_wrapper.model.StatusCodeGroupModel;
 import cn.ytxu.xhttp_wrapper.model.VersionModel;
 
@@ -72,7 +74,7 @@ public class NonVersionCompileModelParser {
             if (needStoreTheApiData(scGroup, scApiData)) {
                 setApiData2StatusCodes(version, scApiData);
             }
-        } catch (NotFoundSameNameGroupException ignore) {
+        } catch (NotFoundSameNameStatusCodeGroupException ignore) {
             setApiData2StatusCodes(version, scApiData);
         }
     }
@@ -84,10 +86,10 @@ public class NonVersionCompileModelParser {
                 return scGroup;
             }
         }
-        throw new NotFoundSameNameGroupException();
+        throw new NotFoundSameNameStatusCodeGroupException();
     }
 
-    private static final class NotFoundSameNameGroupException extends RuntimeException {
+    private static final class NotFoundSameNameStatusCodeGroupException extends RuntimeException {
     }
 
     private boolean needStoreTheApiData(StatusCodeGroupModel scGroup, ApiDataBean scApiData) {
@@ -102,7 +104,81 @@ public class NonVersionCompileModelParser {
     }
 
     private void setApiData2RequestGroupIfIsLatestVersion(VersionModel version, ApiDataBean apiData) {
-        // TODO
+        RequestGroupModel requestGroup;
+        try {
+            requestGroup = findSameNameRequestGroup(version, apiData);
+        } catch (NotFoundSameNameRequestGroupException ignore) {
+            createAndAddRequestAfterCreateRequestGroup(version, apiData);
+            return;
+        }
+
+        RequestModel request;
+        try {
+            request = findSameNameRequest(requestGroup, apiData);
+        } catch (NotFoundSameNameRequestException ignore) {
+            createRequestByApiDataThenAddIt2RequestGroup(requestGroup, apiData);
+            return;
+        }
+
+        if (needReplaceWithApiData(request, apiData)) {
+            replaceRequestWithApiDataInRequestGroup(requestGroup, request, apiData);
+        }
     }
+
+    private RequestGroupModel findSameNameRequestGroup(VersionModel version, ApiDataBean apiData) {
+        List<RequestGroupModel> requestGroups = version.getRequestGroups();
+        final String requestGroupName = apiData.getGroup();
+        for (RequestGroupModel requestGroup : requestGroups) {
+            if (requestGroup.getName().equals(requestGroupName)) {
+                return requestGroup;
+            }
+        }
+        throw new NotFoundSameNameRequestGroupException();
+    }
+
+    private static final class NotFoundSameNameRequestGroupException extends RuntimeException {
+    }
+
+    private RequestModel findSameNameRequest(RequestGroupModel requestGroup, ApiDataBean apiData) {
+        List<RequestModel> requests = requestGroup.getRequests();
+        final String requestName = apiData.getName();
+        for (RequestModel request : requests) {
+            if (request.getName().equals(requestName)) {
+                return request;
+            }
+        }
+        throw new NotFoundSameNameRequestException();
+    }
+
+    private static final class NotFoundSameNameRequestException extends RuntimeException {
+    }
+
+    private void createAndAddRequestAfterCreateRequestGroup(VersionModel version, ApiDataBean apiData) {
+        RequestGroupModel requestGroup = new RequestGroupModel(version, apiData.getName());
+        version.addRequestGroup(requestGroup);
+
+        createRequestByApiDataThenAddIt2RequestGroup(requestGroup, apiData);
+    }
+
+    private void createRequestByApiDataThenAddIt2RequestGroup(RequestGroupModel requestGroup, ApiDataBean apiData) {
+        RequestModel request = new RequestModel(requestGroup, apiData);
+        requestGroup.addRequest(request);
+    }
+
+    private boolean needReplaceWithApiData(RequestModel request, ApiDataBean apiData) {
+        final Integer currIndex = findVersionIndex(apiData.getVersion());
+        final Integer storeIndex = findVersionIndex(request.getVersion());
+        return currIndex > storeIndex;
+    }
+
+    private void replaceRequestWithApiDataInRequestGroup(RequestGroupModel requestGroup, RequestModel request, ApiDataBean apiData) {
+        List<RequestModel> requests = requestGroup.getRequests();
+
+        int replaceIndex = requests.indexOf(request);
+
+        RequestModel replaceRequest = new RequestModel(requestGroup, apiData);
+        requests.set(replaceIndex, replaceRequest);
+    }
+
 
 }
