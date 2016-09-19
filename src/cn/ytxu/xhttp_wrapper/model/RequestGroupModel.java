@@ -2,6 +2,8 @@ package cn.ytxu.xhttp_wrapper.model;
 
 import cn.ytxu.util.FileUtil;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -9,7 +11,7 @@ import java.util.List;
  */
 public class RequestGroupModel extends BaseModel<VersionModel, String> {
     private String name;
-//    private List<RequestModel> requests;
+    private List<RequestModel> requests = Collections.EMPTY_LIST;
 
     public RequestGroupModel(VersionModel higherLevel, String element) {
         super(higherLevel, element);
@@ -20,13 +22,17 @@ public class RequestGroupModel extends BaseModel<VersionModel, String> {
         return name;
     }
 
-//    public List<RequestModel> getRequests() {
-//        return requests;
-//    }
-//
-//    public void setRequests(List<RequestModel> requests) {
-//        this.requests = requests;
-//    }
+
+    public void addRequest(RequestModel request) {
+        if (requests == Collections.EMPTY_LIST) {
+            requests = new ArrayList<>(10);
+        }
+        requests.add(request);
+    }
+
+    public List<RequestModel> getRequests() {
+        return requests;
+    }
 
 
     //*************** reflect method area ***************
@@ -53,8 +59,7 @@ public class RequestGroupModel extends BaseModel<VersionModel, String> {
         return fieldName;
     }
 
-//    public List requests() {
-//        return requests;
-//    }
-
+    public List requests() {
+        return requests;
+    }
 }

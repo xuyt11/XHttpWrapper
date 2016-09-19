@@ -4,6 +4,7 @@ import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.config.Property;
 import cn.ytxu.xhttp_wrapper.config.property.status_code.StatusCodeProperty;
 import cn.ytxu.xhttp_wrapper.model.RequestGroupModel;
+import cn.ytxu.xhttp_wrapper.model.RequestModel;
 import cn.ytxu.xhttp_wrapper.model.StatusCodeGroupModel;
 import cn.ytxu.xhttp_wrapper.model.VersionModel;
 
@@ -78,13 +79,7 @@ public class MutilVersionCompileModelParser {
             requestGroup = new RequestGroupModel(version, apiData.getName());
             version.addRequestGroup(requestGroup);
         }
-//        RequestGroupModel
-        requestGroup.addRequest();
-
-
-//            if is status code , set to status code list
-//            sections contains this group name add to it;
-//            else create a new sections
+        requestGroup.addRequest(new RequestModel(requestGroup, apiData));
     }
 
     private RequestGroupModel findRequestGroupInVersion4TheApiData(VersionModel version, ApiDataBean apiData) {
