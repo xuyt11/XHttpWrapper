@@ -11,6 +11,7 @@ import cn.ytxu.xhttp_wrapper.model.VersionModel;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -40,13 +41,12 @@ public class MutilVersionCompileModelParser {
     }
 
     private void foreachParseApiDatas(Map<String, VersionModel> orderVersionMap) {
-        final String groupName4StatusCode = getStatusCodeGroupName();
         for (ApiDataBean apiData : apiDatas) {
             VersionModel version = orderVersionMap.get(apiData.getVersion());
             if (notInOrderVersions4TheApiData(version)) {
                 continue;
             }
-            if (isAStatusCodeGroup4ApiData(groupName4StatusCode, apiData)) {
+            if (isAStatusCodeGroup4ApiData(apiData)) {
                 setApiData2StatusCodes(version, apiData);
                 continue;
             }
@@ -54,16 +54,12 @@ public class MutilVersionCompileModelParser {
         }
     }
 
-    private String getStatusCodeGroupName() {
-        return StatusCodeProperty.getInstance().getSectionName4StatusCode();
-    }
-
     private boolean notInOrderVersions4TheApiData(VersionModel version) {
-        return version == null;
+        return Objects.isNull(version);
     }
 
-    private boolean isAStatusCodeGroup4ApiData(String statusCodeGroupName, ApiDataBean apiData) {
-        return statusCodeGroupName.equals(apiData.getGroup());
+    private boolean isAStatusCodeGroup4ApiData(ApiDataBean apiData) {
+        return StatusCodeProperty.getInstance().isStatusCodeGroup(apiData.getGroup());
     }
 
     private void setApiData2StatusCodes(VersionModel version, ApiDataBean apiData) {

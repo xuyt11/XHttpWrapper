@@ -2,12 +2,11 @@ package cn.ytxu.xhttp_wrapper.apidocjs.parser;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.config.Property;
+import cn.ytxu.xhttp_wrapper.config.property.status_code.StatusCodeProperty;
 import cn.ytxu.xhttp_wrapper.model.VersionModel;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 
 /**
  * Created by Administrator on 2016/9/17.
@@ -23,8 +22,7 @@ public class NonVersionCompileModelParser {
     public List<VersionModel> start() {
         Map<String, Integer> orderVersionIndexs = getOrderVersionIndexs();
         VersionModel version = VersionModel.NON_VERSION_MODEL;
-        // TODO
-
+        foreachStoreLatestVersionSApiData(version, orderVersionIndexs);
         return Collections.singletonList(version);
     }
 
@@ -33,10 +31,42 @@ public class NonVersionCompileModelParser {
      */
     private Map<String, Integer> getOrderVersionIndexs() {
         List<String> orderVersions = Property.getConfigProperty().getOrderVersions();
-        Map<String, Integer> orderVersionIndexs = new HashMap<>(orderVersions.size());
+        Map<String, Integer> orderVersionIndexs = new LinkedHashMap<>(orderVersions.size());
         for (String orderVersion : orderVersions) {
             orderVersionIndexs.put(orderVersion, orderVersions.indexOf(orderVersion));
         }
         return orderVersionIndexs;
     }
+
+    private void foreachStoreLatestVersionSApiData(VersionModel version, Map<String, Integer> orderVersionIndexs) {
+        for (ApiDataBean apiData : apiDatas) {
+            final Integer index = orderVersionIndexs.get(apiData.getVersion());
+            if (isNotNeedParsedVersion(index)) {
+                continue;
+            }
+            if (isAStatusCodeGroup4ApiData(apiData)) {
+                setApiData2StatusCodesIfIsLatestVersion(version, apiData);
+                continue;
+            }
+            setApiData2RequestGroupIfIsLatestVersion(version, apiData);
+        }
+    }
+
+    private boolean isNotNeedParsedVersion(Integer index) {
+        return Objects.isNull(index);
+    }
+
+    private boolean isAStatusCodeGroup4ApiData(ApiDataBean apiData) {
+        return StatusCodeProperty.getInstance().isStatusCodeGroup(apiData.getGroup());
+    }
+
+    private void setApiData2StatusCodesIfIsLatestVersion(VersionModel version, ApiDataBean apiData) {
+
+
+    }
+
+
+    private void setApiData2RequestGroupIfIsLatestVersion(VersionModel version, ApiDataBean apiData) {
+    }
+
 }

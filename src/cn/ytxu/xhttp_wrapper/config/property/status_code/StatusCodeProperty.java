@@ -31,6 +31,10 @@ public class StatusCodeProperty {
         return statusCodeBean.getSection_name();
     }
 
+    public boolean isStatusCodeGroup(String groupName) {
+        return getSectionName4StatusCode().equals(groupName);
+    }
+
     public List<StatusCodeCategoryModel> getStatusCodes(DocModel docModel, boolean filter) {
         if (!filter || !isUseVersionFilter()) {
             return getAllStatusCodes(docModel);
