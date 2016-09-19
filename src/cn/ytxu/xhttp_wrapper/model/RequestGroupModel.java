@@ -1,6 +1,7 @@
 package cn.ytxu.xhttp_wrapper.model;
 
 import cn.ytxu.util.FileUtil;
+import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApiDataBean;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,8 +14,8 @@ public class RequestGroupModel extends BaseModel<VersionModel, String> {
     private String name;
     private List<RequestModel> requests = Collections.EMPTY_LIST;
 
-    public RequestGroupModel(VersionModel higherLevel, String element) {
-        super(higherLevel, element);
+    public RequestGroupModel(VersionModel higherLevel, ApiDataBean apiData) {
+        super(higherLevel, apiData.getGroup());
         this.name = element;
     }
 

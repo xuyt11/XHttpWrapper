@@ -6,7 +6,7 @@ package cn.ytxu.xhttp_wrapper.model;
 public class BaseModel<HigherLevelModel extends BaseModel, Element> {
 
     private HigherLevelModel higherLevel;// 上一级对象
-    private Element element;// 解析出对象的html element
+    protected Element element;// 解析出对象的html element
 
     public BaseModel(HigherLevelModel higherLevel, Element element) {
         super();

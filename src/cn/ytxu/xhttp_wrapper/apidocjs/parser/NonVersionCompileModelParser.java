@@ -108,23 +108,18 @@ public class NonVersionCompileModelParser {
         try {
             requestGroup = findSameNameRequestGroup(version, apiData);
         } catch (NotFoundSameNameRequestGroupException ignore) {
-            createAndAddRequestAfterCreateRequestGroup(version, apiData);
-            return;
+            requestGroup = createAndAddRequestGroup(version, apiData);
         }
 
-        RequestModel request;
         try {
-            request = findSameNameRequest(requestGroup, apiData);
+            RequestModel request = findSameNameRequest(requestGroup, apiData);
+            if (needReplaceWithApiData(request, apiData)) {
+                replaceRequestWithApiDataInRequestGroup(requestGroup, request, apiData);
+            }
         } catch (NotFoundSameNameRequestException ignore) {
-            createRequestByApiDataThenAddIt2RequestGroup(requestGroup, apiData);
-            return;
-        }
-
-        if (needReplaceWithApiData(request, apiData)) {
-            replaceRequestWithApiDataInRequestGroup(requestGroup, request, apiData);
+            createAndAddRequest(requestGroup, apiData);
         }
     }
-
     private RequestGroupModel findSameNameRequestGroup(VersionModel version, ApiDataBean apiData) {
         List<RequestGroupModel> requestGroups = version.getRequestGroups();
         final String requestGroupName = apiData.getGroup();
@@ -153,14 +148,13 @@ public class NonVersionCompileModelParser {
     private static final class NotFoundSameNameRequestException extends RuntimeException {
     }
 
-    private void createAndAddRequestAfterCreateRequestGroup(VersionModel version, ApiDataBean apiData) {
-        RequestGroupModel requestGroup = new RequestGroupModel(version, apiData.getName());
+    private RequestGroupModel createAndAddRequestGroup(VersionModel version, ApiDataBean apiData) {
+        RequestGroupModel requestGroup = new RequestGroupModel(version, apiData);
         version.addRequestGroup(requestGroup);
-
-        createRequestByApiDataThenAddIt2RequestGroup(requestGroup, apiData);
+        return requestGroup;
     }
 
-    private void createRequestByApiDataThenAddIt2RequestGroup(RequestGroupModel requestGroup, ApiDataBean apiData) {
+    private void createAndAddRequest(RequestGroupModel requestGroup, ApiDataBean apiData) {
         RequestModel request = new RequestModel(requestGroup, apiData);
         requestGroup.addRequest(request);
     }
