@@ -73,7 +73,7 @@ public class MutilVersionCompileModelParser {
     private void setApiData2RequestGroup(VersionModel version, ApiDataBean apiData) {
         RequestGroupModel requestGroup;
         try {
-            requestGroup = FindRequestGroupInVersion4TheApiData(version, apiData);
+            requestGroup = findRequestGroupInVersion4TheApiData(version, apiData);
         } catch (NotFoundThisApiDataSRequestGroupInThisVersionException ignore) {
             requestGroup = new RequestGroupModel(version, apiData.getName());
             version.addRequestGroup(requestGroup);
@@ -87,12 +87,8 @@ public class MutilVersionCompileModelParser {
 //            else create a new sections
     }
 
-    private RequestGroupModel FindRequestGroupInVersion4TheApiData(VersionModel version, ApiDataBean apiData) {
+    private RequestGroupModel findRequestGroupInVersion4TheApiData(VersionModel version, ApiDataBean apiData) {
         final List<RequestGroupModel> requestGroups = version.getRequestGroups();
-        if (requestGroups.size() <= 0) {
-            throw new NotFoundThisApiDataSRequestGroupInThisVersionException();
-        }
-
         final String apiDataGroupName = apiData.getGroup();
         for (RequestGroupModel requestGroup : requestGroups) {
             if (requestGroup.getName().equals(apiDataGroupName)) {
