@@ -1,8 +1,8 @@
 package cn.ytxu.xhttp_wrapper.config.property.config;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApiDataBean;
-import cn.ytxu.xhttp_wrapper.apidocjs.parser.MutilVersionCompileModelParser;
-import cn.ytxu.xhttp_wrapper.apidocjs.parser.NonVersionCompileModelParser;
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.compile_model.mutil_version.MutilVersionCompileModelParser;
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.compile_model.non_version.NonVersionCompileModelParser;
 import cn.ytxu.xhttp_wrapper.model.VersionModel;
 
 import java.util.List;
