@@ -10,13 +10,13 @@ import java.util.List;
  * Created by Administrator on 2016/9/20.
  * convert ApiData to status code group model , and if is the latest version
  */
-public class NonVersionStatusCodeConverter {
+public class NonVersionStatusCodeGroupConverter {
     private VersionModel version;
     private ApiDataBean apiData;
     private OrderVersionUtil orderVersionUtil;
 
 
-    public NonVersionStatusCodeConverter(VersionModel version, ApiDataBean apiData, OrderVersionUtil orderVersionUtil) {
+    public NonVersionStatusCodeGroupConverter(VersionModel version, ApiDataBean apiData, OrderVersionUtil orderVersionUtil) {
         this.version = version;
         this.apiData = apiData;
         this.orderVersionUtil = orderVersionUtil;

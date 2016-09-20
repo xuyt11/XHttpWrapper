@@ -3,9 +3,6 @@ package cn.ytxu.xhttp_wrapper.apidocjs.parser.compile_model.mutil_version;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.config.Property;
 import cn.ytxu.xhttp_wrapper.config.property.status_code.StatusCodeProperty;
-import cn.ytxu.xhttp_wrapper.model.RequestGroupModel;
-import cn.ytxu.xhttp_wrapper.model.RequestModel;
-import cn.ytxu.xhttp_wrapper.model.StatusCodeGroupModel;
 import cn.ytxu.xhttp_wrapper.model.VersionModel;
 
 import java.util.LinkedHashMap;
@@ -47,10 +44,10 @@ public class MutilVersionCompileModelParser {
                 continue;
             }
             if (isAStatusCodeGroup4ApiData(apiData)) {
-                setApiData2StatusCodes(version, apiData);
+                new MutilVersionStatusCodeGroupConverter(version, apiData).start();
                 continue;
             }
-            setApiData2RequestGroup(version, apiData);
+            new MutilVersionRequestConverter(version, apiData).start();
         }
     }
 
@@ -62,47 +59,8 @@ public class MutilVersionCompileModelParser {
         return StatusCodeProperty.getInstance().isStatusCodeGroup(apiData.getGroup());
     }
 
-    private void setApiData2StatusCodes(VersionModel version, ApiDataBean apiData) {
-        StatusCodeGroupModel scGroup = new StatusCodeGroupModel(version, apiData);
-        version.addStatusCodeGroup(scGroup);
-    }
-
-    private void setApiData2RequestGroup(VersionModel version, ApiDataBean apiData) {
-        RequestGroupModel requestGroup;
-        try {
-            requestGroup = findRequestGroupInVersion4TheApiData(version, apiData);
-        } catch (NotFoundThisApiDataSRequestGroupInThisVersionException ignore) {
-            requestGroup = createRequestGroup(version, apiData);
-        }
-        createRequest(apiData, requestGroup);
-    }
-
-    private RequestGroupModel findRequestGroupInVersion4TheApiData(VersionModel version, ApiDataBean apiData) {
-        final List<RequestGroupModel> requestGroups = version.getRequestGroups();
-        final String apiDataGroupName = apiData.getGroup();
-        for (RequestGroupModel requestGroup : requestGroups) {
-            if (requestGroup.getName().equals(apiDataGroupName)) {
-                return requestGroup;
-            }
-        }
-        throw new NotFoundThisApiDataSRequestGroupInThisVersionException();
-    }
-
-    private static final class NotFoundThisApiDataSRequestGroupInThisVersionException extends RuntimeException {
-    }
-
-    private RequestGroupModel createRequestGroup(VersionModel version, ApiDataBean apiData) {
-        RequestGroupModel requestGroup = new RequestGroupModel(version, apiData);
-        version.addRequestGroup(requestGroup);
-        return requestGroup;
-    }
-
-    private void createRequest(ApiDataBean apiData, RequestGroupModel requestGroup) {
-        RequestModel request = new RequestModel(requestGroup, apiData);
-        requestGroup.addRequest(request);
-    }
-
     private List<VersionModel> getVersions(Map<String, VersionModel> orderVersionMap) {
         return orderVersionMap.values().stream().collect(Collectors.toList());
     }
+
 }

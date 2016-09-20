@@ -33,7 +33,7 @@ public class NonVersionCompileModelParser {
                 continue;
             }
             if (isAStatusCodeGroup4ApiData(apiData)) {
-                new NonVersionStatusCodeConverter(version, apiData, orderVersionUtil).start();
+                new NonVersionStatusCodeGroupConverter(version, apiData, orderVersionUtil).start();
                 continue;
             }
             new NonVersionRequestConverter(version, apiData, orderVersionUtil).start();
