@@ -5,7 +5,6 @@ import cn.ytxu.xhttp_wrapper.model.StatusCodeGroupModel;
 import cn.ytxu.xhttp_wrapper.model.VersionModel;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Administrator on 2016/9/20.
@@ -13,14 +12,14 @@ import java.util.Map;
  */
 public class NonVersionStatusCodeConverter {
     private VersionModel version;
-    private Map<String, Integer> orderVersionIndexs;
     private ApiDataBean apiData;
+    private OrderVersionUtil orderVersionUtil;
 
 
-    public NonVersionStatusCodeConverter(VersionModel version, Map<String, Integer> orderVersionIndexs, ApiDataBean apiData) {
+    public NonVersionStatusCodeConverter(VersionModel version, ApiDataBean apiData, OrderVersionUtil orderVersionUtil) {
         this.version = version;
-        this.orderVersionIndexs = orderVersionIndexs;
         this.apiData = apiData;
+        this.orderVersionUtil = orderVersionUtil;
     }
 
     public void start() {
@@ -48,13 +47,7 @@ public class NonVersionStatusCodeConverter {
     }
 
     private boolean needStoreTheStatusCodeTypeSApiData(StatusCodeGroupModel scGroup) {
-        final Integer currIndex = findVersionIndex(apiData.getVersion());
-        final Integer storeIndex = findVersionIndex(scGroup.getVersion());
-        return currIndex > storeIndex;
-    }
-
-    private Integer findVersionIndex(String version) {
-        return orderVersionIndexs.get(version);
+        return orderVersionUtil.firstVersionIsBiggerThanTheSecondVersion(apiData.getVersion(), scGroup.getVersion());
     }
 
     private void setApiData2StatusCodes() {

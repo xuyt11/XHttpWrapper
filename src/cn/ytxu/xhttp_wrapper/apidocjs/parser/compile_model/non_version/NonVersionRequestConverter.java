@@ -6,7 +6,6 @@ import cn.ytxu.xhttp_wrapper.model.RequestModel;
 import cn.ytxu.xhttp_wrapper.model.VersionModel;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Administrator on 2016/9/20.
@@ -14,35 +13,35 @@ import java.util.Map;
  */
 public class NonVersionRequestConverter {
     private VersionModel version;
-    private Map<String, Integer> orderVersionIndexs;
     private ApiDataBean apiData;
+    private OrderVersionUtil orderVersionUtil;
 
 
-    public NonVersionRequestConverter(VersionModel version, Map<String, Integer> orderVersionIndexs, ApiDataBean apiData) {
+    public NonVersionRequestConverter(VersionModel version, ApiDataBean apiData, OrderVersionUtil orderVersionUtil) {
         this.version = version;
-        this.orderVersionIndexs = orderVersionIndexs;
         this.apiData = apiData;
+        this.orderVersionUtil = orderVersionUtil;
     }
 
     public void start() {
         RequestGroupModel requestGroup;
         try {
-            requestGroup = findSameNameRequestGroup(version, apiData);
+            requestGroup = findSameNameRequestGroup();
         } catch (NotFoundSameNameRequestGroupException ignore) {
-            requestGroup = createAndAddRequestGroup(version, apiData);
+            requestGroup = createAndAddRequestGroup();
         }
 
         try {
-            RequestModel request = findSameNameRequest(requestGroup, apiData);
-            if (needReplaceWithApiData(request, apiData)) {
-                replaceRequestWithApiDataInRequestGroup(requestGroup, request, apiData);
+            RequestModel request = findSameNameRequest(requestGroup);
+            if (needReplaceWithApiData(request)) {
+                replaceRequestWithApiDataInRequestGroup(requestGroup, request);
             }
         } catch (NotFoundSameNameRequestException ignore) {
-            createAndAddRequest(requestGroup, apiData);
+            createAndAddRequest(requestGroup);
         }
     }
 
-    private RequestGroupModel findSameNameRequestGroup(VersionModel version, ApiDataBean apiData) {
+    private RequestGroupModel findSameNameRequestGroup() {
         List<RequestGroupModel> requestGroups = version.getRequestGroups();
         final String requestGroupName = apiData.getGroup();
         for (RequestGroupModel requestGroup : requestGroups) {
@@ -56,7 +55,7 @@ public class NonVersionRequestConverter {
     private static final class NotFoundSameNameRequestGroupException extends RuntimeException {
     }
 
-    private RequestModel findSameNameRequest(RequestGroupModel requestGroup, ApiDataBean apiData) {
+    private RequestModel findSameNameRequest(RequestGroupModel requestGroup) {
         List<RequestModel> requests = requestGroup.getRequests();
         final String requestName = apiData.getName();
         for (RequestModel request : requests) {
@@ -70,28 +69,22 @@ public class NonVersionRequestConverter {
     private static final class NotFoundSameNameRequestException extends RuntimeException {
     }
 
-    private RequestGroupModel createAndAddRequestGroup(VersionModel version, ApiDataBean apiData) {
+    private RequestGroupModel createAndAddRequestGroup() {
         RequestGroupModel requestGroup = new RequestGroupModel(version, apiData);
         version.addRequestGroup(requestGroup);
         return requestGroup;
     }
 
-    private void createAndAddRequest(RequestGroupModel requestGroup, ApiDataBean apiData) {
+    private void createAndAddRequest(RequestGroupModel requestGroup) {
         RequestModel request = new RequestModel(requestGroup, apiData);
         requestGroup.addRequest(request);
     }
 
-    private boolean needReplaceWithApiData(RequestModel request, ApiDataBean apiData) {
-        final Integer currIndex = findVersionIndex(apiData.getVersion());
-        final Integer storeIndex = findVersionIndex(request.getVersion());
-        return currIndex > storeIndex;
+    private boolean needReplaceWithApiData(RequestModel request) {
+        return orderVersionUtil.firstVersionIsBiggerThanTheSecondVersion(apiData.getVersion(), request.getVersion());
     }
 
-    private Integer findVersionIndex(String version) {
-        return orderVersionIndexs.get(version);
-    }
-
-    private void replaceRequestWithApiDataInRequestGroup(RequestGroupModel requestGroup, RequestModel request, ApiDataBean apiData) {
+    private void replaceRequestWithApiDataInRequestGroup(RequestGroupModel requestGroup, RequestModel request) {
         List<RequestModel> requests = requestGroup.getRequests();
 
         int replaceIndex = requests.indexOf(request);
