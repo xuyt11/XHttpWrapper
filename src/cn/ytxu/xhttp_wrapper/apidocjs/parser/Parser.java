@@ -1,9 +1,11 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.parser;
 
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.status_code.StatusCodeParser;
 import cn.ytxu.xhttp_wrapper.config.Property;
 import cn.ytxu.util.FileUtil;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.config.property.config.CompileModel;
+import cn.ytxu.xhttp_wrapper.model.StatusCodeGroupModel;
 import cn.ytxu.xhttp_wrapper.model.VersionModel;
 import com.alibaba.fastjson.JSON;
 
@@ -14,23 +16,42 @@ import java.util.List;
  * Created by Administrator on 2016/9/14.
  */
 public class Parser {
+    private List<VersionModel> versions;
 
     public Parser() {
     }
 
     public List<VersionModel> start() throws IOException {
-        List<ApiDataBean> apiDatas = getApiDatas();
-        CompileModel compileModel = Property.getConfigProperty().getCompileModel();
-        return compileModel.generateApiTreeDependentByCompileModel(apiDatas);
+        List<ApiDataBean> apiDatas = getApiDatasFromFile();
+        versions = getVersionModelsByApiDatas(apiDatas);
+
+        parseStatusCode();
+        parseRequest(versions);
+        parseResponses(versions);
+        parseResponseSErrors(versions);
+
+        return versions;
     }
 
-    private List<ApiDataBean> getApiDatas() throws IOException {
+    private List<ApiDataBean> getApiDatasFromFile() throws IOException {
         // 1 get api_data.json path
         String apiDataPath = Property.getApidocProperty().getApiDataJsonPath();
         // 2 get json data from file
         String apiDataJsonStr = FileUtil.getContent(apiDataPath);
         // 3 get java object array by json data
         return JSON.parseArray(apiDataJsonStr, ApiDataBean.class);
+    }
+
+    private List<VersionModel> getVersionModelsByApiDatas(List<ApiDataBean> apiDatas) {
+        CompileModel compileModel = Property.getConfigProperty().getCompileModel();
+        return compileModel.generateApiTreeDependentByCompileModel(apiDatas);
+    }
+
+    private void parseStatusCode() {
+        for (VersionModel version : versions) {
+            List<StatusCodeGroupModel> statusCodeGroups = version.getStatusCodeGroups();
+            new StatusCodeParser(statusCodeGroups).start();
+        }
     }
 
 }

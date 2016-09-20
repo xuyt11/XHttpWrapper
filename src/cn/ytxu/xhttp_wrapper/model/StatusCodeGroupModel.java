@@ -2,6 +2,7 @@ package cn.ytxu.xhttp_wrapper.model;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApiDataBean;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -52,8 +53,12 @@ public class StatusCodeGroupModel extends BaseModel<VersionModel, ApiDataBean> {
         return statusCodes;
     }
 
-    public void setStatusCodes(List<StatusCodeModel> statusCodes) {
-        this.statusCodes = statusCodes;
+    public void addStatusCodes(List<StatusCodeModel> statusCodes) {
+        if (this.statusCodes == Collections.EMPTY_LIST) {
+            this.statusCodes = new ArrayList<>(statusCodes);
+            return;
+        }
+        this.statusCodes.addAll(statusCodes);
     }
 
 
