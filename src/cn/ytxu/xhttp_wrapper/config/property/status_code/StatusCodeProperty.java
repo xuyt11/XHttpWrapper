@@ -81,4 +81,8 @@ public class StatusCodeProperty {
         return statusCodeBean.getOk_number();
     }
 
+    public String getParseModelName() {
+        return statusCodeBean.getParse_model();
+    }
+
 }

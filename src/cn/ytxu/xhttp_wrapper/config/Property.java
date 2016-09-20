@@ -69,4 +69,8 @@ public class Property {
         return ApidocProperty.getInstance();
     }
 
+    public static StatusCodeProperty getStatusCodeProperty() {
+        return StatusCodeProperty.getInstance();
+    }
+
 }
