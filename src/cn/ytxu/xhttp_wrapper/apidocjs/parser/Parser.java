@@ -5,7 +5,7 @@ import cn.ytxu.xhttp_wrapper.apidocjs.parser.status_code.StatusCodeParser;
 import cn.ytxu.xhttp_wrapper.config.Property;
 import cn.ytxu.util.FileUtil;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApiDataBean;
-import cn.ytxu.xhttp_wrapper.config.property.config.CompileModel;
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.compile_model.CompileModelType;
 import cn.ytxu.xhttp_wrapper.model.RequestGroupModel;
 import cn.ytxu.xhttp_wrapper.model.StatusCodeGroupModel;
 import cn.ytxu.xhttp_wrapper.model.VersionModel;
@@ -45,7 +45,8 @@ public class Parser {
     }
 
     private List<VersionModel> getVersionModelsByApiDatas(List<ApiDataBean> apiDatas) {
-        CompileModel compileModel = Property.getConfigProperty().getCompileModel();
+        String compileModelName = Property.getConfigProperty().getCompileModelName();
+        CompileModelType compileModel = CompileModelType.getByName(compileModelName);
         return compileModel.generateApiTreeDependentByCompileModel(apiDatas);
     }
 

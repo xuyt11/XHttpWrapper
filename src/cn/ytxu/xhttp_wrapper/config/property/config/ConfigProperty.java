@@ -28,8 +28,8 @@ public class ConfigProperty {
         return config.getAuto_generate_file_charset();
     }
 
-    public CompileModel getCompileModel() {
-        return CompileModel.getByName(config.getCompile_model());
+    public String getCompileModelName() {
+        return config.getCompile_model();
     }
 
     public List<String> getOrderVersions() {
