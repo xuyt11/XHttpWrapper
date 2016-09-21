@@ -1,8 +1,8 @@
-package cn.ytxu.xhttp_wrapper.model.restful_url;
+package cn.ytxu.xhttp_wrapper.model.request.restful_url;
 
 import cn.ytxu.xhttp_wrapper.config.property.request.RequestProperty;
 import cn.ytxu.xhttp_wrapper.model.BaseModel;
-import cn.ytxu.xhttp_wrapper.model.RequestModel;
+import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
 
 import java.util.ArrayList;
 import java.util.Collections;

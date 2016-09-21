@@ -1,6 +1,7 @@
-package cn.ytxu.xhttp_wrapper.model;
+package cn.ytxu.xhttp_wrapper.model.status_code;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.FieldBean;
+import cn.ytxu.xhttp_wrapper.model.BaseModel;
 
 /**
  * Created by ytxu on 2016/8/30

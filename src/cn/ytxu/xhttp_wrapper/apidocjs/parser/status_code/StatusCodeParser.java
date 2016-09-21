@@ -2,8 +2,8 @@ package cn.ytxu.xhttp_wrapper.apidocjs.parser.status_code;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.FieldBean;
 import cn.ytxu.xhttp_wrapper.config.Property;
-import cn.ytxu.xhttp_wrapper.model.StatusCodeGroupModel;
-import cn.ytxu.xhttp_wrapper.model.StatusCodeModel;
+import cn.ytxu.xhttp_wrapper.model.status_code.StatusCodeGroupModel;
+import cn.ytxu.xhttp_wrapper.model.status_code.StatusCodeModel;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package cn.ytxu.xhttp_wrapper.model.restful_url;
+package cn.ytxu.xhttp_wrapper.model.request.restful_url;
 
 import cn.ytxu.xhttp_wrapper.model.BaseModel;
 

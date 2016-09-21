@@ -2,9 +2,9 @@ package cn.ytxu.xhttp_wrapper.apidocjs.parser.request.restful_url;
 
 import cn.ytxu.xhttp_wrapper.config.property.request.DateReplaceBean;
 import cn.ytxu.xhttp_wrapper.config.property.request.RequestProperty;
-import cn.ytxu.xhttp_wrapper.model.RequestModel;
-import cn.ytxu.xhttp_wrapper.model.restful_url.RESTfulParamModel;
-import cn.ytxu.xhttp_wrapper.model.restful_url.RESTfulUrlModel;
+import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
+import cn.ytxu.xhttp_wrapper.model.request.restful_url.RESTfulParamModel;
+import cn.ytxu.xhttp_wrapper.model.request.restful_url.RESTfulUrlModel;
 
 import java.util.ArrayList;
 import java.util.List;

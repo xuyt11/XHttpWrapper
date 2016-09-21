@@ -1,12 +1,12 @@
-package cn.ytxu.xhttp_wrapper.model;
+package cn.ytxu.xhttp_wrapper.model.request;
 
-import cn.ytxu.api_semi_auto_creater.model.request.DefinedParamModel;
 import cn.ytxu.api_semi_auto_creater.model.request.InputParamModel;
 import cn.ytxu.api_semi_auto_creater.model.response.ResponseModel;
 import cn.ytxu.util.FileUtil;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApiDataBean;
-import cn.ytxu.xhttp_wrapper.model.restful_url.RESTfulParamModel;
-import cn.ytxu.xhttp_wrapper.model.restful_url.RESTfulUrlModel;
+import cn.ytxu.xhttp_wrapper.model.BaseModel;
+import cn.ytxu.xhttp_wrapper.model.request.restful_url.RESTfulParamModel;
+import cn.ytxu.xhttp_wrapper.model.request.restful_url.RESTfulUrlModel;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -61,7 +61,6 @@ public class RequestModel extends BaseModel<RequestGroupModel, ApiDataBean> {
     private String description;
 
     private RESTfulUrlModel restfulUrl;// url
-    private List<DefinedParamModel> definedParams;// 已定义了的参数：有参数名，参数类型，参数描述等信息
     private List<InputParamModel> headers, inputs;// 请求的头部参数与输入参数
     private List<ResponseModel> responses = Collections.EMPTY_LIST;// 响应列表
 
@@ -114,14 +113,6 @@ public class RequestModel extends BaseModel<RequestGroupModel, ApiDataBean> {
 
     public void setRestfulUrl(RESTfulUrlModel restfulUrl) {
         this.restfulUrl = restfulUrl;
-    }
-
-    public List<DefinedParamModel> getDefinedParams() {
-        return definedParams;
-    }
-
-    public void setDefinedParams(List<DefinedParamModel> definedParams) {
-        this.definedParams = definedParams;
     }
 
     public List<InputParamModel> getHeaders() {

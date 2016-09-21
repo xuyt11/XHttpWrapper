@@ -1,7 +1,9 @@
-package cn.ytxu.xhttp_wrapper.model;
+package cn.ytxu.xhttp_wrapper.model.request;
 
 import cn.ytxu.util.FileUtil;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApiDataBean;
+import cn.ytxu.xhttp_wrapper.model.BaseModel;
+import cn.ytxu.xhttp_wrapper.model.VersionModel;
 
 import java.util.ArrayList;
 import java.util.Collections;

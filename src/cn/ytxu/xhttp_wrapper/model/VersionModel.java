@@ -1,5 +1,8 @@
 package cn.ytxu.xhttp_wrapper.model;
 
+import cn.ytxu.xhttp_wrapper.model.request.RequestGroupModel;
+import cn.ytxu.xhttp_wrapper.model.status_code.StatusCodeGroupModel;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
