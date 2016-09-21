@@ -5,6 +5,8 @@ import cn.ytxu.api_semi_auto_creater.model.response.ResponseModel;
 import cn.ytxu.util.FileUtil;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.model.BaseModel;
+import cn.ytxu.xhttp_wrapper.model.request.header.RequestHeaderModel;
+import cn.ytxu.xhttp_wrapper.model.request.input.RequestInputModel;
 import cn.ytxu.xhttp_wrapper.model.request.restful_url.RESTfulParamModel;
 import cn.ytxu.xhttp_wrapper.model.request.restful_url.RESTfulUrlModel;
 
@@ -61,6 +63,8 @@ public class RequestModel extends BaseModel<RequestGroupModel, ApiDataBean> {
     private String description;
 
     private RESTfulUrlModel restfulUrl;// url
+    private RequestHeaderModel header;
+    private RequestInputModel input;
     private List<InputParamModel> headers, inputs;// 请求的头部参数与输入参数
     private List<ResponseModel> responses = Collections.EMPTY_LIST;// 响应列表
 
@@ -113,6 +117,22 @@ public class RequestModel extends BaseModel<RequestGroupModel, ApiDataBean> {
 
     public void setRestfulUrl(RESTfulUrlModel restfulUrl) {
         this.restfulUrl = restfulUrl;
+    }
+
+    public RequestHeaderModel getHeader() {
+        return header;
+    }
+
+    public void setHeader(RequestHeaderModel header) {
+        this.header = header;
+    }
+
+    public RequestInputModel getInput() {
+        return input;
+    }
+
+    public void setInput(RequestInputModel input) {
+        this.input = input;
     }
 
     public List<InputParamModel> getHeaders() {
