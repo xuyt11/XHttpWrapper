@@ -101,8 +101,7 @@ public class RESTfulUrlParser {
     private String getRestfulParam(String group) {
         String restfulParam = group.substring(1, group.length() - 1);
         List<DateReplaceBean> dateReplaces = RequestProperty.getInstance().getDateReplaces();
-        for (int i = 0; i < dateReplaces.size(); i++) {
-            DateReplaceBean dateReplace = dateReplaces.get(i);
+        for (DateReplaceBean dateReplace : dateReplaces) {
             if (dateReplace.getDate_format().equals(restfulParam)) {
                 restfulParam = dateReplace.getDate_request_param();
             }
