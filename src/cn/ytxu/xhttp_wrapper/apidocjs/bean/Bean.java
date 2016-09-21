@@ -1,5 +1,6 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.bean;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -15,12 +16,12 @@ public class Bean {
      * 1，若为response，则为parent name
      * v:fields
      */
-    private Map<String, List<FieldBean>> fields;
+    private Map<String, List<FieldBean>> fields = Collections.EMPTY_MAP;
     /**
      * 若为request，则为field value example
      * 若为response，则为该response example
      */
-    private List<ExampleBean> examples;
+    private List<ExampleBean> examples = Collections.EMPTY_LIST;
 
     public Map<String, List<FieldBean>> getFields() {
         return fields;
