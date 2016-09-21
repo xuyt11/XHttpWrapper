@@ -1,6 +1,8 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.parser.request;
 
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.request.restful_url.RESTfulUrlParser;
 import cn.ytxu.xhttp_wrapper.model.RequestGroupModel;
+import cn.ytxu.xhttp_wrapper.model.restful_url.RESTfulUrlModel;
 
 import java.util.List;
 
@@ -15,6 +17,14 @@ public class RequestParser {
     }
 
     public void start() {
-
+        requestGroups.forEach(requestGroup -> requestGroup.getRequests().forEach(request -> {
+            // parse RESTful url
+            RESTfulUrlModel restfulUrl = new RESTfulUrlParser(request).start();
+            request.setRestfulUrl(restfulUrl);
+            // parse header param
+            // parse input param
+            // parse success param
+            // parse error param
+        }));
     }
 }

@@ -2,11 +2,11 @@ package cn.ytxu.xhttp_wrapper.model;
 
 import cn.ytxu.api_semi_auto_creater.model.request.DefinedParamModel;
 import cn.ytxu.api_semi_auto_creater.model.request.InputParamModel;
-import cn.ytxu.api_semi_auto_creater.model.request.restful_url.RESTfulParamModel;
-import cn.ytxu.api_semi_auto_creater.model.request.restful_url.RESTfulUrlModel;
 import cn.ytxu.api_semi_auto_creater.model.response.ResponseModel;
 import cn.ytxu.util.FileUtil;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApiDataBean;
+import cn.ytxu.xhttp_wrapper.model.restful_url.RESTfulParamModel;
+import cn.ytxu.xhttp_wrapper.model.restful_url.RESTfulUrlModel;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -78,6 +78,10 @@ public class RequestModel extends BaseModel<RequestGroupModel, ApiDataBean> {
         name = element.getName();
         group = element.getGroup();
         description = element.getDescription();
+    }
+
+    public String getUrl() {
+        return url;
     }
 
     public String getName() {
