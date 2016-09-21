@@ -1,8 +1,8 @@
-package cn.ytxu.xhttp_wrapper.config.property.status_code;
+package cn.ytxu.xhttp_wrapper.apidocjs.parser.status_code;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.FieldBean;
-import cn.ytxu.xhttp_wrapper.apidocjs.parser.status_code.DefaultValueModelStatusCodeParser;
-import cn.ytxu.xhttp_wrapper.apidocjs.parser.status_code.XCustomModelStatusCodeParser;
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.status_code.parse_model.DefaultValueModelStatusCodeParser;
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.status_code.parse_model.XCustomModelStatusCodeParser;
 import cn.ytxu.xhttp_wrapper.model.StatusCodeGroupModel;
 import cn.ytxu.xhttp_wrapper.model.StatusCodeModel;
 

@@ -1,10 +1,12 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.parser;
 
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.request.RequestParser;
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.status_code.StatusCodeParser;
 import cn.ytxu.xhttp_wrapper.config.Property;
 import cn.ytxu.util.FileUtil;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.config.property.config.CompileModel;
+import cn.ytxu.xhttp_wrapper.model.RequestGroupModel;
 import cn.ytxu.xhttp_wrapper.model.StatusCodeGroupModel;
 import cn.ytxu.xhttp_wrapper.model.VersionModel;
 import com.alibaba.fastjson.JSON;
@@ -26,9 +28,9 @@ public class Parser {
         versions = getVersionModelsByApiDatas(apiDatas);
 
         parseStatusCode();
-        parseRequest(versions);
-        parseResponses(versions);
-        parseResponseSErrors(versions);
+        parseRequest();
+//        parseResponses();
+//        parseResponseSErrors();
 
         return versions;
     }
@@ -48,10 +50,17 @@ public class Parser {
     }
 
     private void parseStatusCode() {
-        for (VersionModel version : versions) {
+        versions.forEach(version -> {
             List<StatusCodeGroupModel> statusCodeGroups = version.getStatusCodeGroups();
             new StatusCodeParser(statusCodeGroups).start();
-        }
+        });
+    }
+
+    private void parseRequest() {
+        versions.forEach(version -> {
+            List<RequestGroupModel> requestGroups = version.getRequestGroups();
+            new RequestParser(requestGroups).start();
+        });
     }
 
 }
