@@ -4,14 +4,14 @@ package cn.ytxu.xhttp_wrapper.config.property.element_type;
  * 请求参数与响应体中输出参数类型的枚举
  * statement-format:key=value
  * key:类型名称；value：类型的输出值
- * value-format:element_type[,element_request_type]
- * element_type:请求与实体类中参数的类型; element_request_type:请求中可选参数的类型，或者是数组类型参数在请求中的类型<br>
+ * value-format:field_type[,field_optional_type]
+ * field_type:请求与实体类中参数的类型; field_optional_type:请求中可选参数的类型，或者是数组类型参数在请求中的类型<br>
  * <p>
  * 只有请求方法中有file类型<br>
  * <p>
  * ${object}:子类型的替换字符串<br>
  */
-public class ElementTypeEnumBean {
+public class FieldTypeEnumBean {
     private EtBean null_et;
     private EtBean date_et;
     private EtBean file_et;
@@ -132,23 +132,23 @@ public class ElementTypeEnumBean {
     }
 
     public static class EtBean {
-        private String element_type;
-        private String element_request_type;
+        private String field_type;
+        private String field_optional_type;
 
-        public String getElement_type() {
-            return element_type;
+        public String getField_type() {
+            return field_type;
         }
 
-        public void setElement_type(String element_type) {
-            this.element_type = element_type;
+        public void setField_type(String field_type) {
+            this.field_type = field_type;
         }
 
-        public String getElement_request_type() {
-            return element_request_type;
+        public String getField_optional_type() {
+            return field_optional_type;
         }
 
-        public void setElement_request_type(String element_request_type) {
-            this.element_request_type = element_request_type;
+        public void setField_optional_type(String field_optional_type) {
+            this.field_optional_type = field_optional_type;
         }
     }
 }

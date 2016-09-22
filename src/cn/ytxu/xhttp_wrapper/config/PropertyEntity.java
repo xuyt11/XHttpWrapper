@@ -3,7 +3,7 @@ package cn.ytxu.xhttp_wrapper.config;
 import cn.ytxu.xhttp_wrapper.config.property.apidoc.ApidocOutputDataFileBean;
 import cn.ytxu.xhttp_wrapper.config.property.base_response_entity_name.ResponseBean;
 import cn.ytxu.xhttp_wrapper.config.property.config.ConfigBean;
-import cn.ytxu.xhttp_wrapper.config.property.element_type.ElementTypeEnumBean;
+import cn.ytxu.xhttp_wrapper.config.property.element_type.FieldTypeEnumBean;
 import cn.ytxu.xhttp_wrapper.config.property.filter.FilterBean;
 import cn.ytxu.xhttp_wrapper.config.property.request.RequestBean;
 import cn.ytxu.xhttp_wrapper.config.property.status_code.StatusCodeBean;
@@ -22,7 +22,7 @@ public class PropertyEntity {
     private RequestBean request;
     private ResponseBean response;
     private StatusCodeBean status_code;
-    private ElementTypeEnumBean element_type_enum;
+    private FieldTypeEnumBean field_type_enum;
 
     public ConfigBean getConfig() {
         return config;
@@ -68,12 +68,12 @@ public class PropertyEntity {
         this.status_code = status_code;
     }
 
-    public ElementTypeEnumBean getElement_type_enum() {
-        return element_type_enum;
+    public FieldTypeEnumBean getField_type_enum() {
+        return field_type_enum;
     }
 
-    public void setElement_type_enum(ElementTypeEnumBean element_type_enum) {
-        this.element_type_enum = element_type_enum;
+    public void setField_type_enum(FieldTypeEnumBean field_type_enum) {
+        this.field_type_enum = field_type_enum;
     }
 
 

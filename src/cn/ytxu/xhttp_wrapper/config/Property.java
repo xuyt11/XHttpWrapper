@@ -3,7 +3,7 @@ package cn.ytxu.xhttp_wrapper.config;
 import cn.ytxu.xhttp_wrapper.config.property.apidoc.ApidocProperty;
 import cn.ytxu.xhttp_wrapper.config.property.config.ConfigProperty;
 import cn.ytxu.xhttp_wrapper.config.property.filter.FilterProperty;
-import cn.ytxu.xhttp_wrapper.config.property.element_type.ElementTypeProperty;
+import cn.ytxu.xhttp_wrapper.config.property.element_type.FieldTypeProperty;
 import cn.ytxu.xhttp_wrapper.config.property.base_response_entity_name.BaseResponseEntityNameProperty;
 import cn.ytxu.xhttp_wrapper.config.property.request.RequestProperty;
 import cn.ytxu.xhttp_wrapper.config.property.status_code.StatusCodeProperty;
@@ -37,7 +37,7 @@ public class Property {
         FilterProperty.load(object.getFilter());
         RequestProperty.load(object.getRequest());
         BaseResponseEntityNameProperty.load(object.getResponse());
-        ElementTypeProperty.load(object.getElement_type_enum());
+        FieldTypeProperty.load(object.getField_type_enum());
         ApidocProperty.load(object.getApidoc_output_data_file());
         StatusCodeProperty.load(object.getStatus_code());
     }
@@ -65,8 +65,8 @@ public class Property {
         return BaseResponseEntityNameProperty.get();
     }
 
-    public static ElementTypeProperty getElementTypeProperty() {
-        return ElementTypeProperty.getInstance();
+    public static FieldTypeProperty getFieldTypeProperty() {
+        return FieldTypeProperty.getInstance();
     }
 
     public static ApidocProperty getApidocProperty() {

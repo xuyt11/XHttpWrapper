@@ -3,9 +3,8 @@ package cn.ytxu.xhttp_wrapper.model.field;
 import cn.ytxu.api_semi_auto_creater.model.response.OutputParamModel;
 import cn.ytxu.api_semi_auto_creater.apidocjs_parser.response.output.OutputParamType;
 import cn.ytxu.xhttp_wrapper.config.Property;
-import cn.ytxu.xhttp_wrapper.config.property.element_type.ElementTypeEnumBean;
+import cn.ytxu.xhttp_wrapper.config.property.element_type.FieldTypeEnumBean;
 
-import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -15,22 +14,22 @@ import java.util.Objects;
 public enum FieldType {
     NULL(OutputParamType.NULL) {
         @Override
-        protected ElementTypeEnumBean.EtBean getEtBean() {
-            return Property.getElementTypeProperty().getNullET();
+        protected FieldTypeEnumBean.EtBean getEtBean() {
+            return Property.getFieldTypeProperty().getNullET();
         }
     },
     // date类型不会出现在json中，
     DATE(null, "Date", "DateTime") {
         @Override
-        protected ElementTypeEnumBean.EtBean getEtBean() {
-            return Property.getElementTypeProperty().getDateET();
+        protected FieldTypeEnumBean.EtBean getEtBean() {
+            return Property.getFieldTypeProperty().getDateET();
         }
     },
     // 只有请求方法中有file类型
     FILE(null, "File") {
         @Override
-        protected ElementTypeEnumBean.EtBean getEtBean() {
-            return Property.getElementTypeProperty().getFileET();
+        protected FieldTypeEnumBean.EtBean getEtBean() {
+            return Property.getFieldTypeProperty().getFileET();
         }
 
         @Override
@@ -40,52 +39,52 @@ public enum FieldType {
     },
     INTEGER(OutputParamType.INTEGER, "Integer") {
         @Override
-        protected ElementTypeEnumBean.EtBean getEtBean() {
-            return Property.getElementTypeProperty().getIntegerET();
+        protected FieldTypeEnumBean.EtBean getEtBean() {
+            return Property.getFieldTypeProperty().getIntegerET();
         }
     },
     LONG(OutputParamType.LONG, "Long") {
         @Override
-        protected ElementTypeEnumBean.EtBean getEtBean() {
-            return Property.getElementTypeProperty().getLongET();
+        protected FieldTypeEnumBean.EtBean getEtBean() {
+            return Property.getFieldTypeProperty().getLongET();
         }
     },
     FLOAT(OutputParamType.FLOAT, "Float") {
         @Override
-        protected ElementTypeEnumBean.EtBean getEtBean() {
-            return Property.getElementTypeProperty().getFloatET();
+        protected FieldTypeEnumBean.EtBean getEtBean() {
+            return Property.getFieldTypeProperty().getFloatET();
         }
     },
     DOUBLE(OutputParamType.DOUBLE, "Double") {
         @Override
-        protected ElementTypeEnumBean.EtBean getEtBean() {
-            return Property.getElementTypeProperty().getDoubleET();
+        protected FieldTypeEnumBean.EtBean getEtBean() {
+            return Property.getFieldTypeProperty().getDoubleET();
         }
     },
     // FUTURE 未来将会删除掉的类型，这样的类型，不能知道精确类型
     NUMBER(OutputParamType.NUMBER, "Number") {
         @Override
-        protected ElementTypeEnumBean.EtBean getEtBean() {
-            return Property.getElementTypeProperty().getNumberET();
+        protected FieldTypeEnumBean.EtBean getEtBean() {
+            return Property.getFieldTypeProperty().getNumberET();
         }
     },
     BOOLEAN(OutputParamType.BOOLEAN, "Boolean") {
         @Override
-        protected ElementTypeEnumBean.EtBean getEtBean() {
-            return Property.getElementTypeProperty().getBooleanET();
+        protected FieldTypeEnumBean.EtBean getEtBean() {
+            return Property.getFieldTypeProperty().getBooleanET();
         }
     },
     STRING(OutputParamType.STRING, "String") {
         @Override
-        protected ElementTypeEnumBean.EtBean getEtBean() {
-            return Property.getElementTypeProperty().getStringET();
+        protected FieldTypeEnumBean.EtBean getEtBean() {
+            return Property.getFieldTypeProperty().getStringET();
         }
     },
     // tip: 对象类型不能在request parameter list中出现
     OBJECT(OutputParamType.JSON_OBJECT) {
         @Override
-        protected ElementTypeEnumBean.EtBean getEtBean() {
-            return Property.getElementTypeProperty().getObjectET();
+        protected FieldTypeEnumBean.EtBean getEtBean() {
+            return Property.getFieldTypeProperty().getObjectET();
         }
 
         @Override
@@ -105,8 +104,8 @@ public enum FieldType {
     },
     // ${object} -->使用其进行替换
     ARRAY(OutputParamType.JSON_ARRAY, "Array", "List") {
-        protected ElementTypeEnumBean.EtBean getEtBean() {
-            return Property.getElementTypeProperty().getArrayET();
+        protected FieldTypeEnumBean.EtBean getEtBean() {
+            return Property.getFieldTypeProperty().getArrayET();
         }
 
         @Override
@@ -131,8 +130,8 @@ public enum FieldType {
     // ${object} -->使用其进行替换
     MAP(OutputParamType.JSON_OBJECT, "Map", "Dictionary", "Dict") {
         @Override
-        protected ElementTypeEnumBean.EtBean getEtBean() {
-            return Property.getElementTypeProperty().getMapET();
+        protected FieldTypeEnumBean.EtBean getEtBean() {
+            return Property.getFieldTypeProperty().getMapET();
         }
         // TODO implements other method
     };
@@ -155,7 +154,7 @@ public enum FieldType {
     }
 
     protected String getElementTypeByOutput(OutputParamModel output) {
-        return getEtBean().getElement_type();
+        return getEtBean().getField_type();
     }
 
     protected static FieldType getByFieldTypeStr(String fieldTypeStr) {
@@ -174,12 +173,12 @@ public enum FieldType {
     }
 
     protected String getInputFieldTypeNameByInput() {
-        return getEtBean().getElement_type();
+        return getEtBean().getField_type();
     }
 
     protected String getInputFieldOptionalTypeNameType() {
-        return getEtBean().getElement_request_type();
+        return getEtBean().getField_optional_type();
     }
 
-    protected abstract ElementTypeEnumBean.EtBean getEtBean();
+    protected abstract FieldTypeEnumBean.EtBean getEtBean();
 }

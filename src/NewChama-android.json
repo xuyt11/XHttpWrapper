@@ -74,58 +74,58 @@
     ],
     "ok_number": "0"
   },
-  "element_type_enum": {
+  "field_type_enum": {
     "null_et": {
-      "element_type": "String",
-      "element_request_type": "String"
+      "field_type": "String",
+      "field_optional_type": "String"
     },
     "date_et": {
-      "element_type": "String",
-      "element_request_type": "String"
+      "field_type": "String",
+      "field_optional_type": "String"
     },
     "file_et": {
-      "element_type": "File",
-      "element_request_type": "File"
+      "field_type": "File",
+      "field_optional_type": "File"
     },
     "integer_et": {
-      "element_type": "int",
-      "element_request_type": "Integer"
+      "field_type": "int",
+      "field_optional_type": "Integer"
     },
     "long_et": {
-      "element_type": "long",
-      "element_request_type": "Long"
+      "field_type": "long",
+      "field_optional_type": "Long"
     },
     "boolean_et": {
-      "element_type": "boolean",
-      "element_request_type": "Boolean"
+      "field_type": "boolean",
+      "field_optional_type": "Boolean"
     },
     "float_et": {
-      "element_type": "float",
-      "element_request_type": "Float"
+      "field_type": "float",
+      "field_optional_type": "Float"
     },
     "double_et": {
-      "element_type": "double",
-      "element_request_type": "Double"
+      "field_type": "double",
+      "field_optional_type": "Double"
     },
     "number_et": {
-      "element_type": "long",
-      "element_request_type": "Long"
+      "field_type": "long",
+      "field_optional_type": "Long"
     },
     "string_et": {
-      "element_type": "String",
-      "element_request_type": "String"
+      "field_type": "String",
+      "field_optional_type": "String"
     },
     "map_et": {
-      "element_type": "Map<String, ${object}>",
-      "element_request_type": "Map<String, Object>"
+      "field_type": "Map<String, ${object}>",
+      "field_optional_type": "Map<String, Object>"
     },
     "object_et": {
-      "element_type": "${object}",
-      "element_request_type": "${object}"
+      "field_type": "${object}",
+      "field_optional_type": "${object}"
     },
     "array_et": {
-      "element_type": "List<${object}>",
-      "element_request_type": "String"
+      "field_type": "List<${object}>",
+      "field_optional_type": "String"
     }
   }
 }
