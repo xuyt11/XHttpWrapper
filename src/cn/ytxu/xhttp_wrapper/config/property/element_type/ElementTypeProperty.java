@@ -87,5 +87,12 @@ public class ElementTypeProperty {
         return elementTypeEnum.getArray_et();
     }
 
+    public ElementTypeEnumBean.EtBean getMapET() {
+        return elementTypeEnum.getMap_et();
+    }
+
+    public ElementTypeEnumBean.EtBean getObjectET() {
+        return elementTypeEnum.getObject_et();
+    }
 
 }

@@ -23,6 +23,9 @@ public class ElementTypeEnumBean {
     private EtBean number_et;
     private EtBean string_et;
     private EtBean array_et;
+    private EtBean map_et;
+    private EtBean object_et;
+
 
     public EtBean getNull_et() {
         return null_et;
@@ -110,6 +113,22 @@ public class ElementTypeEnumBean {
 
     public void setArray_et(EtBean array_et) {
         this.array_et = array_et;
+    }
+
+    public EtBean getMap_et() {
+        return map_et;
+    }
+
+    public void setMap_et(EtBean map_et) {
+        this.map_et = map_et;
+    }
+
+    public EtBean getObject_et() {
+        return object_et;
+    }
+
+    public void setObject_et(EtBean object_et) {
+        this.object_et = object_et;
     }
 
     public static class EtBean {

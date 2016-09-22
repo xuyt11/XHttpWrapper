@@ -115,15 +115,14 @@
       "element_type": "String",
       "element_request_type": "String"
     },
-    // TODO future
-    //    "map_et": {
-    //      "element_type": "Map<String, ${object}>",
-    //      "element_request_type": "Map<String, Object>"
-    //    },
-    //    "object_et": {
-    //      "element_type": "${object}",
-    //      "element_request_type": "${object}"
-    //    },
+    "map_et": {
+      "element_type": "Map<String, ${object}>",
+      "element_request_type": "Map<String, Object>"
+    },
+    "object_et": {
+      "element_type": "${object}",
+      "element_request_type": "${object}"
+    },
     "array_et": {
       "element_type": "List<${object}>",
       "element_request_type": "String"

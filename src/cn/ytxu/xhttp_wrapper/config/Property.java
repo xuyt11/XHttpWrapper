@@ -65,6 +65,10 @@ public class Property {
         return BaseResponseEntityNameProperty.get();
     }
 
+    public static ElementTypeProperty getElementTypeProperty() {
+        return ElementTypeProperty.getInstance();
+    }
+
     public static ApidocProperty getApidocProperty() {
         return ApidocProperty.getInstance();
     }
