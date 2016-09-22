@@ -50,6 +50,10 @@ public class FieldModel extends BaseModel<FieldGroupModel, FieldBean> {
      * format：<p>用户名<font color='red'>red</font></p>
      */
     private String description;
+    /**
+     * 是否为可过滤掉的参数
+     */
+    private boolean filterTag;
 
     public FieldModel(FieldGroupModel higherLevel, FieldBean element) {
         super(higherLevel, element);
@@ -109,5 +113,13 @@ public class FieldModel extends BaseModel<FieldGroupModel, FieldBean> {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isFilterTag() {
+        return filterTag;
+    }
+
+    public void setFilterTag(boolean filterTag) {
+        this.filterTag = filterTag;
     }
 }

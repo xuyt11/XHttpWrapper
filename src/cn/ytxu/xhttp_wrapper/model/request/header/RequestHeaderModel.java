@@ -13,17 +13,17 @@ import java.util.List;
  */
 public class RequestHeaderModel extends BaseModel<RequestModel, Bean> {
 
-    private List<FieldGroupModel> fieldGroups = Collections.EMPTY_LIST;
+    private List<FieldGroupModel<RequestHeaderModel>> fieldGroups = Collections.EMPTY_LIST;
 
     public RequestHeaderModel(RequestModel higherLevel, Bean element) {
         super(higherLevel, element);
     }
 
-    public List<FieldGroupModel> getFieldGroups() {
+    public List<FieldGroupModel<RequestHeaderModel>> getFieldGroups() {
         return fieldGroups;
     }
 
-    public void setFieldGroups(List<FieldGroupModel> fieldGroups) {
+    public void setFieldGroups(List<FieldGroupModel<RequestHeaderModel>> fieldGroups) {
         this.fieldGroups = fieldGroups;
     }
 }

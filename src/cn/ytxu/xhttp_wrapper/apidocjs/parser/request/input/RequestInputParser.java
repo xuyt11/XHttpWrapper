@@ -5,7 +5,6 @@ import cn.ytxu.xhttp_wrapper.apidocjs.bean.FieldBean;
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.field.FieldGroupParser;
 import cn.ytxu.xhttp_wrapper.model.field.FieldGroupModel;
 import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
-import cn.ytxu.xhttp_wrapper.model.request.header.RequestHeaderModel;
 import cn.ytxu.xhttp_wrapper.model.request.input.RequestInputModel;
 
 import java.util.ArrayList;
@@ -27,15 +26,15 @@ public class RequestInputParser {
         Bean input = request.getElement().getParameter();
         RequestInputModel requestInput = new RequestInputModel(request, input);
 
-        List<FieldGroupModel> fieldGroups = getFieldGroups(input, requestInput);
+        List<FieldGroupModel<RequestInputModel>> fieldGroups = getFieldGroups(input, requestInput);
         requestInput.setFieldGroups(fieldGroups);
 
         return requestInput;
     }
 
-    private List<FieldGroupModel> getFieldGroups(Bean header, RequestInputModel requestHeader) {
-        Set<Map.Entry<String, List<FieldBean>>> entrySet = header.getFields().entrySet();
-        List<FieldGroupModel> fieldGroups = new ArrayList<>(entrySet.size());
+    private List<FieldGroupModel<RequestInputModel>> getFieldGroups(Bean input, RequestInputModel requestHeader) {
+        Set<Map.Entry<String, List<FieldBean>>> entrySet = input.getFields().entrySet();
+        List<FieldGroupModel<RequestInputModel>> fieldGroups = new ArrayList<>(entrySet.size());
         entrySet.forEach(fieldBeanMapEntry -> {
             FieldGroupModel fieldGroup = new FieldGroupParser(requestHeader, fieldBeanMapEntry).start();
             fieldGroups.add(fieldGroup);
