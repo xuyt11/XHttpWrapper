@@ -8,6 +8,10 @@ import cn.ytxu.xhttp_wrapper.model.BaseModel;
  */
 public class FieldModel extends BaseModel<FieldGroupModel, FieldBean> {
     /**
+     * name:字段的名称
+     */
+    private String name;
+    /**
      * 字段所属分类
      * e.g.
      * TODO 1 在response中，可以将其作为object，array，map类型中的类名
@@ -18,8 +22,26 @@ public class FieldModel extends BaseModel<FieldGroupModel, FieldBean> {
      * 参数的类型
      */
     private String type;
+    private FieldType fieldType;
     /**
-     * field size
+     * 该字段是否为可选参数：主要应用于request(header与parameter)
+     */
+    private boolean optional;
+    /**
+     * 是否为可过滤掉的参数
+     */
+    private boolean filterTag;
+    /**
+     * default value:默认值
+     * TODO 未来需要能装换该值，如将双引号转换为单引号或者删除掉等等
+     */
+    private String defaultValue;
+    /**
+     * desc:接口描述，支持html语法，且在两侧会有<p></p>标签
+     * format：<p>用户名<font color='red'>red</font></p>
+     */
+    private String description;
+    /**
      * 参数的范围
      * e.g.
      * 1, 1..20-->int类型的参数，范围在1到20
@@ -29,34 +51,6 @@ public class FieldModel extends BaseModel<FieldGroupModel, FieldBean> {
      * 3, "a","b","bc"-->String类型的参数，枚举参数值
      */
     private String size;
-    /**
-     * 该字段是否为可选参数：主要应用于request(header与parameter)
-     */
-    private boolean optional;
-    /**
-     * field name
-     * 字段的名称
-     */
-    private String field;
-    /**
-     * field default value
-     * 默认值
-     * TODO 未来需要能装换该值，如将双引号转换为单引号或者删除掉等等
-     */
-    private String defaultValue;
-    /**
-     * field desc
-     * 接口描述，支持html语法，且在两侧会有<p></p>标签
-     * format：<p>用户名<font color='red'>red</font></p>
-     */
-    private String description;
-
-    /**
-     * 是否为可过滤掉的参数
-     */
-    private boolean filterTag;
-
-    private FieldType fieldType;
 
     public FieldModel(FieldGroupModel higherLevel, FieldBean element) {
         super(higherLevel, element);
@@ -94,12 +88,12 @@ public class FieldModel extends BaseModel<FieldGroupModel, FieldBean> {
         this.optional = optional;
     }
 
-    public String getField() {
-        return field;
+    public String getName() {
+        return name;
     }
 
-    public void setField(String field) {
-        this.field = field;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDefaultValue() {

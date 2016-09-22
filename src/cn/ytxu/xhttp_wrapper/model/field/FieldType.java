@@ -157,7 +157,7 @@ public enum FieldType {
         return getEtBean().getField_type();
     }
 
-    protected static FieldType getByFieldTypeStr(String fieldTypeStr) {
+    public static FieldType getByFieldTypeStr(String fieldTypeStr) {
         for (FieldType type : FieldType.values()) {
             String[] inputTypes = type.inputTypes;
             if (Objects.isNull(inputTypes)) {
