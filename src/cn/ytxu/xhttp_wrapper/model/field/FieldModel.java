@@ -7,9 +7,7 @@ import cn.ytxu.xhttp_wrapper.model.BaseModel;
  * Created by ytxu on 2016/9/21.
  */
 public class FieldModel extends BaseModel<FieldGroupModel, FieldBean> {
-    /**
-     * name:字段的名称
-     */
+    // 字段的名称
     private String name;
     /**
      * 字段所属分类
@@ -18,19 +16,10 @@ public class FieldModel extends BaseModel<FieldGroupModel, FieldBean> {
      * TODO 2 在request中，可以将其作为缩减参数数量的分类
      */
     private String group;
-    /**
-     * 参数的类型
-     */
+    // 参数的类型
     private String type;
-    private FieldType fieldType;
-    /**
-     * 该字段是否为可选参数：主要应用于request(header与parameter)
-     */
+    // 该字段是否为可选参数：主要应用于request(header与parameter)
     private boolean optional;
-    /**
-     * 是否为可过滤掉的参数
-     */
-    private boolean filterTag;
     /**
      * default value:默认值
      * TODO 未来需要能装换该值，如将双引号转换为单引号或者删除掉等等
@@ -51,6 +40,18 @@ public class FieldModel extends BaseModel<FieldGroupModel, FieldBean> {
      * 3, "a","b","bc"-->String类型的参数，枚举参数值
      */
     private String size;
+
+    // 是否为可过滤掉的参数
+    private boolean filterTag;
+    // 字段的类型，依赖于type解析出来的
+    private FieldType fieldType;
+    /**
+     * tip:在描述字段(description)解析出来的该字段的类型名称；可以用于response 中数组、对象的起名
+     * 例如：results中有children字段，但两个都是Area属性
+     * results	Array 地区信息结果{DataType:Area}
+     * children	Array 地区信息子结果{DataType:Area}
+     */
+    private String dataType;
 
     public FieldModel(FieldGroupModel higherLevel, FieldBean element) {
         super(higherLevel, element);
@@ -126,5 +127,13 @@ public class FieldModel extends BaseModel<FieldGroupModel, FieldBean> {
 
     public void setFieldType(FieldType fieldType) {
         this.fieldType = fieldType;
+    }
+
+    public String getDataType() {
+        return dataType;
+    }
+
+    public void setDataType(String dataType) {
+        this.dataType = dataType;
     }
 }
