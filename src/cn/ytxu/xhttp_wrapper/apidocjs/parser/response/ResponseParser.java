@@ -1,6 +1,7 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.parser.response;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.Bean;
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.example.ExampleParser;
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.field.FieldGroupParser;
 import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseGroupModel;
@@ -27,14 +28,14 @@ public class ResponseParser {
     private void parseSuccessGroup() {
         ResponseGroupModel success = new ResponseGroupModel(request, successBean);
         new FieldGroupParser(success, successBean, success).start();
-
+        new ExampleParser(success, successBean.getExamples()).start();
         request.setSuccessResponseGroup(success);
     }
 
     private void parseErrorGroup() {
         ResponseGroupModel error = new ResponseGroupModel(request, errorBean);
         new FieldGroupParser(error, errorBean, error).start();
-
+        new ExampleParser(error, errorBean.getExamples()).start();
         request.setErrorResponseGroup(error);
     }
 }
