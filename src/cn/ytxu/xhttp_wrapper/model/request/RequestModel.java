@@ -10,6 +10,7 @@ import cn.ytxu.xhttp_wrapper.model.request.header.RequestHeaderModel;
 import cn.ytxu.xhttp_wrapper.model.request.input.RequestInputModel;
 import cn.ytxu.xhttp_wrapper.model.request.restful_url.RESTfulParamModel;
 import cn.ytxu.xhttp_wrapper.model.request.restful_url.RESTfulUrlModel;
+import cn.ytxu.xhttp_wrapper.model.response.ResponseGroupModel;
 
 import java.util.*;
 
@@ -63,6 +64,7 @@ public class RequestModel extends BaseModel<RequestGroupModel, ApiDataBean> {
     private RESTfulUrlModel restfulUrl;// url
     private RequestHeaderModel header;
     private RequestInputModel input;
+    private ResponseGroupModel success, error;
     private List<ResponseModel> responses = Collections.EMPTY_LIST;// 响应列表
 
     public RequestModel(RequestGroupModel higherLevel, ApiDataBean element) {
@@ -138,6 +140,13 @@ public class RequestModel extends BaseModel<RequestGroupModel, ApiDataBean> {
 
     public void setResponses(List<ResponseModel> responses) {
         this.responses = responses;
+    }
+
+    public void setSuccessResponseGroup(ResponseGroupModel success) {
+        this.success = success;
+    }
+    public void setErrorResponseGroup(ResponseGroupModel error) {
+        this.error = error;
     }
 
     //*************** reflect method area ***************

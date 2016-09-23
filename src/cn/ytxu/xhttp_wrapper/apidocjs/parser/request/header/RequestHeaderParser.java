@@ -23,8 +23,7 @@ public class RequestHeaderParser {
         Bean header = request.getElement().getHeader();
         RequestHeaderModel requestHeader = new RequestHeaderModel(request, header);
 
-        List<FieldGroupModel<RequestHeaderModel>> fieldGroups = new FieldGroupParser(requestHeader, header).start();
-        requestHeader.setFieldGroups(fieldGroups);
+        List<FieldGroupModel<RequestHeaderModel>> fieldGroups = new FieldGroupParser(requestHeader, header, requestHeader).start();
 
         setfilterTag2HeaderParam(fieldGroups);
 

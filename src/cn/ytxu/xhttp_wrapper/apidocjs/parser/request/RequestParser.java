@@ -3,6 +3,7 @@ package cn.ytxu.xhttp_wrapper.apidocjs.parser.request;
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.request.header.RequestHeaderParser;
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.request.input.RequestInputParser;
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.request.restful_url.RESTfulUrlParser;
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.ResponseParser;
 import cn.ytxu.xhttp_wrapper.model.request.RequestGroupModel;
 import cn.ytxu.xhttp_wrapper.model.request.header.RequestHeaderModel;
 import cn.ytxu.xhttp_wrapper.model.request.input.RequestInputModel;
@@ -30,8 +31,9 @@ public class RequestParser {
 
             RequestInputModel input = new RequestInputParser(request).start();
             request.setInput(input);
-            // parse success param
-            // parse error param
+
+            // parse success and error param
+            new ResponseParser(request).start();
         }));
     }
 }
