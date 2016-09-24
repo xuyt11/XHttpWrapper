@@ -25,7 +25,7 @@ public class ResponseExampleParser {
         }
 
         List<ResponseModel> responseExamples = convertExampleBean2ResponseExampleModel();
-        responseGroup.setResponseExamples(responseExamples);
+        responseGroup.setResponses(responseExamples);
         parseResponse(responseExamples);
     }
 

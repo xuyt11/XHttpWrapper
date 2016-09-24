@@ -10,11 +10,11 @@ import cn.ytxu.xhttp_wrapper.model.response.ResponseGroupModel;
  * Created by Administrator on 2016/9/23.
  * parse success and error param
  */
-public class ResponseParser {
+public class ResponseGroupParser {
     private RequestModel request;
     private Bean successBean, errorBean;
 
-    public ResponseParser(RequestModel request) {
+    public ResponseGroupParser(RequestModel request) {
         this.request = request;
         this.successBean = request.getElement().getSuccess();
         this.errorBean = request.getElement().getError();

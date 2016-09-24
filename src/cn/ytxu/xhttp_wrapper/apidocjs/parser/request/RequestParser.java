@@ -3,7 +3,7 @@ package cn.ytxu.xhttp_wrapper.apidocjs.parser.request;
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.request.header.RequestHeaderParser;
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.request.input.RequestInputParser;
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.request.restful_url.RESTfulUrlParser;
-import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.ResponseParser;
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.ResponseGroupParser;
 import cn.ytxu.xhttp_wrapper.model.request.RequestGroupModel;
 
 import java.util.List;
@@ -24,7 +24,7 @@ public class RequestParser {
             new RequestHeaderParser(request).start();
             new RequestInputParser(request).start();
             // parse success and error param
-            new ResponseParser(request).start();
+            new ResponseGroupParser(request).start();
         }));
     }
 }

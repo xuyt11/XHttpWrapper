@@ -12,7 +12,7 @@ import java.util.List;
 public class ResponseGroupModel extends BaseModel<RequestModel, Bean> implements FieldGroupContainer<ResponseGroupModel> {
 
     private List<FieldGroupModel<ResponseGroupModel>> fieldGroups = Collections.EMPTY_LIST;
-    private List<ResponseModel> responseExamples = Collections.EMPTY_LIST;
+    private List<ResponseModel> responses = Collections.EMPTY_LIST;
 
     public ResponseGroupModel(RequestModel higherLevel, Bean element) {
         super(higherLevel, element);
@@ -28,11 +28,11 @@ public class ResponseGroupModel extends BaseModel<RequestModel, Bean> implements
         this.fieldGroups = fieldGroups;
     }
 
-    public List<ResponseModel> getResponseExamples() {
-        return responseExamples;
+    public List<ResponseModel> getResponses() {
+        return responses;
     }
 
-    public void setResponseExamples(List<ResponseModel> responseExamples) {
-        this.responseExamples = responseExamples;
+    public void setResponses(List<ResponseModel> responses) {
+        this.responses = responses;
     }
 }
