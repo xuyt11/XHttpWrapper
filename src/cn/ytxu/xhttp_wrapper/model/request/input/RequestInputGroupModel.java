@@ -12,22 +12,22 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/9/21.
  */
-public class RequestInputsModel extends BaseModel<RequestModel, Bean> implements FieldGroupContainer<RequestInputsModel> {
+public class RequestInputGroupModel extends BaseModel<RequestModel, Bean> implements FieldGroupContainer<RequestInputGroupModel> {
 
-    private List<FieldGroupModel<RequestInputsModel>> fieldGroups = Collections.EMPTY_LIST;
+    private List<FieldGroupModel<RequestInputGroupModel>> fieldGroups = Collections.EMPTY_LIST;
     private List<RequestInputExampleModel> inputExamples = Collections.EMPTY_LIST;
 
-    public RequestInputsModel(RequestModel higherLevel, Bean element) {
+    public RequestInputGroupModel(RequestModel higherLevel, Bean element) {
         super(higherLevel, element);
     }
 
     @Override
-    public List<FieldGroupModel<RequestInputsModel>> getFieldGroups() {
+    public List<FieldGroupModel<RequestInputGroupModel>> getFieldGroups() {
         return fieldGroups;
     }
 
     @Override
-    public void setFieldGroups(List<FieldGroupModel<RequestInputsModel>> fieldGroups) {
+    public void setFieldGroups(List<FieldGroupModel<RequestInputGroupModel>> fieldGroups) {
         this.fieldGroups = fieldGroups;
     }
 

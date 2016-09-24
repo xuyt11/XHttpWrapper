@@ -13,9 +13,9 @@ import cn.ytxu.xhttp_wrapper.model.field.FieldExampleModel;
  * 1、type:json; content:{"name":"isAuthed"}<br>
  * 2、type:array; content:1,2,3,5-->以逗号分隔数组，并以string传输<br>
  */
-public class RequestHeaderExampleModel extends FieldExampleModel<RequestHeadersModel> {
+public class RequestHeaderExampleModel extends FieldExampleModel<RequestHeaderGroupModel> {
 
-    public RequestHeaderExampleModel(RequestHeadersModel higherLevel, ExampleBean element) {
+    public RequestHeaderExampleModel(RequestHeaderGroupModel higherLevel, ExampleBean element) {
         super(higherLevel, element);
     }
 

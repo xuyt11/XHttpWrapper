@@ -6,8 +6,8 @@ import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.model.BaseModel;
 import cn.ytxu.xhttp_wrapper.model.field.FieldGroupModel;
 import cn.ytxu.xhttp_wrapper.model.field.FieldModel;
-import cn.ytxu.xhttp_wrapper.model.request.header.RequestHeadersModel;
-import cn.ytxu.xhttp_wrapper.model.request.input.RequestInputsModel;
+import cn.ytxu.xhttp_wrapper.model.request.header.RequestHeaderGroupModel;
+import cn.ytxu.xhttp_wrapper.model.request.input.RequestInputGroupModel;
 import cn.ytxu.xhttp_wrapper.model.request.restful_url.RESTfulParamModel;
 import cn.ytxu.xhttp_wrapper.model.request.restful_url.RESTfulUrlModel;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseGroupModel;
@@ -62,9 +62,9 @@ public class RequestModel extends BaseModel<RequestGroupModel, ApiDataBean> {
     private String description;
 
     private RESTfulUrlModel restfulUrl;// url
-    private RequestHeadersModel headers;
-    private RequestInputsModel inputs;
-    private ResponseGroupModel success, error;
+    private RequestHeaderGroupModel headerGroup;
+    private RequestInputGroupModel inputGroup;
+    private ResponseGroupModel successGroup, errorGroup;
     private List<ResponseModel> responses = Collections.EMPTY_LIST;// 响应列表
 
     public RequestModel(RequestGroupModel higherLevel, ApiDataBean element) {
@@ -118,20 +118,20 @@ public class RequestModel extends BaseModel<RequestGroupModel, ApiDataBean> {
         this.restfulUrl = restfulUrl;
     }
 
-    public RequestHeadersModel getHeaders() {
-        return headers;
+    public RequestHeaderGroupModel getHeaderGroup() {
+        return headerGroup;
     }
 
-    public void setHeaders(RequestHeadersModel headers) {
-        this.headers = headers;
+    public void setHeaderGroup(RequestHeaderGroupModel headerGroup) {
+        this.headerGroup = headerGroup;
     }
 
-    public RequestInputsModel getInputs() {
-        return inputs;
+    public RequestInputGroupModel getInputGroup() {
+        return inputGroup;
     }
 
-    public void setInputs(RequestInputsModel inputs) {
-        this.inputs = inputs;
+    public void setInputGroup(RequestInputGroupModel inputGroup) {
+        this.inputGroup = inputGroup;
     }
 
     public List<ResponseModel> getResponses() {
@@ -142,11 +142,12 @@ public class RequestModel extends BaseModel<RequestGroupModel, ApiDataBean> {
         this.responses = responses;
     }
 
-    public void setSuccessResponseGroup(ResponseGroupModel success) {
-        this.success = success;
+    public void setSuccessResponseGroup(ResponseGroupModel successGroup) {
+        this.successGroup = successGroup;
     }
-    public void setErrorResponseGroup(ResponseGroupModel error) {
-        this.error = error;
+
+    public void setErrorResponseGroup(ResponseGroupModel errorGroup) {
+        this.errorGroup = errorGroup;
     }
 
     //*************** reflect method area ***************
@@ -176,7 +177,7 @@ public class RequestModel extends BaseModel<RequestGroupModel, ApiDataBean> {
     }
 
     public List<FieldModel> headers() {
-        return getFieldModels(headers.getFieldGroups());
+        return getFieldModels(headerGroup.getFieldGroups());
     }
 
     private <T extends BaseModel> List<FieldModel> getFieldModels(List<FieldGroupModel<T>> fieldGroups) {
@@ -197,7 +198,7 @@ public class RequestModel extends BaseModel<RequestGroupModel, ApiDataBean> {
     }
 
     public List<FieldModel> inputs() {
-        return getFieldModels(inputs.getFieldGroups());
+        return getFieldModels(inputGroup.getFieldGroups());
     }
 
     public boolean request_url_is_RESTful() {
