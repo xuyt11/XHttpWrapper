@@ -8,9 +8,9 @@ import java.util.List;
  * Created by Administrator on 2016/9/23.
  * 字段分组的容器
  */
-public interface FieldGroupContainer<Container extends BaseModel> {
+public interface FieldGroupContainer<FieldGroup extends FieldGroupModel> {
 
-    List<FieldGroupModel<Container>> getFieldGroups();
+    List<FieldGroup> getFieldGroups();
 
-    void setFieldGroups(List<FieldGroupModel<Container>> fieldGroups);
+    void setFieldGroups(List<FieldGroup> fieldGroups);
 }

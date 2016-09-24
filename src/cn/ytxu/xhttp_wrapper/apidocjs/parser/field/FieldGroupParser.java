@@ -6,7 +6,7 @@ import cn.ytxu.xhttp_wrapper.model.BaseModel;
 import cn.ytxu.xhttp_wrapper.model.field.FieldGroupContainer;
 import cn.ytxu.xhttp_wrapper.model.field.FieldGroupModel;
 import cn.ytxu.xhttp_wrapper.model.field.FieldModel;
-import cn.ytxu.xhttp_wrapper.model.request.header.RequestHeaderGroupModel;
+import cn.ytxu.xhttp_wrapper.model.request.header.RequestHeadersModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +28,9 @@ public class FieldGroupParser<T extends BaseModel> {
         this.container = container;
     }
 
-    public List<FieldGroupModel<RequestHeaderGroupModel>> start() {
+    public List<FieldGroupModel<RequestHeadersModel>> start() {
         Set<Map.Entry<String, List<FieldBean>>> entrySet = bean.getFields().entrySet();
-        List<FieldGroupModel<RequestHeaderGroupModel>> fieldGroups = new ArrayList<>(entrySet.size());
+        List<FieldGroupModel<RequestHeadersModel>> fieldGroups = new ArrayList<>(entrySet.size());
 
         entrySet.forEach(fieldBeanMapEntry -> {
             FieldGroupModel fieldGroup = getFieldGroup(fieldBeanMapEntry);

@@ -1,41 +1,18 @@
 package cn.ytxu.xhttp_wrapper.model.request.input;
 
-import cn.ytxu.xhttp_wrapper.apidocjs.bean.Bean;
-import cn.ytxu.xhttp_wrapper.model.BaseModel;
-import cn.ytxu.xhttp_wrapper.model.field.FieldGroupContainer;
+import cn.ytxu.xhttp_wrapper.apidocjs.bean.FieldBean;
 import cn.ytxu.xhttp_wrapper.model.field.FieldGroupModel;
-import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
 
-import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 /**
- * Created by Administrator on 2016/9/21.
+ * Created by Administrator on 2016/9/24.
  */
-public class RequestInputGroupModel extends BaseModel<RequestModel, Bean> implements FieldGroupContainer<RequestInputGroupModel> {
+public class RequestInputGroupModel extends FieldGroupModel<RequestInputsModel> {
 
-    private List<FieldGroupModel<RequestInputGroupModel>> fieldGroups = Collections.EMPTY_LIST;
-    private List<RequestInputExampleModel> inputExamples = Collections.EMPTY_LIST;
-
-    public RequestInputGroupModel(RequestModel higherLevel, Bean element) {
+    public RequestInputGroupModel(RequestInputsModel higherLevel, Map.Entry<String, List<FieldBean>> element) {
         super(higherLevel, element);
     }
 
-    @Override
-    public List<FieldGroupModel<RequestInputGroupModel>> getFieldGroups() {
-        return fieldGroups;
-    }
-
-    @Override
-    public void setFieldGroups(List<FieldGroupModel<RequestInputGroupModel>> fieldGroups) {
-        this.fieldGroups = fieldGroups;
-    }
-
-    public List<RequestInputExampleModel> getInputExamples() {
-        return inputExamples;
-    }
-
-    public void setInputExamples(List<RequestInputExampleModel> inputExamples) {
-        this.inputExamples = inputExamples;
-    }
 }
