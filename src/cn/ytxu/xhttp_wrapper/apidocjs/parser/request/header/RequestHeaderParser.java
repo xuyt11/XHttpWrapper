@@ -5,7 +5,7 @@ import cn.ytxu.xhttp_wrapper.apidocjs.parser.field.FieldGroupParser;
 import cn.ytxu.xhttp_wrapper.config.Property;
 import cn.ytxu.xhttp_wrapper.model.field.FieldGroupModel;
 import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
-import cn.ytxu.xhttp_wrapper.model.request.header.RequestHeadersModel;
+import cn.ytxu.xhttp_wrapper.model.request.header.RequestHeaderContainerModel;
 
 import java.util.List;
 
@@ -19,19 +19,19 @@ public class RequestHeaderParser {
         this.request = request;
     }
 
-    public RequestHeadersModel start() {
+    public RequestHeaderContainerModel start() {
         Bean header = request.getElement().getHeader();
-        RequestHeadersModel headerGroup = new RequestHeadersModel(request, header);
+        RequestHeaderContainerModel headerContainer = new RequestHeaderContainerModel(request, header);
 
-        List<FieldGroupModel<RequestHeadersModel>> fieldGroups = new FieldGroupParser(headerGroup, header, headerGroup).start();
+        List<FieldGroupModel<RequestHeaderContainerModel>> fieldGroups = new FieldGroupParser(headerContainer, header, headerContainer).start();
 
         setfilterTag2HeaderParam(fieldGroups);
 
-        request.setHeaders(headerGroup);
-        return headerGroup;
+        request.setHeaderContainer(headerContainer);
+        return headerContainer;
     }
 
-    private void setfilterTag2HeaderParam(List<FieldGroupModel<RequestHeadersModel>> fieldGroups) {
+    private void setfilterTag2HeaderParam(List<FieldGroupModel<RequestHeaderContainerModel>> fieldGroups) {
         fieldGroups.forEach(fieldGroup -> fieldGroup.getFields().forEach(field -> {
             boolean isFilterParam = Property.getFilterProperty().hasThisHeaderInFilterHeaders(field.getName());
             if (isFilterParam) {

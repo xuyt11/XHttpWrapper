@@ -2,7 +2,7 @@ package cn.ytxu.xhttp_wrapper.apidocjs.parser.response;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ExampleBean;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseModel;
-import cn.ytxu.xhttp_wrapper.model.response.ResponsesModel;
+import cn.ytxu.xhttp_wrapper.model.response.ResponseContainerModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +11,10 @@ import java.util.List;
  * Created by Administrator on 2016/9/23.
  */
 public class ResponseParser {
-    private ResponsesModel responseGroup;
+    private ResponseContainerModel responseGroup;
     private List<ExampleBean> examples;
 
-    public ResponseParser(ResponsesModel responseGroup, List<ExampleBean> examples) {
+    public ResponseParser(ResponseContainerModel responseGroup, List<ExampleBean> examples) {
         this.responseGroup = responseGroup;
         this.examples = examples;
     }

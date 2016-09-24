@@ -8,12 +8,12 @@ import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
 import java.util.Collections;
 import java.util.List;
 
-public class ResponsesModel extends BaseModel<RequestModel, Bean> implements FieldGroupContainer<ResponseFieldGroupModel> {
+public class ResponseContainerModel extends BaseModel<RequestModel, Bean> implements FieldGroupContainer<ResponseFieldGroupModel> {
 
     private List<ResponseFieldGroupModel> fieldGroups = Collections.EMPTY_LIST;
     private List<ResponseModel> responses = Collections.EMPTY_LIST;
 
-    public ResponsesModel(RequestModel higherLevel, Bean element) {
+    public ResponseContainerModel(RequestModel higherLevel, Bean element) {
         super(higherLevel, element);
     }
 

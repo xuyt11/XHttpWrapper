@@ -3,7 +3,7 @@ package cn.ytxu.xhttp_wrapper.apidocjs.parser.response;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.Bean;
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.field.FieldGroupParser;
 import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
-import cn.ytxu.xhttp_wrapper.model.response.ResponsesModel;
+import cn.ytxu.xhttp_wrapper.model.response.ResponseContainerModel;
 
 /**
  * Created by Administrator on 2016/9/23.
@@ -25,16 +25,16 @@ public class ResponseGroupParser {
     }
 
     private void parseSuccessGroup() {
-        ResponsesModel success = new ResponsesModel(request, successBean);
-        new FieldGroupParser(success, successBean, success).start();
-        new ResponseParser(success, successBean.getExamples()).start();
-        request.setSuccessResponses(success);
+        ResponseContainerModel successContainer = new ResponseContainerModel(request, successBean);
+        new FieldGroupParser(successContainer, successBean, successContainer).start();
+        new ResponseParser(successContainer, successBean.getExamples()).start();
+        request.setSuccessResponseContainer(successContainer);
     }
 
     private void parseErrorGroup() {
-        ResponsesModel error = new ResponsesModel(request, errorBean);
-        new FieldGroupParser(error, errorBean, error).start();
-        new ResponseParser(error, errorBean.getExamples()).start();
-        request.setErrorResponses(error);
+        ResponseContainerModel errorContainer = new ResponseContainerModel(request, errorBean);
+        new FieldGroupParser(errorContainer, errorBean, errorContainer).start();
+        new ResponseParser(errorContainer, errorBean.getExamples()).start();
+        request.setErrorResponseContainer(errorContainer);
     }
 }

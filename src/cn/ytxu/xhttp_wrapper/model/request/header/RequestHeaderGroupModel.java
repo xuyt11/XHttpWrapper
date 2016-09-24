@@ -9,9 +9,9 @@ import java.util.Map;
 /**
  * Created by Administrator on 2016/9/24.
  */
-public class RequestHeaderGroupModel extends FieldGroupModel<RequestHeadersModel> {
+public class RequestHeaderGroupModel extends FieldGroupModel<RequestHeaderContainerModel> {
 
-    public RequestHeaderGroupModel(RequestHeadersModel higherLevel, Map.Entry<String, List<FieldBean>> element) {
+    public RequestHeaderGroupModel(RequestHeaderContainerModel higherLevel, Map.Entry<String, List<FieldBean>> element) {
         super(higherLevel, element);
     }
 

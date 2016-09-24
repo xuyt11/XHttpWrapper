@@ -3,7 +3,7 @@ package cn.ytxu.xhttp_wrapper.apidocjs.parser.request.input;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.Bean;
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.field.FieldGroupParser;
 import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
-import cn.ytxu.xhttp_wrapper.model.request.input.RequestInputsModel;
+import cn.ytxu.xhttp_wrapper.model.request.input.RequestInputContainerModel;
 
 /**
  * Created by Administrator on 2016/9/21.
@@ -15,14 +15,14 @@ public class RequestInputParser {
         this.request = request;
     }
 
-    public RequestInputsModel start() {
+    public RequestInputContainerModel start() {
         Bean input = request.getElement().getParameter();
-        RequestInputsModel inputGroup = new RequestInputsModel(request, input);
+        RequestInputContainerModel inputContainer = new RequestInputContainerModel(request, input);
 
-        new FieldGroupParser(inputGroup, input, inputGroup).start();
+        new FieldGroupParser(inputContainer, input, inputContainer).start();
 
-        request.setInputs(inputGroup);
-        return inputGroup;
+        request.setInputContainer(inputContainer);
+        return inputContainer;
     }
 
 }

@@ -9,9 +9,9 @@ import java.util.Map;
 /**
  * Created by Administrator on 2016/9/24.
  */
-public class ResponseFieldGroupModel extends FieldGroupModel<ResponsesModel> {
+public class ResponseFieldGroupModel extends FieldGroupModel<ResponseContainerModel> {
 
-    public ResponseFieldGroupModel(ResponsesModel higherLevel, Map.Entry<String, List<FieldBean>> element) {
+    public ResponseFieldGroupModel(ResponseContainerModel higherLevel, Map.Entry<String, List<FieldBean>> element) {
         super(higherLevel, element);
     }
 

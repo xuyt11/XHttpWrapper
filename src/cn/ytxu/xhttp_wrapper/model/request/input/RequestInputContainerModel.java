@@ -11,12 +11,12 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/9/21.
  */
-public class RequestInputsModel extends BaseModel<RequestModel, Bean> implements FieldGroupContainer<RequestInputGroupModel> {
+public class RequestInputContainerModel extends BaseModel<RequestModel, Bean> implements FieldGroupContainer<RequestInputGroupModel> {
 
     private List<RequestInputGroupModel> fieldGroups = Collections.EMPTY_LIST;
     private List<RequestInputExampleModel> inputExamples = Collections.EMPTY_LIST;
 
-    public RequestInputsModel(RequestModel higherLevel, Bean element) {
+    public RequestInputContainerModel(RequestModel higherLevel, Bean element) {
         super(higherLevel, element);
     }
 
