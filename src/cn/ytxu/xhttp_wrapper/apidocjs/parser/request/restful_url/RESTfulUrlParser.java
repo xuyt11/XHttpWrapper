@@ -18,9 +18,11 @@ public class RESTfulUrlParser {
     private static final Pattern ID_OR_DATE_PATTERN = Pattern.compile("[\\{]{1}.{2,}?[\\}]{1}");
     private static final Pattern MULTI_PATTERN = Pattern.compile("[\\[]{1}.{2,}?[\\]]{1}");
 
+    private RequestModel request;
     private RESTfulUrlModel model;
 
     public RESTfulUrlParser(RequestModel request) {
+        this.request = request;
         model = new RESTfulUrlModel(request, request.getUrl());
     }
 
@@ -28,6 +30,8 @@ public class RESTfulUrlParser {
         setIsRESTfulUrl();
         parseMultiUrl();
         parseIdOrDateParam();
+
+        request.setRestfulUrl(model);
         return model;
     }
 
