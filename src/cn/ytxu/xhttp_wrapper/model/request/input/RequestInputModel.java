@@ -15,6 +15,7 @@ import java.util.List;
 public class RequestInputModel extends BaseModel<RequestModel, Bean> implements FieldGroupContainer<RequestInputModel> {
 
     private List<FieldGroupModel<RequestInputModel>> fieldGroups = Collections.EMPTY_LIST;
+    private List<RequestInputExampleModel> inputExamples = Collections.EMPTY_LIST;
 
     public RequestInputModel(RequestModel higherLevel, Bean element) {
         super(higherLevel, element);

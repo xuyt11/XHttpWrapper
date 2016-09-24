@@ -22,12 +22,12 @@ import cn.ytxu.xhttp_wrapper.model.BaseModel;
  * "content": "HTTP 200 OK\nContent-Type: application/json\nVary: Accept\nAllow: GET, PUT, PATCH, HEAD, OPTIONS\n{\n    \"status_code\": 0,\n    \"message\": \"\",\n    \"data\": {\n        \"first_name\": \"test\",\n        \"weibo_url\": \"weibo\",\n        \"weixin_number\": \"wechat\",\n        \"summary\": \"test\",\n        \"member_investhistory\": [\n            {\n                \"invest_date\": \"2015-11-12\",\n                \"project_type\": 5,\n                \"project_stage\": 2,\n                \"project_name\": \"test\"\n            }\n        ]\n    }\n}"<br>
  * "type": "json"
  */
-public class ExampleModel<T extends BaseModel> extends BaseModel<T, ExampleBean> {
+public class FieldExampleModel<T extends BaseModel> extends BaseModel<T, ExampleBean> {
     private String title;
     private String content;
-    private String type;// text,json
+    private String type;// text,json...
 
-    public ExampleModel(T higherLevel, ExampleBean element) {
+    public FieldExampleModel(T higherLevel, ExampleBean element) {
         super(higherLevel, element);
         this.title = element.getTitle();
         this.content = element.getContent();
