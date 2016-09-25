@@ -58,10 +58,13 @@ public class ResponsesParser {
 
         // 默认两个(responseDesc, responseText)都有数据
         int separatorIndex = getSeparatorIndex(message);
-        String header = getResponseHeader(message, separatorIndex);
-        String body = getResponseBody(message, separatorIndex);
-
-        response.setData(desc, header, body);
+        if (separatorIndex <= 0) {
+            response.setNotHaveJsonTypeResponseBody(true);
+        } else {
+            String header = getResponseHeader(message, separatorIndex);
+            String body = getResponseBody(message, separatorIndex);
+            response.setData(desc, header, body);
+        }
         return response;
     }
 

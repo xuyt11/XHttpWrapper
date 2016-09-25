@@ -22,6 +22,9 @@ public class ResponseBodyParser {
     }
 
     public void start() {
+        if (response.isNotHaveJsonTypeResponseBody()) {
+            return;
+        }
         //1 解析出body中json格式数据的所有字段；
         JSONObject bodyJObj;
         try {
