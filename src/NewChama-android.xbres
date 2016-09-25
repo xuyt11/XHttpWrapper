@@ -1,7 +1,7 @@
 <header>
     <fileDir>
         <value osName="Windows" val="I:/NewChamaStudio/newchama_android/NewChama/newchama.model/src/main/java/com/newchama/api/" />
-        <value osName="Mac OS X" val="/Users/newchama/Documents/ytxu/newchama_android/NewChama/newchama.model/src/main/java/com/newchama/api/" />
+        <value osName="Mac OS X" val="/Users/newchama/Documents/ytxu/newchama_android2/NewChama/newchama.model/src/main/java/com/newchama/api/" />
     </fileDir>
 
     <fileName val="ResponseEntity.java" />
