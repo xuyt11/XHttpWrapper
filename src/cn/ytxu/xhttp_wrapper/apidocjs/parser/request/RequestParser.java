@@ -1,7 +1,7 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.parser.request;
 
-import cn.ytxu.xhttp_wrapper.apidocjs.parser.request.header.RequestHeaderParser;
-import cn.ytxu.xhttp_wrapper.apidocjs.parser.request.input.RequestInputParser;
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.request.header.RequestHeaderContainerParser;
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.request.input.RequestInputContainerParser;
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.request.restful_url.RESTfulUrlParser;
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.ResponseGroupParser;
 import cn.ytxu.xhttp_wrapper.model.request.RequestGroupModel;
@@ -21,8 +21,8 @@ public class RequestParser {
     public void start() {
         requestGroups.forEach(requestGroup -> requestGroup.getRequests().forEach(request -> {
             new RESTfulUrlParser(request).start();
-            new RequestHeaderParser(request).start();
-            new RequestInputParser(request).start();
+            new RequestHeaderContainerParser(request).start();
+            new RequestInputContainerParser(request).start();
             // parse success and error param
             new ResponseGroupParser(request).start();
         }));

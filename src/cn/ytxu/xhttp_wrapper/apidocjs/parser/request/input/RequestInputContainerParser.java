@@ -8,10 +8,10 @@ import cn.ytxu.xhttp_wrapper.model.request.input.RequestInputContainerModel;
 /**
  * Created by Administrator on 2016/9/21.
  */
-public class RequestInputParser {
+public class RequestInputContainerParser {
     private RequestModel request;
 
-    public RequestInputParser(RequestModel request) {
+    public RequestInputContainerParser(RequestModel request) {
         this.request = request;
     }
 

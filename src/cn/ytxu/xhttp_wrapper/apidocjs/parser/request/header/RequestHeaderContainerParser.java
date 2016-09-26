@@ -12,10 +12,10 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/9/21.
  */
-public class RequestHeaderParser {
+public class RequestHeaderContainerParser {
     private RequestModel request;
 
-    public RequestHeaderParser(RequestModel request) {
+    public RequestHeaderContainerParser(RequestModel request) {
         this.request = request;
     }
 
