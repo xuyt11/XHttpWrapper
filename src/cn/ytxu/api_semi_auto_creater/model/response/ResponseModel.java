@@ -17,6 +17,7 @@ public class ResponseModel extends BaseModel<RequestModel> {
     private String header;// 响应报文中的头部
     private String body;// 响应报文中的响应体
 
+    private boolean notHaveJsonTypeResponseBody = false;// 是否有json格式的响应体
     // body中的字段数据
     private String statusCode = "";// 防止出现空指针异常
     private List<OutputParamModel> outputs = Collections.EMPTY_LIST;
@@ -62,4 +63,11 @@ public class ResponseModel extends BaseModel<RequestModel> {
     }
 
 
+    public void setNotHaveJsonTypeResponseBody(boolean notHaveJsonTypeResponseBody) {
+        this.notHaveJsonTypeResponseBody = notHaveJsonTypeResponseBody;
+    }
+
+    public boolean isNotHaveJsonTypeResponseBody() {
+        return notHaveJsonTypeResponseBody;
+    }
 }
