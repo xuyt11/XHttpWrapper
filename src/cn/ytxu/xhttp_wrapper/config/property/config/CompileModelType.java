@@ -1,4 +1,4 @@
-package cn.ytxu.xhttp_wrapper.apidocjs.parser.compile_model;
+package cn.ytxu.xhttp_wrapper.config.property.config;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.compile_model.mutil_version.MutilVersionCompileModelParser;

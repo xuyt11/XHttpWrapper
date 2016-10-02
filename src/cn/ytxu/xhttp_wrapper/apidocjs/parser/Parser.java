@@ -5,7 +5,7 @@ import cn.ytxu.xhttp_wrapper.apidocjs.parser.status_code.StatusCodeParser;
 import cn.ytxu.xhttp_wrapper.config.Property;
 import cn.ytxu.util.FileUtil;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApiDataBean;
-import cn.ytxu.xhttp_wrapper.apidocjs.parser.compile_model.CompileModelType;
+import cn.ytxu.xhttp_wrapper.config.property.config.CompileModelType;
 import cn.ytxu.xhttp_wrapper.model.request.RequestGroupModel;
 import cn.ytxu.xhttp_wrapper.model.status_code.StatusCodeGroupModel;
 import cn.ytxu.xhttp_wrapper.model.VersionModel;
