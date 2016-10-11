@@ -1,6 +1,8 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.parser.response;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ExampleBean;
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json.JsonResponseMessageParser;
+import cn.ytxu.xhttp_wrapper.model.response.ResponseContentType;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseModel;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseContainerModel;
 
@@ -25,8 +27,8 @@ public class ResponseParser {
         }
 
         List<ResponseModel> responses = convertExampleBean2ResponseModel();
-        responseGroup.setResponses(responses);
         parseResponse(responses);
+        responseGroup.setResponses(responses);
     }
 
     private List<ResponseModel> convertExampleBean2ResponseModel() {
@@ -40,7 +42,13 @@ public class ResponseParser {
 
     private void parseResponse(List<ResponseModel> responseExamples) {
         responseExamples.forEach(responseExample -> {
-            // TODO base on type to parse content
+            ResponseContentType type = ResponseContentType.getByTypeName(responseExample.getType());
+            switch (type) {
+                case json: {
+                    new JsonResponseMessageParser(responseExample).start();
+                }
+                break;
+            }
         });
     }
 }

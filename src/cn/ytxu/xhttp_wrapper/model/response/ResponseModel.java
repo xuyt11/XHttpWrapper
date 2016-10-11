@@ -15,9 +15,34 @@ import cn.ytxu.xhttp_wrapper.model.field.FieldExampleModel;
  * "type": "json"
  */
 public class ResponseModel extends FieldExampleModel<ResponseContainerModel> {
+    private String header;// 响应报文中的头部
+    private String body;// 响应报文中的响应体
+
+    // body中的字段数据
+    private String statusCode = "";// 防止出现空指针异常
 
     public ResponseModel(ResponseContainerModel higherLevel, ExampleBean element) {
         super(higherLevel, element);
     }
 
+    public void setBodyAndBody(String header, String body) {
+        this.header = header;
+        this.body = body;
+    }
+
+    public String getHeader() {
+        return header;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public String getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(String statusCode) {
+        this.statusCode = statusCode;
+    }
 }

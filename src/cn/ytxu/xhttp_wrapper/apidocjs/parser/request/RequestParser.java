@@ -23,7 +23,6 @@ public class RequestParser {
             new RESTfulUrlParser(request).start();
             new RequestHeaderContainerParser(request).start();
             new RequestInputContainerParser(request).start();
-            // parse success and error param
             new ResponseContainerParser(request).start();
         }));
     }
