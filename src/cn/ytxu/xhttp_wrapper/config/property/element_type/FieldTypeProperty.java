@@ -1,7 +1,7 @@
 package cn.ytxu.xhttp_wrapper.config.property.element_type;
 
 import cn.ytxu.api_semi_auto_creater.model.request.InputParamModel;
-import cn.ytxu.api_semi_auto_creater.model.response.OutputParamModel;
+import cn.ytxu.xhttp_wrapper.model.response.OutputParamModel;
 
 /**
  * Created by ytxu on 2016/8/28.

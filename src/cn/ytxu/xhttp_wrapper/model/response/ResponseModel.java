@@ -3,6 +3,9 @@ package cn.ytxu.xhttp_wrapper.model.response;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ExampleBean;
 import cn.ytxu.xhttp_wrapper.model.field.FieldExampleModel;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Created by ytxu on 2016/9/23.
  * response: success, error
@@ -20,6 +23,7 @@ public class ResponseModel extends FieldExampleModel<ResponseContainerModel> {
 
     // body中的字段数据
     private String statusCode = "";// 防止出现空指针异常
+    private List<OutputParamModel> outputs = Collections.EMPTY_LIST;
 
     public ResponseModel(ResponseContainerModel higherLevel, ExampleBean element) {
         super(higherLevel, element);
@@ -45,4 +49,14 @@ public class ResponseModel extends FieldExampleModel<ResponseContainerModel> {
     public void setStatusCode(String statusCode) {
         this.statusCode = statusCode;
     }
+
+    public void setOutputs(List<OutputParamModel> outputs) {
+        this.outputs = outputs;
+    }
+
+    public List<OutputParamModel> getOutputs() {
+        return outputs;
+    }
+
+
 }

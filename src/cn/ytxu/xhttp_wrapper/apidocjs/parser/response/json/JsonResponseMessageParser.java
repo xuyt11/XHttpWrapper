@@ -1,13 +1,9 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json;
 
-import cn.ytxu.api_semi_auto_creater.apidocjs_parser.response.ResponseBodyParser;
-import cn.ytxu.util.LogUtil;
-import cn.ytxu.xhttp_wrapper.config.Property;
-import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json.output.OutputParamParser;
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json.output.defined.HandleSameDataTypeOutputUtil;
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json.output.defined.SetupDefined2OutputUtil;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseModel;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONException;
-import com.alibaba.fastjson.JSONObject;
 
 /**
  * Created by ytxu on 2016/10/11.
@@ -21,78 +17,17 @@ public class JsonResponseMessageParser {
     }
 
     public void start() {
-        // 默认两个(responseDesc, responseText)都有数据
-        int separatorIndex = getSeparatorIndex();
-        if (separatorIndex <= 0) {
-            printLog4NotHaveJsonTypeResponseBody();
+        boolean notNeedParseAgain = new ResponseBodyParser(response).start();
+        if (notNeedParseAgain) {
             return;
         }
-
-        String header = getResponseHeader(separatorIndex);
-        String body = getResponseBody(separatorIndex);
-        response.setBodyAndBody(header, body);
 
         //1 解析出body中json格式数据的所有字段；
-        JSONObject bodyJObj;
-        try {
-            bodyJObj = JSON.parseObject(body);
-        } catch (JSONException e) {
-//            e.printStackTrace();
-            printErrorLog4IsErrorJsonType();
-            return;
-        }
-
-        parseStatusCode(bodyJObj);
-    }
-
-    private int getSeparatorIndex() {
-        return response.getContent().indexOf("{");
-    }
-
-    private String getResponseHeader(int separatorIndex) {
-        return response.getContent().substring(0, separatorIndex).trim();
-    }
-
-    private String getResponseBody(int separatorIndex) {
-        return response.getContent().substring(separatorIndex).trim();
-    }
-
-    private void parseStatusCode(JSONObject bodyJObj) {
-        String statusCodeName = Property.getBRENameProperty().getStatusCode();
-        if (bodyJObj.containsKey(statusCodeName)) {
-            response.setStatusCode(String.valueOf(bodyJObj.getInteger(statusCodeName)));
-        } else {
-            printErrorLog4NotHaveStatusCode();
-        }
-    }
-
-
-    //************************ print log ************************
-    private void printLog4NotHaveJsonTypeResponseBody() {
-        RequestModel request = response.getHigherLevel().getHigherLevel();
-        String version = request.getVersion();
-        String name = request.getName();
-        String group = request.getHigherLevel().getName();
-        String[] msgs = {", version:", version, ", name:", name, ", group:", group};
-        LogUtil.ee(JsonResponseMessageParser.class, msgs, "not have json type response body...");
-    }
-
-    private void printErrorLog4IsErrorJsonType() {
-        RequestModel request = response.getHigherLevel().getHigherLevel();
-        String version = request.getVersion();
-        String name = request.getName();
-        String group = request.getHigherLevel().getName();
-        String[] msgs = {", version:", version, ", name:", name, ", group:", group};
-        LogUtil.ee(ResponseBodyParser.class, msgs, "json text is error...");
-    }
-
-    private void printErrorLog4NotHaveStatusCode() {
-        RequestModel request = response.getHigherLevel().getHigherLevel();
-        String version = request.getVersion();
-        String name = request.getName();
-        String group = request.getHigherLevel().getName();
-        String[] msgs = {", version:", version, ", name:", name, ", group:", group};
-        LogUtil.ee(ResponseBodyParser.class, msgs, " not have status code...");
+        new OutputParamParser(response).start();
+        //2 对request中defineds进行辨析，设置到response字段上
+        new SetupDefined2OutputUtil(response).start();
+        //3 子孙节点或兄弟节点中类型(DataType)相同，判断与处理；
+        new HandleSameDataTypeOutputUtil(response).start();
     }
 
 }
