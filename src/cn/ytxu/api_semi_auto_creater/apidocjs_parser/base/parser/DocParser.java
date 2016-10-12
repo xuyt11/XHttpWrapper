@@ -3,7 +3,7 @@ package cn.ytxu.api_semi_auto_creater.apidocjs_parser.base.parser;
 import cn.ytxu.xhttp_wrapper.config.Property;
 import cn.ytxu.api_semi_auto_creater.apidocjs_parser.base.entity.DocEntity;
 import cn.ytxu.api_semi_auto_creater.apidocjs_parser.base.entity.SectionEntity;
-import cn.ytxu.api_semi_auto_creater.apidocjs_parser.util.JsoupParserUtil;
+import cn.ytxu.util.JsoupParserUtil;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;

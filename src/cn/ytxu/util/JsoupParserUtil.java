@@ -1,4 +1,4 @@
-package cn.ytxu.api_semi_auto_creater.apidocjs_parser.util;
+package cn.ytxu.util;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -9,7 +9,6 @@ import org.jsoup.select.Selector;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Created by ytxu on 2016/5/14.

@@ -91,7 +91,7 @@ public class Creater {
 
     private void createBaseResponse() {
         XTempModel model = new XTempUtil(Suffix.BaseResponse, xTempPrefixName).start();
-        BaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, versions.get(0));
+        BaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, VersionModel.NON_VERSION_MODEL);
     }
 
 }
