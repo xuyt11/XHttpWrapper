@@ -1,6 +1,7 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.parser;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.request.RequestParser;
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.ResponseSErrorParser;
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.status_code.StatusCodeParser;
 import cn.ytxu.xhttp_wrapper.config.Property;
 import cn.ytxu.util.FileUtil;
@@ -30,7 +31,7 @@ public class Parser {
         parseStatusCode();
         parseRequest();
 //        parseResponses();
-//        parseResponseSErrors();
+        parseResponseSErrors();
 
         return versions;
     }
@@ -62,6 +63,10 @@ public class Parser {
             List<RequestGroupModel> requestGroups = version.getRequestGroups();
             new RequestParser(requestGroups).start();
         });
+    }
+
+    private void parseResponseSErrors() {
+        versions.forEach(version -> new ResponseSErrorParser(version).start());
     }
 
 }

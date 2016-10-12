@@ -142,6 +142,14 @@ public class RequestModel extends BaseModel<RequestGroupModel, ApiDataBean> {
         this.responses = responses;
     }
 
+    public ResponseContainerModel getSuccessContainer() {
+        return successContainer;
+    }
+
+    public ResponseContainerModel getErrorContainer() {
+        return errorContainer;
+    }
+
     public void setSuccessResponseContainer(ResponseContainerModel successContainer) {
         this.successContainer = successContainer;
     }

@@ -1,6 +1,7 @@
 package cn.ytxu.xhttp_wrapper.model;
 
 import cn.ytxu.xhttp_wrapper.model.request.RequestGroupModel;
+import cn.ytxu.xhttp_wrapper.model.response.OutputParamModel;
 import cn.ytxu.xhttp_wrapper.model.status_code.StatusCodeGroupModel;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class VersionModel extends BaseModel {
     private String name;// 版本名称
     private List<StatusCodeGroupModel> statusCodeGroups = Collections.EMPTY_LIST;
     private List<RequestGroupModel> requestGroups = Collections.EMPTY_LIST;
+    private List<OutputParamModel> subsOfErrors;// base response 中所有的error内的字段
 
     public VersionModel(String name) {
         super(null, null);
@@ -51,6 +53,9 @@ public class VersionModel extends BaseModel {
         return requestGroups;
     }
 
+    public void setSubsOfErrors(List<OutputParamModel> subsOfErrors) {
+        this.subsOfErrors = subsOfErrors;
+    }
 
     //*************** reflect method area ***************
     public String version_code() {
