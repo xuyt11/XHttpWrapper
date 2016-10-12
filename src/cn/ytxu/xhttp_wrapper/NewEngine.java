@@ -1,4 +1,4 @@
-package cn.ytxu.api_semi_auto_creater;
+package cn.ytxu.xhttp_wrapper;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.Parser;
 import cn.ytxu.xhttp_wrapper.model.VersionModel;
