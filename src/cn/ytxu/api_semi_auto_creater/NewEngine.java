@@ -1,6 +1,6 @@
 package cn.ytxu.api_semi_auto_creater;
 
-import cn.ytxu.api_semi_auto_creater.xtemp.creater.Creater;
+import cn.ytxu.xhttp_wrapper.xtemp.creater.Creater;
 import cn.ytxu.api_semi_auto_creater.apidocjs_parser.Parser;
 import cn.ytxu.xhttp_wrapper.config.Property;
 import cn.ytxu.api_semi_auto_creater.model.base.DocModel;
