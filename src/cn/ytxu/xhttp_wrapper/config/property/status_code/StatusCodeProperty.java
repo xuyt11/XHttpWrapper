@@ -1,8 +1,7 @@
 package cn.ytxu.xhttp_wrapper.config.property.status_code;
 
-import cn.ytxu.api_semi_auto_creater.model.base.DocModel;
-import cn.ytxu.api_semi_auto_creater.model.base.VersionModel;
-import cn.ytxu.api_semi_auto_creater.model.status_code.StatusCodeCategoryModel;
+import cn.ytxu.xhttp_wrapper.model.VersionModel;
+import cn.ytxu.xhttp_wrapper.model.status_code.StatusCodeGroupModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,39 +34,39 @@ public class StatusCodeProperty {
         return getSectionName4StatusCode().equals(groupName);
     }
 
-    public List<StatusCodeCategoryModel> getStatusCodes(DocModel docModel, boolean filter) {
-        if (!filter || !isUseVersionFilter()) {
-            return getAllStatusCodes(docModel);
+    public List<StatusCodeGroupModel> getStatusCodeGroups(List<VersionModel> versions) {
+        if (!isUseVersionFilter()) {
+            return getAllStatusCodeGroups(versions);
         }
-        return getFiltedStatusCodes(docModel);
+        return getFiltedStatusCodeGroups(versions);
     }
 
-    private List<StatusCodeCategoryModel> getAllStatusCodes(DocModel docModel) {
-        List<StatusCodeCategoryModel> statusCodes = new ArrayList<>();
-        for (VersionModel versionModel : docModel.getVersions()) {
-            List<StatusCodeCategoryModel> vStatusCodes = versionModel.getStatusCodes();
-            if (vStatusCodes.size() > 0) {
-                statusCodes.addAll(vStatusCodes);
+    private List<StatusCodeGroupModel> getAllStatusCodeGroups(List<VersionModel> versions) {
+        List<StatusCodeGroupModel> statusCodeGroups = new ArrayList<>();
+        for (VersionModel versionModel : versions) {
+            List<StatusCodeGroupModel> vStatusCodeGroups = versionModel.getStatusCodeGroups();
+            if (vStatusCodeGroups.size() > 0) {
+                statusCodeGroups.addAll(vStatusCodeGroups);
             }
         }
-        return statusCodes;
+        return statusCodeGroups;
     }
 
     private boolean isUseVersionFilter() {
         return statusCodeBean.isUse_version_filter();
     }
 
-    private List<StatusCodeCategoryModel> getFiltedStatusCodes(DocModel docModel) {
-        List<StatusCodeCategoryModel> filtedStatusCodes = new ArrayList<>();
-        for (StatusCodeCategoryModel statusCode : getAllStatusCodes(docModel)) {
-            if (isOutputVersion(statusCode)) {
-                filtedStatusCodes.add(statusCode);
+    private List<StatusCodeGroupModel> getFiltedStatusCodeGroups(List<VersionModel> versions) {
+        List<StatusCodeGroupModel> filtedStatusCodeGroups = new ArrayList<>();
+        for (StatusCodeGroupModel statusCodeGroup : getAllStatusCodeGroups(versions)) {
+            if (isOutputVersion(statusCodeGroup)) {
+                filtedStatusCodeGroups.add(statusCodeGroup);
             }
         }
-        return filtedStatusCodes;
+        return filtedStatusCodeGroups;
     }
 
-    private boolean isOutputVersion(StatusCodeCategoryModel statusCode) {
+    private boolean isOutputVersion(StatusCodeGroupModel statusCode) {
         String version = statusCode.getName();
         for (String outputVersion : statusCodeBean.getFilted_versions()) {
             if (outputVersion.equals(version)) {

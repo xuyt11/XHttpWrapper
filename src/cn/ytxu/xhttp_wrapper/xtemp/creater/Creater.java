@@ -1,14 +1,12 @@
 package cn.ytxu.xhttp_wrapper.xtemp.creater;
 
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json.output.sub.GetOutputsThatCanGenerateResponseEntityFileUtil;
 import cn.ytxu.xhttp_wrapper.config.Suffix;
 import cn.ytxu.xhttp_wrapper.config.property.status_code.StatusCodeProperty;
-import cn.ytxu.api_semi_auto_creater.model.base.DocModel;
-import cn.ytxu.api_semi_auto_creater.model.base.SectionModel;
-import cn.ytxu.api_semi_auto_creater.model.base.VersionModel;
-import cn.ytxu.api_semi_auto_creater.model.response.OutputParamModel;
-import cn.ytxu.api_semi_auto_creater.model.response.ResponseModel;
-import cn.ytxu.api_semi_auto_creater.model.status_code.StatusCodeCategoryModel;
-import cn.ytxu.api_semi_auto_creater.apidocjs_parser.response.output.sub.GetOutputsThatCanGenerateResponseEntityFileUtil;
+import cn.ytxu.xhttp_wrapper.model.VersionModel;
+import cn.ytxu.xhttp_wrapper.model.response.OutputParamModel;
+import cn.ytxu.xhttp_wrapper.model.response.ResponseModel;
+import cn.ytxu.xhttp_wrapper.model.status_code.StatusCodeGroupModel;
 import cn.ytxu.xhttp_wrapper.xtemp.parser.XTempModel;
 import cn.ytxu.xhttp_wrapper.xtemp.parser.XTempUtil;
 
@@ -20,11 +18,11 @@ import java.util.List;
  */
 public class Creater {
 
-    private DocModel docModel;
+    private List<VersionModel> versions;
     private String xTempPrefixName;
 
-    public Creater(DocModel docModel, String xTempPrefixName) {
-        this.docModel = docModel;
+    public Creater(List<VersionModel> versions, String xTempPrefixName) {
+        this.versions = versions;
         this.xTempPrefixName = xTempPrefixName;
     }
 
@@ -33,44 +31,39 @@ public class Creater {
     }
 
     private void createTargetFile() {
-        createHttpApi(docModel, xTempPrefixName);
-        createRequest(docModel, xTempPrefixName);
-        createResponseEntity(docModel, xTempPrefixName);
-        createStatusCode(docModel, xTempPrefixName);
-        createBaseResponse(docModel, xTempPrefixName);
+        createHttpApi();
+        createRequest();
+        createResponseEntity();
+        createStatusCode();
+        createBaseResponse();
     }
 
-    private void createHttpApi(DocModel docModel, String xTempPrefixName) {
+    private void createHttpApi() {
         XTempModel model = new XTempUtil(Suffix.HttpApi, xTempPrefixName).start();
-
-        for (VersionModel version : docModel.getVersions(true)) {
-            BaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, version);
-        }
+        VersionModel.getVersions(versions).forEach(version ->
+                BaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, version)
+        );
     }
 
-    private void createRequest(DocModel docModel, String xTempPrefixName) {
+    private void createRequest() {
         XTempModel model = new XTempUtil(Suffix.Request, xTempPrefixName).start();
-
-        for (SectionModel section : docModel.getSections(true)) {
-            BaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, section);
-        }
+        VersionModel.getSections(versions).forEach(section ->
+                BaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, section)
+        );
     }
 
-    private void createResponseEntity(DocModel docModel, String xTempPrefixName) {
+    private void createResponseEntity() {
         XTempModel model = new XTempUtil(Suffix.Response, xTempPrefixName).start();
-
-        List<ResponseModel> successResponses = getSuccessResponses(docModel);
-        List<OutputParamModel> outputs = getOutputsThatCanGenerateResponseEntityFile(successResponses);
-
-        for (OutputParamModel output : outputs) {
-            BaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, output);
-        }
+        List<ResponseModel> okResponses = getOKResponses();
+        getOutputsThatCanGenerateResponseEntityFile(okResponses).forEach(output ->
+                BaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, output)
+        );
     }
 
-    private List<ResponseModel> getSuccessResponses(DocModel docModel) {
+    private List<ResponseModel> getOKResponses() {
         final String statusCodeOKNumber = StatusCodeProperty.getInstance().getOkNumber();
         List<ResponseModel> successResponses = new ArrayList<>();
-        for (ResponseModel response : docModel.getResponses(true)) {
+        for (ResponseModel response : VersionModel.getResponses(versions)) {
             if (statusCodeOKNumber.equals(response.getStatusCode())) {// it`s ok response
                 successResponses.add(response);
             }
@@ -87,19 +80,18 @@ public class Creater {
         return outputs;
     }
 
-
-    private void createStatusCode(DocModel docModel, String xTempPrefixName) {
+    private void createStatusCode() {
         XTempModel model = new XTempUtil(Suffix.StatusCode, xTempPrefixName).start();
 
-        List<StatusCodeCategoryModel> statusCodes = StatusCodeProperty.getInstance().getStatusCodes(docModel, true);
-        for (StatusCodeCategoryModel statusCode : statusCodes) {
-            BaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, statusCode);
+        List<StatusCodeGroupModel> statusCodeGroups = StatusCodeProperty.getInstance().getStatusCodeGroups(versions);
+        for (StatusCodeGroupModel statusCodeGroup : statusCodeGroups) {
+            BaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, statusCodeGroup);
         }
     }
 
-    private void createBaseResponse(DocModel docModel, String xTempPrefixName) {
+    private void createBaseResponse() {
         XTempModel model = new XTempUtil(Suffix.BaseResponse, xTempPrefixName).start();
-        BaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, docModel);
+        BaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, versions.get(0));
     }
 
 }

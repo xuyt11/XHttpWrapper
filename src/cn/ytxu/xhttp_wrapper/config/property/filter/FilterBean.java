@@ -1,7 +1,7 @@
 package cn.ytxu.xhttp_wrapper.config.property.filter;
 
-import cn.ytxu.api_semi_auto_creater.model.base.SectionModel;
-import cn.ytxu.api_semi_auto_creater.model.base.VersionModel;
+import cn.ytxu.xhttp_wrapper.model.VersionModel;
+import cn.ytxu.xhttp_wrapper.model.request.RequestGroupModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -61,9 +61,9 @@ public class FilterBean {
     }
 
 
-    public List<SectionModel> getSectionsAfterFilted(VersionModel version, FilterVersionBean outputVersion) {
+    public List<RequestGroupModel> getSectionsAfterFilted(VersionModel version, FilterVersionBean outputVersion) {
         if (!outputVersion.isUse_output_sections()) {
-            return version.getSections();
+            return version.getRequestGroups();
         }
 
         List<String> sectionNames = outputVersion.getOutput_sections();
@@ -71,9 +71,9 @@ public class FilterBean {
             return Collections.EMPTY_LIST;
         }
 
-        List<SectionModel> sections = new ArrayList<>(sectionNames.size());
+        List<RequestGroupModel> sections = new ArrayList<>(sectionNames.size());
         for (String sectionName : sectionNames) {
-            for (SectionModel sectionModel : version.getSections()) {
+            for (RequestGroupModel sectionModel : version.getRequestGroups()) {
                 if (sectionModel.getName().equals(sectionName)) {
                     sections.add(sectionModel);
                 }

@@ -1,7 +1,12 @@
 package cn.ytxu.xhttp_wrapper.model;
 
+import cn.ytxu.xhttp_wrapper.config.Property;
+import cn.ytxu.xhttp_wrapper.config.property.base_response_entity_name.BaseResponseEntityNameProperty;
+import cn.ytxu.xhttp_wrapper.config.property.base_response_entity_name.ResponseBean;
 import cn.ytxu.xhttp_wrapper.model.request.RequestGroupModel;
+import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
 import cn.ytxu.xhttp_wrapper.model.response.OutputParamModel;
+import cn.ytxu.xhttp_wrapper.model.response.ResponseModel;
 import cn.ytxu.xhttp_wrapper.model.status_code.StatusCodeGroupModel;
 
 import java.util.ArrayList;
@@ -53,8 +58,42 @@ public class VersionModel extends BaseModel {
         return requestGroups;
     }
 
+    public List<RequestModel> getRequests() {
+        List<RequestModel> requests = new ArrayList<>();
+        requestGroups.forEach(requestGroup -> requests.addAll(requestGroup.getRequests()));
+        return requests;
+    }
+
     public void setSubsOfErrors(List<OutputParamModel> subsOfErrors) {
         this.subsOfErrors = subsOfErrors;
+    }
+
+
+
+
+    //*************** get list data area ***************
+    public static List<ResponseModel> getResponses(List<VersionModel> versions) {
+        List<ResponseModel> responses = new ArrayList<>();
+        for (RequestModel request : getRequests(versions)) {
+            responses.addAll(request.getSuccessContainer().getResponses());
+        }
+        return responses;
+    }
+
+    public static List<RequestModel> getRequests(List<VersionModel> versions) {
+        List<RequestModel> requests = new ArrayList<>();
+        for (RequestGroupModel section : getSections(versions)) {
+            requests.addAll(section.getRequests());
+        }
+        return requests;
+    }
+
+    public static List<RequestGroupModel> getSections(List<VersionModel> versions) {
+        return Property.getFilterProperty().getSectionsAfterFilted(versions);
+    }
+
+    public static List<VersionModel> getVersions(List<VersionModel> versions) {
+        return Property.getFilterProperty().getVersionsAfterFilted(versions);
     }
 
     //*************** reflect method area ***************
@@ -64,6 +103,18 @@ public class VersionModel extends BaseModel {
 
     public List sections() {
         return requestGroups;
+    }
+
+    public List<ResponseBean.BaseResponseParamBean> base_response_outputs() {
+        return BaseResponseEntityNameProperty.get().getAll();
+    }
+
+    public String error_bro_type() {
+        return BaseResponseEntityNameProperty.get().getErrorType();
+    }
+
+    public List<OutputParamModel> subs_of_errors() {
+        return subsOfErrors;
     }
 
 }

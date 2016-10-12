@@ -1,6 +1,6 @@
 package cn.ytxu.xhttp_wrapper.xtemp.parser.util;
 
-import cn.ytxu.api_semi_auto_creater.model.BaseModel;
+import cn.ytxu.xhttp_wrapper.model.BaseModel;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

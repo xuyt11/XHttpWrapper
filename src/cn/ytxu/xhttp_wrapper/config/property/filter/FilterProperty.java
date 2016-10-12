@@ -1,8 +1,7 @@
 package cn.ytxu.xhttp_wrapper.config.property.filter;
 
-import cn.ytxu.api_semi_auto_creater.model.base.DocModel;
-import cn.ytxu.api_semi_auto_creater.model.base.SectionModel;
-import cn.ytxu.api_semi_auto_creater.model.base.VersionModel;
+import cn.ytxu.xhttp_wrapper.model.VersionModel;
+import cn.ytxu.xhttp_wrapper.model.request.RequestGroupModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,33 +51,30 @@ public class FilterProperty {// 需要输出的版本号列表
     /**
      * 过滤api中版本的key，获取到需要输出的版本号
      */
-    public List<VersionModel> getVersionsAfterFilted(DocModel docModel) {
+    public List<VersionModel> getVersionsAfterFilted(List<VersionModel> versions) {
         if (!filter.isUse_output_versions()) {
-            return docModel.getVersions();
+            return versions;
         }
 
-        List<VersionModel> versions = new ArrayList<>();
-        for (VersionModel version : docModel.getVersions()) {
+        List<VersionModel> dest = new ArrayList<>();
+        for (VersionModel version : versions) {
             try {
                 filter.findOutputVersionByVersionModel(version);
             } catch (FilterBean.NotFoundOutputVersionException ignore) {
                 continue;
             }
-            versions.add(version);
+            dest.add(version);
         }
-        return versions;
+        return dest;
     }
 
     /**
      * 获取到需要输出的分类
      */
-    public List<SectionModel> getSectionsAfterFilted(DocModel docModel) {
-        if (!filter.isUse_output_versions()) {
-            return docModel.getSections(false);
-        }
-
-        List<SectionModel> sections = new ArrayList<>();
-        for (VersionModel version : docModel.getVersions()) {
+    public List<RequestGroupModel> getSectionsAfterFilted(List<VersionModel> versions) {
+        versions = getVersionsAfterFilted(versions);
+        List<RequestGroupModel> sections = new ArrayList<>();
+        for (VersionModel version : versions) {
             FilterVersionBean filterVersionBean;
             try {
                 filterVersionBean = filter.findOutputVersionByVersionModel(version);

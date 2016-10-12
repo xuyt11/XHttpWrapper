@@ -31,7 +31,7 @@ public class Parser {
     }
 
     private void parseStatusCodes(DocModel docModel) {
-        List<StatusCodeCategoryModel> statusCodes = StatusCodeProperty.getInstance().getStatusCodes(docModel, false);
+        List<StatusCodeCategoryModel> statusCodes = StatusCodeProperty.getInstance().getStatusCodeGroups(docModel, false);
         for (StatusCodeCategoryModel statusCode : statusCodes) {
             new StatusCodeParser(statusCode).start();
         }
