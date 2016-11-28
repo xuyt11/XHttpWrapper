@@ -31,10 +31,10 @@ public class Parser {
     }
 
     private void parseStatusCodes(DocModel docModel) {
-        List<StatusCodeCategoryModel> statusCodes = StatusCodeProperty.getInstance().getStatusCodeGroups(docModel, false);
-        for (StatusCodeCategoryModel statusCode : statusCodes) {
-            new StatusCodeParser(statusCode).start();
-        }
+//        List<StatusCodeCategoryModel> statusCodes = StatusCodeProperty.getInstance().getStatusCodeGroups(docModel, false);
+//        for (StatusCodeCategoryModel statusCode : statusCodes) {
+//            new StatusCodeParser(statusCode).start();
+//        }
     }
 
     private void parseRequests(DocModel docModel) {

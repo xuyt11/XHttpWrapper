@@ -58,9 +58,9 @@ public class DocModel extends BaseModel {
     }
 
     public List<SectionModel> getSections(boolean filter) {
-        if (filter) {
-            return Property.getFilterProperty().getSectionsAfterFilted(this);
-        }
+//        if (filter) {
+//            return Property.getFilterProperty().getSectionsAfterFilted(this);
+//        }
 
         List<SectionModel> sections = new ArrayList<>();
         for (VersionModel version : getVersions()) {
@@ -70,11 +70,11 @@ public class DocModel extends BaseModel {
     }
 
     public List<VersionModel> getVersions(boolean filter) {
-        if (filter) {
-            return Property.getFilterProperty().getVersionsAfterFilted(this);
-        } else {
+//        if (filter) {
+//            return Property.getFilterProperty().getVersionsAfterFilted(this);
+//        } else {
             return getVersions();
-        }
+//        }
     }
 
 

@@ -158,9 +158,9 @@ public class OutputParamModel extends BaseModel<ResponseModel> {
         return subs;
     }
 
-    public String output_type() {
-        return FieldTypeProperty.getInstance().getElementTypeByOutput(this);
-    }
+//    public String output_type() {
+//        return FieldTypeProperty.getInstance().getElementTypeByOutput(this);
+//    }
 
     public String output_name() {
         return fieldName;
