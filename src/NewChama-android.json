@@ -1,12 +1,12 @@
 {
   "apidoc_output_data_file": [
     {
-      "OSName": "Windows",
-      "address": "E:\NewChama\apidoc\api_data.json"
-    },
-    {
       "OSName": "Mac OS X",
       "address": "/Users/newchama/Desktop/NewChama-Data/apidoc.html"
+    },
+    {
+      "OSName": "Windows",
+      "address": "E:/NewChama/apidoc/api_data.json"
     }
   ],
   "config": {
