@@ -32,7 +32,7 @@ public class DocParser {
     }
 
     private void createDoc() {
-        String apidocHtmlPath = Property.getApidocProperty().getApiDataJsonPath();
+        String apidocHtmlPath = Property.getApiDataFile().getApiDataFilePath();
         Document doc = JsoupParserUtil.getDocument(apidocHtmlPath);
         docEntity = new DocEntity(null, doc);
     }

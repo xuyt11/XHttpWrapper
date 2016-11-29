@@ -1,6 +1,6 @@
 package cn.ytxu.xhttp_wrapper.config;
 
-import cn.ytxu.xhttp_wrapper.config.property.apidoc.ApidocProperty;
+import cn.ytxu.xhttp_wrapper.config.property.api_data_file.ApiDataFileWrapper;
 import cn.ytxu.xhttp_wrapper.config.property.config.ConfigProperty;
 import cn.ytxu.xhttp_wrapper.config.property.filter.FilterProperty;
 import cn.ytxu.xhttp_wrapper.config.property.element_type.FieldTypeProperty;
@@ -22,7 +22,7 @@ public class Property {
         try {
             String fileName = Suffix.Json.getTempFileName(xtempPrefixName);
             in = Property.class.getClassLoader().getResourceAsStream(fileName);
-            PropertyEntity object = JSON.parseObject(in, PropertyEntity.class);
+            PropertyConfig object = JSON.parseObject(in, PropertyConfig.class);
             load(object);
         } catch (IOException e) {
             e.printStackTrace();
@@ -32,13 +32,13 @@ public class Property {
         }
     }
 
-    private static void load(PropertyEntity object) {
+    private static void load(PropertyConfig object) {
         ConfigProperty.load(object.getConfig());
         FilterProperty.load(object.getFilter());
         RequestProperty.load(object.getRequest());
         BaseResponseEntityNameProperty.load(object.getResponse());
         FieldTypeProperty.load(object.getField_type_enum());
-        ApidocProperty.load(object.getApidoc_output_data_file());
+        ApiDataFileWrapper.load(object.getApiDataFile());
         StatusCodeProperty.load(object.getStatus_code());
     }
 
@@ -69,8 +69,8 @@ public class Property {
         return FieldTypeProperty.getInstance();
     }
 
-    public static ApidocProperty getApidocProperty() {
-        return ApidocProperty.getInstance();
+    public static ApiDataFileWrapper getApiDataFile() {
+        return ApiDataFileWrapper.getInstance();
     }
 
     public static StatusCodeProperty getStatusCodeProperty() {

@@ -38,7 +38,7 @@ public class Parser {
 
     private List<ApiDataBean> getApiDatasFromFile() throws IOException {
         // 1 get api_data.json path
-        String apiDataPath = Property.getApidocProperty().getApiDataJsonPath();
+        String apiDataPath = Property.getApiDataFile().getApiDataFilePath();
         // 2 get json data from file
         String apiDataJsonStr = FileUtil.getContent(apiDataPath);
         // 3 get java object array by json data

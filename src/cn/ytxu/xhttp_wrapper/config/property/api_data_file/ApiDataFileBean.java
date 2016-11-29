@@ -1,9 +1,9 @@
-package cn.ytxu.xhttp_wrapper.config.property.apidoc;
+package cn.ytxu.xhttp_wrapper.config.property.api_data_file;
 
 /**
  * api_data.json文件地址的配置，包括多操作系统的配置
  */
-public class ApidocOutputDataFileBean {
+public class ApiDataFileBean {
     private String OSName;
     private String address;
 
