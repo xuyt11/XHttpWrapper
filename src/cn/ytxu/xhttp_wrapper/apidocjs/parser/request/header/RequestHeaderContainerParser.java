@@ -33,7 +33,7 @@ public class RequestHeaderContainerParser {
 
     private void setfilterTag2HeaderParam(List<FieldGroupModel<RequestHeaderContainerModel>> fieldGroups) {
         fieldGroups.forEach(fieldGroup -> fieldGroup.getFields().forEach(field -> {
-            boolean isFilterParam = Property.getFilterProperty().hasThisHeaderInFilterHeaders(field.getName());
+            boolean isFilterParam = Property.getFilter().hasThisHeaderInFilterHeaders(field.getName());
             if (isFilterParam) {
                 field.setFilterTag(true);
             }

@@ -89,11 +89,11 @@ public class VersionModel extends BaseModel {
     }
 
     public static List<RequestGroupModel> getSections(List<VersionModel> versions) {
-        return Property.getFilterProperty().getSectionsAfterFilted(versions);
+        return Property.getFilter().getSectionsAfterFilted(versions);
     }
 
     public static List<VersionModel> getVersions(List<VersionModel> versions) {
-        return Property.getFilterProperty().getVersionsAfterFilted(versions);
+        return Property.getFilter().getVersionsAfterFilted(versions);
     }
 
     //*************** reflect method area ***************

@@ -19,6 +19,7 @@
     ]
   },
   "filter": {
+    "use_headers": true,
     "headers": [
       "Authorization"
     ],

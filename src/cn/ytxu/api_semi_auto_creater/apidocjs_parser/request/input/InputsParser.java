@@ -54,7 +54,7 @@ public class InputsParser {
         }
 
         for (InputParamModel header : headers) {
-            boolean isFilterParam = Property.getFilterProperty().hasThisHeaderInFilterHeaders(header.getName());
+            boolean isFilterParam = Property.getFilter().hasThisHeaderInFilterHeaders(header.getName());
             if (isFilterParam) {
                 header.setFilterTag(true);
             }
