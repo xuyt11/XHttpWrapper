@@ -22,6 +22,7 @@ public class FilterWrapper {// 需要输出的版本号列表
     }
 
     public static void load(FilterBean filter) {
+        LogUtil.i(FilterWrapper.class, "load filter property start...");
         instance = new FilterWrapper(filter);
         LogUtil.i(FilterWrapper.class, "load filter property success...");
     }

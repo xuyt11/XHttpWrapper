@@ -19,6 +19,7 @@ public class BaseConfigWrapper {
     }
 
     public static void load(BaseConfigBean baseConfig) {
+        LogUtil.i(BaseConfigWrapper. class,"load base config property start...");
         instance = new BaseConfigWrapper(baseConfig);
         LogUtil.i(BaseConfigWrapper.class, "load base config property success...");
     }

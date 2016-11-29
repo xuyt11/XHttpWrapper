@@ -20,6 +20,7 @@ public class ApiDataFileWrapper {
     }
 
     public static void load(List<ApiDataFileBean> apiDataFiles) {
+        LogUtil.i(ApiDataFileWrapper.class, "load api data file property start...");
         instance = new ApiDataFileWrapper(apiDataFiles);
         LogUtil.i(ApiDataFileWrapper.class, "load api data file property success...");
     }

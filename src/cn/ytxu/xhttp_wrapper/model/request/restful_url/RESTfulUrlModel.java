@@ -1,6 +1,6 @@
 package cn.ytxu.xhttp_wrapper.model.request.restful_url;
 
-import cn.ytxu.xhttp_wrapper.config.property.request.RequestProperty;
+import cn.ytxu.xhttp_wrapper.config.Property;
 import cn.ytxu.xhttp_wrapper.model.BaseModel;
 import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
 
@@ -104,7 +104,7 @@ public class RESTfulUrlModel extends BaseModel<RequestModel, String> {
 
     private String executeReplace2CreateConvertUrl(List<String> replaceContents) {
         String url = request_normal_url();
-        String replaceStr = RequestProperty.getInstance().getReplaceString();
+        String replaceStr = Property.getRequest().getReplaceString();
         for (String replace : replaceContents) {
             url = url.replace(replace, replaceStr);
         }
