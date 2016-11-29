@@ -74,9 +74,9 @@ public class FilterWrapper {// 需要输出的版本号列表
     /**
      * 获取到需要输出的分类
      */
-    public List<RequestGroupModel> getSectionsAfterFilted(List<VersionModel> versions) {
+    public List<RequestGroupModel> getRequestGroupsAfterFilted(List<VersionModel> versions) {
         versions = getVersionsAfterFilted(versions);
-        List<RequestGroupModel> sections = new ArrayList<>();
+        List<RequestGroupModel> requestGroups = new ArrayList<>();
         for (VersionModel version : versions) {
             FilterVersionBean filterVersionBean;
             try {
@@ -84,9 +84,9 @@ public class FilterWrapper {// 需要输出的版本号列表
             } catch (NotFoundOutputVersionException ignore) {
                 continue;
             }
-            sections.addAll(getSectionsAfterFilted(version, filterVersionBean));
+            requestGroups.addAll(getRequestGroupsAfterFilted(version, filterVersionBean));
         }
-        return sections;
+        return requestGroups;
     }
 
     private FilterVersionBean findOutputVersionByVersionModel(VersionModel version) {
@@ -100,30 +100,30 @@ public class FilterWrapper {// 需要输出的版本号列表
     }
 
     private boolean isOutputVersionByVersionName(String targetVersionName, FilterVersionBean output_version) {
-        return output_version.getOutput_version_name().equals(targetVersionName);
+        return output_version.getOutputVersionName().equals(targetVersionName);
     }
 
     private static class NotFoundOutputVersionException extends RuntimeException {
     }
 
-    private List<RequestGroupModel> getSectionsAfterFilted(VersionModel version, FilterVersionBean outputVersion) {
-        if (!outputVersion.isUse_output_sections()) {
+    private List<RequestGroupModel> getRequestGroupsAfterFilted(VersionModel version, FilterVersionBean outputVersion) {
+        if (!outputVersion.isUseOutputRequestGroup()) {
             return version.getRequestGroups();
         }
 
-        List<String> sectionNames = outputVersion.getOutput_sections();
-        if (sectionNames.size() <= 0) {
+        List<String> requestGroupNames = outputVersion.getOutputRequestGroups();
+        if (requestGroupNames.size() <= 0) {
             return Collections.EMPTY_LIST;
         }
 
-        List<RequestGroupModel> sections = new ArrayList<>(sectionNames.size());
-        for (String sectionName : sectionNames) {
-            for (RequestGroupModel sectionModel : version.getRequestGroups()) {
-                if (sectionModel.getName().equals(sectionName)) {
-                    sections.add(sectionModel);
+        List<RequestGroupModel> requestGroups = new ArrayList<>(requestGroupNames.size());
+        for (String requestGroupName : requestGroupNames) {
+            for (RequestGroupModel requestGroupModel : version.getRequestGroups()) {
+                if (requestGroupModel.getName().equals(requestGroupName)) {
+                    requestGroups.add(requestGroupModel);
                 }
             }
         }
-        return sections;
+        return requestGroups;
     }
 }

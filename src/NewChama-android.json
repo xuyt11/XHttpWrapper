@@ -27,8 +27,8 @@
     "output_versions": [
       {
         "output_version_name": "2.0.0",
-        "use_output_sections": true,
-        "output_sections": [
+        "use_output_request_group": true,
+        "output_request_group": [
           "ActionLog"
         ]
       }
