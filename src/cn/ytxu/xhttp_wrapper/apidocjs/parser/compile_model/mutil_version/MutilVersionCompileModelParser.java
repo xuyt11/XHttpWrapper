@@ -29,7 +29,7 @@ public class MutilVersionCompileModelParser {
     }
 
     private Map<String, VersionModel> getOrderVersionMap() {
-        List<String> orderVersions = Property.getConfigProperty().getOrderVersions();
+        List<String> orderVersions = Property.getBaseConfig().getOrderVersions();
         Map<String, VersionModel> orderVersionMap = new LinkedHashMap<>(orderVersions.size());
         for (String versionCode : orderVersions) {
             orderVersionMap.put(versionCode, new VersionModel(versionCode));

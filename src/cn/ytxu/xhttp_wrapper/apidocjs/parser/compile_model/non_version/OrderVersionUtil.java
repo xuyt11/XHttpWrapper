@@ -18,7 +18,7 @@ public class OrderVersionUtil {
     }
 
     private void generateOrderVersionIndexs() {
-        List<String> orderVersions = Property.getConfigProperty().getOrderVersions();
+        List<String> orderVersions = Property.getBaseConfig().getOrderVersions();
         orderVersionIndexs = new LinkedHashMap<>(orderVersions.size());
         for (String orderVersion : orderVersions) {
             orderVersionIndexs.put(orderVersion, orderVersions.indexOf(orderVersion));

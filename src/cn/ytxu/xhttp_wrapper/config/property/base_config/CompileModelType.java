@@ -1,4 +1,4 @@
-package cn.ytxu.xhttp_wrapper.config.property.config;
+package cn.ytxu.xhttp_wrapper.config.property.base_config;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.compile_model.mutil_version.MutilVersionCompileModelParser;
@@ -31,13 +31,13 @@ public enum CompileModelType {
         }
     };
 
-    public static CompileModelType getByName(String compileModelStr) {
+    static CompileModelType getByName(String compileModelStr) {
         for (CompileModelType compileModel : CompileModelType.values()) {
             if (compileModel.name().equals(compileModelStr)) {
                 return compileModel;
             }
         }
-        return mutil_version;
+        throw new IllegalArgumentException("compile model property setup error, the name is " + compileModelStr);
     }
 
     public abstract List<VersionModel> generateApiTreeDependentByCompileModel(List<ApiDataBean> apiDatas);

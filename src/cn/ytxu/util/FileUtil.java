@@ -1,6 +1,6 @@
 package cn.ytxu.util;
 
-import cn.ytxu.xhttp_wrapper.config.property.config.ConfigProperty;
+import cn.ytxu.xhttp_wrapper.config.Property;
 
 import java.io.*;
 
@@ -58,7 +58,7 @@ public class FileUtil {
         }
 
         Writer writer = new OutputStreamWriter(new FileOutputStream(
-                new File(dir, classFileFullName)), ConfigProperty.getInstance().getAutoGenerateFileCharset());
+                new File(dir, classFileFullName)), Property.getBaseConfig().getApiDataFileCharset());
         return writer;
     }
 

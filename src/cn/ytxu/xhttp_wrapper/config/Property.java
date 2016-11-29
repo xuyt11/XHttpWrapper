@@ -1,7 +1,7 @@
 package cn.ytxu.xhttp_wrapper.config;
 
 import cn.ytxu.xhttp_wrapper.config.property.api_data_file.ApiDataFileWrapper;
-import cn.ytxu.xhttp_wrapper.config.property.config.ConfigProperty;
+import cn.ytxu.xhttp_wrapper.config.property.base_config.BaseConfigWrapper;
 import cn.ytxu.xhttp_wrapper.config.property.filter.FilterProperty;
 import cn.ytxu.xhttp_wrapper.config.property.element_type.FieldTypeProperty;
 import cn.ytxu.xhttp_wrapper.config.property.base_response_entity_name.BaseResponseEntityNameProperty;
@@ -33,12 +33,12 @@ public class Property {
     }
 
     private static void load(PropertyConfig object) {
-        ConfigProperty.load(object.getConfig());
+        ApiDataFileWrapper.load(object.getApiDataFile());
+        BaseConfigWrapper.load(object.getConfig());
         FilterProperty.load(object.getFilter());
         RequestProperty.load(object.getRequest());
         BaseResponseEntityNameProperty.load(object.getResponse());
         FieldTypeProperty.load(object.getField_type_enum());
-        ApiDataFileWrapper.load(object.getApiDataFile());
         StatusCodeProperty.load(object.getStatus_code());
     }
 
@@ -53,8 +53,8 @@ public class Property {
         }
     }
 
-    public static ConfigProperty getConfigProperty() {
-        return ConfigProperty.getInstance();
+    public static BaseConfigWrapper getBaseConfig() {
+        return BaseConfigWrapper.getInstance();
     }
 
     public static FilterProperty getFilterProperty() {

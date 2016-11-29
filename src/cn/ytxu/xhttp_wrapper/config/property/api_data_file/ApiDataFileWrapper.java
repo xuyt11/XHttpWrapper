@@ -1,5 +1,6 @@
 package cn.ytxu.xhttp_wrapper.config.property.api_data_file;
 
+import cn.ytxu.util.LogUtil;
 import cn.ytxu.util.OSPlatform;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class ApiDataFileWrapper {
 
     public static void load(List<ApiDataFileBean> apiDataFiles) {
         instance = new ApiDataFileWrapper(apiDataFiles);
+        LogUtil.i(ApiDataFileWrapper.class, "load api data file property success...");
     }
 
     private ApiDataFileWrapper(List<ApiDataFileBean> apiDataFiles) {

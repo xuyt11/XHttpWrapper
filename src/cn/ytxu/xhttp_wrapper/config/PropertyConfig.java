@@ -2,7 +2,7 @@ package cn.ytxu.xhttp_wrapper.config;
 
 import cn.ytxu.xhttp_wrapper.config.property.api_data_file.ApiDataFileBean;
 import cn.ytxu.xhttp_wrapper.config.property.base_response_entity_name.ResponseBean;
-import cn.ytxu.xhttp_wrapper.config.property.config.ConfigBean;
+import cn.ytxu.xhttp_wrapper.config.property.base_config.BaseConfigBean;
 import cn.ytxu.xhttp_wrapper.config.property.element_type.FieldTypeEnumBean;
 import cn.ytxu.xhttp_wrapper.config.property.filter.FilterBean;
 import cn.ytxu.xhttp_wrapper.config.property.request.RequestBean;
@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class PropertyConfig {
     private List<ApiDataFileBean> api_data_file;
-    private ConfigBean config = ConfigBean.DEFAULT;
+    private BaseConfigBean base_config = BaseConfigBean.DEFAULT;
     private FilterBean filter = FilterBean.DEFAULT;
     private RequestBean request;
     private ResponseBean response;
@@ -29,8 +29,8 @@ public class PropertyConfig {
         return api_data_file;
     }
 
-    public ConfigBean getConfig() {
-        return config;
+    public BaseConfigBean getConfig() {
+        return base_config;
     }
 
     public FilterBean getFilter() {
