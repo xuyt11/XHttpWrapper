@@ -1,37 +1,64 @@
 package cn.ytxu.xhttp_wrapper.config.property.status_code;
 
+import cn.ytxu.util.LogUtil;
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.status_code.StatusCodeParseModelType;
 import cn.ytxu.xhttp_wrapper.model.VersionModel;
 import cn.ytxu.xhttp_wrapper.model.status_code.StatusCodeGroupModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by ytxu on 2016/9/2.
  */
-public class StatusCodeProperty {
-    private static StatusCodeProperty instance;
+public class StatusCodeWrapper {
+    private static StatusCodeWrapper instance;
 
     private StatusCodeBean statusCodeBean;
 
-    public static StatusCodeProperty getInstance() {
+    public static StatusCodeWrapper getInstance() {
         return instance;
     }
 
     public static void load(StatusCodeBean statusCode) {
-        instance = new StatusCodeProperty(statusCode);
+        LogUtil.i(StatusCodeWrapper.class, "load status code property start...");
+        instance = new StatusCodeWrapper(statusCode);
+        LogUtil.i(StatusCodeWrapper.class, "load status code property success...");
     }
 
-    private StatusCodeProperty(StatusCodeBean statusCode) {
+    private StatusCodeWrapper(StatusCodeBean statusCode) {
         this.statusCodeBean = statusCode;
+
+        if (Objects.isNull(statusCode.getRequestGroupName())) {
+            throw new IllegalArgumentException("u must setup request group property...");
+        }
+        StatusCodeParseModelType.getByEnumName(statusCode.getParseModel());
+        if (statusCode.isUseVersionFilter() && statusCode.getFiltedVersions().size() <= 0) {
+            throw new IllegalArgumentException("u setup use filter versions function, but the filted_versions property don`t setup...");
+        }
+        try {
+            Integer.getInteger(statusCode.getOkNumber());
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("u setup ok_number property error...", e);
+        }
     }
 
-    public String getSectionName4StatusCode() {
-        return statusCodeBean.getSection_name();
+    public String getRequestGroupName4StatusCode() {
+        return statusCodeBean.getRequestGroupName();
     }
 
     public boolean isStatusCodeGroup(String groupName) {
-        return getSectionName4StatusCode().equals(groupName);
+        return getRequestGroupName4StatusCode().equals(groupName);
+    }
+
+    public StatusCodeParseModelType getParseModel() {
+        return StatusCodeParseModelType.getByEnumName(getParseModelName());
+    }
+
+    public String getParseModelName() {
+        return statusCodeBean.getParseModel();
     }
 
     public List<StatusCodeGroupModel> getStatusCodeGroups(List<VersionModel> versions) {
@@ -53,7 +80,7 @@ public class StatusCodeProperty {
     }
 
     private boolean isUseVersionFilter() {
-        return statusCodeBean.isUse_version_filter();
+        return statusCodeBean.isUseVersionFilter();
     }
 
     private List<StatusCodeGroupModel> getFiltedStatusCodeGroups(List<VersionModel> versions) {
@@ -68,7 +95,7 @@ public class StatusCodeProperty {
 
     private boolean isOutputVersion(StatusCodeGroupModel statusCode) {
         String version = statusCode.getName();
-        for (String outputVersion : statusCodeBean.getFilted_versions()) {
+        for (String outputVersion : statusCodeBean.getFiltedVersions()) {
             if (outputVersion.equals(version)) {
                 return true;
             }
@@ -77,11 +104,7 @@ public class StatusCodeProperty {
     }
 
     public String getOkNumber() {
-        return statusCodeBean.getOk_number();
-    }
-
-    public String getParseModelName() {
-        return statusCodeBean.getParse_model();
+        return statusCodeBean.getOkNumber();
     }
 
 }

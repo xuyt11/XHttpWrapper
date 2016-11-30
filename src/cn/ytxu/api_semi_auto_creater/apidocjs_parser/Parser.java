@@ -1,17 +1,12 @@
 package cn.ytxu.api_semi_auto_creater.apidocjs_parser;
 
-import cn.ytxu.xhttp_wrapper.config.property.status_code.StatusCodeProperty;
 import cn.ytxu.api_semi_auto_creater.model.RequestModel;
 import cn.ytxu.api_semi_auto_creater.model.base.DocModel;
 import cn.ytxu.api_semi_auto_creater.model.response.ResponseModel;
-import cn.ytxu.api_semi_auto_creater.model.status_code.StatusCodeCategoryModel;
 import cn.ytxu.api_semi_auto_creater.apidocjs_parser.base.BaseParser;
 import cn.ytxu.api_semi_auto_creater.apidocjs_parser.request.RequestParser;
 import cn.ytxu.api_semi_auto_creater.apidocjs_parser.response.ResponseParser;
 import cn.ytxu.api_semi_auto_creater.apidocjs_parser.response.ResponseSErrorParser;
-import cn.ytxu.api_semi_auto_creater.apidocjs_parser.status_code.StatusCodeParser;
-
-import java.util.List;
 
 /**
  * Created by Administrator on 2016/9/7.
@@ -31,7 +26,7 @@ public class Parser {
     }
 
     private void parseStatusCodes(DocModel docModel) {
-//        List<StatusCodeCategoryModel> statusCodes = StatusCodeProperty.getInstance().getStatusCodeGroups(docModel, false);
+//        List<StatusCodeCategoryModel> statusCodes = StatusCodeWrapper.getInstance().getStatusCodeGroups(docModel, false);
 //        for (StatusCodeCategoryModel statusCode : statusCodes) {
 //            new StatusCodeParser(statusCode).start();
 //        }

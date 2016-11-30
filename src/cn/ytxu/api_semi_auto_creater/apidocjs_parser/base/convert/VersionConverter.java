@@ -1,6 +1,5 @@
 package cn.ytxu.api_semi_auto_creater.apidocjs_parser.base.convert;
 
-import cn.ytxu.xhttp_wrapper.config.property.status_code.StatusCodeProperty;
 import cn.ytxu.api_semi_auto_creater.model.base.DocModel;
 import cn.ytxu.api_semi_auto_creater.model.base.SectionModel;
 import cn.ytxu.api_semi_auto_creater.model.base.VersionModel;
@@ -8,6 +7,7 @@ import cn.ytxu.api_semi_auto_creater.model.status_code.StatusCodeCategoryModel;
 import cn.ytxu.api_semi_auto_creater.apidocjs_parser.base.entity.DocEntity;
 import cn.ytxu.api_semi_auto_creater.apidocjs_parser.base.entity.RequestEntity;
 import cn.ytxu.api_semi_auto_creater.apidocjs_parser.base.entity.SectionEntity;
+import cn.ytxu.xhttp_wrapper.config.Property;
 import com.sun.istack.internal.NotNull;
 
 import java.util.ArrayList;
@@ -97,7 +97,7 @@ public class VersionConverter {
     }
 
     private SectionEntity findStatusCodeSection(List<SectionEntity> sections) {
-        final String statusCodeSectionName = StatusCodeProperty.getInstance().getSectionName4StatusCode();
+        final String statusCodeSectionName = Property.getStatusCode().getRequestGroupName4StatusCode();
         for (SectionEntity section : sections) {
             if (!statusCodeSectionName.equals(section.getName())) {
                 continue;

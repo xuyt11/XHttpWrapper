@@ -6,7 +6,7 @@ import cn.ytxu.xhttp_wrapper.config.property.filter.FilterWrapper;
 import cn.ytxu.xhttp_wrapper.config.property.element_type.FieldTypeProperty;
 import cn.ytxu.xhttp_wrapper.config.property.response.ResponseWrapper;
 import cn.ytxu.xhttp_wrapper.config.property.request.RequestWrapper;
-import cn.ytxu.xhttp_wrapper.config.property.status_code.StatusCodeProperty;
+import cn.ytxu.xhttp_wrapper.config.property.status_code.StatusCodeWrapper;
 import com.alibaba.fastjson.JSON;
 
 import java.io.IOException;
@@ -38,8 +38,8 @@ public class Property {
         FilterWrapper.load(object.getFilter());
         RequestWrapper.load(object.getRequest());
         ResponseWrapper.load(object.getResponse());
+        StatusCodeWrapper.load(object.getStatus_code());
         FieldTypeProperty.load(object.getField_type_enum());
-        StatusCodeProperty.load(object.getStatus_code());
     }
 
     private static void close(InputStream in) {
@@ -73,12 +73,12 @@ public class Property {
         return ResponseWrapper.getInstance();
     }
 
-    public static FieldTypeProperty getFieldTypeProperty() {
-        return FieldTypeProperty.getInstance();
+    public static StatusCodeWrapper getStatusCode() {
+        return StatusCodeWrapper.getInstance();
     }
 
-    public static StatusCodeProperty getStatusCodeProperty() {
-        return StatusCodeProperty.getInstance();
+    public static FieldTypeProperty getFieldTypeProperty() {
+        return FieldTypeProperty.getInstance();
     }
 
 }

@@ -39,8 +39,7 @@ public class StatusCodeParser {
     }
 
     private StatusCodeModel getStatusCode(StatusCodeGroupModel statusCodeGroup, FieldBean field) {
-        String parseModelName = Property.getStatusCodeProperty().getParseModelName();
-        StatusCodeParseModelType parseModel = StatusCodeParseModelType.getByEnumName(parseModelName);
+        StatusCodeParseModelType parseModel = Property.getStatusCode().getParseModel();
         return parseModel.parseApiData(statusCodeGroup, field);
     }
 

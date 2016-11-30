@@ -67,7 +67,7 @@
     }
   },
   "status_code": {
-    "section_name": "StatusCode",
+    "request_group_name": "StatusCode",
     "parse_model": "x_custom_model",
     "use_version_filter": false,
     "filted_versions": [
