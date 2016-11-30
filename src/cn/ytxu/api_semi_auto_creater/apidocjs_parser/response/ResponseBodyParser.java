@@ -40,7 +40,7 @@ public class ResponseBodyParser {
     }
 
     private void parseStatusCode(JSONObject bodyJObj) {
-        String statusCodeName = Property.getBRENameProperty().getStatusCode();
+        String statusCodeName = Property.getResponse().getStatusCode();
         if (bodyJObj.containsKey(statusCodeName)) {
             response.setStatusCode(String.valueOf(bodyJObj.getInteger(statusCodeName)));
         } else {

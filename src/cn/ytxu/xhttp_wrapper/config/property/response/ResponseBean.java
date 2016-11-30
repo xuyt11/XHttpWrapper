@@ -1,6 +1,4 @@
-package cn.ytxu.xhttp_wrapper.config.property.base_response_entity_name;
-
-import cn.ytxu.util.FileUtil;
+package cn.ytxu.xhttp_wrapper.config.property.response;
 
 import java.util.Arrays;
 import java.util.List;
@@ -55,43 +53,4 @@ public class ResponseBean {
         return error.getType();
     }
 
-    public static class BaseResponseParamBean {
-        private String name;
-        private String type;
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getType() {
-            return type;
-        }
-
-        public void setType(String type) {
-            this.type = type;
-        }
-
-
-        //*************** reflect method area ***************
-        public String bro_type() {
-            return type;
-        }
-
-        public String bro_name() {
-            return name;
-        }
-
-        public String bro_getter() {
-            return "get" + FileUtil.getClassFileName(name);
-        }
-
-        public String bro_setter() {
-            return "set" + FileUtil.getClassFileName(name);
-        }
-
-    }
 }

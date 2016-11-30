@@ -1,7 +1,7 @@
 package cn.ytxu.xhttp_wrapper.config;
 
 import cn.ytxu.xhttp_wrapper.config.property.api_data_file.ApiDataFileBean;
-import cn.ytxu.xhttp_wrapper.config.property.base_response_entity_name.ResponseBean;
+import cn.ytxu.xhttp_wrapper.config.property.response.ResponseBean;
 import cn.ytxu.xhttp_wrapper.config.property.base_config.BaseConfigBean;
 import cn.ytxu.xhttp_wrapper.config.property.element_type.FieldTypeEnumBean;
 import cn.ytxu.xhttp_wrapper.config.property.filter.FilterBean;

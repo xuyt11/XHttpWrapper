@@ -1,8 +1,8 @@
 package cn.ytxu.xhttp_wrapper.model;
 
 import cn.ytxu.xhttp_wrapper.config.Property;
-import cn.ytxu.xhttp_wrapper.config.property.base_response_entity_name.BaseResponseEntityNameProperty;
-import cn.ytxu.xhttp_wrapper.config.property.base_response_entity_name.ResponseBean;
+import cn.ytxu.xhttp_wrapper.config.property.response.BaseResponseParamBean;
+import cn.ytxu.xhttp_wrapper.config.property.response.ResponseBean;
 import cn.ytxu.xhttp_wrapper.model.request.RequestGroupModel;
 import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
 import cn.ytxu.xhttp_wrapper.model.response.OutputParamModel;
@@ -69,8 +69,6 @@ public class VersionModel extends BaseModel {
     }
 
 
-
-
     //*************** get list data area ***************
     public static List<ResponseModel> getResponses(List<VersionModel> versions) {
         List<ResponseModel> responses = new ArrayList<>();
@@ -105,12 +103,12 @@ public class VersionModel extends BaseModel {
         return requestGroups;
     }
 
-    public List<ResponseBean.BaseResponseParamBean> base_response_outputs() {
-        return BaseResponseEntityNameProperty.get().getAll();
+    public List<BaseResponseParamBean> base_response_outputs() {
+        return Property.getResponse().getAll();
     }
 
     public String error_bro_type() {
-        return BaseResponseEntityNameProperty.get().getErrorType();
+        return Property.getResponse().getErrorType();
     }
 
     public List<OutputParamModel> subs_of_errors() {

@@ -1,25 +1,29 @@
-package cn.ytxu.xhttp_wrapper.config.property.base_response_entity_name;
+package cn.ytxu.xhttp_wrapper.config.property.response;
+
+import cn.ytxu.util.LogUtil;
 
 import java.util.List;
 
 /**
  * 基础response必须的字段的字段名称
  */
-public class BaseResponseEntityNameProperty {
+public class ResponseWrapper {
 
-    private static BaseResponseEntityNameProperty instance;
+    private static ResponseWrapper instance;
 
     private ResponseBean response;
 
-    public static BaseResponseEntityNameProperty get() {
+    public static ResponseWrapper getInstance() {
         return instance;
     }
 
     public static void load(ResponseBean response) {
-        instance = new BaseResponseEntityNameProperty(response);
+        LogUtil.i(ResponseWrapper.class, "load response property start...");
+        instance = new ResponseWrapper(response);
+        LogUtil.i(ResponseWrapper.class, "load response property success...");
     }
 
-    private BaseResponseEntityNameProperty(ResponseBean response) {
+    private ResponseWrapper(ResponseBean response) {
         this.response = response;
     }
 
@@ -43,7 +47,7 @@ public class BaseResponseEntityNameProperty {
         return response.getData();
     }
 
-    public List<ResponseBean.BaseResponseParamBean> getAll() {
+    public List<BaseResponseParamBean> getAll() {
         return response.getAll();
     }
 }

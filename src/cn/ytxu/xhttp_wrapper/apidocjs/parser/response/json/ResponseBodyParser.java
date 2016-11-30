@@ -59,7 +59,7 @@ public class ResponseBodyParser {
     }
 
     private boolean parseStatusCode(JSONObject bodyJObj) {
-        String statusCodeName = Property.getBRENameProperty().getStatusCode();
+        String statusCodeName = Property.getResponse().getStatusCode();
         if (bodyJObj.containsKey(statusCodeName)) {
             response.setStatusCode(String.valueOf(bodyJObj.getInteger(statusCodeName)));
             return false;

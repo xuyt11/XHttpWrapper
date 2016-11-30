@@ -4,7 +4,7 @@ import cn.ytxu.xhttp_wrapper.config.property.api_data_file.ApiDataFileWrapper;
 import cn.ytxu.xhttp_wrapper.config.property.base_config.BaseConfigWrapper;
 import cn.ytxu.xhttp_wrapper.config.property.filter.FilterWrapper;
 import cn.ytxu.xhttp_wrapper.config.property.element_type.FieldTypeProperty;
-import cn.ytxu.xhttp_wrapper.config.property.base_response_entity_name.BaseResponseEntityNameProperty;
+import cn.ytxu.xhttp_wrapper.config.property.response.ResponseWrapper;
 import cn.ytxu.xhttp_wrapper.config.property.request.RequestWrapper;
 import cn.ytxu.xhttp_wrapper.config.property.status_code.StatusCodeProperty;
 import com.alibaba.fastjson.JSON;
@@ -37,7 +37,7 @@ public class Property {
         BaseConfigWrapper.load(object.getConfig());
         FilterWrapper.load(object.getFilter());
         RequestWrapper.load(object.getRequest());
-        BaseResponseEntityNameProperty.load(object.getResponse());
+        ResponseWrapper.load(object.getResponse());
         FieldTypeProperty.load(object.getField_type_enum());
         StatusCodeProperty.load(object.getStatus_code());
     }
@@ -69,8 +69,8 @@ public class Property {
         return RequestWrapper.getInstance();
     }
 
-    public static BaseResponseEntityNameProperty getBRENameProperty() {
-        return BaseResponseEntityNameProperty.get();
+    public static ResponseWrapper getResponse() {
+        return ResponseWrapper.getInstance();
     }
 
     public static FieldTypeProperty getFieldTypeProperty() {
