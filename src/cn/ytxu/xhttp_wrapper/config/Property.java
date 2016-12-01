@@ -3,7 +3,7 @@ package cn.ytxu.xhttp_wrapper.config;
 import cn.ytxu.xhttp_wrapper.config.property.api_data_file.ApiDataFileWrapper;
 import cn.ytxu.xhttp_wrapper.config.property.base_config.BaseConfigWrapper;
 import cn.ytxu.xhttp_wrapper.config.property.filter.FilterWrapper;
-import cn.ytxu.xhttp_wrapper.config.property.element_type.FieldTypeProperty;
+import cn.ytxu.xhttp_wrapper.config.property.element_type.FieldTypeWrapper;
 import cn.ytxu.xhttp_wrapper.config.property.response.ResponseWrapper;
 import cn.ytxu.xhttp_wrapper.config.property.request.RequestWrapper;
 import cn.ytxu.xhttp_wrapper.config.property.status_code.StatusCodeWrapper;
@@ -39,7 +39,7 @@ public class Property {
         RequestWrapper.load(object.getRequest());
         ResponseWrapper.load(object.getResponse());
         StatusCodeWrapper.load(object.getStatus_code());
-        FieldTypeProperty.load(object.getField_type_enum());
+        FieldTypeWrapper.load(object.getField_type_enum());
     }
 
     private static void close(InputStream in) {
@@ -77,8 +77,8 @@ public class Property {
         return StatusCodeWrapper.getInstance();
     }
 
-    public static FieldTypeProperty getFieldTypeProperty() {
-        return FieldTypeProperty.getInstance();
+    public static FieldTypeWrapper getFieldType() {
+        return FieldTypeWrapper.getInstance();
     }
 
 }

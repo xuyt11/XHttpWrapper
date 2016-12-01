@@ -1,6 +1,5 @@
 package cn.ytxu.api_semi_auto_creater.model.response;
 
-import cn.ytxu.xhttp_wrapper.config.property.element_type.FieldTypeProperty;
 import cn.ytxu.api_semi_auto_creater.model.BaseModel;
 import cn.ytxu.api_semi_auto_creater.model.request.DefinedParamModel;
 import cn.ytxu.api_semi_auto_creater.apidocjs_parser.response.output.OutputParamType;
@@ -159,7 +158,7 @@ public class OutputParamModel extends BaseModel<ResponseModel> {
     }
 
 //    public String output_type() {
-//        return FieldTypeProperty.getInstance().getElementTypeByOutput(this);
+//        return FieldTypeWrapper.getInstance().getElementTypeByOutput(this);
 //    }
 
     public String output_name() {

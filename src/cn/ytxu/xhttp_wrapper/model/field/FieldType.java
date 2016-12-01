@@ -15,21 +15,21 @@ public enum FieldType {
     NULL(OutputParamType.NULL) {
         @Override
         protected FieldTypeEnumBean.EtBean getEtBean() {
-            return Property.getFieldTypeProperty().getNullET();
+            return Property.getFieldType().getNullET();
         }
     },
     // date类型不会出现在json中，
     DATE(null, "Date", "DateTime") {
         @Override
         protected FieldTypeEnumBean.EtBean getEtBean() {
-            return Property.getFieldTypeProperty().getDateET();
+            return Property.getFieldType().getDateET();
         }
     },
     // 只有请求方法中有file类型
     FILE(null, "File") {
         @Override
         protected FieldTypeEnumBean.EtBean getEtBean() {
-            return Property.getFieldTypeProperty().getFileET();
+            return Property.getFieldType().getFileET();
         }
 
         @Override
@@ -40,51 +40,51 @@ public enum FieldType {
     INTEGER(OutputParamType.INTEGER, "Integer") {
         @Override
         protected FieldTypeEnumBean.EtBean getEtBean() {
-            return Property.getFieldTypeProperty().getIntegerET();
+            return Property.getFieldType().getIntegerET();
         }
     },
     LONG(OutputParamType.LONG, "Long") {
         @Override
         protected FieldTypeEnumBean.EtBean getEtBean() {
-            return Property.getFieldTypeProperty().getLongET();
+            return Property.getFieldType().getLongET();
         }
     },
     FLOAT(OutputParamType.FLOAT, "Float") {
         @Override
         protected FieldTypeEnumBean.EtBean getEtBean() {
-            return Property.getFieldTypeProperty().getFloatET();
+            return Property.getFieldType().getFloatET();
         }
     },
     DOUBLE(OutputParamType.DOUBLE, "Double") {
         @Override
         protected FieldTypeEnumBean.EtBean getEtBean() {
-            return Property.getFieldTypeProperty().getDoubleET();
+            return Property.getFieldType().getDoubleET();
         }
     },
     // FUTURE 未来将会删除掉的类型，这样的类型，不能知道精确类型
     NUMBER(OutputParamType.NUMBER, "Number") {
         @Override
         protected FieldTypeEnumBean.EtBean getEtBean() {
-            return Property.getFieldTypeProperty().getNumberET();
+            return Property.getFieldType().getNumberET();
         }
     },
     BOOLEAN(OutputParamType.BOOLEAN, "Boolean") {
         @Override
         protected FieldTypeEnumBean.EtBean getEtBean() {
-            return Property.getFieldTypeProperty().getBooleanET();
+            return Property.getFieldType().getBooleanET();
         }
     },
     STRING(OutputParamType.STRING, "String") {
         @Override
         protected FieldTypeEnumBean.EtBean getEtBean() {
-            return Property.getFieldTypeProperty().getStringET();
+            return Property.getFieldType().getStringET();
         }
     },
     // tip: 对象类型不能在request parameter list中出现
     OBJECT(OutputParamType.JSON_OBJECT) {
         @Override
         protected FieldTypeEnumBean.EtBean getEtBean() {
-            return Property.getFieldTypeProperty().getObjectET();
+            return Property.getFieldType().getObjectET();
         }
 
         @Override
@@ -105,7 +105,7 @@ public enum FieldType {
     // ${object} -->使用其进行替换
     ARRAY(OutputParamType.JSON_ARRAY, "Array", "List") {
         protected FieldTypeEnumBean.EtBean getEtBean() {
-            return Property.getFieldTypeProperty().getArrayET();
+            return Property.getFieldType().getArrayET();
         }
 
         @Override
@@ -131,7 +131,7 @@ public enum FieldType {
     MAP(OutputParamType.JSON_OBJECT, "Map", "Dictionary", "Dict") {
         @Override
         protected FieldTypeEnumBean.EtBean getEtBean() {
-            return Property.getFieldTypeProperty().getMapET();
+            return Property.getFieldType().getMapET();
         }
         // TODO implements other method
     };
