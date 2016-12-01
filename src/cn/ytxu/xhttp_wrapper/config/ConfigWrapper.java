@@ -1,5 +1,6 @@
 package cn.ytxu.xhttp_wrapper.config;
 
+import cn.ytxu.util.LogUtil;
 import cn.ytxu.xhttp_wrapper.config.property.api_data_file.ApiDataFileWrapper;
 import cn.ytxu.xhttp_wrapper.config.property.base_config.BaseConfigWrapper;
 import cn.ytxu.xhttp_wrapper.config.property.filter.FilterWrapper;
@@ -15,42 +16,40 @@ import java.io.InputStream;
 /**
  * Created by ytxu on 2016/8/14.
  */
-public class Property {
+public class ConfigWrapper {
 
     public static void load(String xtempPrefixName) {
+        final String fileName = Suffix.Json.getTempFileName(xtempPrefixName);
         InputStream in = null;
         try {
-            String fileName = Suffix.Json.getTempFileName(xtempPrefixName);
-            in = Property.class.getClassLoader().getResourceAsStream(fileName);
-            PropertyConfig object = JSON.parseObject(in, PropertyConfig.class);
+            LogUtil.i(ConfigWrapper.class, "init config file:(" + fileName + ") start...");
+            in = ConfigWrapper.class.getClassLoader().getResourceAsStream(fileName);
+            ConfigBean object = JSON.parseObject(in, ConfigBean.class);
             load(object);
+            LogUtil.i(ConfigWrapper.class, "init config file:(" + fileName + ") success...");
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("init properties file failure...");
+            LogUtil.i(ConfigWrapper.class, "init config file:(" + fileName + ") failure...");
         } finally {
-            close(in);
+            if (in == null) {
+                return;
+            }
+            try {
+                in.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    private static void load(PropertyConfig object) {
+    private static void load(ConfigBean object) {
         ApiDataFileWrapper.load(object.getApiDataFile());
         BaseConfigWrapper.load(object.getConfig());
         FilterWrapper.load(object.getFilter());
         RequestWrapper.load(object.getRequest());
         ResponseWrapper.load(object.getResponse());
-        StatusCodeWrapper.load(object.getStatus_code());
-        FieldTypeWrapper.load(object.getField_type_enum());
-    }
-
-    private static void close(InputStream in) {
-        if (in == null) {
-            return;
-        }
-        try {
-            in.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        StatusCodeWrapper.load(object.getStatusCode());
+        FieldTypeWrapper.load(object.getFieldTypeEnum());
     }
 
     public static ApiDataFileWrapper getApiDataFile() {

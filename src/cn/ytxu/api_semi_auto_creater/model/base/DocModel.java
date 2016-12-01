@@ -1,8 +1,7 @@
 package cn.ytxu.api_semi_auto_creater.model.base;
 
-import cn.ytxu.xhttp_wrapper.config.Property;
+import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
 import cn.ytxu.xhttp_wrapper.config.property.response.BaseResponseParamBean;
-import cn.ytxu.xhttp_wrapper.config.property.response.ResponseBean;
 import cn.ytxu.api_semi_auto_creater.model.BaseModel;
 import cn.ytxu.api_semi_auto_creater.model.RequestModel;
 import cn.ytxu.api_semi_auto_creater.model.response.OutputParamModel;
@@ -59,7 +58,7 @@ public class DocModel extends BaseModel {
 
     public List<SectionModel> getSections(boolean filter) {
 //        if (filter) {
-//            return Property.getFilterProperty().getSectionsAfterFilted(this);
+//            return ConfigWrapper.getFilterProperty().getSectionsAfterFilted(this);
 //        }
 
         List<SectionModel> sections = new ArrayList<>();
@@ -71,7 +70,7 @@ public class DocModel extends BaseModel {
 
     public List<VersionModel> getVersions(boolean filter) {
 //        if (filter) {
-//            return Property.getFilterProperty().getVersionsAfterFilted(this);
+//            return ConfigWrapper.getFilterProperty().getVersionsAfterFilted(this);
 //        } else {
             return getVersions();
 //        }
@@ -80,11 +79,11 @@ public class DocModel extends BaseModel {
 
     //*************** reflect method area ***************
     public List<BaseResponseParamBean> base_response_outputs() {
-        return Property.getResponse().getAll();
+        return ConfigWrapper.getResponse().getAll();
     }
 
     public String error_bro_type() {
-        return Property.getResponse().getErrorType();
+        return ConfigWrapper.getResponse().getErrorType();
     }
 
     public List<OutputParamModel> subs_of_errors() {

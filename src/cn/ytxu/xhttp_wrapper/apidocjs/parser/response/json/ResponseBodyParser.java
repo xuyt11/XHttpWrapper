@@ -1,7 +1,7 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json;
 
 import cn.ytxu.util.LogUtil;
-import cn.ytxu.xhttp_wrapper.config.Property;
+import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
 import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseModel;
 import com.alibaba.fastjson.JSON;
@@ -59,7 +59,7 @@ public class ResponseBodyParser {
     }
 
     private boolean parseStatusCode(JSONObject bodyJObj) {
-        String statusCodeName = Property.getResponse().getStatusCode();
+        String statusCodeName = ConfigWrapper.getResponse().getStatusCode();
         if (bodyJObj.containsKey(statusCodeName)) {
             response.setStatusCode(String.valueOf(bodyJObj.getInteger(statusCodeName)));
             return false;

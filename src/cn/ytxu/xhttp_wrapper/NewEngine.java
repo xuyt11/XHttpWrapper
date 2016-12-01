@@ -1,9 +1,9 @@
 package cn.ytxu.xhttp_wrapper;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.Parser;
+import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
 import cn.ytxu.xhttp_wrapper.model.VersionModel;
 import cn.ytxu.xhttp_wrapper.xtemp.creater.Creater;
-import cn.ytxu.xhttp_wrapper.config.Property;
 import cn.ytxu.util.LogUtil;
 
 import java.io.IOException;
@@ -21,7 +21,7 @@ public class NewEngine {
             long start = System.currentTimeMillis();
 
             final String xTempPrefixName = XTEMP_PREFIX_NAMES[i];
-            Property.load(xTempPrefixName);
+            ConfigWrapper.load(xTempPrefixName);
             List<VersionModel> versions = new Parser().start();
             new Creater(versions, xTempPrefixName).start();
 

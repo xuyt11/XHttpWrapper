@@ -2,7 +2,7 @@ package cn.ytxu.xhttp_wrapper.model.response;
 
 import cn.ytxu.util.FileUtil;
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json.output.OutputParamType;
-import cn.ytxu.xhttp_wrapper.config.Property;
+import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
 import cn.ytxu.xhttp_wrapper.model.BaseModel;
 import cn.ytxu.xhttp_wrapper.model.field.FieldModel;
 
@@ -159,7 +159,7 @@ public class OutputParamModel extends BaseModel<ResponseModel, Void> {
     }
 
     public String output_type() {
-        return Property.getFieldType().getElementTypeByOutput(this);
+        return ConfigWrapper.getFieldType().getElementTypeByOutput(this);
     }
 
     public String output_name() {

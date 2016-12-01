@@ -1,7 +1,7 @@
 package cn.ytxu.xhttp_wrapper.xtemp.creater;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json.output.sub.GetOutputsThatCanGenerateResponseEntityFileUtil;
-import cn.ytxu.xhttp_wrapper.config.Property;
+import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
 import cn.ytxu.xhttp_wrapper.config.Suffix;
 import cn.ytxu.xhttp_wrapper.model.VersionModel;
 import cn.ytxu.xhttp_wrapper.model.response.OutputParamModel;
@@ -61,7 +61,7 @@ public class Creater {
     }
 
     private List<ResponseModel> getOKResponses() {
-        final String statusCodeOKNumber = Property.getStatusCode().getOkNumber();
+        final String statusCodeOKNumber = ConfigWrapper.getStatusCode().getOkNumber();
         List<ResponseModel> successResponses = new ArrayList<>();
         for (ResponseModel response : VersionModel.getResponses(versions)) {
             if (statusCodeOKNumber.equals(response.getStatusCode())) {// it`s ok response
@@ -83,7 +83,7 @@ public class Creater {
     private void createStatusCode() {
         XTempModel model = new XTempUtil(Suffix.StatusCode, xTempPrefixName).start();
 
-        List<StatusCodeGroupModel> statusCodeGroups = Property.getStatusCode().getStatusCodeGroups(versions);
+        List<StatusCodeGroupModel> statusCodeGroups = ConfigWrapper.getStatusCode().getStatusCodeGroups(versions);
         for (StatusCodeGroupModel statusCodeGroup : statusCodeGroups) {
             BaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, statusCodeGroup);
         }

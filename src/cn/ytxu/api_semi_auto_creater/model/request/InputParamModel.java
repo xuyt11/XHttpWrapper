@@ -1,6 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.model.request;
 
-import cn.ytxu.xhttp_wrapper.config.Property;
+import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
 import cn.ytxu.api_semi_auto_creater.model.BaseModel;
 import cn.ytxu.api_semi_auto_creater.model.RequestModel;
 import org.jsoup.nodes.Element;
@@ -68,7 +68,7 @@ public class InputParamModel extends BaseModel<RequestModel> {
     }
 
     private String type() {
-        return Property.getFieldType().getElementType(this);
+        return ConfigWrapper.getFieldType().getElementType(this);
     }
 
     public String header_request_param_type() {
@@ -80,7 +80,7 @@ public class InputParamModel extends BaseModel<RequestModel> {
     }
 
     private String requestParamType() {
-        return Property.getFieldType().getElementRequestType(this);
+        return ConfigWrapper.getFieldType().getElementRequestType(this);
     }
 
     public String header_name() {

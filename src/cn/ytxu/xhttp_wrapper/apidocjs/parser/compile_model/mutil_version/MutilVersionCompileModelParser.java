@@ -1,7 +1,7 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.parser.compile_model.mutil_version;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApiDataBean;
-import cn.ytxu.xhttp_wrapper.config.Property;
+import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
 import cn.ytxu.xhttp_wrapper.model.VersionModel;
 
 import java.util.LinkedHashMap;
@@ -28,7 +28,7 @@ public class MutilVersionCompileModelParser {
     }
 
     private Map<String, VersionModel> getOrderVersionMap() {
-        List<String> orderVersions = Property.getBaseConfig().getOrderVersions();
+        List<String> orderVersions = ConfigWrapper.getBaseConfig().getOrderVersions();
         Map<String, VersionModel> orderVersionMap = new LinkedHashMap<>(orderVersions.size());
         for (String versionCode : orderVersions) {
             orderVersionMap.put(versionCode, new VersionModel(versionCode));
@@ -55,7 +55,7 @@ public class MutilVersionCompileModelParser {
     }
 
     private boolean isAStatusCodeGroup4ApiData(ApiDataBean apiData) {
-        return Property.getStatusCode().isStatusCodeGroup(apiData.getGroup());
+        return ConfigWrapper.getStatusCode().isStatusCodeGroup(apiData.getGroup());
     }
 
     private List<VersionModel> getVersions(Map<String, VersionModel> orderVersionMap) {

@@ -2,7 +2,7 @@ package cn.ytxu.xhttp_wrapper.model.field;
 
 import cn.ytxu.api_semi_auto_creater.model.response.OutputParamModel;
 import cn.ytxu.api_semi_auto_creater.apidocjs_parser.response.output.OutputParamType;
-import cn.ytxu.xhttp_wrapper.config.Property;
+import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
 import cn.ytxu.xhttp_wrapper.config.property.element_type.FieldTypeEnumBean;
 
 import java.util.Objects;
@@ -15,21 +15,21 @@ public enum FieldType {
     NULL(OutputParamType.NULL) {
         @Override
         protected FieldTypeEnumBean.EtBean getEtBean() {
-            return Property.getFieldType().getNullET();
+            return ConfigWrapper.getFieldType().getNullET();
         }
     },
     // date类型不会出现在json中，
     DATE(null, "Date", "DateTime") {
         @Override
         protected FieldTypeEnumBean.EtBean getEtBean() {
-            return Property.getFieldType().getDateET();
+            return ConfigWrapper.getFieldType().getDateET();
         }
     },
     // 只有请求方法中有file类型
     FILE(null, "File") {
         @Override
         protected FieldTypeEnumBean.EtBean getEtBean() {
-            return Property.getFieldType().getFileET();
+            return ConfigWrapper.getFieldType().getFileET();
         }
 
         @Override
@@ -40,51 +40,51 @@ public enum FieldType {
     INTEGER(OutputParamType.INTEGER, "Integer") {
         @Override
         protected FieldTypeEnumBean.EtBean getEtBean() {
-            return Property.getFieldType().getIntegerET();
+            return ConfigWrapper.getFieldType().getIntegerET();
         }
     },
     LONG(OutputParamType.LONG, "Long") {
         @Override
         protected FieldTypeEnumBean.EtBean getEtBean() {
-            return Property.getFieldType().getLongET();
+            return ConfigWrapper.getFieldType().getLongET();
         }
     },
     FLOAT(OutputParamType.FLOAT, "Float") {
         @Override
         protected FieldTypeEnumBean.EtBean getEtBean() {
-            return Property.getFieldType().getFloatET();
+            return ConfigWrapper.getFieldType().getFloatET();
         }
     },
     DOUBLE(OutputParamType.DOUBLE, "Double") {
         @Override
         protected FieldTypeEnumBean.EtBean getEtBean() {
-            return Property.getFieldType().getDoubleET();
+            return ConfigWrapper.getFieldType().getDoubleET();
         }
     },
     // FUTURE 未来将会删除掉的类型，这样的类型，不能知道精确类型
     NUMBER(OutputParamType.NUMBER, "Number") {
         @Override
         protected FieldTypeEnumBean.EtBean getEtBean() {
-            return Property.getFieldType().getNumberET();
+            return ConfigWrapper.getFieldType().getNumberET();
         }
     },
     BOOLEAN(OutputParamType.BOOLEAN, "Boolean") {
         @Override
         protected FieldTypeEnumBean.EtBean getEtBean() {
-            return Property.getFieldType().getBooleanET();
+            return ConfigWrapper.getFieldType().getBooleanET();
         }
     },
     STRING(OutputParamType.STRING, "String") {
         @Override
         protected FieldTypeEnumBean.EtBean getEtBean() {
-            return Property.getFieldType().getStringET();
+            return ConfigWrapper.getFieldType().getStringET();
         }
     },
     // tip: 对象类型不能在request parameter list中出现
     OBJECT(OutputParamType.JSON_OBJECT) {
         @Override
         protected FieldTypeEnumBean.EtBean getEtBean() {
-            return Property.getFieldType().getObjectET();
+            return ConfigWrapper.getFieldType().getObjectET();
         }
 
         @Override
@@ -105,7 +105,7 @@ public enum FieldType {
     // ${object} -->使用其进行替换
     ARRAY(OutputParamType.JSON_ARRAY, "Array", "List") {
         protected FieldTypeEnumBean.EtBean getEtBean() {
-            return Property.getFieldType().getArrayET();
+            return ConfigWrapper.getFieldType().getArrayET();
         }
 
         @Override
@@ -131,7 +131,7 @@ public enum FieldType {
     MAP(OutputParamType.JSON_OBJECT, "Map", "Dictionary", "Dict") {
         @Override
         protected FieldTypeEnumBean.EtBean getEtBean() {
-            return Property.getFieldType().getMapET();
+            return ConfigWrapper.getFieldType().getMapET();
         }
         // TODO implements other method
     };

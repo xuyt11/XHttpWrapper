@@ -16,7 +16,7 @@ import java.util.List;
  * Created by ytxu on 2016/8/31.<br>
  * 配置中数据的实体类
  */
-public class PropertyConfig {
+public class ConfigBean {
     private List<ApiDataFileBean> api_data_file;
     private BaseConfigBean base_config = BaseConfigBean.DEFAULT;
     private FilterBean filter = FilterBean.DEFAULT;
@@ -45,18 +45,18 @@ public class PropertyConfig {
         return response;
     }
 
-    public StatusCodeBean getStatus_code() {
+    public StatusCodeBean getStatusCode() {
         return status_code;
     }
 
-    public FieldTypeEnumBean getField_type_enum() {
+    public FieldTypeEnumBean getFieldTypeEnum() {
         return field_type_enum;
     }
 
     public static void main(String... args) {
-        InputStream in = PropertyConfig.class.getClassLoader().getResourceAsStream("NewChama-android.json");
+        InputStream in = ConfigBean.class.getClassLoader().getResourceAsStream("NewChama-android.json");
         try {
-            PropertyConfig object = JSON.parseObject(in, PropertyConfig.class);
+            ConfigBean object = JSON.parseObject(in, ConfigBean.class);
             System.out.println("object:" + object.toString());
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,7 +1,7 @@
 package cn.ytxu.api_semi_auto_creater.apidocjs_parser.request.input;
 
 import cn.ytxu.util.JsoupParserUtil;
-import cn.ytxu.xhttp_wrapper.config.Property;
+import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
 import cn.ytxu.api_semi_auto_creater.model.request.InputParamModel;
 import cn.ytxu.api_semi_auto_creater.model.RequestModel;
 import cn.ytxu.util.ListUtil;
@@ -54,7 +54,7 @@ public class InputsParser {
         }
 
         for (InputParamModel header : headers) {
-            boolean isFilterParam = Property.getFilter().hasThisHeaderInFilterHeaders(header.getName());
+            boolean isFilterParam = ConfigWrapper.getFilter().hasThisHeaderInFilterHeaders(header.getName());
             if (isFilterParam) {
                 header.setFilterTag(true);
             }

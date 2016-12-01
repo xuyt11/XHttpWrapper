@@ -1,6 +1,6 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.parser.response;
 
-import cn.ytxu.xhttp_wrapper.config.Property;
+import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
 import cn.ytxu.xhttp_wrapper.model.VersionModel;
 import cn.ytxu.xhttp_wrapper.model.response.OutputParamModel;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseModel;
@@ -32,7 +32,7 @@ public class ResponseSErrorParser {
     }
 
     private List<OutputParamModel> getErrors() {
-        final String errorName = Property.getResponse().getError();
+        final String errorName = ConfigWrapper.getResponse().getError();
         List<OutputParamModel> errors = new ArrayList<>();
         for (int i = 0; i < responses.size(); i++) {
             ResponseModel response = responses.get(i);

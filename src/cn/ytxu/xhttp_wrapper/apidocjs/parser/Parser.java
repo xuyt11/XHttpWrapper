@@ -3,7 +3,7 @@ package cn.ytxu.xhttp_wrapper.apidocjs.parser;
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.request.RequestParser;
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.ResponseSErrorParser;
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.status_code.StatusCodeParser;
-import cn.ytxu.xhttp_wrapper.config.Property;
+import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
 import cn.ytxu.util.FileUtil;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.config.property.base_config.CompileModelType;
@@ -38,7 +38,7 @@ public class Parser {
 
     private List<ApiDataBean> getApiDatasFromFile() throws IOException {
         // 1 get api_data.json path
-        String apiDataPath = Property.getApiDataFile().getApiDataFilePath();
+        String apiDataPath = ConfigWrapper.getApiDataFile().getApiDataFilePath();
         // 2 get json data from file
         String apiDataJsonStr = FileUtil.getContent(apiDataPath);
         // 3 get java object array by json data
@@ -46,7 +46,7 @@ public class Parser {
     }
 
     private List<VersionModel> getVersionModelsByApiDatas(List<ApiDataBean> apiDatas) {
-        CompileModelType compileModel = Property.getBaseConfig().getCompileModelType();
+        CompileModelType compileModel = ConfigWrapper.getBaseConfig().getCompileModelType();
         return compileModel.generateApiTreeDependentByCompileModel(apiDatas);
     }
 

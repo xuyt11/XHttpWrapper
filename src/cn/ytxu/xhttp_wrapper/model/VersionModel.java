@@ -1,8 +1,7 @@
 package cn.ytxu.xhttp_wrapper.model;
 
-import cn.ytxu.xhttp_wrapper.config.Property;
+import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
 import cn.ytxu.xhttp_wrapper.config.property.response.BaseResponseParamBean;
-import cn.ytxu.xhttp_wrapper.config.property.response.ResponseBean;
 import cn.ytxu.xhttp_wrapper.model.request.RequestGroupModel;
 import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
 import cn.ytxu.xhttp_wrapper.model.response.OutputParamModel;
@@ -87,11 +86,11 @@ public class VersionModel extends BaseModel {
     }
 
     public static List<RequestGroupModel> getSections(List<VersionModel> versions) {
-        return Property.getFilter().getRequestGroupsAfterFilted(versions);
+        return ConfigWrapper.getFilter().getRequestGroupsAfterFilted(versions);
     }
 
     public static List<VersionModel> getVersions(List<VersionModel> versions) {
-        return Property.getFilter().getVersionsAfterFilted(versions);
+        return ConfigWrapper.getFilter().getVersionsAfterFilted(versions);
     }
 
     //*************** reflect method area ***************
@@ -104,11 +103,11 @@ public class VersionModel extends BaseModel {
     }
 
     public List<BaseResponseParamBean> base_response_outputs() {
-        return Property.getResponse().getAll();
+        return ConfigWrapper.getResponse().getAll();
     }
 
     public String error_bro_type() {
-        return Property.getResponse().getErrorType();
+        return ConfigWrapper.getResponse().getErrorType();
     }
 
     public List<OutputParamModel> subs_of_errors() {

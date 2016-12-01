@@ -1,6 +1,6 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.parser.request.restful_url;
 
-import cn.ytxu.xhttp_wrapper.config.Property;
+import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
 import cn.ytxu.xhttp_wrapper.config.property.request.DateReplaceBean;
 import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
 import cn.ytxu.xhttp_wrapper.model.request.restful_url.RESTfulParamModel;
@@ -58,7 +58,7 @@ public class RESTfulUrlParser {
     }
 
     private String getMultiUrl(String multiUrl, String group) {
-        List<String> multis = Property.getRequest().getMultis();
+        List<String> multis = ConfigWrapper.getRequest().getMultis();
         for (String multi : multis) {
             if (group.contains(multi)) {
                 return multiUrl.replace(group, multi);// 直接替换requestUrl，不需要进行参数的添加等的处理
@@ -104,7 +104,7 @@ public class RESTfulUrlParser {
 
     private String getRestfulParam(String group) {
         String restfulParam = group.substring(1, group.length() - 1);
-        List<DateReplaceBean> dateReplaces = Property.getRequest().getDateReplaces();
+        List<DateReplaceBean> dateReplaces = ConfigWrapper.getRequest().getDateReplaces();
         for (DateReplaceBean dateReplace : dateReplaces) {
             if (dateReplace.getDate_format().equals(restfulParam)) {
                 restfulParam = dateReplace.getDate_request_param();

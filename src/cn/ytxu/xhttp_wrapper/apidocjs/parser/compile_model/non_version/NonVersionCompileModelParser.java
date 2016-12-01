@@ -1,7 +1,7 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.parser.compile_model.non_version;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApiDataBean;
-import cn.ytxu.xhttp_wrapper.config.Property;
+import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
 import cn.ytxu.xhttp_wrapper.model.VersionModel;
 
 import java.util.Collections;
@@ -46,7 +46,7 @@ public class NonVersionCompileModelParser {
     }
 
     private boolean isAStatusCodeGroup4ApiData(ApiDataBean apiData) {
-        return Property.getStatusCode().isStatusCodeGroup(apiData.getGroup());
+        return ConfigWrapper.getStatusCode().isStatusCodeGroup(apiData.getGroup());
     }
 
 }

@@ -1,6 +1,6 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.parser.compile_model.non_version;
 
-import cn.ytxu.xhttp_wrapper.config.Property;
+import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -18,7 +18,7 @@ public class OrderVersionUtil {
     }
 
     private void generateOrderVersionIndexs() {
-        List<String> orderVersions = Property.getBaseConfig().getOrderVersions();
+        List<String> orderVersions = ConfigWrapper.getBaseConfig().getOrderVersions();
         orderVersionIndexs = new LinkedHashMap<>(orderVersions.size());
         for (String orderVersion : orderVersions) {
             orderVersionIndexs.put(orderVersion, orderVersions.indexOf(orderVersion));

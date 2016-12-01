@@ -1,6 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.apidocjs_parser.base.parser;
 
-import cn.ytxu.xhttp_wrapper.config.Property;
+import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
 import cn.ytxu.api_semi_auto_creater.apidocjs_parser.base.entity.DocEntity;
 import cn.ytxu.api_semi_auto_creater.apidocjs_parser.base.entity.SectionEntity;
 import cn.ytxu.util.JsoupParserUtil;
@@ -32,7 +32,7 @@ public class DocParser {
     }
 
     private void createDoc() {
-        String apidocHtmlPath = Property.getApiDataFile().getApiDataFilePath();
+        String apidocHtmlPath = ConfigWrapper.getApiDataFile().getApiDataFilePath();
         Document doc = JsoupParserUtil.getDocument(apidocHtmlPath);
         docEntity = new DocEntity(null, doc);
     }

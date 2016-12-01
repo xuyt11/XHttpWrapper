@@ -1,7 +1,7 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.parser.status_code;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.FieldBean;
-import cn.ytxu.xhttp_wrapper.config.Property;
+import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
 import cn.ytxu.xhttp_wrapper.model.status_code.StatusCodeGroupModel;
 import cn.ytxu.xhttp_wrapper.model.status_code.StatusCodeModel;
 
@@ -39,7 +39,7 @@ public class StatusCodeParser {
     }
 
     private StatusCodeModel getStatusCode(StatusCodeGroupModel statusCodeGroup, FieldBean field) {
-        StatusCodeParseModelType parseModel = Property.getStatusCode().getParseModel();
+        StatusCodeParseModelType parseModel = ConfigWrapper.getStatusCode().getParseModel();
         return parseModel.parseApiData(statusCodeGroup, field);
     }
 

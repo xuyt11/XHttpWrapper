@@ -1,6 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.apidocjs_parser.response;
 
-import cn.ytxu.xhttp_wrapper.config.Property;
+import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
 import cn.ytxu.api_semi_auto_creater.model.response.ResponseModel;
 import cn.ytxu.api_semi_auto_creater.apidocjs_parser.response.output.OutputParamParser;
 import cn.ytxu.util.LogUtil;
@@ -40,7 +40,7 @@ public class ResponseBodyParser {
     }
 
     private void parseStatusCode(JSONObject bodyJObj) {
-        String statusCodeName = Property.getResponse().getStatusCode();
+        String statusCodeName = ConfigWrapper.getResponse().getStatusCode();
         if (bodyJObj.containsKey(statusCodeName)) {
             response.setStatusCode(String.valueOf(bodyJObj.getInteger(statusCodeName)));
         } else {
