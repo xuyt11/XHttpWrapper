@@ -17,10 +17,6 @@ import java.util.List;
  * Created by ytxu on 2016-9-18
  */
 public class VersionModel extends BaseModel {
-    /**
-     * 无版本号模式时的model
-     */
-    public static final VersionModel NON_VERSION_MODEL = new VersionModel("non_version");
 
     private String name;// 版本名称
     private List<StatusCodeGroupModel> statusCodeGroups = Collections.EMPTY_LIST;

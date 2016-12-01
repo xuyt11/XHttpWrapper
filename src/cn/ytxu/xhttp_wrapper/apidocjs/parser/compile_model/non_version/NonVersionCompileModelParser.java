@@ -1,12 +1,12 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.parser.compile_model.non_version;
 
-import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApiDataBean;
-import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
+import cn.ytxu.xhttp_wrapper.apidocjs.bean.api_data.ApiDataBean;
+import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApidocjsHelper;
+import cn.ytxu.xhttp_wrapper.model.ModelHelper;
 import cn.ytxu.xhttp_wrapper.model.version.VersionModel;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Created by ytxu on 2016/9/17.
@@ -15,39 +15,28 @@ import java.util.Objects;
  */
 public class NonVersionCompileModelParser {
     private List<ApiDataBean> apiDatas;
-    private OrderVersionUtil orderVersionUtil;
 
     public NonVersionCompileModelParser(List<ApiDataBean> apiDatas) {
         this.apiDatas = apiDatas;
     }
 
     public List<VersionModel> start() {
-        orderVersionUtil = new OrderVersionUtil();
-        VersionModel version = VersionModel.NON_VERSION_MODEL;
+        VersionModel version = ModelHelper.getVersion().getNonVersionModel();
         foreachStoreLatestVersionSApiData(version);
         return Collections.singletonList(version);
     }
 
     private void foreachStoreLatestVersionSApiData(VersionModel version) {
         for (ApiDataBean apiData : apiDatas) {
-            if (isNotNeedParsedVersion(apiData)) {
+            if (ModelHelper.getVersion().isNotNeedParsedVersion(apiData.getVersion())) {
                 continue;
             }
-            if (isAStatusCodeGroup4ApiData(apiData)) {
-                new NonVersionStatusCodeGroupConverter(version, apiData, orderVersionUtil).start();
+            if (ApidocjsHelper.getApiData().isAStatusCodeGroup(apiData)) {
+                new NonVersionStatusCodeGroupConverter(version, apiData).start();
                 continue;
             }
-            new NonVersionRequestConverter(version, apiData, orderVersionUtil).start();
+            new NonVersionRequestConverter(version, apiData).start();
         }
-    }
-
-    private boolean isNotNeedParsedVersion(ApiDataBean apiData) {
-        final Integer index = orderVersionUtil.findVersionIndex(apiData.getVersion());
-        return Objects.isNull(index);
-    }
-
-    private boolean isAStatusCodeGroup4ApiData(ApiDataBean apiData) {
-        return ConfigWrapper.getStatusCode().isStatusCodeGroup(apiData.getGroup());
     }
 
 }

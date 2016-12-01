@@ -1,4 +1,8 @@
-package cn.ytxu.xhttp_wrapper.apidocjs.bean;
+package cn.ytxu.xhttp_wrapper.apidocjs.bean.api_data;
+
+import cn.ytxu.xhttp_wrapper.apidocjs.bean.Bean;
+import cn.ytxu.xhttp_wrapper.apidocjs.bean.PermissionBean;
+import cn.ytxu.xhttp_wrapper.apidocjs.bean.SampleRequestBean;
 
 import java.util.List;
 

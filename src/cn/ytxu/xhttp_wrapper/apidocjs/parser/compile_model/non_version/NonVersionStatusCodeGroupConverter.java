@@ -1,6 +1,7 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.parser.compile_model.non_version;
 
-import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApiDataBean;
+import cn.ytxu.xhttp_wrapper.apidocjs.bean.api_data.ApiDataBean;
+import cn.ytxu.xhttp_wrapper.model.ModelHelper;
 import cn.ytxu.xhttp_wrapper.model.status_code.StatusCodeGroupModel;
 import cn.ytxu.xhttp_wrapper.model.version.VersionModel;
 
@@ -13,13 +14,11 @@ import java.util.List;
 public class NonVersionStatusCodeGroupConverter {
     private VersionModel version;
     private ApiDataBean apiData;
-    private OrderVersionUtil orderVersionUtil;
 
 
-    public NonVersionStatusCodeGroupConverter(VersionModel version, ApiDataBean apiData, OrderVersionUtil orderVersionUtil) {
+    public NonVersionStatusCodeGroupConverter(VersionModel version, ApiDataBean apiData) {
         this.version = version;
         this.apiData = apiData;
-        this.orderVersionUtil = orderVersionUtil;
     }
 
     public void start() {
@@ -47,7 +46,7 @@ public class NonVersionStatusCodeGroupConverter {
     }
 
     private boolean needStoreTheStatusCodeTypeSApiData(StatusCodeGroupModel scGroup) {
-        return orderVersionUtil.firstVersionIsBiggerThanTheSecondVersion(apiData.getVersion(), scGroup.getVersion());
+        return ModelHelper.getVersion().firstVersionIsBiggerThanTheSecondVersion(apiData.getVersion(), scGroup.getVersion());
     }
 
     private void setApiData2StatusCodes() {

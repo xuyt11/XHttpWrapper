@@ -1,6 +1,7 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.parser.compile_model.non_version;
 
-import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApiDataBean;
+import cn.ytxu.xhttp_wrapper.apidocjs.bean.api_data.ApiDataBean;
+import cn.ytxu.xhttp_wrapper.model.ModelHelper;
 import cn.ytxu.xhttp_wrapper.model.request.RequestGroupModel;
 import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
 import cn.ytxu.xhttp_wrapper.model.version.VersionModel;
@@ -14,13 +15,11 @@ import java.util.List;
 public class NonVersionRequestConverter {
     private VersionModel version;
     private ApiDataBean apiData;
-    private OrderVersionUtil orderVersionUtil;
 
 
-    public NonVersionRequestConverter(VersionModel version, ApiDataBean apiData, OrderVersionUtil orderVersionUtil) {
+    public NonVersionRequestConverter(VersionModel version, ApiDataBean apiData) {
         this.version = version;
         this.apiData = apiData;
-        this.orderVersionUtil = orderVersionUtil;
     }
 
     public void start() {
@@ -81,7 +80,7 @@ public class NonVersionRequestConverter {
     }
 
     private boolean needReplaceWithApiData(RequestModel request) {
-        return orderVersionUtil.firstVersionIsBiggerThanTheSecondVersion(apiData.getVersion(), request.getVersion());
+        return ModelHelper.getVersion().firstVersionIsBiggerThanTheSecondVersion(apiData.getVersion(), request.getVersion());
     }
 
     private void replaceRequestWithApiDataInRequestGroup(RequestGroupModel requestGroup, RequestModel request) {

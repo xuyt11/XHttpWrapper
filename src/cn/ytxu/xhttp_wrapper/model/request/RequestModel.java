@@ -2,7 +2,7 @@ package cn.ytxu.xhttp_wrapper.model.request;
 
 import cn.ytxu.api_semi_auto_creater.model.response.ResponseModel;
 import cn.ytxu.util.FileUtil;
-import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApiDataBean;
+import cn.ytxu.xhttp_wrapper.apidocjs.bean.api_data.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.model.BaseModel;
 import cn.ytxu.xhttp_wrapper.model.field.FieldGroupModel;
 import cn.ytxu.xhttp_wrapper.model.field.FieldModel;

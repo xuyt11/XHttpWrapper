@@ -1,6 +1,6 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.parser.compile_model.mutil_version;
 
-import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApiDataBean;
+import cn.ytxu.xhttp_wrapper.apidocjs.bean.api_data.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.model.request.RequestGroupModel;
 import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
 import cn.ytxu.xhttp_wrapper.model.version.VersionModel;
