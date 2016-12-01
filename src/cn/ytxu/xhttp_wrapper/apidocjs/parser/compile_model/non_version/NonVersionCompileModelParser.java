@@ -2,15 +2,16 @@ package cn.ytxu.xhttp_wrapper.apidocjs.parser.compile_model.non_version;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
-import cn.ytxu.xhttp_wrapper.model.VersionModel;
+import cn.ytxu.xhttp_wrapper.model.version.VersionModel;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 /**
- * Created by Administrator on 2016/9/17.
- * 3.2 else is non_version, section-->request, and must remove old version request, just keep the latest version
+ * Created by ytxu on 2016/9/17.
+ * request group-->request
+ * and must remove old version request, just keep the latest version
  */
 public class NonVersionCompileModelParser {
     private List<ApiDataBean> apiDatas;

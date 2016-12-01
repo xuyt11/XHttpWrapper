@@ -2,7 +2,7 @@ package cn.ytxu.xhttp_wrapper.apidocjs.parser.compile_model.mutil_version;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
-import cn.ytxu.xhttp_wrapper.model.VersionModel;
+import cn.ytxu.xhttp_wrapper.model.version.VersionModel;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -11,8 +11,8 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
- * Created by Administrator on 2016/9/17.
- * 3.1 if is mutil_version, version-->section-->request
+ * Created by ytxu on 2016/9/17.
+ * version-->request group-->request
  */
 public class MutilVersionCompileModelParser {
     private List<ApiDataBean> apiDatas;

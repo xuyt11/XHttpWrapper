@@ -2,7 +2,7 @@ package cn.ytxu.xhttp_wrapper.config.property.status_code;
 
 import cn.ytxu.util.LogUtil;
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.status_code.StatusCodeParseModelType;
-import cn.ytxu.xhttp_wrapper.model.VersionModel;
+import cn.ytxu.xhttp_wrapper.model.version.VersionModel;
 import cn.ytxu.xhttp_wrapper.model.status_code.StatusCodeGroupModel;
 
 import java.util.ArrayList;

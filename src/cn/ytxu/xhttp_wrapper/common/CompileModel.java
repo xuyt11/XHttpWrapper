@@ -3,7 +3,7 @@ package cn.ytxu.xhttp_wrapper.common;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.compile_model.mutil_version.MutilVersionCompileModelParser;
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.compile_model.non_version.NonVersionCompileModelParser;
-import cn.ytxu.xhttp_wrapper.model.VersionModel;
+import cn.ytxu.xhttp_wrapper.model.version.VersionModel;
 
 import java.util.List;
 

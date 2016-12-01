@@ -1,7 +1,8 @@
-package cn.ytxu.xhttp_wrapper.model;
+package cn.ytxu.xhttp_wrapper.model.version;
 
 import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
 import cn.ytxu.xhttp_wrapper.config.property.response.BaseResponseParamBean;
+import cn.ytxu.xhttp_wrapper.model.BaseModel;
 import cn.ytxu.xhttp_wrapper.model.request.RequestGroupModel;
 import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
 import cn.ytxu.xhttp_wrapper.model.response.OutputParamModel;

@@ -9,7 +9,7 @@ import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.common.CompileModel;
 import cn.ytxu.xhttp_wrapper.model.request.RequestGroupModel;
 import cn.ytxu.xhttp_wrapper.model.status_code.StatusCodeGroupModel;
-import cn.ytxu.xhttp_wrapper.model.VersionModel;
+import cn.ytxu.xhttp_wrapper.model.version.VersionModel;
 import com.alibaba.fastjson.JSON;
 
 import java.io.IOException;

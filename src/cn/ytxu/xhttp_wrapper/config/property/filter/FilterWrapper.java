@@ -1,7 +1,7 @@
 package cn.ytxu.xhttp_wrapper.config.property.filter;
 
 import cn.ytxu.util.LogUtil;
-import cn.ytxu.xhttp_wrapper.model.VersionModel;
+import cn.ytxu.xhttp_wrapper.model.version.VersionModel;
 import cn.ytxu.xhttp_wrapper.model.request.RequestGroupModel;
 
 import java.util.ArrayList;

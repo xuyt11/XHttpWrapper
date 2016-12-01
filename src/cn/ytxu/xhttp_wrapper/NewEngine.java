@@ -2,7 +2,7 @@ package cn.ytxu.xhttp_wrapper;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.Parser;
 import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
-import cn.ytxu.xhttp_wrapper.model.VersionModel;
+import cn.ytxu.xhttp_wrapper.model.version.VersionModel;
 import cn.ytxu.xhttp_wrapper.xtemp.creater.Creater;
 import cn.ytxu.util.LogUtil;
 

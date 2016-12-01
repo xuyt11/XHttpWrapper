@@ -3,7 +3,7 @@ package cn.ytxu.xhttp_wrapper.xtemp.creater;
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json.output.sub.GetOutputsThatCanGenerateResponseEntityFileUtil;
 import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
 import cn.ytxu.xhttp_wrapper.config.Suffix;
-import cn.ytxu.xhttp_wrapper.model.VersionModel;
+import cn.ytxu.xhttp_wrapper.model.version.VersionModel;
 import cn.ytxu.xhttp_wrapper.model.response.OutputParamModel;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseModel;
 import cn.ytxu.xhttp_wrapper.model.status_code.StatusCodeGroupModel;
