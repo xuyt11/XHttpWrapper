@@ -16,7 +16,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="library" name="org.jsoup:jsoup:1.9.1" level="project" />
-    <orderEntry type="library" name="com.google.code.gson:gson:2.6.2" level="project" />
     <orderEntry type="library" name="io.reactivex:rxjava:1.1.5" level="project" />
     <orderEntry type="library" name="com.alibaba:fastjson:1.2.11" level="project" />
     <orderEntry type="library" name="libs" level="project" />
