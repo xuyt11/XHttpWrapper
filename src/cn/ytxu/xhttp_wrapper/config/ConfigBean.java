@@ -7,9 +7,7 @@ import cn.ytxu.xhttp_wrapper.config.property.element_type.FieldTypeEnumBean;
 import cn.ytxu.xhttp_wrapper.config.property.filter.FilterBean;
 import cn.ytxu.xhttp_wrapper.config.property.request.RequestBean;
 import cn.ytxu.xhttp_wrapper.config.property.status_code.StatusCodeBean;
-import com.alibaba.fastjson.JSON;
 
-import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -53,14 +51,5 @@ public class ConfigBean {
         return field_type_enum;
     }
 
-    public static void main(String... args) {
-        InputStream in = ConfigBean.class.getClassLoader().getResourceAsStream("NewChama-android.json");
-        try {
-            ConfigBean object = JSON.parseObject(in, ConfigBean.class);
-            System.out.println("object:" + object.toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
 }

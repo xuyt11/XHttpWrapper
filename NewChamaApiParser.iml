@@ -20,6 +20,6 @@
     <orderEntry type="library" name="io.reactivex:rxjava:1.1.5" level="project" />
     <orderEntry type="library" name="com.alibaba:fastjson:1.2.11" level="project" />
     <orderEntry type="library" name="libs" level="project" />
-    <orderEntry type="library" name="junit:junit:4.12" level="project" />
+    <orderEntry type="library" name="junit:junit:4.10" level="project" />
   </component>
 </module>
