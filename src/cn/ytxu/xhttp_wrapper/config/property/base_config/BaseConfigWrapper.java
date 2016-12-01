@@ -1,6 +1,7 @@
 package cn.ytxu.xhttp_wrapper.config.property.base_config;
 
 import cn.ytxu.util.LogUtil;
+import cn.ytxu.xhttp_wrapper.common.CompileModel;
 
 import java.util.List;
 import java.util.Objects;
@@ -40,8 +41,8 @@ public class BaseConfigWrapper {
         return baseConfig.getCompileModelName();
     }
 
-    public CompileModelType getCompileModelType() {
-        return baseConfig.getCompileModelType();
+    public CompileModel getCompileModelType() {
+        return CompileModel.getByName(baseConfig.getCompileModelName());
     }
 
     public List<String> getOrderVersions() {

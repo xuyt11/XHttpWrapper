@@ -14,11 +14,10 @@ public class BaseConfigBean {
     private String api_data_file_charset = "UTF-8";
 
     /**
-     * 编译模式
+     * 编译模式:
      * enum:mutil_version,non_version;
-     * default:mutil_version
      */
-    private String compile_model = CompileModelType.mutil_version.name();
+    private String compile_model;
 
     /**
      * 目标版本的顺序枚举:顺序为升序
@@ -37,10 +36,6 @@ public class BaseConfigBean {
 
     public String getCompileModelName() {
         return compile_model;
-    }
-
-    public CompileModelType getCompileModelType() {
-        return CompileModelType.getByName(compile_model);
     }
 
     public List<String> getOrderVersions() {
