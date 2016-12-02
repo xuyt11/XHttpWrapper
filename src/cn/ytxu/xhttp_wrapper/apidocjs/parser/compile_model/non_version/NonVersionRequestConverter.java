@@ -69,7 +69,7 @@ public class NonVersionRequestConverter {
     }
 
     private RequestGroupModel createAndAddRequestGroup() {
-        RequestGroupModel requestGroup = new RequestGroupModel(version, apiData);
+        RequestGroupModel requestGroup = new RequestGroupModel(version, apiData.getGroup());
         version.addRequestGroup(requestGroup);
         return requestGroup;
     }

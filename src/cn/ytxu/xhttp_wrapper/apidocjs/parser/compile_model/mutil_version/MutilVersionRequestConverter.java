@@ -22,14 +22,14 @@ public class MutilVersionRequestConverter {
     public void start() {
         RequestGroupModel requestGroup;
         try {
-            requestGroup = findRequestGroupInVersion4TheApiData();
+            requestGroup = findRequestGroup4TheApiData();
         } catch (NotFoundThisApiDataSRequestGroupInThisVersionException ignore) {
             requestGroup = createRequestGroup();
         }
         createRequest(requestGroup);
     }
 
-    private RequestGroupModel findRequestGroupInVersion4TheApiData() {
+    private RequestGroupModel findRequestGroup4TheApiData() {
         final List<RequestGroupModel> requestGroups = version.getRequestGroups();
         final String apiDataGroupName = apiData.getGroup();
         for (RequestGroupModel requestGroup : requestGroups) {
@@ -44,7 +44,7 @@ public class MutilVersionRequestConverter {
     }
 
     private RequestGroupModel createRequestGroup() {
-        RequestGroupModel requestGroup = new RequestGroupModel(version, apiData);
+        RequestGroupModel requestGroup = new RequestGroupModel(version, apiData.getGroup());
         version.addRequestGroup(requestGroup);
         return requestGroup;
     }

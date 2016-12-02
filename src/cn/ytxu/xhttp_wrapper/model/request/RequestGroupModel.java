@@ -1,7 +1,6 @@
 package cn.ytxu.xhttp_wrapper.model.request;
 
 import cn.ytxu.util.FileUtil;
-import cn.ytxu.xhttp_wrapper.apidocjs.bean.api_data.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.model.BaseModel;
 import cn.ytxu.xhttp_wrapper.model.version.VersionModel;
 
@@ -13,16 +12,14 @@ import java.util.List;
  * Created by ytxu on 2016-9-18
  */
 public class RequestGroupModel extends BaseModel<VersionModel, String> {
-    private String name;
     private List<RequestModel> requests = Collections.EMPTY_LIST;
 
-    public RequestGroupModel(VersionModel higherLevel, ApiDataBean apiData) {
-        super(higherLevel, apiData.getGroup());
-        this.name = element;
+    public RequestGroupModel(VersionModel higherLevel, String groupName) {
+        super(higherLevel, groupName);
     }
 
     public String getName() {
-        return name;
+        return element;
     }
 
 
@@ -41,16 +38,16 @@ public class RequestGroupModel extends BaseModel<VersionModel, String> {
     //*************** reflect method area ***************
 
     public String section_class_name() {
-        String className = FileUtil.getClassFileName(name);
+        String className = FileUtil.getClassFileName(getName());
         return className;
     }
 
     public String section() {
-        return FileUtil.getPackageName(name);
+        return FileUtil.getPackageName(getName());
     }
 
     public String section_newchama() {
-        return FileUtil.getCategoryPackageName(name);
+        return FileUtil.getCategoryPackageName(getName());
     }
 
     public String section_name() {

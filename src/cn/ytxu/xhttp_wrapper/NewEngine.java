@@ -1,6 +1,6 @@
 package cn.ytxu.xhttp_wrapper;
 
-import cn.ytxu.xhttp_wrapper.apidocjs.parser.Parser;
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.ApidocjsDataParser;
 import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
 import cn.ytxu.xhttp_wrapper.model.version.VersionModel;
 import cn.ytxu.xhttp_wrapper.xtemp.creater.Creater;
@@ -22,7 +22,7 @@ public class NewEngine {
 
             final String xTempPrefixName = XTEMP_PREFIX_NAMES[i];
             ConfigWrapper.load(xTempPrefixName);
-            List<VersionModel> versions = new Parser().start();
+            List<VersionModel> versions = new ApidocjsDataParser().start();
             new Creater(versions, xTempPrefixName).start();
 
             long end = System.currentTimeMillis();
