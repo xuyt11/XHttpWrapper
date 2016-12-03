@@ -17,12 +17,12 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/9/7.
  */
-public class Creater {
+public class ApiFileCreater {
 
     private List<VersionModel> versions;
     private String xTempPrefixName;
 
-    public Creater(List<VersionModel> versions, String xTempPrefixName) {
+    public ApiFileCreater(List<VersionModel> versions, String xTempPrefixName) {
         this.versions = versions;
         this.xTempPrefixName = xTempPrefixName;
     }

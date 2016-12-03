@@ -27,8 +27,8 @@ public class ApidocjsDataParser {
     public List<VersionModel> start() throws IOException {
         ModelHelper.reload();
         ApidocjsHelper.reload();
-        List<ApiDataBean> apiDatas = ApidocjsHelper.getApiData().getApiDatasFromFile();
-        versions = getVersionModelsByApiDatas(apiDatas);
+        List<ApiDataBean> apiDatas = ApidocjsHelper.getApiDatasFromFile();
+        versions = createVersionModelsByApiDatas(apiDatas);
 
         parseStatusCode();
         parseRequest();
@@ -38,7 +38,7 @@ public class ApidocjsDataParser {
         return versions;
     }
 
-    private List<VersionModel> getVersionModelsByApiDatas(List<ApiDataBean> apiDatas) {
+    private List<VersionModel> createVersionModelsByApiDatas(List<ApiDataBean> apiDatas) {
         CompileModel compileModel = ConfigWrapper.getBaseConfig().getCompileModelType();
         return compileModel.createApiDatasFromApidocJsData(apiDatas);
     }

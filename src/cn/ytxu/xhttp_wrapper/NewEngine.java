@@ -3,7 +3,7 @@ package cn.ytxu.xhttp_wrapper;
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.ApidocjsDataParser;
 import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
 import cn.ytxu.xhttp_wrapper.model.version.VersionModel;
-import cn.ytxu.xhttp_wrapper.xtemp.creater.Creater;
+import cn.ytxu.xhttp_wrapper.xtemp.creater.ApiFileCreater;
 import cn.ytxu.util.LogUtil;
 
 import java.io.IOException;
@@ -23,7 +23,7 @@ public class NewEngine {
             final String xTempPrefixName = XTEMP_PREFIX_NAMES[i];
             ConfigWrapper.load(xTempPrefixName);
             List<VersionModel> versions = new ApidocjsDataParser().start();
-            new Creater(versions, xTempPrefixName).start();
+            new ApiFileCreater(versions, xTempPrefixName).start();
 
             long end = System.currentTimeMillis();
             LogUtil.w("duration time is " + (end - start));
