@@ -18,10 +18,6 @@ public class ApidocjsHelper {
         ApiDataHelper.reload();
     }
 
-    public static ApiDataHelper getApiData() {
-        return ApiDataHelper.getInstance();
-    }
-
     public static List<ApiDataBean> getApiDatasFromFile() throws IOException {
         // 1 get api_data.json path
         String apiDataPath = ConfigWrapper.getApiDataFile().getApiDataFilePath();
@@ -29,5 +25,9 @@ public class ApidocjsHelper {
         String apiDataJsonStr = FileUtil.getContent(apiDataPath);
         // 3 get java object array by json data
         return JSON.parseArray(apiDataJsonStr, ApiDataBean.class);
+    }
+
+    public static ApiDataHelper getApiData() {
+        return ApiDataHelper.getInstance();
     }
 }
