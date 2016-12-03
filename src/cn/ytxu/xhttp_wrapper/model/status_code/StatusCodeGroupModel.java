@@ -1,6 +1,5 @@
 package cn.ytxu.xhttp_wrapper.model.status_code;
 
-import cn.ytxu.xhttp_wrapper.apidocjs.bean.api_data.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.model.BaseModel;
 import cn.ytxu.xhttp_wrapper.model.version.VersionModel;
 
@@ -13,7 +12,7 @@ import java.util.List;
  * 状态码的分类model；
  * tip: 若status_code category分类是与request的Section分类名称一致，则可以用于分类筛选
  */
-public class StatusCodeGroupModel extends BaseModel<VersionModel, ApiDataBean> {
+public class StatusCodeGroupModel extends BaseModel<VersionModel, Void> {
     /**
      * request title
      * 接口名称 zh
@@ -32,8 +31,8 @@ public class StatusCodeGroupModel extends BaseModel<VersionModel, ApiDataBean> {
 
     private List<StatusCodeModel> statusCodes = Collections.EMPTY_LIST;
 
-    public StatusCodeGroupModel(VersionModel higherLevel, ApiDataBean element) {
-        super(higherLevel, element);
+    public StatusCodeGroupModel(VersionModel higherLevel) {
+        super(higherLevel);
     }
 
     public void init(String title, String name, String version) {

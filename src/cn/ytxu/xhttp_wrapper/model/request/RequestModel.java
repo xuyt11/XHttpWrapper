@@ -2,7 +2,6 @@ package cn.ytxu.xhttp_wrapper.model.request;
 
 import cn.ytxu.api_semi_auto_creater.model.response.ResponseModel;
 import cn.ytxu.util.FileUtil;
-import cn.ytxu.xhttp_wrapper.apidocjs.bean.api_data.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.model.BaseModel;
 import cn.ytxu.xhttp_wrapper.model.field.FieldGroupModel;
 import cn.ytxu.xhttp_wrapper.model.field.FieldModel;
@@ -17,7 +16,7 @@ import java.util.*;
 /**
  * Created by ytxu on 2016/7/20.
  */
-public class RequestModel extends BaseModel<RequestGroupModel, ApiDataBean> {
+public class RequestModel extends BaseModel<RequestGroupModel, Void> {
     /**
      * 请求方法类型: request method string
      * 可以有多个，以空格分隔
@@ -67,8 +66,8 @@ public class RequestModel extends BaseModel<RequestGroupModel, ApiDataBean> {
     private ResponseContainerModel successContainer, errorContainer;
     private List<ResponseModel> responses = Collections.EMPTY_LIST;// 响应列表
 
-    public RequestModel(RequestGroupModel higherLevel, ApiDataBean element) {
-        super(higherLevel, element);
+    public RequestModel(RequestGroupModel higherLevel) {
+        super(higherLevel);
     }
 
     public void init(String type, String url, String title, String version, String name, String group, String description) {

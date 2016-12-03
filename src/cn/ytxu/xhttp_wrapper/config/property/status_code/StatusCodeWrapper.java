@@ -1,7 +1,7 @@
 package cn.ytxu.xhttp_wrapper.config.property.status_code;
 
 import cn.ytxu.util.LogUtil;
-import cn.ytxu.xhttp_wrapper.apidocjs.parser.status_code.StatusCodeParseModelType;
+import cn.ytxu.xhttp_wrapper.common.StatusCodeParseModel;
 import cn.ytxu.xhttp_wrapper.model.version.VersionModel;
 import cn.ytxu.xhttp_wrapper.model.status_code.StatusCodeGroupModel;
 
@@ -33,7 +33,7 @@ public class StatusCodeWrapper {
         if (Objects.isNull(statusCode.getRequestGroupName())) {
             throw new IllegalArgumentException("u must setup request group property...");
         }
-        StatusCodeParseModelType.getByEnumName(statusCode.getParseModel());
+        StatusCodeParseModel.getByEnumName(statusCode.getParseModel());
         if (statusCode.isUseVersionFilter() && statusCode.getFiltedVersions().size() <= 0) {
             throw new IllegalArgumentException("u setup use filter versions function, but the filted_versions property don`t setup...");
         }
@@ -53,8 +53,8 @@ public class StatusCodeWrapper {
         return getRequestGroupName4StatusCode().equals(groupName);
     }
 
-    public StatusCodeParseModelType getParseModel() {
-        return StatusCodeParseModelType.getByEnumName(getParseModelName());
+    public StatusCodeParseModel getParseModel() {
+        return StatusCodeParseModel.getByEnumName(getParseModelName());
     }
 
     public String getParseModelName() {

@@ -57,7 +57,7 @@ public class ApiDataHelper {
     }
 
     public RequestModel createRequest(RequestGroupModel requestGroup, ApiDataBean apiData) {
-        RequestModel request = new RequestModel(requestGroup, apiData);
+        RequestModel request = new RequestModel(requestGroup);
         request.init(apiData.getType(), apiData.getUrl(), apiData.getTitle(), apiData.getVersion(),
                 apiData.getName(), apiData.getGroup(), apiData.getDescription());
         requestCache.put(request, apiData);
@@ -65,7 +65,7 @@ public class ApiDataHelper {
     }
 
     public StatusCodeGroupModel createStatusCodeGroup(VersionModel version, ApiDataBean apiData) {
-        StatusCodeGroupModel scGroup = new StatusCodeGroupModel(version, apiData);
+        StatusCodeGroupModel scGroup = new StatusCodeGroupModel(version);
         scGroup.init(apiData.getTitle(), apiData.getName(), apiData.getVersion());
         statusCodeGroupCache.put(scGroup, apiData);
         return scGroup;

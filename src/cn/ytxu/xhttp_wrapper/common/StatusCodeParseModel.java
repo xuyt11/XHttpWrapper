@@ -1,8 +1,8 @@
-package cn.ytxu.xhttp_wrapper.apidocjs.parser.status_code;
+package cn.ytxu.xhttp_wrapper.common;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.field.FieldBean;
-import cn.ytxu.xhttp_wrapper.apidocjs.parser.status_code.parse_model.DefaultValueModelStatusCodeParser;
-import cn.ytxu.xhttp_wrapper.apidocjs.parser.status_code.parse_model.XCustomModelStatusCodeParser;
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.status_code.parser.DefaultValueModelStatusCodeParser;
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.status_code.parser.XCustomModelStatusCodeParser;
 import cn.ytxu.xhttp_wrapper.model.status_code.StatusCodeGroupModel;
 import cn.ytxu.xhttp_wrapper.model.status_code.StatusCodeModel;
 
@@ -11,7 +11,7 @@ import cn.ytxu.xhttp_wrapper.model.status_code.StatusCodeModel;
  * 状态码解析模式的类型枚举;
  * tip：可以自己，自行添加解析类型与解析器
  */
-public enum StatusCodeParseModelType {
+public enum StatusCodeParseModel {
     /**
      * 状态码的desc格式：<br>
      * Field            Description<br>
@@ -29,34 +29,37 @@ public enum StatusCodeParseModelType {
      */
     x_custom_model("我定义的一套规范解析") {
         @Override
-        public StatusCodeModel parseApiData(StatusCodeGroupModel statusCodeGroup, FieldBean field) {
+        public StatusCodeModel createStatusCodeByApidocjsData(StatusCodeGroupModel statusCodeGroup, FieldBean field) {
             return new XCustomModelStatusCodeParser(statusCodeGroup, field).start();
         }
     },
     default_value_model("使用apidocjs中，参数的默认值，作为状态码的值") {
         @Override
-        public StatusCodeModel parseApiData(StatusCodeGroupModel statusCodeGroup, FieldBean field) {
+        public StatusCodeModel createStatusCodeByApidocjsData(StatusCodeGroupModel statusCodeGroup, FieldBean field) {
             return new DefaultValueModelStatusCodeParser(statusCodeGroup, field).start();
         }
     };
 
     private final String tag;
 
-    StatusCodeParseModelType(String tag) {
+    StatusCodeParseModel(String tag) {
         this.tag = tag;
     }
 
-    public abstract StatusCodeModel parseApiData(StatusCodeGroupModel statusCodeGroup, FieldBean field);
+    public abstract StatusCodeModel createStatusCodeByApidocjsData(StatusCodeGroupModel statusCodeGroup, FieldBean field);
 
-    public static StatusCodeParseModelType getByEnumName(String parseModelName) {
-        for (StatusCodeParseModelType statusCodeParseModelType : StatusCodeParseModelType.values()) {
+    public static StatusCodeParseModel getByEnumName(String parseModelName) {
+        for (StatusCodeParseModel statusCodeParseModelType : StatusCodeParseModel.values()) {
             if (statusCodeParseModelType.name().equals(parseModelName)) {
                 return statusCodeParseModelType;
             }
         }
-        throw new NotFoundTargetStatusCodeParseModelExcpetion();
+        throw new NotFoundTargetStatusCodeParseModelExcpetion(parseModelName);
     }
 
     private static final class NotFoundTargetStatusCodeParseModelExcpetion extends IllegalArgumentException {
+        public NotFoundTargetStatusCodeParseModelExcpetion(String parseModelName) {
+            super("parse model name is " + parseModelName);
+        }
     }
 }

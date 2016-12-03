@@ -100,4 +100,17 @@ public class FieldBean {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Override
+    public String toString() {
+        return "FieldBean{" +
+                "group='" + group + '\'' +
+                ", type='" + type + '\'' +
+                ", size='" + size + '\'' +
+                ", optional=" + optional +
+                ", field='" + field + '\'' +
+                ", defaultValue='" + defaultValue + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

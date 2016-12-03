@@ -1,5 +1,6 @@
-package cn.ytxu.xhttp_wrapper.apidocjs.parser.status_code.parse_model;
+package cn.ytxu.xhttp_wrapper.apidocjs.parser.status_code.parser;
 
+import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApidocjsHelper;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.field.FieldBean;
 import cn.ytxu.xhttp_wrapper.model.status_code.StatusCodeGroupModel;
 import cn.ytxu.xhttp_wrapper.model.status_code.StatusCodeModel;
@@ -22,6 +23,6 @@ public class DefaultValueModelStatusCodeParser {
         String statusCodeNumber = field.getDefaultValue();
         String statusCodeDesc = field.getDescription();
 
-        return new StatusCodeModel(statusCodeGroup, field, statusCodeGroupName, statusCodeName, statusCodeNumber, statusCodeDesc);
+        return ApidocjsHelper.getField().createStatusCode(statusCodeGroup, statusCodeGroupName, statusCodeName, statusCodeNumber, statusCodeDesc);
     }
 }

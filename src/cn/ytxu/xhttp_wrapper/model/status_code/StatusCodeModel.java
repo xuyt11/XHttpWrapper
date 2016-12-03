@@ -1,22 +1,21 @@
 package cn.ytxu.xhttp_wrapper.model.status_code;
 
-import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.field.FieldBean;
 import cn.ytxu.xhttp_wrapper.model.BaseModel;
 
 /**
  * Created by ytxu on 2016/8/30
  */
-public class StatusCodeModel extends BaseModel<StatusCodeGroupModel, FieldBean> {
+public class StatusCodeModel extends BaseModel<StatusCodeGroupModel, Void> {
     private final String group;
     private final String name;
-    private final String value;
+    private final String number;
     private final String desc;
 
-    public StatusCodeModel(StatusCodeGroupModel higherLevel, FieldBean element, String group, String name, String value, String desc) {
-        super(higherLevel, element);
+    public StatusCodeModel(StatusCodeGroupModel higherLevel, String group, String name, String number, String desc) {
+        super(higherLevel);
         this.group = group;
         this.name = name;
-        this.value = value;
+        this.number = number;
         this.desc = desc;
     }
 
@@ -28,8 +27,8 @@ public class StatusCodeModel extends BaseModel<StatusCodeGroupModel, FieldBean> 
         return name;
     }
 
-    public String getValue() {
-        return value;
+    public String getNumber() {
+        return number;
     }
 
     public String getDesc() {
@@ -43,7 +42,7 @@ public class StatusCodeModel extends BaseModel<StatusCodeGroupModel, FieldBean> 
     }
 
     public String status_code_number() {
-        return value;
+        return number;
     }
 
     public String status_code_desc() {

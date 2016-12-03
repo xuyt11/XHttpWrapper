@@ -44,21 +44,23 @@ public class ApidocjsDataParser {
     }
 
     private void parseStatusCode() {
-        versions.forEach(version -> {
+        for (VersionModel version : versions) {
             List<StatusCodeGroupModel> statusCodeGroups = version.getStatusCodeGroups();
             new StatusCodeParser(statusCodeGroups).start();
-        });
+        }
     }
 
     private void parseRequest() {
-        versions.forEach(version -> {
+        for (VersionModel version : versions) {
             List<RequestGroupModel> requestGroups = version.getRequestGroups();
             new RequestParser(requestGroups).start();
-        });
+        }
     }
 
     private void parseResponseSErrors() {
-        versions.forEach(version -> new ResponseSErrorParser(version).start());
+        for (VersionModel version : versions) {
+            new ResponseSErrorParser(version).start();
+        }
     }
 
 }

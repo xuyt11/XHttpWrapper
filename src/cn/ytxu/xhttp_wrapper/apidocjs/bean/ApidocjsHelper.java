@@ -3,6 +3,7 @@ package cn.ytxu.xhttp_wrapper.apidocjs.bean;
 import cn.ytxu.util.FileUtil;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.api_data.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.api_data.ApiDataHelper;
+import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.field.FieldHelper;
 import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
 import com.alibaba.fastjson.JSON;
 
@@ -16,6 +17,7 @@ public class ApidocjsHelper {
 
     public static void reload() {
         ApiDataHelper.reload();
+        FieldHelper.reload();
     }
 
     public static List<ApiDataBean> getApiDatasFromFile() throws IOException {
@@ -29,5 +31,9 @@ public class ApidocjsHelper {
 
     public static ApiDataHelper getApiData() {
         return ApiDataHelper.getInstance();
+    }
+
+    public static FieldHelper getField() {
+        return FieldHelper.getInstance();
     }
 }
