@@ -12,13 +12,15 @@ import java.util.List;
  * convert ApiData to status code group model , and if is the latest version
  */
 public class NonVersionStatusCodeGroupConverter {
-    private VersionModel version;
-    private ApiDataBean apiData;
+    private final VersionModel version;
+    private final ApiDataBean apiData;
+    private final NonVersionHelper helper;
 
 
-    public NonVersionStatusCodeGroupConverter(VersionModel version, ApiDataBean apiData) {
+    public NonVersionStatusCodeGroupConverter(VersionModel version, ApiDataBean apiData, NonVersionHelper helper) {
         this.version = version;
         this.apiData = apiData;
+        this.helper = helper;
     }
 
     public void start() {
@@ -46,7 +48,7 @@ public class NonVersionStatusCodeGroupConverter {
     }
 
     private boolean needStoreTheStatusCodeTypeSApiData(StatusCodeGroupModel scGroup) {
-        return ModelHelper.getVersion().firstVersionIsBiggerThanTheSecondVersion(apiData.getVersion(), scGroup.getVersion());
+        return helper.firstVersionIsBiggerThanTheSecondVersion(apiData.getVersion(), scGroup.getVersion());
     }
 
     private void setApiData2StatusCodes() {

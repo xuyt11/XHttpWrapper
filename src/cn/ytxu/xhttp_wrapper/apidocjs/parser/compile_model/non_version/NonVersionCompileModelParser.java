@@ -2,6 +2,7 @@ package cn.ytxu.xhttp_wrapper.apidocjs.parser.compile_model.non_version;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.api_data.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApidocjsHelper;
+import cn.ytxu.xhttp_wrapper.common.CompileModel;
 import cn.ytxu.xhttp_wrapper.model.ModelHelper;
 import cn.ytxu.xhttp_wrapper.model.version.VersionModel;
 
@@ -14,28 +15,32 @@ import java.util.List;
  * and must remove old version request, just keep the latest version
  */
 public class NonVersionCompileModelParser {
-    private List<ApiDataBean> apiDatas;
+    private final List<ApiDataBean> apiDatas;
+    /**
+     * 无版本号模式时的model
+     */
+    private final VersionModel NON_VERSION_MODEL = new VersionModel(CompileModel.non_version.name());
+    private final NonVersionHelper helper = new NonVersionHelper();
 
     public NonVersionCompileModelParser(List<ApiDataBean> apiDatas) {
         this.apiDatas = apiDatas;
     }
 
     public List<VersionModel> start() {
-        VersionModel version = ModelHelper.getVersion().getNonVersionModel();
-        foreachStoreLatestVersionSApiData(version);
-        return Collections.singletonList(version);
+        foreachStoreLatestVersionSApiData();
+        return Collections.singletonList(NON_VERSION_MODEL);
     }
 
-    private void foreachStoreLatestVersionSApiData(VersionModel version) {
+    private void foreachStoreLatestVersionSApiData() {
         for (ApiDataBean apiData : apiDatas) {
-            if (ModelHelper.getVersion().isNotNeedParsedVersion(apiData.getVersion())) {
+            if (helper.isNotNeedParsedVersion(apiData.getVersion())) {
                 continue;
             }
             if (ApidocjsHelper.getApiData().isAStatusCodeGroup(apiData)) {
-                new NonVersionStatusCodeGroupConverter(version, apiData).start();
+                new NonVersionStatusCodeGroupConverter(NON_VERSION_MODEL, apiData, helper).start();
                 continue;
             }
-            new NonVersionRequestConverter(version, apiData).start();
+            new NonVersionRequestConverter(NON_VERSION_MODEL, apiData, helper).start();
         }
     }
 

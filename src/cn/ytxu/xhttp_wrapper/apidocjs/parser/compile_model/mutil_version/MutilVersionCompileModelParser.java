@@ -2,7 +2,8 @@ package cn.ytxu.xhttp_wrapper.apidocjs.parser.compile_model.mutil_version;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.api_data.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApidocjsHelper;
-import cn.ytxu.xhttp_wrapper.model.ModelHelper;
+import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
+import cn.ytxu.xhttp_wrapper.model.status_code.StatusCodeGroupModel;
 import cn.ytxu.xhttp_wrapper.model.version.VersionModel;
 
 import java.util.LinkedHashMap;
@@ -15,26 +16,40 @@ import java.util.stream.Collectors;
  * version-->request group-->request
  */
 public class MutilVersionCompileModelParser {
-    private List<ApiDataBean> apiDatas;
+    private final List<ApiDataBean> apiDatas;
+    private final LinkedHashMap<String, VersionModel> orderVersionMap;// 根据配置文件，生成顺序的版本号
+
 
     public MutilVersionCompileModelParser(List<ApiDataBean> apiDatas) {
         this.apiDatas = apiDatas;
+        this.orderVersionMap = createOrderVersions();
+    }
+
+    /**
+     * 根据配置文件，生成顺序的版本号
+     */
+    private LinkedHashMap<String, VersionModel> createOrderVersions() {
+        List<String> orderVersions = ConfigWrapper.getBaseConfig().getOrderVersions();
+        LinkedHashMap<String, VersionModel> orderVersionMap = new LinkedHashMap<>(orderVersions.size());
+        for (String versionCode : orderVersions) {
+            orderVersionMap.put(versionCode, new VersionModel(versionCode));
+        }
+        return orderVersionMap;
     }
 
     public List<VersionModel> start() {
-        LinkedHashMap<String, VersionModel> orderVersionMap = ModelHelper.getVersion().getOrderVersionMap();
-        foreachParseApiDatas(orderVersionMap);
-        return getVersions(orderVersionMap);
+        foreachParseApiDatas();
+        return getVersions();
     }
 
-    private void foreachParseApiDatas(LinkedHashMap<String, VersionModel> orderVersionMap) {
+    private void foreachParseApiDatas() {
         for (ApiDataBean apiData : apiDatas) {
             VersionModel version = orderVersionMap.get(apiData.getVersion());
             if (notInOrderVersions(version)) {
                 continue;
             }
             if (ApidocjsHelper.getApiData().isAStatusCodeGroup(apiData)) {
-                new MutilVersionStatusCodeGroupConverter(version, apiData).start();
+                createStatusCodeGroupModelThenAddIt2Version(version, apiData);
                 continue;
             }
             new MutilVersionRequestConverter(version, apiData).start();
@@ -45,7 +60,12 @@ public class MutilVersionCompileModelParser {
         return Objects.isNull(version);
     }
 
-    private List<VersionModel> getVersions(LinkedHashMap<String, VersionModel> orderVersionMap) {
+    private void createStatusCodeGroupModelThenAddIt2Version(VersionModel version, ApiDataBean apiData) {
+        StatusCodeGroupModel scGroup = new StatusCodeGroupModel(version, apiData);
+        version.addStatusCodeGroup(scGroup);
+    }
+
+    private List<VersionModel> getVersions() {
         return orderVersionMap.values().stream().collect(Collectors.toList());
     }
 

@@ -13,13 +13,15 @@ import java.util.List;
  * convert ApiData to request model , and if is the latest version
  */
 public class NonVersionRequestConverter {
-    private VersionModel version;
-    private ApiDataBean apiData;
+    private final VersionModel version;
+    private final ApiDataBean apiData;
+    private final NonVersionHelper helper;
 
 
-    public NonVersionRequestConverter(VersionModel version, ApiDataBean apiData) {
+    public NonVersionRequestConverter(VersionModel version, ApiDataBean apiData, NonVersionHelper helper) {
         this.version = version;
         this.apiData = apiData;
+        this.helper = helper;
     }
 
     public void start() {
@@ -40,6 +42,8 @@ public class NonVersionRequestConverter {
         }
     }
 
+
+    //******************** request group ********************
     private RequestGroupModel findSameNameRequestGroup() {
         List<RequestGroupModel> requestGroups = version.getRequestGroups();
         final String requestGroupName = apiData.getGroup();
@@ -54,6 +58,14 @@ public class NonVersionRequestConverter {
     private static final class NotFoundSameNameRequestGroupException extends RuntimeException {
     }
 
+    private RequestGroupModel createAndAddRequestGroup() {
+        RequestGroupModel requestGroup = new RequestGroupModel(version, apiData.getGroup());
+        version.addRequestGroup(requestGroup);
+        return requestGroup;
+    }
+
+
+    //******************** request ********************
     private RequestModel findSameNameRequest(RequestGroupModel requestGroup) {
         List<RequestModel> requests = requestGroup.getRequests();
         final String requestName = apiData.getName();
@@ -68,19 +80,8 @@ public class NonVersionRequestConverter {
     private static final class NotFoundSameNameRequestException extends RuntimeException {
     }
 
-    private RequestGroupModel createAndAddRequestGroup() {
-        RequestGroupModel requestGroup = new RequestGroupModel(version, apiData.getGroup());
-        version.addRequestGroup(requestGroup);
-        return requestGroup;
-    }
-
-    private void createAndAddRequest(RequestGroupModel requestGroup) {
-        RequestModel request = new RequestModel(requestGroup, apiData);
-        requestGroup.addRequest(request);
-    }
-
     private boolean needReplaceWithApiData(RequestModel request) {
-        return ModelHelper.getVersion().firstVersionIsBiggerThanTheSecondVersion(apiData.getVersion(), request.getVersion());
+        return helper.firstVersionIsBiggerThanTheSecondVersion(apiData.getVersion(), request.getVersion());
     }
 
     private void replaceRequestWithApiDataInRequestGroup(RequestGroupModel requestGroup, RequestModel request) {
@@ -90,6 +91,11 @@ public class NonVersionRequestConverter {
 
         RequestModel replaceRequest = new RequestModel(requestGroup, apiData);
         requests.set(replaceIndex, replaceRequest);
+    }
+
+    private void createAndAddRequest(RequestGroupModel requestGroup) {
+        RequestModel request = new RequestModel(requestGroup, apiData);
+        requestGroup.addRequest(request);
     }
 
 }

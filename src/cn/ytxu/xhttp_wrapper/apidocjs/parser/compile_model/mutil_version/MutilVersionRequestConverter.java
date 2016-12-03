@@ -24,7 +24,7 @@ public class MutilVersionRequestConverter {
         try {
             requestGroup = findRequestGroup4TheApiData();
         } catch (NotFoundThisApiDataSRequestGroupInThisVersionException ignore) {
-            requestGroup = createRequestGroup();
+            requestGroup = createAndAddRequestGroup();
         }
         createRequest(requestGroup);
     }
@@ -33,17 +33,21 @@ public class MutilVersionRequestConverter {
         final List<RequestGroupModel> requestGroups = version.getRequestGroups();
         final String apiDataGroupName = apiData.getGroup();
         for (RequestGroupModel requestGroup : requestGroups) {
-            if (requestGroup.getName().equals(apiDataGroupName)) {
+            if (findRequestGroup(apiDataGroupName, requestGroup)) {
                 return requestGroup;
             }
         }
         throw new NotFoundThisApiDataSRequestGroupInThisVersionException();
     }
 
+    private boolean findRequestGroup(String apiDataGroupName, RequestGroupModel requestGroup) {
+        return requestGroup.getName().equals(apiDataGroupName);
+    }
+
     private static final class NotFoundThisApiDataSRequestGroupInThisVersionException extends RuntimeException {
     }
 
-    private RequestGroupModel createRequestGroup() {
+    private RequestGroupModel createAndAddRequestGroup() {
         RequestGroupModel requestGroup = new RequestGroupModel(version, apiData.getGroup());
         version.addRequestGroup(requestGroup);
         return requestGroup;

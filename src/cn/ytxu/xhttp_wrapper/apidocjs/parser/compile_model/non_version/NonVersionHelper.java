@@ -1,7 +1,6 @@
-package cn.ytxu.xhttp_wrapper.model.version.helper;
+package cn.ytxu.xhttp_wrapper.apidocjs.parser.compile_model.non_version;
 
 import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
-import cn.ytxu.xhttp_wrapper.model.version.VersionModel;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -11,17 +10,15 @@ import java.util.Map;
  * Created by ytxu on 2016/12/2.
  */
 public class NonVersionHelper {
+
     /**
-     * 无版本号模式时的model
+     * key: version,
+     * value: version order index
      */
-    private final VersionModel NON_VERSION_MODEL = new VersionModel("non_version");
-    private final Map<String, Integer> orderVersionIndexs = createOrderVersionIndexs();
+    private final Map<String, Integer> orderVersionIndexs;
 
     NonVersionHelper() {
-    }
-
-    public VersionModel getNonVersionModel() {
-        return NON_VERSION_MODEL;
+        this.orderVersionIndexs = createOrderVersionIndexs();
     }
 
     private Map<String, Integer> createOrderVersionIndexs() {
@@ -33,14 +30,14 @@ public class NonVersionHelper {
         return orderVersionIndexs;
     }
 
-    Integer findVersionIndex(String version) {
-        return orderVersionIndexs.get(version);
-    }
-
-    boolean firstVersionIsBiggerThanTheSecondVersion(String firstVersion, String secondVersion) {
+    public boolean firstVersionIsBiggerThanTheSecondVersion(String firstVersion, String secondVersion) {
         final Integer firstIndex = findVersionIndex(firstVersion);
         final Integer secondIndex = findVersionIndex(secondVersion);
         return firstIndex > secondIndex;
+    }
+
+    private Integer findVersionIndex(String version) {
+        return orderVersionIndexs.get(version);
     }
 
     public boolean isNotNeedParsedVersion(String versionName) {

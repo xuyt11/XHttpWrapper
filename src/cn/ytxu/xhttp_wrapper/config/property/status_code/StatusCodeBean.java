@@ -5,6 +5,8 @@ import java.util.List;
 
 /**
  * Created by ytxu on 2016/9/2.
+ * status code的版本号（filted_versions）依赖于base_config中的版本号配置，
+ * 若在base_config中过滤掉的配置的版本号，filted_versions中就算有，也不会生效
  */
 public class StatusCodeBean {
 
