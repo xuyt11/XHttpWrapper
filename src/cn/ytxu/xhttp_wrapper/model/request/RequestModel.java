@@ -69,17 +69,16 @@ public class RequestModel extends BaseModel<RequestGroupModel, ApiDataBean> {
 
     public RequestModel(RequestGroupModel higherLevel, ApiDataBean element) {
         super(higherLevel, element);
-        convertBase(element);
     }
 
-    private void convertBase(ApiDataBean element) {
-        methodType = element.getType();
-        url = element.getUrl();
-        title = element.getTitle();
-        version = element.getVersion();
-        name = element.getName();
-        group = element.getGroup();
-        description = element.getDescription();
+    public void init(String type, String url, String title, String version, String name, String group, String description) {
+        this.methodType = type;
+        this.url = url;
+        this.title = title;
+        this.version = version;
+        this.name = name;
+        this.group = group;
+        this.description = description;
     }
 
     public String getUrl() {

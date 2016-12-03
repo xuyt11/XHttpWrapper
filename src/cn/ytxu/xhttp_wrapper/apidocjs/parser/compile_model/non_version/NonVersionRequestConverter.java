@@ -1,7 +1,7 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.parser.compile_model.non_version;
 
+import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApidocjsHelper;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.api_data.ApiDataBean;
-import cn.ytxu.xhttp_wrapper.model.ModelHelper;
 import cn.ytxu.xhttp_wrapper.model.request.RequestGroupModel;
 import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
 import cn.ytxu.xhttp_wrapper.model.version.VersionModel;
@@ -59,7 +59,7 @@ public class NonVersionRequestConverter {
     }
 
     private RequestGroupModel createAndAddRequestGroup() {
-        RequestGroupModel requestGroup = new RequestGroupModel(version, apiData.getGroup());
+        RequestGroupModel requestGroup = ApidocjsHelper.getApiData().createRequestGroup(version, apiData);
         version.addRequestGroup(requestGroup);
         return requestGroup;
     }
@@ -89,12 +89,12 @@ public class NonVersionRequestConverter {
 
         int replaceIndex = requests.indexOf(request);
 
-        RequestModel replaceRequest = new RequestModel(requestGroup, apiData);
+        RequestModel replaceRequest = ApidocjsHelper.getApiData().createRequest(requestGroup, apiData);
         requests.set(replaceIndex, replaceRequest);
     }
 
     private void createAndAddRequest(RequestGroupModel requestGroup) {
-        RequestModel request = new RequestModel(requestGroup, apiData);
+        RequestModel request = ApidocjsHelper.getApiData().createRequest(requestGroup, apiData);
         requestGroup.addRequest(request);
     }
 

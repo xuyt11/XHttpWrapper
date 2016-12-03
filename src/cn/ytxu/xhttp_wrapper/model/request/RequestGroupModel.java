@@ -12,14 +12,16 @@ import java.util.List;
  * Created by ytxu on 2016-9-18
  */
 public class RequestGroupModel extends BaseModel<VersionModel, String> {
+    private String name;
     private List<RequestModel> requests = Collections.EMPTY_LIST;
 
     public RequestGroupModel(VersionModel higherLevel, String groupName) {
         super(higherLevel, groupName);
+        this.name = groupName;
     }
 
     public String getName() {
-        return element;
+        return name;
     }
 
 

@@ -1,5 +1,6 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.parser.compile_model.non_version;
 
+import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApidocjsHelper;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.api_data.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.model.ModelHelper;
 import cn.ytxu.xhttp_wrapper.model.status_code.StatusCodeGroupModel;
@@ -52,7 +53,7 @@ public class NonVersionStatusCodeGroupConverter {
     }
 
     private void setApiData2StatusCodes() {
-        StatusCodeGroupModel scGroup = new StatusCodeGroupModel(version, apiData);
+        StatusCodeGroupModel scGroup = ApidocjsHelper.getApiData().createStatusCodeGroup(version, apiData);
         version.addStatusCodeGroup(scGroup);
     }
 }

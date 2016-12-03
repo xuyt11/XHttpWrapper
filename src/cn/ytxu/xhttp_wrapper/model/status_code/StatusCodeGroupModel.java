@@ -34,9 +34,12 @@ public class StatusCodeGroupModel extends BaseModel<VersionModel, ApiDataBean> {
 
     public StatusCodeGroupModel(VersionModel higherLevel, ApiDataBean element) {
         super(higherLevel, element);
-        this.title = element.getTitle();
-        this.name = element.getName();
-        this.version = element.getVersion();
+    }
+
+    public void init(String title, String name, String version) {
+        this.title = title;
+        this.name = name;
+        this.version = version;
     }
 
     public String getTitle() {
