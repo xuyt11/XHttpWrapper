@@ -1,6 +1,6 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.parser.response;
 
-import cn.ytxu.xhttp_wrapper.apidocjs.bean.ExampleBean;
+import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.example.ExampleBean;
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json.JsonResponseMessageParser;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseContentType;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseModel;

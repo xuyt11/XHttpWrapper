@@ -1,4 +1,7 @@
-package cn.ytxu.xhttp_wrapper.apidocjs.bean;
+package cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container;
+
+import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.example.ExampleBean;
+import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.field.FieldBean;
 
 import java.util.Collections;
 import java.util.List;
@@ -9,7 +12,7 @@ import java.util.Map;
  * response:success,error
  *
  */
-public class Bean {
+public class FieldContainerBean {
     /**
      * 在request与response中的field
      * k:field group name

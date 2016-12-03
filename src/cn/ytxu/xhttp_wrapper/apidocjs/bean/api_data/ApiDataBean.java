@@ -1,8 +1,8 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.bean.api_data;
 
-import cn.ytxu.xhttp_wrapper.apidocjs.bean.Bean;
-import cn.ytxu.xhttp_wrapper.apidocjs.bean.PermissionBean;
-import cn.ytxu.xhttp_wrapper.apidocjs.bean.SampleRequestBean;
+import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.FieldContainerBean;
+import cn.ytxu.xhttp_wrapper.apidocjs.bean.other.PermissionBean;
+import cn.ytxu.xhttp_wrapper.apidocjs.bean.other.SampleRequestBean;
 
 import java.util.List;
 
@@ -52,19 +52,19 @@ public class ApiDataBean {
     /**
      * request input param data
      */
-    private Bean parameter;
+    private FieldContainerBean parameter;
     /**
      * response success data
      */
-    private Bean success;
+    private FieldContainerBean success;
     /**
      * response error data
      */
-    private Bean error;
+    private FieldContainerBean error;
     /**
      * request header data
      */
-    private Bean header;
+    private FieldContainerBean header;
     private List<SampleRequestBean> sampleRequest;
     /**
      * request desc
@@ -138,35 +138,35 @@ public class ApiDataBean {
         this.permission = permission;
     }
 
-    public Bean getParameter() {
+    public FieldContainerBean getParameter() {
         return parameter;
     }
 
-    public void setParameter(Bean parameter) {
+    public void setParameter(FieldContainerBean parameter) {
         this.parameter = parameter;
     }
 
-    public Bean getSuccess() {
+    public FieldContainerBean getSuccess() {
         return success;
     }
 
-    public void setSuccess(Bean success) {
+    public void setSuccess(FieldContainerBean success) {
         this.success = success;
     }
 
-    public Bean getError() {
+    public FieldContainerBean getError() {
         return error;
     }
 
-    public void setError(Bean error) {
+    public void setError(FieldContainerBean error) {
         this.error = error;
     }
 
-    public Bean getHeader() {
+    public FieldContainerBean getHeader() {
         return header;
     }
 
-    public void setHeader(Bean header) {
+    public void setHeader(FieldContainerBean header) {
         this.header = header;
     }
 

@@ -1,7 +1,7 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.parser.field;
 
-import cn.ytxu.xhttp_wrapper.apidocjs.bean.Bean;
-import cn.ytxu.xhttp_wrapper.apidocjs.bean.FieldBean;
+import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.FieldContainerBean;
+import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.field.FieldBean;
 import cn.ytxu.xhttp_wrapper.model.BaseModel;
 import cn.ytxu.xhttp_wrapper.model.field.FieldGroupContainer;
 import cn.ytxu.xhttp_wrapper.model.field.FieldGroupModel;
@@ -19,10 +19,10 @@ import java.util.Set;
 public class FieldGroupParser<T extends BaseModel> {
 
     private T higherLevel;
-    private Bean bean;
+    private FieldContainerBean bean;
     private FieldGroupContainer container;
 
-    public FieldGroupParser(T higherLevel, Bean bean, FieldGroupContainer container) {
+    public FieldGroupParser(T higherLevel, FieldContainerBean bean, FieldGroupContainer container) {
         this.higherLevel = higherLevel;
         this.bean = bean;
         this.container = container;

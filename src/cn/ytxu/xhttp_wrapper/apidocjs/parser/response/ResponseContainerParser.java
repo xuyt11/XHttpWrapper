@@ -1,6 +1,6 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.parser.response;
 
-import cn.ytxu.xhttp_wrapper.apidocjs.bean.Bean;
+import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.FieldContainerBean;
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.field.FieldGroupParser;
 import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseContainerModel;
@@ -11,7 +11,7 @@ import cn.ytxu.xhttp_wrapper.model.response.ResponseContainerModel;
  */
 public class ResponseContainerParser {
     private RequestModel request;
-    private Bean successBean, errorBean;
+    private FieldContainerBean successBean, errorBean;
 
     public ResponseContainerParser(RequestModel request) {
         this.request = request;

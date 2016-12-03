@@ -1,6 +1,6 @@
 package cn.ytxu.xhttp_wrapper.model.request.header;
 
-import cn.ytxu.xhttp_wrapper.apidocjs.bean.Bean;
+import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.FieldContainerBean;
 import cn.ytxu.xhttp_wrapper.model.BaseModel;
 import cn.ytxu.xhttp_wrapper.model.field.FieldGroupContainer;
 import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
@@ -11,12 +11,12 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/9/21.
  */
-public class RequestHeaderContainerModel extends BaseModel<RequestModel, Bean> implements FieldGroupContainer<RequestHeaderGroupModel> {
+public class RequestHeaderContainerModel extends BaseModel<RequestModel, FieldContainerBean> implements FieldGroupContainer<RequestHeaderGroupModel> {
 
     private List<RequestHeaderGroupModel> fieldGroups = Collections.EMPTY_LIST;
     private List<RequestHeaderExampleModel> headerExamples = Collections.EMPTY_LIST;
 
-    public RequestHeaderContainerModel(RequestModel higherLevel, Bean element) {
+    public RequestHeaderContainerModel(RequestModel higherLevel, FieldContainerBean element) {
         super(higherLevel, element);
     }
 

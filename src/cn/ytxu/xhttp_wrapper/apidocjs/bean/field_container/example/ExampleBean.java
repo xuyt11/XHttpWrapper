@@ -1,4 +1,4 @@
-package cn.ytxu.xhttp_wrapper.apidocjs.bean;
+package cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.example;
 
 /**
  * request : header, parameter<br>

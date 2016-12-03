@@ -1,6 +1,6 @@
 package cn.ytxu.xhttp_wrapper.model.request.input;
 
-import cn.ytxu.xhttp_wrapper.apidocjs.bean.ExampleBean;
+import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.example.ExampleBean;
 import cn.ytxu.xhttp_wrapper.model.field.FieldExampleModel;
 
 /**

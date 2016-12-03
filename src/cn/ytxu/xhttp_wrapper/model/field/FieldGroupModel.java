@@ -1,6 +1,6 @@
 package cn.ytxu.xhttp_wrapper.model.field;
 
-import cn.ytxu.xhttp_wrapper.apidocjs.bean.FieldBean;
+import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.field.FieldBean;
 import cn.ytxu.xhttp_wrapper.model.BaseModel;
 
 import java.util.Collections;
