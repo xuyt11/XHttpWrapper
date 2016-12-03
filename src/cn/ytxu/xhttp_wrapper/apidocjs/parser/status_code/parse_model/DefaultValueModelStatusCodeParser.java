@@ -1,4 +1,4 @@
-package cn.ytxu.xhttp_wrapper.apidocjs.parser.status_code.parser;
+package cn.ytxu.xhttp_wrapper.apidocjs.parser.status_code.parse_model;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApidocjsHelper;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.field.FieldBean;
