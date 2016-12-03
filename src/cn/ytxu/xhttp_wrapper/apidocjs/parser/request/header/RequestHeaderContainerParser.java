@@ -1,5 +1,7 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.parser.request.header;
 
+import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApidocjsHelper;
+import cn.ytxu.xhttp_wrapper.apidocjs.bean.api_data.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.FieldContainerBean;
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.field.FieldGroupParser;
 import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
@@ -20,7 +22,7 @@ public class RequestHeaderContainerParser {
     }
 
     public RequestHeaderContainerModel start() {
-        FieldContainerBean header = request.getElement().getHeader();
+        FieldContainerBean header = ApidocjsHelper.getApiData().getApiData(request).getHeader();
         RequestHeaderContainerModel headerContainer = new RequestHeaderContainerModel(request, header);
 
         List<FieldGroupModel<RequestHeaderContainerModel>> fieldGroups = new FieldGroupParser(headerContainer, header, headerContainer).start();

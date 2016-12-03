@@ -1,5 +1,7 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.parser.status_code;
 
+import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApidocjsHelper;
+import cn.ytxu.xhttp_wrapper.apidocjs.bean.api_data.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.field.FieldBean;
 import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
 import cn.ytxu.xhttp_wrapper.model.status_code.StatusCodeGroupModel;
@@ -23,7 +25,8 @@ public class StatusCodeParser {
     }
 
     private void paseStatusCodeGroup(StatusCodeGroupModel statusCodeGroup) {
-        statusCodeGroup.getElement().getParameter().getFields().values().forEach(fields -> {
+        ApiDataBean apiData = ApidocjsHelper.getApiData().getApiData(statusCodeGroup);
+        apiData.getParameter().getFields().values().forEach(fields -> {
             List<StatusCodeModel> statusCodes = getStatusCodes(statusCodeGroup, fields);
             statusCodeGroup.addStatusCodes(statusCodes);
         });
