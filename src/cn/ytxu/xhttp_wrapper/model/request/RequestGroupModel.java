@@ -11,12 +11,12 @@ import java.util.List;
 /**
  * Created by ytxu on 2016-9-18
  */
-public class RequestGroupModel extends BaseModel<VersionModel, String> {
+public class RequestGroupModel extends BaseModel<VersionModel, Void> {
     private String name;
     private List<RequestModel> requests = Collections.EMPTY_LIST;
 
     public RequestGroupModel(VersionModel higherLevel, String groupName) {
-        super(higherLevel, groupName);
+        super(higherLevel);
         this.name = groupName;
     }
 

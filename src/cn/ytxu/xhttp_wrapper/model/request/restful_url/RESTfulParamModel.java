@@ -9,18 +9,24 @@ import java.text.DecimalFormat;
  */
 public class RESTfulParamModel extends BaseModel<RESTfulUrlModel, Void> {
 
-    private String param;
-    private int start, end;// range 在转换请求url时，替换的范围
+    private final String param;// 在url或multiUrl中的字符串
+    private final String realParam;// 在代码中实际的字符串
+    private final int start, end;// param 在url或multiUrl中的范围(range), 在转换请求url时，替换的范围
 
-    public RESTfulParamModel(RESTfulUrlModel higherLevel, String restfulParam, int start, int end) {
-        super(higherLevel, null);
-        this.param = restfulParam;
+    public RESTfulParamModel(RESTfulUrlModel higherLevel, String param, String realParam, int start, int end) {
+        super(higherLevel);
+        this.param = param;
+        this.realParam = realParam;
         this.start = start;
         this.end = end;
     }
 
     public String getParam() {
         return param;
+    }
+
+    public String getRealParam() {
+        return realParam;
     }
 
     public int getStart() {

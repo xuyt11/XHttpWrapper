@@ -95,11 +95,11 @@ public class RESTfulUrlParser {
 
         String restfulParam = getRestfulParam(group);
         if (restfulParam.contains("-") || restfulParam.contains(":") || restfulParam.contains(" ")) {
-            throw new RuntimeException("the RESTful request url is" + model.getUrl() +
-                    ", and the restfulParam is " + restfulParam +
-                    ", and ytxu need parse this param, so i throw exception...");
+            throw new RuntimeException("the RESTful request url is " + model.getUrl() +
+                    "\n, and the restfulParam is " + restfulParam +
+                    "\n, and ytxu need parse this param, so i throw exception...");
         }
-        return new RESTfulParamModel(model, restfulParam, start, end);
+        return new RESTfulParamModel(model, group, restfulParam, start, end);
     }
 
     private String getRestfulParam(String group) {
