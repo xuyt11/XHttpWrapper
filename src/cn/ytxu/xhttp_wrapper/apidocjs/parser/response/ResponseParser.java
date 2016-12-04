@@ -1,8 +1,7 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.parser.response;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.example.ExampleBean;
-import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json.JsonResponseMessageParser;
-import cn.ytxu.xhttp_wrapper.model.response.ResponseContentType;
+import cn.ytxu.xhttp_wrapper.common.ResponseContentType;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseModel;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseContainerModel;
 
@@ -43,12 +42,7 @@ public class ResponseParser {
     private void parseResponse(List<ResponseModel> responseExamples) {
         responseExamples.forEach(responseExample -> {
             ResponseContentType type = ResponseContentType.getByTypeName(responseExample.getType());
-            switch (type) {
-                case json: {
-                    new JsonResponseMessageParser(responseExample).start();
-                }
-                break;
-            }
+            type.parse(responseExample);
         });
     }
 }

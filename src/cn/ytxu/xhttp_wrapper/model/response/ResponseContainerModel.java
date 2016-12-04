@@ -4,6 +4,7 @@ import cn.ytxu.xhttp_wrapper.model.BaseModel;
 import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
 import cn.ytxu.xhttp_wrapper.model.response.field.ResponseFieldGroupModel;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -40,5 +41,11 @@ public class ResponseContainerModel extends BaseModel<RequestModel, Void> {
 
     public void setResponses(List<ResponseModel> responses) {
         this.responses = responses;
+    }
+
+    public List<ResponseFieldGroupModel> getFieldGroups() {
+        List<ResponseFieldGroupModel> fieldGroups = new ArrayList<>(successFieldGroups);
+        fieldGroups.addAll(errorFieldGroups);
+        return fieldGroups;
     }
 }
