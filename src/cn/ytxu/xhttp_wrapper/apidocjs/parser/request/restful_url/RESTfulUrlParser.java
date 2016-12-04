@@ -81,14 +81,16 @@ public class RESTfulUrlParser {
         String url = model.hasMultiParam() ? model.getMultiUrl() : model.getUrl();
         Matcher m = ID_OR_DATE_PATTERN.matcher(url);
         List<RESTfulParamModel> params = new ArrayList<>();
+        int paramIndex = 0;
         while (m.find()) {
-            RESTfulParamModel paramModel = getResTfulParamModel(m);
+            RESTfulParamModel paramModel = getResTfulParamModel(m, paramIndex);
             params.add(paramModel);
+            paramIndex++;
         }
         model.setParams(params);
     }
 
-    private RESTfulParamModel getResTfulParamModel(Matcher m) {
+    private RESTfulParamModel getResTfulParamModel(Matcher m, int paramIndex) {
         int start = m.start();
         int end = m.end();
         String group = m.group();
@@ -99,7 +101,7 @@ public class RESTfulUrlParser {
                     "\n, and the restfulParam is " + restfulParam +
                     "\n, and ytxu need parse this param, so i throw exception...");
         }
-        return new RESTfulParamModel(model, group, restfulParam, start, end);
+        return new RESTfulParamModel(model, group, restfulParam, paramIndex, start, end);
     }
 
     private String getRestfulParam(String group) {
@@ -108,6 +110,7 @@ public class RESTfulUrlParser {
         for (DateReplaceBean dateReplace : dateReplaces) {
             if (dateReplace.getDate_format().equals(restfulParam)) {
                 restfulParam = dateReplace.getDate_request_param();
+                break;
             }
         }
         return restfulParam;
