@@ -1,6 +1,7 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.parser.request.input;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApidocjsHelper;
+import cn.ytxu.xhttp_wrapper.apidocjs.bean.api_data.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.FieldContainerBean;
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.field.FieldGroupParser;
 import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
@@ -8,14 +9,16 @@ import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
 /**
  * Created by Administrator on 2016/9/21.
  */
-public class RequestInputContainerParser {
-    private RequestModel request;
+public class RequestInputGroupParser {
+    private final RequestModel request;
+    private final ApiDataBean apiData;
 
-    public RequestInputContainerParser(RequestModel request) {
+    public RequestInputGroupParser(RequestModel request) {
         this.request = request;
+        this.apiData = ApidocjsHelper.getApiData().getApiData(request);
     }
 
-    public RequestInputContainerModel start() {
+    public void start() {
         FieldContainerBean input = ApidocjsHelper.getApiData().getApiData(request).getParameter();
         RequestInputContainerModel inputContainer = new RequestInputContainerModel(request, input);
 

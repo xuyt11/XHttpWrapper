@@ -12,8 +12,8 @@ import cn.ytxu.xhttp_wrapper.model.response.ResponseContainerModel;
  * parse success and error param
  */
 public class ResponseContainerParser {
-    private RequestModel request;
-    private FieldContainerBean successBean, errorBean;
+    private final RequestModel request;
+    private final FieldContainerBean successBean, errorBean;
 
     public ResponseContainerParser(RequestModel request) {
         this.request = request;

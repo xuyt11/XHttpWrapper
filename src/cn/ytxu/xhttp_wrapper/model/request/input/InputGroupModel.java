@@ -10,9 +10,9 @@ import java.util.Map;
 /**
  * Created by Administrator on 2016/9/24.
  */
-public class RequestInputGroupModel extends FieldGroupModel<RequestModel> {
+public class InputGroupModel extends FieldGroupModel<RequestModel> {
 
-    public RequestInputGroupModel(RequestModel higherLevel, Map.Entry<String, List<FieldBean>> element) {
+    public InputGroupModel(RequestModel higherLevel, Map.Entry<String, List<FieldBean>> element) {
         super(higherLevel, element);
     }
 

@@ -1,25 +1,25 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.parser.request.header;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApidocjsHelper;
+import cn.ytxu.xhttp_wrapper.apidocjs.bean.api_data.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.FieldContainerBean;
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.field.FieldGroupParser;
 import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
-import cn.ytxu.xhttp_wrapper.model.field.FieldGroupModel;
 import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
-
-import java.util.List;
 
 /**
  * Created by Administrator on 2016/9/21.
  */
-public class RequestHeaderContainerParser {
-    private RequestModel request;
+public class RequestHeaderGroupParser {
+    private final RequestModel request;
+    private final ApiDataBean apiData;
 
-    public RequestHeaderContainerParser(RequestModel request) {
+    public RequestHeaderGroupParser(RequestModel request) {
         this.request = request;
+        this.apiData = ApidocjsHelper.getApiData().getApiData(request);
     }
 
-    public RequestHeaderContainerModel start() {
+    public void start() {
         FieldContainerBean header = ApidocjsHelper.getApiData().getApiData(request).getHeader();
         RequestHeaderContainerModel headerContainer = new RequestHeaderContainerModel(request, header);
 

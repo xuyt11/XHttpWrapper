@@ -5,8 +5,8 @@ import cn.ytxu.util.FileUtil;
 import cn.ytxu.xhttp_wrapper.model.BaseModel;
 import cn.ytxu.xhttp_wrapper.model.field.FieldGroupModel;
 import cn.ytxu.xhttp_wrapper.model.field.FieldModel;
-import cn.ytxu.xhttp_wrapper.model.request.header.RequestHeaderGroupModel;
-import cn.ytxu.xhttp_wrapper.model.request.input.RequestInputGroupModel;
+import cn.ytxu.xhttp_wrapper.model.request.header.HeaderGroupModel;
+import cn.ytxu.xhttp_wrapper.model.request.input.InputGroupModel;
 import cn.ytxu.xhttp_wrapper.model.request.restful_url.RESTfulParamModel;
 import cn.ytxu.xhttp_wrapper.model.request.restful_url.RESTfulUrlModel;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseContainerModel;
@@ -61,8 +61,8 @@ public class RequestModel extends BaseModel<RequestGroupModel, Void> {
     private String description;
 
     private RESTfulUrlModel restfulUrl;// url
-    private List<RequestHeaderGroupModel> headerGroups = Collections.EMPTY_LIST;
-    private List<RequestInputGroupModel> inputGroups = Collections.EMPTY_LIST;
+    private List<HeaderGroupModel> headerGroups = Collections.EMPTY_LIST;
+    private List<InputGroupModel> inputGroups = Collections.EMPTY_LIST;
     private ResponseContainerModel successContainer, errorContainer;
     private List<ResponseModel> responses = Collections.EMPTY_LIST;// 响应列表
 
@@ -116,22 +116,22 @@ public class RequestModel extends BaseModel<RequestGroupModel, Void> {
         this.restfulUrl = restfulUrl;
     }
 
-    public List<RequestHeaderGroupModel> getHeaderGroups() {
+    public List<HeaderGroupModel> getHeaderGroups() {
         return headerGroups;
     }
 
-    public void addHeaderGroup(RequestHeaderGroupModel headerGroup) {
+    public void addHeaderGroup(HeaderGroupModel headerGroup) {
         if (headerGroups == Collections.EMPTY_LIST) {
             headerGroups = new ArrayList<>();
         }
         headerGroups.add(headerGroup);
     }
 
-    public List<RequestInputGroupModel> getInputGroups() {
+    public List<InputGroupModel> getInputGroups() {
         return inputGroups;
     }
 
-    public void addInputGroup(RequestInputGroupModel inputGroup) {
+    public void addInputGroup(InputGroupModel inputGroup) {
         if (inputGroups == Collections.EMPTY_LIST) {
             inputGroups = new ArrayList<>();
         }
