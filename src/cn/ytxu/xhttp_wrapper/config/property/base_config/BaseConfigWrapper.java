@@ -1,7 +1,7 @@
 package cn.ytxu.xhttp_wrapper.config.property.base_config;
 
 import cn.ytxu.util.LogUtil;
-import cn.ytxu.xhttp_wrapper.common.CompileModel;
+import cn.ytxu.xhttp_wrapper.common.enums.CompileModel;
 
 import java.util.List;
 import java.util.Objects;

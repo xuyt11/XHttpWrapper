@@ -2,8 +2,7 @@ package cn.ytxu.xhttp_wrapper.apidocjs.parser.compile_model.non_version;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.api_data.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApidocjsHelper;
-import cn.ytxu.xhttp_wrapper.common.CompileModel;
-import cn.ytxu.xhttp_wrapper.model.ModelHelper;
+import cn.ytxu.xhttp_wrapper.common.enums.CompileModel;
 import cn.ytxu.xhttp_wrapper.model.version.VersionModel;
 
 import java.util.Collections;

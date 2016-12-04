@@ -14,7 +14,7 @@ public class RetainModel {
     //** ytxu.retain-end */
     //** ytxu.retain-start *//** ytxu.method */
     //** ytxu.retain-end */
-    //** ytxu.retain-start *//** ytxu.other */
+    //** ytxu.retain-start *//** ytxu.enums */
     //** ytxu.retain-end */
 
     private StringBuffer importSb;// 需要保留的import语句

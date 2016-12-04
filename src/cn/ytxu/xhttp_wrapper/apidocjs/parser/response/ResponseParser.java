@@ -1,7 +1,7 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.parser.response;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.example.ExampleBean;
-import cn.ytxu.xhttp_wrapper.common.ResponseContentType;
+import cn.ytxu.xhttp_wrapper.common.enums.ResponseContentType;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseModel;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseContainerModel;
 

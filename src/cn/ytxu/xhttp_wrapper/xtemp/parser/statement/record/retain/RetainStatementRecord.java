@@ -33,7 +33,7 @@ public class RetainStatementRecord extends StatementRecord {
                 return retain.getMethodData();
             }
         },
-        Other("other") {
+        Other("enums") {
             @Override
             public StringBuffer getRetainContent(RetainModel retain) {
                 return retain.getOtherData();

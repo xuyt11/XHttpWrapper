@@ -6,7 +6,7 @@ import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.ResponseSErrorParser;
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.status_code.StatusCodeParser;
 import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.api_data.ApiDataBean;
-import cn.ytxu.xhttp_wrapper.common.CompileModel;
+import cn.ytxu.xhttp_wrapper.common.enums.CompileModel;
 import cn.ytxu.xhttp_wrapper.model.ModelHelper;
 import cn.ytxu.xhttp_wrapper.model.request.RequestGroupModel;
 import cn.ytxu.xhttp_wrapper.model.status_code.StatusCodeGroupModel;

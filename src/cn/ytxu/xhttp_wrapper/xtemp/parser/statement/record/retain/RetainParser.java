@@ -16,7 +16,7 @@ public class RetainParser {
     static final String CategoryImportTag = "//** ytxu.import */";
     static final String CategoryFieldTag = "//** ytxu.field */";
     static final String CategoryMethodTag = "//** ytxu.method */";
-    static final String CategoryOtherTag = "//** ytxu.other */";
+    static final String CategoryOtherTag = "//** ytxu.enums */";
 
     /**
      * 1、先要判断目标文件是否存在；<br>
@@ -71,7 +71,7 @@ public class RetainParser {
                 fieldSb.append(getData(CategoryFieldTag, retain));
             } else if (strLine.contains(CategoryMethodTag)) {
                 methodSb.append(getData(CategoryMethodTag, retain));
-            } else {// contains other tag or not, but it is all other category retain data
+            } else {// contains enums tag or not, but it is all enums category retain data
                 otherSb.append(getData(CategoryOtherTag, retain));
             }
         }

@@ -133,7 +133,7 @@ public enum FieldType {
         protected FieldTypeEnumBean.EtBean getEtBean() {
             return ConfigWrapper.getFieldType().getMapET();
         }
-        // TODO implements other method
+        // TODO implements enums method
     };
 
     private final OutputParamType outputType;

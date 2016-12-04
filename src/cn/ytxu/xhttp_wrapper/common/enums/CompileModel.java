@@ -1,4 +1,4 @@
-package cn.ytxu.xhttp_wrapper.common;
+package cn.ytxu.xhttp_wrapper.common.enums;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.api_data.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.compile_model.mutil_version.MutilVersionCompileModelParser;

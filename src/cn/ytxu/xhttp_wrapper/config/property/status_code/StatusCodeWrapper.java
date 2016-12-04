@@ -1,7 +1,7 @@
 package cn.ytxu.xhttp_wrapper.config.property.status_code;
 
 import cn.ytxu.util.LogUtil;
-import cn.ytxu.xhttp_wrapper.common.StatusCodeParseModel;
+import cn.ytxu.xhttp_wrapper.common.enums.StatusCodeParseModel;
 import cn.ytxu.xhttp_wrapper.model.version.VersionModel;
 import cn.ytxu.xhttp_wrapper.model.status_code.StatusCodeGroupModel;
 

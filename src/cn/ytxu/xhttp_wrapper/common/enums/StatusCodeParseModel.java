@@ -1,4 +1,4 @@
-package cn.ytxu.xhttp_wrapper.common;
+package cn.ytxu.xhttp_wrapper.common.enums;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.field.FieldBean;
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.status_code.parse_model.DefaultValueModelStatusCodeParser;
