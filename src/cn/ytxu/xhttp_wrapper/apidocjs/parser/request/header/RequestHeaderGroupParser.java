@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Created by Administrator on 2016/9/21.
+ * Created by ytxu on 2016/12/04.
  */
 public class RequestHeaderGroupParser {
     private final RequestModel request;

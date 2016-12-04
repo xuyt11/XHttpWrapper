@@ -21,7 +21,7 @@ public class ResponseSErrorParser {
         this.version = version;
         version.getRequestGroups().stream().map(requestGroup ->
                 requestGroup.getRequests()).forEach(requests ->
-                requests.forEach(request -> responses.addAll(request.getErrorContainer().getResponses())));
+                requests.forEach(request -> responses.addAll(request.getErrorFieldGroups().getResponses())));
     }
 
     public void start() {

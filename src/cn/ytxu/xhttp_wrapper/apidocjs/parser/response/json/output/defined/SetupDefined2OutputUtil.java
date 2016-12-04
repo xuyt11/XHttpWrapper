@@ -5,6 +5,7 @@ import cn.ytxu.xhttp_wrapper.model.field.FieldModel;
 import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
 import cn.ytxu.xhttp_wrapper.model.response.OutputParamModel;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseModel;
+import cn.ytxu.xhttp_wrapper.model.response.field.ResponseFieldModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,14 +17,14 @@ import java.util.Objects;
  */
 public class SetupDefined2OutputUtil {
 
-    private ResponseModel response;
+    private ResponseModel response;// TODO need ResponseContainerModel
 
     public SetupDefined2OutputUtil(ResponseModel response) {
         this.response = response;
     }
 
     public void start() {
-        List<FieldModel<FieldGroupModel<RequestModel>>> defineds = getDefineds();
+        List<ResponseFieldModel> defineds = getDefineds();
         if (isNotNeed2LoopSetup(defineds)) {
             return;
         }
@@ -31,12 +32,12 @@ public class SetupDefined2OutputUtil {
         loopSetupDefined2Output(defineds, outputs);
     }
 
-    private boolean isNotNeed2LoopSetup(List<FieldModel<FieldGroupModel<RequestModel>>> defineds) {
+    private boolean isNotNeed2LoopSetup(List<ResponseFieldModel> defineds) {
         return Objects.isNull(defineds);
     }
 
-    private List<FieldModel<FieldGroupModel<RequestModel>>> getDefineds() {
-        List<FieldModel<FieldGroupModel<RequestModel>>> list = new ArrayList<>();
+    private List<ResponseFieldModel> getDefineds() {
+        List<ResponseFieldModel> list = new ArrayList<>();
         response.getHigherLevel().getFieldGroups()
                 .forEach(responseFieldGroup -> list.addAll(responseFieldGroup.getFields()));
         return list;
@@ -44,15 +45,15 @@ public class SetupDefined2OutputUtil {
 
 
     //********************** loop setup defined to output **********************
-    private void loopSetupDefined2Output(List<FieldModel<FieldGroupModel<RequestModel>>> defineds, List<OutputParamModel> outputs) {
+    private void loopSetupDefined2Output(List<ResponseFieldModel> defineds, List<OutputParamModel> outputs) {
         for (OutputParamModel output : outputs) {
             setupDefined2Output(output, defineds);
         }
     }
 
-    private void setupDefined2Output(OutputParamModel output, List<FieldModel<FieldGroupModel<RequestModel>>> defineds) {
+    private void setupDefined2Output(OutputParamModel output, List<ResponseFieldModel> defineds) {
         final String outputName = output.getName();
-        for (FieldModel<FieldGroupModel<RequestModel>> defined : defineds) {
+        for (ResponseFieldModel defined : defineds) {
             if (findTargetDefined(outputName, defined)) {
                 output.setDefined(defined);
                 return;
@@ -60,7 +61,7 @@ public class SetupDefined2OutputUtil {
         }
     }
 
-    private boolean findTargetDefined(String outputName, FieldModel<FieldGroupModel<RequestModel>> defined) {
+    private boolean findTargetDefined(String outputName, ResponseFieldModel defined) {
         return outputName.equals(defined.getName());
     }
 

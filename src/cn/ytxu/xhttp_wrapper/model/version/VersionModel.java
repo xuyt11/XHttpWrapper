@@ -69,7 +69,7 @@ public class VersionModel extends BaseModel {
     public static List<ResponseModel> getResponses(List<VersionModel> versions) {
         List<ResponseModel> responses = new ArrayList<>();
         for (RequestModel request : getRequests(versions)) {
-            responses.addAll(request.getSuccessContainer().getResponses());
+            responses.addAll(request.getSuccessFieldGroups().getResponses());
         }
         return responses;
     }

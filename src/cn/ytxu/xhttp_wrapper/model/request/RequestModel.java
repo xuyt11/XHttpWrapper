@@ -1,6 +1,5 @@
 package cn.ytxu.xhttp_wrapper.model.request;
 
-import cn.ytxu.api_semi_auto_creater.model.response.ResponseModel;
 import cn.ytxu.util.FileUtil;
 import cn.ytxu.xhttp_wrapper.model.BaseModel;
 import cn.ytxu.xhttp_wrapper.model.request.header.HeaderGroupModel;
@@ -63,8 +62,8 @@ public class RequestModel extends BaseModel<RequestGroupModel, Void> {
     private RESTfulUrlModel restfulUrl;// url
     private List<HeaderGroupModel> headerGroups = Collections.EMPTY_LIST;
     private List<InputGroupModel> inputGroups = Collections.EMPTY_LIST;
-    private ResponseContainerModel successContainer, errorContainer;
-    private List<ResponseModel> responses = Collections.EMPTY_LIST;// 响应列表
+
+    private ResponseContainerModel responseContainer;
 
     public RequestModel(RequestGroupModel higherLevel) {
         super(higherLevel);
@@ -132,29 +131,14 @@ public class RequestModel extends BaseModel<RequestGroupModel, Void> {
         this.inputGroups = inputGroups;
     }
 
-    public List<ResponseModel> getResponses() {
-        return responses;
+    public ResponseContainerModel getResponseContainer() {
+        return responseContainer;
     }
 
-    public void setResponses(List<ResponseModel> responses) {
-        this.responses = responses;
+    public void setResponseContainer(ResponseContainerModel responseContainer) {
+        this.responseContainer = responseContainer;
     }
 
-    public ResponseContainerModel getSuccessContainer() {
-        return successContainer;
-    }
-
-    public ResponseContainerModel getErrorContainer() {
-        return errorContainer;
-    }
-
-    public void setSuccessResponseContainer(ResponseContainerModel successContainer) {
-        this.successContainer = successContainer;
-    }
-
-    public void setErrorResponseContainer(ResponseContainerModel errorContainer) {
-        this.errorContainer = errorContainer;
-    }
 
     //*************** reflect method area ***************
     public String request_desc() {
