@@ -3,9 +3,10 @@ package cn.ytxu.xhttp_wrapper.model.request;
 import cn.ytxu.api_semi_auto_creater.model.response.ResponseModel;
 import cn.ytxu.util.FileUtil;
 import cn.ytxu.xhttp_wrapper.model.BaseModel;
-import cn.ytxu.xhttp_wrapper.model.field.FieldModel;
 import cn.ytxu.xhttp_wrapper.model.request.header.HeaderGroupModel;
+import cn.ytxu.xhttp_wrapper.model.request.header.HeaderModel;
 import cn.ytxu.xhttp_wrapper.model.request.input.InputGroupModel;
+import cn.ytxu.xhttp_wrapper.model.request.input.InputModel;
 import cn.ytxu.xhttp_wrapper.model.request.restful_url.RESTfulParamModel;
 import cn.ytxu.xhttp_wrapper.model.request.restful_url.RESTfulUrlModel;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseContainerModel;
@@ -119,22 +120,16 @@ public class RequestModel extends BaseModel<RequestGroupModel, Void> {
         return headerGroups;
     }
 
-    public void addHeaderGroup(HeaderGroupModel headerGroup) {
-        if (headerGroups == Collections.EMPTY_LIST) {
-            headerGroups = new ArrayList<>();
-        }
-        headerGroups.add(headerGroup);
+    public void setHeaderGroups(List<HeaderGroupModel> headerGroups) {
+        this.headerGroups = headerGroups;
     }
 
     public List<InputGroupModel> getInputGroups() {
         return inputGroups;
     }
 
-    public void addInputGroup(InputGroupModel inputGroup) {
-        if (inputGroups == Collections.EMPTY_LIST) {
-            inputGroups = new ArrayList<>();
-        }
-        inputGroups.add(inputGroup);
+    public void setInputGroups(List<InputGroupModel> inputGroups) {
+        this.inputGroups = inputGroups;
     }
 
     public List<ResponseModel> getResponses() {
@@ -187,19 +182,18 @@ public class RequestModel extends BaseModel<RequestGroupModel, Void> {
         return methodType.toUpperCase();
     }
 
-    public List<FieldModel<FieldGroupModel<RequestModel>>> headers() {
-        return getFieldModels(headerGroups);
+    public List<HeaderModel> headers() {
+        if (headerGroups.size() <= 0) {
+            return Collections.EMPTY_LIST;
+        }
+        List<HeaderModel> headers = new ArrayList<>(headerGroups.size());
+        headerGroups.forEach(headerGroup -> headers.addAll(headerGroup.getHeaders()));
+        return headers;
     }
 
-    private <T extends FieldGroupModel> List<FieldModel<FieldGroupModel<RequestModel>>> getFieldModels(List<T> fieldGroups) {
-        List<FieldModel<FieldGroupModel<RequestModel>>> fields = new ArrayList<>();
-        fieldGroups.forEach(fieldGroup -> fields.addAll(fieldGroup.getFields()));
-        return fields;
-    }
-
-    public List<FieldModel<FieldGroupModel<RequestModel>>> filtered_headers() {
-        List<FieldModel<FieldGroupModel<RequestModel>>> headers = new LinkedList<>(headers());
-        Iterator<FieldModel<FieldGroupModel<RequestModel>>> iterator = headers.iterator();
+    public List<HeaderModel> filtered_headers() {
+        List<HeaderModel> headers = new LinkedList<>(headers());
+        Iterator<HeaderModel> iterator = headers.iterator();
         while (iterator.hasNext()) {
             if (iterator.next().isFilterTag()) {
                 iterator.remove();
@@ -208,8 +202,13 @@ public class RequestModel extends BaseModel<RequestGroupModel, Void> {
         return headers;
     }
 
-    public List<FieldModel<FieldGroupModel<RequestModel>>> inputs() {
-        return getFieldModels(inputGroups);
+    public List<InputModel> inputs() {
+        if (inputGroups.size() <= 0) {
+            return Collections.EMPTY_LIST;
+        }
+        List<InputModel> inputs = new ArrayList<>(inputGroups.size());
+        inputGroups.forEach(inputGroup -> inputs.addAll(inputGroup.getInputs()));
+        return inputs;
     }
 
     public boolean request_url_is_RESTful() {

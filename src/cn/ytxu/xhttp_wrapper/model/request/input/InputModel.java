@@ -1,6 +1,5 @@
 package cn.ytxu.xhttp_wrapper.model.request.input;
 
-import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.field.FieldBean;
 import cn.ytxu.xhttp_wrapper.model.field.FieldModel;
 
 /**
@@ -8,7 +7,7 @@ import cn.ytxu.xhttp_wrapper.model.field.FieldModel;
  */
 public class InputModel extends FieldModel<InputGroupModel> {
 
-    public InputModel(InputGroupModel higherLevel, FieldBean element) {
-        super(higherLevel, element);
+    public InputModel(InputGroupModel higherLevel) {
+        super(higherLevel);
     }
 }

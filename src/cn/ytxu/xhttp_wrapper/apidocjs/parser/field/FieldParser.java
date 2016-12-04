@@ -3,7 +3,6 @@ package cn.ytxu.xhttp_wrapper.apidocjs.parser.field;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.field.FieldBean;
 import cn.ytxu.xhttp_wrapper.model.field.FieldModel;
 import cn.ytxu.xhttp_wrapper.model.field.FieldType;
-import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -11,25 +10,21 @@ import java.util.regex.Pattern;
 /**
  * Created by Administrator on 2016/9/21.
  */
-public class FieldParser {
+public class FieldParser<T extends FieldModel> {
     //****************** data type ******************
     private static final String PATTERN_FRONT = "{DataType:";
     private static final String PATTERN_END = "}";
     private static final Pattern DATA_TYPE_PATTERN = Pattern.compile("(\\{DataType:)\\w+(\\})");
 
-    private FieldGroupModel higherLevel;
-    private FieldBean element;
+    private final T field;
+    private final FieldBean element;
 
-    private FieldModel<FieldGroupModel<RequestModel>> field;
-
-    public FieldParser(FieldGroupModel higherLevel, FieldBean element) {
-        this.higherLevel = higherLevel;
+    public FieldParser(T fieldModel, FieldBean element) {
+        this.field = fieldModel;
         this.element = element;
     }
 
-    public FieldModel<FieldGroupModel<RequestModel>> start() {
-        field = new FieldModel<FieldGroupModel<RequestModel>>(higherLevel, element);
-
+    public FieldModel<T> start() {
         field.setName(element.getField());
         field.setGroup(element.getGroup());
         field.setType(element.getType());

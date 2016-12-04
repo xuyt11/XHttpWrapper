@@ -1,6 +1,5 @@
 package cn.ytxu.xhttp_wrapper.model.request.header;
 
-import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.field.FieldBean;
 import cn.ytxu.xhttp_wrapper.model.field.FieldModel;
 
 /**
@@ -8,7 +7,7 @@ import cn.ytxu.xhttp_wrapper.model.field.FieldModel;
  */
 public class HeaderModel extends FieldModel<HeaderGroupModel> {
 
-    public HeaderModel(HeaderGroupModel higherLevel, FieldBean element) {
-        super(higherLevel, element);
+    public HeaderModel(HeaderGroupModel higherLevel) {
+        super(higherLevel);
     }
 }

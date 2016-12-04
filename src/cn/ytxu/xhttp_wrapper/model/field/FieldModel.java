@@ -1,13 +1,11 @@
 package cn.ytxu.xhttp_wrapper.model.field;
 
-import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.field.FieldBean;
 import cn.ytxu.xhttp_wrapper.model.BaseModel;
-import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
 
 /**
  * Created by ytxu on 2016/9/21.
  */
-public class FieldModel<H extends FieldGroupModel<RequestModel>> extends BaseModel<FieldGroupModel, FieldBean> {
+public class FieldModel<H extends BaseModel> extends BaseModel<H, Void> {
     // 字段的名称
     private String name;
     /**
@@ -43,7 +41,7 @@ public class FieldModel<H extends FieldGroupModel<RequestModel>> extends BaseMod
     private String size;
 
     // 是否为可过滤掉的参数
-    private boolean filterTag;
+    private boolean filterTag = false;
     // 字段的类型，依赖于type解析出来的
     private FieldType fieldType;
     /**
@@ -54,8 +52,8 @@ public class FieldModel<H extends FieldGroupModel<RequestModel>> extends BaseMod
      */
     private String dataType;
 
-    public FieldModel(FieldGroupModel higherLevel, FieldBean element) {
-        super(higherLevel, element);
+    public FieldModel(H higherLevel) {
+        super(higherLevel);
     }
 
     public String getGroup() {

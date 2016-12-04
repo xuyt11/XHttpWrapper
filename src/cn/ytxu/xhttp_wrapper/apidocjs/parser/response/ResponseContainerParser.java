@@ -3,7 +3,7 @@ package cn.ytxu.xhttp_wrapper.apidocjs.parser.response;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApidocjsHelper;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.api_data.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.FieldContainerBean;
-import cn.ytxu.xhttp_wrapper.apidocjs.parser.field.FieldGroupParser;
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.field.FieldsParser;
 import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseContainerModel;
 
@@ -29,14 +29,14 @@ public class ResponseContainerParser {
 
     private void parseSuccessGroup() {
         ResponseContainerModel successContainer = new ResponseContainerModel(request, successBean);
-        new FieldGroupParser(successContainer, successBean, successContainer).start();
+        new FieldsParser(successContainer, successBean, successContainer).start();
         new ResponseParser(successContainer, successBean.getExamples()).start();
         request.setSuccessResponseContainer(successContainer);
     }
 
     private void parseErrorGroup() {
         ResponseContainerModel errorContainer = new ResponseContainerModel(request, errorBean);
-        new FieldGroupParser(errorContainer, errorBean, errorContainer).start();
+        new FieldsParser(errorContainer, errorBean, errorContainer).start();
         new ResponseParser(errorContainer, errorBean.getExamples()).start();
         request.setErrorResponseContainer(errorContainer);
     }

@@ -3,29 +3,72 @@ package cn.ytxu.xhttp_wrapper.apidocjs.parser.request.input;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApidocjsHelper;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.api_data.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.FieldContainerBean;
-import cn.ytxu.xhttp_wrapper.apidocjs.parser.field.FieldGroupParser;
+import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.field.FieldBean;
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.field.FieldsParser;
 import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
+import cn.ytxu.xhttp_wrapper.model.request.input.InputGroupModel;
+import cn.ytxu.xhttp_wrapper.model.request.input.InputModel;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by Administrator on 2016/9/21.
  */
 public class RequestInputGroupParser {
     private final RequestModel request;
-    private final ApiDataBean apiData;
+    private final FieldContainerBean input;
 
     public RequestInputGroupParser(RequestModel request) {
         this.request = request;
-        this.apiData = ApidocjsHelper.getApiData().getApiData(request);
+        ApiDataBean apiData = ApidocjsHelper.getApiData().getApiData(request);
+        this.input = apiData.getParameter();
     }
 
     public void start() {
-        FieldContainerBean input = ApidocjsHelper.getApiData().getApiData(request).getParameter();
-        RequestInputContainerModel inputContainer = new RequestInputContainerModel(request, input);
+        if (Objects.isNull(input)) {// non header
+            return;
+        }
 
-        new FieldGroupParser(inputContainer, input, inputContainer).start();
+        if (input.getFields().isEmpty()) {// non header filed
+            return;
+        }
 
-        request.setInputContainer(inputContainer);
-        return inputContainer;
+        List<InputGroupModel> inputGroups = createInputGroups();
+        request.setInputGroups(inputGroups);
+    }
+
+    private List<InputGroupModel> createInputGroups() {
+        List<InputGroupModel> inputGroups = new ArrayList<>(input.getFields().size());
+        input.getFields().forEach((name, fields) -> {
+            InputGroupModel inputGroup = new InputGroupModel(request, name);
+            inputGroups.add(inputGroup);
+            createInputByParseFields(fields, inputGroup);
+        });
+        return inputGroups;
+    }
+
+    private void createInputByParseFields(List<FieldBean> fields, final InputGroupModel inputGroup) {
+        new FieldsParser<>(fields, new FieldsParser.Callback<InputModel>() {
+            @Override
+            public InputModel createFieldModel() {
+                return new InputModel(inputGroup);
+            }
+
+            @Override
+            public void parseFieldModelEnd(InputModel fieldModel) {
+            }
+
+            @Override
+            public void setFieldModels(List<InputModel> fieldModels) {
+                inputGroup.setInputs(fieldModels);
+            }
+
+            @Override
+            public void parseEnd(List<InputModel> fieldModels) {
+            }
+        }).start();
     }
 
 }
