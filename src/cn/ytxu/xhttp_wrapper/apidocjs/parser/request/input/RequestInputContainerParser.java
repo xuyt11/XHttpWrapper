@@ -4,7 +4,6 @@ import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApidocjsHelper;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.FieldContainerBean;
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.field.FieldGroupParser;
 import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
-import cn.ytxu.xhttp_wrapper.model.request.input.RequestInputContainerModel;
 
 /**
  * Created by Administrator on 2016/9/21.

@@ -6,7 +6,6 @@ import cn.ytxu.xhttp_wrapper.model.BaseModel;
 import cn.ytxu.xhttp_wrapper.model.field.FieldGroupContainer;
 import cn.ytxu.xhttp_wrapper.model.field.FieldGroupModel;
 import cn.ytxu.xhttp_wrapper.model.field.FieldModel;
-import cn.ytxu.xhttp_wrapper.model.request.header.RequestHeaderContainerModel;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -5,8 +5,8 @@ import cn.ytxu.util.FileUtil;
 import cn.ytxu.xhttp_wrapper.model.BaseModel;
 import cn.ytxu.xhttp_wrapper.model.field.FieldGroupModel;
 import cn.ytxu.xhttp_wrapper.model.field.FieldModel;
-import cn.ytxu.xhttp_wrapper.model.request.header.RequestHeaderContainerModel;
-import cn.ytxu.xhttp_wrapper.model.request.input.RequestInputContainerModel;
+import cn.ytxu.xhttp_wrapper.model.request.header.RequestHeaderGroupModel;
+import cn.ytxu.xhttp_wrapper.model.request.input.RequestInputGroupModel;
 import cn.ytxu.xhttp_wrapper.model.request.restful_url.RESTfulParamModel;
 import cn.ytxu.xhttp_wrapper.model.request.restful_url.RESTfulUrlModel;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseContainerModel;
@@ -61,8 +61,8 @@ public class RequestModel extends BaseModel<RequestGroupModel, Void> {
     private String description;
 
     private RESTfulUrlModel restfulUrl;// url
-    private RequestHeaderContainerModel headerContainer;
-    private RequestInputContainerModel inputContainer;
+    private List<RequestHeaderGroupModel> headerGroups = Collections.EMPTY_LIST;
+    private List<RequestInputGroupModel> inputGroups = Collections.EMPTY_LIST;
     private ResponseContainerModel successContainer, errorContainer;
     private List<ResponseModel> responses = Collections.EMPTY_LIST;// 响应列表
 
@@ -116,20 +116,26 @@ public class RequestModel extends BaseModel<RequestGroupModel, Void> {
         this.restfulUrl = restfulUrl;
     }
 
-    public RequestHeaderContainerModel getHeaderContainer() {
-        return headerContainer;
+    public List<RequestHeaderGroupModel> getHeaderGroups() {
+        return headerGroups;
     }
 
-    public void setHeaderContainer(RequestHeaderContainerModel headerContainer) {
-        this.headerContainer = headerContainer;
+    public void addHeaderGroup(RequestHeaderGroupModel headerGroup) {
+        if (headerGroups == Collections.EMPTY_LIST) {
+            headerGroups = new ArrayList<>();
+        }
+        headerGroups.add(headerGroup);
     }
 
-    public RequestInputContainerModel getInputContainer() {
-        return inputContainer;
+    public List<RequestInputGroupModel> getInputGroups() {
+        return inputGroups;
     }
 
-    public void setInputContainer(RequestInputContainerModel inputContainer) {
-        this.inputContainer = inputContainer;
+    public void addInputGroup(RequestInputGroupModel inputGroup) {
+        if (inputGroups == Collections.EMPTY_LIST) {
+            inputGroups = new ArrayList<>();
+        }
+        inputGroups.add(inputGroup);
     }
 
     public List<ResponseModel> getResponses() {
@@ -183,7 +189,7 @@ public class RequestModel extends BaseModel<RequestGroupModel, Void> {
     }
 
     public List<FieldModel> headers() {
-        return getFieldModels(headerContainer.getFieldGroups());
+        return getFieldModels(headerGroups);
     }
 
     private <T extends FieldGroupModel> List<FieldModel> getFieldModels(List<T> fieldGroups) {
@@ -204,7 +210,7 @@ public class RequestModel extends BaseModel<RequestGroupModel, Void> {
     }
 
     public List<FieldModel> inputs() {
-        return getFieldModels(inputContainer.getFieldGroups());
+        return getFieldModels(inputGroups);
     }
 
     public boolean request_url_is_RESTful() {

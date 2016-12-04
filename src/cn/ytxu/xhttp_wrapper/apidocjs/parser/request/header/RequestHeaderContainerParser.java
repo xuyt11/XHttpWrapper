@@ -1,13 +1,11 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.parser.request.header;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApidocjsHelper;
-import cn.ytxu.xhttp_wrapper.apidocjs.bean.api_data.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.FieldContainerBean;
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.field.FieldGroupParser;
 import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
 import cn.ytxu.xhttp_wrapper.model.field.FieldGroupModel;
 import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
-import cn.ytxu.xhttp_wrapper.model.request.header.RequestHeaderContainerModel;
 
 import java.util.List;
 
