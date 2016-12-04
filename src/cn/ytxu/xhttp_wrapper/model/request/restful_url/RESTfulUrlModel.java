@@ -4,7 +4,6 @@ import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
 import cn.ytxu.xhttp_wrapper.model.BaseModel;
 import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -80,32 +79,18 @@ public class RESTfulUrlModel extends BaseModel<RequestModel, Void> {
         if (hasNotIdOrDateTypeParam(params)) {
             return request_normal_url();
         }
-
-        List<String> replaceContents = getReplaceContents(params);
-        String convertUrl = executeReplace2CreateConvertUrl(replaceContents);
-        return convertUrl;
+        return createConvertUrl();
     }
 
     private boolean hasNotIdOrDateTypeParam(List<RESTfulParamModel> params) {
         return params.size() == 0;
     }
 
-    private List<String> getReplaceContents(List<RESTfulParamModel> params) {
-        String url = request_normal_url();
-        List<String> replaceContents = new ArrayList<>(params.size());
-        for (RESTfulParamModel param : params) {
-            int start = param.getStart();
-            int end = param.getEnd();
-            String replace = url.substring(start, end);
-            replaceContents.add(replace);
-        }
-        return replaceContents;
-    }
-
-    private String executeReplace2CreateConvertUrl(List<String> replaceContents) {
+    private String createConvertUrl() {
         String url = request_normal_url();
         String replaceStr = ConfigWrapper.getRequest().getReplaceString();
-        for (String replace : replaceContents) {
+        for (RESTfulParamModel param : params) {
+            String replace = param.getParam();
             url = url.replace(replace, replaceStr);
         }
         return url;
