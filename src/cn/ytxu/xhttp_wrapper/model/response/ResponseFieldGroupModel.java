@@ -1,18 +1,20 @@
 package cn.ytxu.xhttp_wrapper.model.response;
 
-import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.field.FieldBean;
-import cn.ytxu.xhttp_wrapper.model.field.FieldGroupModel;
-
-import java.util.List;
-import java.util.Map;
+import cn.ytxu.xhttp_wrapper.model.BaseModel;
 
 /**
  * Created by Administrator on 2016/9/24.
  */
-public class ResponseFieldGroupModel extends FieldGroupModel<ResponseContainerModel> {
+public class ResponseFieldGroupModel extends BaseModel<ResponseContainerModel, Void> {
+    private final String name;
 
-    public ResponseFieldGroupModel(ResponseContainerModel higherLevel, Map.Entry<String, List<FieldBean>> element) {
-        super(higherLevel, element);
+    public ResponseFieldGroupModel(ResponseContainerModel higherLevel, String name) {
+        super(higherLevel);
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
 }

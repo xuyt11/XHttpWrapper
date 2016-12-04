@@ -1,9 +1,9 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.parser.field;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.field.FieldBean;
-import cn.ytxu.xhttp_wrapper.model.field.FieldGroupModel;
 import cn.ytxu.xhttp_wrapper.model.field.FieldModel;
 import cn.ytxu.xhttp_wrapper.model.field.FieldType;
+import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,15 +20,15 @@ public class FieldParser {
     private FieldGroupModel higherLevel;
     private FieldBean element;
 
-    private FieldModel field;
+    private FieldModel<FieldGroupModel<RequestModel>> field;
 
     public FieldParser(FieldGroupModel higherLevel, FieldBean element) {
         this.higherLevel = higherLevel;
         this.element = element;
     }
 
-    public FieldModel start() {
-        field = new FieldModel(higherLevel, element);
+    public FieldModel<FieldGroupModel<RequestModel>> start() {
+        field = new FieldModel<FieldGroupModel<RequestModel>>(higherLevel, element);
 
         field.setName(element.getField());
         field.setGroup(element.getGroup());

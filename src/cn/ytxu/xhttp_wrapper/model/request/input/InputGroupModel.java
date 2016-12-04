@@ -1,19 +1,32 @@
 package cn.ytxu.xhttp_wrapper.model.request.input;
 
-import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.field.FieldBean;
-import cn.ytxu.xhttp_wrapper.model.field.FieldGroupModel;
+import cn.ytxu.xhttp_wrapper.model.BaseModel;
 import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
 
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Administrator on 2016/9/24.
  */
-public class InputGroupModel extends FieldGroupModel<RequestModel> {
+public class InputGroupModel extends BaseModel<RequestModel, Void> {
+    private final String name;
+    private List<InputModel> inputs = Collections.EMPTY_LIST;
 
-    public InputGroupModel(RequestModel higherLevel, Map.Entry<String, List<FieldBean>> element) {
-        super(higherLevel, element);
+    public InputGroupModel(RequestModel higherLevel, String name) {
+        super(higherLevel);
+        this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public List<InputModel> getInputs() {
+        return inputs;
+    }
+
+    public void setInputs(List<InputModel> inputs) {
+        this.inputs = inputs;
+    }
 }

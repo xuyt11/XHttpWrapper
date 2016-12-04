@@ -2,6 +2,7 @@ package cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json.output.defined;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json.output.sub.GetAllOutputUtil;
 import cn.ytxu.xhttp_wrapper.model.field.FieldModel;
+import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
 import cn.ytxu.xhttp_wrapper.model.response.OutputParamModel;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseModel;
 
@@ -22,7 +23,7 @@ public class SetupDefined2OutputUtil {
     }
 
     public void start() {
-        List<FieldModel> defineds = getDefineds();
+        List<FieldModel<FieldGroupModel<RequestModel>>> defineds = getDefineds();
         if (isNotNeed2LoopSetup(defineds)) {
             return;
         }
@@ -30,12 +31,12 @@ public class SetupDefined2OutputUtil {
         loopSetupDefined2Output(defineds, outputs);
     }
 
-    private boolean isNotNeed2LoopSetup(List<FieldModel> defineds) {
+    private boolean isNotNeed2LoopSetup(List<FieldModel<FieldGroupModel<RequestModel>>> defineds) {
         return Objects.isNull(defineds);
     }
 
-    private List<FieldModel> getDefineds() {
-        List<FieldModel> list = new ArrayList<>();
+    private List<FieldModel<FieldGroupModel<RequestModel>>> getDefineds() {
+        List<FieldModel<FieldGroupModel<RequestModel>>> list = new ArrayList<>();
         response.getHigherLevel().getFieldGroups()
                 .forEach(responseFieldGroup -> list.addAll(responseFieldGroup.getFields()));
         return list;
@@ -43,15 +44,15 @@ public class SetupDefined2OutputUtil {
 
 
     //********************** loop setup defined to output **********************
-    private void loopSetupDefined2Output(List<FieldModel> defineds, List<OutputParamModel> outputs) {
+    private void loopSetupDefined2Output(List<FieldModel<FieldGroupModel<RequestModel>>> defineds, List<OutputParamModel> outputs) {
         for (OutputParamModel output : outputs) {
             setupDefined2Output(output, defineds);
         }
     }
 
-    private void setupDefined2Output(OutputParamModel output, List<FieldModel> defineds) {
+    private void setupDefined2Output(OutputParamModel output, List<FieldModel<FieldGroupModel<RequestModel>>> defineds) {
         final String outputName = output.getName();
-        for (FieldModel defined : defineds) {
+        for (FieldModel<FieldGroupModel<RequestModel>> defined : defineds) {
             if (findTargetDefined(outputName, defined)) {
                 output.setDefined(defined);
                 return;
@@ -59,7 +60,7 @@ public class SetupDefined2OutputUtil {
         }
     }
 
-    private boolean findTargetDefined(String outputName, FieldModel defined) {
+    private boolean findTargetDefined(String outputName, FieldModel<FieldGroupModel<RequestModel>> defined) {
         return outputName.equals(defined.getName());
     }
 

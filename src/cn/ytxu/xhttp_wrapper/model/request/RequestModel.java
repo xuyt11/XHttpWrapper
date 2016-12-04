@@ -3,7 +3,6 @@ package cn.ytxu.xhttp_wrapper.model.request;
 import cn.ytxu.api_semi_auto_creater.model.response.ResponseModel;
 import cn.ytxu.util.FileUtil;
 import cn.ytxu.xhttp_wrapper.model.BaseModel;
-import cn.ytxu.xhttp_wrapper.model.field.FieldGroupModel;
 import cn.ytxu.xhttp_wrapper.model.field.FieldModel;
 import cn.ytxu.xhttp_wrapper.model.request.header.HeaderGroupModel;
 import cn.ytxu.xhttp_wrapper.model.request.input.InputGroupModel;
@@ -188,19 +187,19 @@ public class RequestModel extends BaseModel<RequestGroupModel, Void> {
         return methodType.toUpperCase();
     }
 
-    public List<FieldModel> headers() {
+    public List<FieldModel<FieldGroupModel<RequestModel>>> headers() {
         return getFieldModels(headerGroups);
     }
 
-    private <T extends FieldGroupModel> List<FieldModel> getFieldModels(List<T> fieldGroups) {
-        List<FieldModel> fields = new ArrayList<>();
+    private <T extends FieldGroupModel> List<FieldModel<FieldGroupModel<RequestModel>>> getFieldModels(List<T> fieldGroups) {
+        List<FieldModel<FieldGroupModel<RequestModel>>> fields = new ArrayList<>();
         fieldGroups.forEach(fieldGroup -> fields.addAll(fieldGroup.getFields()));
         return fields;
     }
 
-    public List<FieldModel> filtered_headers() {
-        List<FieldModel> headers = new LinkedList<>(headers());
-        Iterator<FieldModel> iterator = headers.iterator();
+    public List<FieldModel<FieldGroupModel<RequestModel>>> filtered_headers() {
+        List<FieldModel<FieldGroupModel<RequestModel>>> headers = new LinkedList<>(headers());
+        Iterator<FieldModel<FieldGroupModel<RequestModel>>> iterator = headers.iterator();
         while (iterator.hasNext()) {
             if (iterator.next().isFilterTag()) {
                 iterator.remove();
@@ -209,7 +208,7 @@ public class RequestModel extends BaseModel<RequestGroupModel, Void> {
         return headers;
     }
 
-    public List<FieldModel> inputs() {
+    public List<FieldModel<FieldGroupModel<RequestModel>>> inputs() {
         return getFieldModels(inputGroups);
     }
 

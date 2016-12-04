@@ -2,7 +2,6 @@ package cn.ytxu.xhttp_wrapper.model.response;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.FieldContainerBean;
 import cn.ytxu.xhttp_wrapper.model.BaseModel;
-import cn.ytxu.xhttp_wrapper.model.field.FieldGroupContainer;
 import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
 
 import java.util.Collections;

@@ -3,9 +3,8 @@ package cn.ytxu.xhttp_wrapper.apidocjs.parser.field;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.FieldContainerBean;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.field.FieldBean;
 import cn.ytxu.xhttp_wrapper.model.BaseModel;
-import cn.ytxu.xhttp_wrapper.model.field.FieldGroupContainer;
-import cn.ytxu.xhttp_wrapper.model.field.FieldGroupModel;
 import cn.ytxu.xhttp_wrapper.model.field.FieldModel;
+import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,16 +41,16 @@ public class FieldGroupParser<T extends BaseModel> {
 
     private FieldGroupModel getFieldGroup(Map.Entry<String, List<FieldBean>> element) {
         FieldGroupModel fieldGroup = new FieldGroupModel(higherLevel, element);
-        List<FieldModel> fields = getFields(element, fieldGroup);
+        List<FieldModel<FieldGroupModel<RequestModel>>> fields = getFields(element, fieldGroup);
         fieldGroup.setFields(fields);
         return fieldGroup;
     }
 
-    private List<FieldModel> getFields(Map.Entry<String, List<FieldBean>> element, FieldGroupModel fieldGroup) {
+    private List<FieldModel<FieldGroupModel<RequestModel>>> getFields(Map.Entry<String, List<FieldBean>> element, FieldGroupModel fieldGroup) {
         List<FieldBean> fieldBeens = element.getValue();
-        List<FieldModel> fields = new ArrayList<>(fieldBeens.size());
+        List<FieldModel<FieldGroupModel<RequestModel>>> fields = new ArrayList<>(fieldBeens.size());
         fieldBeens.forEach(fieldBean -> {
-            FieldModel field = new FieldParser(fieldGroup, fieldBean).start();
+            FieldModel<FieldGroupModel<RequestModel>> field = new FieldParser(fieldGroup, fieldBean).start();
             fields.add(field);
         });
         return fields;

@@ -5,6 +5,7 @@ import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json.output.OutputParamTyp
 import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
 import cn.ytxu.xhttp_wrapper.model.BaseModel;
 import cn.ytxu.xhttp_wrapper.model.field.FieldModel;
+import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,7 +20,7 @@ public class OutputParamModel extends BaseModel<ResponseModel, Void> {
     private final OutputParamModel parent;
     private final OutputParamType type;
     private OutputParamType subType;// 只有array才有，如：List<Integer>,List<Long>,List<String>...
-    private FieldModel defined;
+    private FieldModel<FieldGroupModel<RequestModel>> defined;
     private boolean dontRequireGenerationResponseEntityFileTag = false;// 是否需要生成响应实体文件标记，默认为需要
 
     private final String fieldName;
@@ -48,11 +49,11 @@ public class OutputParamModel extends BaseModel<ResponseModel, Void> {
         return subType;
     }
 
-    public void setDefined(FieldModel defined) {
+    public void setDefined(FieldModel<FieldGroupModel<RequestModel>> defined) {
         this.defined = defined;
     }
 
-    public FieldModel getDefined() {
+    public FieldModel<FieldGroupModel<RequestModel>> getDefined() {
         return defined;
     }
 

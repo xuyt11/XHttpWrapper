@@ -2,11 +2,12 @@ package cn.ytxu.xhttp_wrapper.model.field;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.field.FieldBean;
 import cn.ytxu.xhttp_wrapper.model.BaseModel;
+import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
 
 /**
  * Created by ytxu on 2016/9/21.
  */
-public class FieldModel extends BaseModel<FieldGroupModel, FieldBean> {
+public class FieldModel<H extends FieldGroupModel<RequestModel>> extends BaseModel<FieldGroupModel, FieldBean> {
     // 字段的名称
     private String name;
     /**
