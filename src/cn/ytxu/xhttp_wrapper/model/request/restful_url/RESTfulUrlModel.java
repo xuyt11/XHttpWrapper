@@ -75,14 +75,13 @@ public class RESTfulUrlModel extends BaseModel<RequestModel, Void> {
      * 2、否则，获取到所有参数的位置，进行替换；
      */
     public String request_convert_url() {
-        List<RESTfulParamModel> params = getParams();
-        if (hasNotIdOrDateTypeParam(params)) {
+        if (hasNotIdOrDateTypeParam()) {
             return request_normal_url();
         }
         return createConvertUrl();
     }
 
-    private boolean hasNotIdOrDateTypeParam(List<RESTfulParamModel> params) {
+    private boolean hasNotIdOrDateTypeParam() {
         return params.size() == 0;
     }
 
