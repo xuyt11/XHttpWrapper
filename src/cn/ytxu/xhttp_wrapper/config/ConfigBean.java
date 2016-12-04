@@ -51,5 +51,31 @@ public class ConfigBean {
         return field_type_enum;
     }
 
+    public void setApi_data_file(List<ApiDataFileBean> api_data_file) {
+        this.api_data_file = api_data_file;
+    }
 
+    public void setBase_config(BaseConfigBean base_config) {
+        this.base_config = base_config;
+    }
+
+    public void setFilter(FilterBean filter) {
+        this.filter = filter;
+    }
+
+    public void setRequest(RequestBean request) {
+        this.request = request;
+    }
+
+    public void setResponse(ResponseBean response) {
+        this.response = response;
+    }
+
+    public void setStatus_code(StatusCodeBean status_code) {
+        this.status_code = status_code;
+    }
+
+    public void setField_type_enum(FieldTypeEnumBean field_type_enum) {
+        this.field_type_enum = field_type_enum;
+    }
 }

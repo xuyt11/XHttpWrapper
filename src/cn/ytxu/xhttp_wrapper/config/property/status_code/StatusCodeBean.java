@@ -42,4 +42,23 @@ public class StatusCodeBean {
         return ok_number;
     }
 
+    public void setRequest_group_name(String request_group_name) {
+        this.request_group_name = request_group_name;
+    }
+
+    public void setParse_model(String parse_model) {
+        this.parse_model = parse_model;
+    }
+
+    public void setUse_version_filter(boolean use_version_filter) {
+        this.use_version_filter = use_version_filter;
+    }
+
+    public void setFilted_versions(List<String> filted_versions) {
+        this.filted_versions = filted_versions;
+    }
+
+    public void setOk_number(String ok_number) {
+        this.ok_number = ok_number;
+    }
 }

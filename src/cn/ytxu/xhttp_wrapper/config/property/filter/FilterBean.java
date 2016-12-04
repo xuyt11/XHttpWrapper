@@ -32,4 +32,19 @@ public class FilterBean {
         return output_versions;
     }
 
+    public void setUse_headers(boolean use_headers) {
+        this.use_headers = use_headers;
+    }
+
+    public void setHeaders(List<String> headers) {
+        this.headers = headers;
+    }
+
+    public void setUse_output_versions(boolean use_output_versions) {
+        this.use_output_versions = use_output_versions;
+    }
+
+    public void setOutput_versions(List<FilterVersionBean> output_versions) {
+        this.output_versions = output_versions;
+    }
 }

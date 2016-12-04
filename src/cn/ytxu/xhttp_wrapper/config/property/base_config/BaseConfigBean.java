@@ -27,18 +27,28 @@ public class BaseConfigBean {
      */
     private List<String> order_versions;
 
-    private BaseConfigBean() {
-    }
 
     public String getApiDataFileCharset() {
         return api_data_file_charset;
+    }
+
+    public void setApiDataFileCharset(String api_data_file_charset) {
+        this.api_data_file_charset = api_data_file_charset;
     }
 
     public String getCompileModelName() {
         return compile_model;
     }
 
+    public void setCompileModel(String compile_model) {
+        this.compile_model = compile_model;
+    }
+
     public List<String> getOrderVersions() {
         return order_versions;
+    }
+
+    public void setOrderVersions(List<String> order_versions) {
+        this.order_versions = order_versions;
     }
 }

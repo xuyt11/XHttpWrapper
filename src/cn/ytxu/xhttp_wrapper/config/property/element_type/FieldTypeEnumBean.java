@@ -82,6 +82,58 @@ public class FieldTypeEnumBean {
         return object_et;
     }
 
+    public void setNull_et(EtBean null_et) {
+        this.null_et = null_et;
+    }
+
+    public void setDate_et(EtBean date_et) {
+        this.date_et = date_et;
+    }
+
+    public void setFile_et(EtBean file_et) {
+        this.file_et = file_et;
+    }
+
+    public void setInteger_et(EtBean integer_et) {
+        this.integer_et = integer_et;
+    }
+
+    public void setLong_et(EtBean long_et) {
+        this.long_et = long_et;
+    }
+
+    public void setBoolean_et(EtBean boolean_et) {
+        this.boolean_et = boolean_et;
+    }
+
+    public void setFloat_et(EtBean float_et) {
+        this.float_et = float_et;
+    }
+
+    public void setDouble_et(EtBean double_et) {
+        this.double_et = double_et;
+    }
+
+    public void setNumber_et(EtBean number_et) {
+        this.number_et = number_et;
+    }
+
+    public void setString_et(EtBean string_et) {
+        this.string_et = string_et;
+    }
+
+    public void setArray_et(EtBean array_et) {
+        this.array_et = array_et;
+    }
+
+    public void setMap_et(EtBean map_et) {
+        this.map_et = map_et;
+    }
+
+    public void setObject_et(EtBean object_et) {
+        this.object_et = object_et;
+    }
+
     /**
      * field_type:请求与实体类中参数的类型;
      * field_optional_type:请求中可选参数的类型，或者是数组类型参数在请求中的类型
@@ -94,8 +146,16 @@ public class FieldTypeEnumBean {
             return field_type;
         }
 
+        public void setFieldType(String field_type) {
+            this.field_type = field_type;
+        }
+
         public String getField_optional_type() {
             return field_optional_type;
+        }
+
+        public void setFieldOptionalType(String field_optional_type) {
+            this.field_optional_type = field_optional_type;
         }
 
         public boolean isInvalid() {
