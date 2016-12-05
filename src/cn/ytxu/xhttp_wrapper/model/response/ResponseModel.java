@@ -28,9 +28,13 @@ public class ResponseModel extends ExampleModel<ResponseContainerModel> {
         super(higherLevel);
     }
 
-    public void setBodyAndBody(String header, String body) {
+    public void setHeaderAndBody(String header, String body) {
         this.header = header;
         this.body = body;
+    }
+
+    public void setStatusCode(String statusCode) {
+        this.statusCode = statusCode;
     }
 
     public String getHeader() {
@@ -45,9 +49,6 @@ public class ResponseModel extends ExampleModel<ResponseContainerModel> {
         return statusCode;
     }
 
-    public void setStatusCode(String statusCode) {
-        this.statusCode = statusCode;
-    }
 
     public void setOutputs(List<OutputParamModel> outputs) {
         this.outputs = outputs;

@@ -19,7 +19,6 @@ public class ResponseBodyParser {
     }
 
     /**
-     *
      * @return notNeedParseAgain
      */
     public boolean start() {
@@ -32,7 +31,7 @@ public class ResponseBodyParser {
 
         String header = getResponseHeader(separatorIndex);
         String body = getResponseBody(separatorIndex);
-        response.setBodyAndBody(header, body);
+        response.setHeaderAndBody(header, body);
 
         //1 解析出body中json格式数据的所有字段；
         JSONObject bodyJObj;
@@ -72,30 +71,25 @@ public class ResponseBodyParser {
 
     //************************ print log ************************
     private void printLog4NotHaveJsonTypeResponseBody() {
-        RequestModel request = response.getHigherLevel().getHigherLevel();
-        String version = request.getVersion();
-        String name = request.getName();
-        String group = request.getHigherLevel().getName();
-        String[] msgs = {", version:", version, ", name:", name, ", group:", group};
-        LogUtil.ee(JsonResponseMessageParser.class, msgs, "not have json type response body...");
+        LogUtil.ee(JsonResponseMessageParser.class, getErrorCommonMsg(), "not have json type response body...");
     }
 
     private void printErrorLog4IsErrorJsonType() {
-        RequestModel request = response.getHigherLevel().getHigherLevel();
-        String version = request.getVersion();
-        String name = request.getName();
-        String group = request.getHigherLevel().getName();
-        String[] msgs = {", version:", version, ", name:", name, ", group:", group};
-        LogUtil.ee(JsonResponseMessageParser.class, msgs, "json text is error...");
+        LogUtil.ee(JsonResponseMessageParser.class, getErrorCommonMsg(), "json text is error...");
     }
 
     private void printErrorLog4NotHaveStatusCode() {
+        LogUtil.ee(JsonResponseMessageParser.class, getErrorCommonMsg(), " not have status code...");
+    }
+
+    private String[] getErrorCommonMsg() {
         RequestModel request = response.getHigherLevel().getHigherLevel();
         String version = request.getVersion();
         String name = request.getName();
         String group = request.getHigherLevel().getName();
-        String[] msgs = {", version:", version, ", name:", name, ", group:", group};
-        LogUtil.ee(JsonResponseMessageParser.class, msgs, " not have status code...");
+        String responseContent = response.getContent();
+        return new String[]{", version:", version, ", name:", name, ", group:", group,
+                "\n response content:\n ", responseContent};
     }
 
 }
