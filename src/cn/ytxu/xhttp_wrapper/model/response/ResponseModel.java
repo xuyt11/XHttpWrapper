@@ -1,7 +1,6 @@
 package cn.ytxu.xhttp_wrapper.model.response;
 
-import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.example.ExampleBean;
-import cn.ytxu.xhttp_wrapper.model.field.FieldExampleModel;
+import cn.ytxu.xhttp_wrapper.model.field.ExampleModel;
 
 import java.util.Collections;
 import java.util.List;
@@ -17,7 +16,7 @@ import java.util.List;
  * "content": "HTTP 200 OK\nContent-Type: application/json\nVary: Accept\nAllow: GET, PUT, PATCH, HEAD, OPTIONS\n{\n    \"status_code\": 0,\n    \"message\": \"\",\n    \"data\": {\n        \"first_name\": \"test\",\n        \"weibo_url\": \"weibo\",\n        \"weixin_number\": \"wechat\",\n        \"summary\": \"test\",\n        \"member_investhistory\": [\n            {\n                \"invest_date\": \"2015-11-12\",\n                \"project_type\": 5,\n                \"project_stage\": 2,\n                \"project_name\": \"test\"\n            }\n        ]\n    }\n}"<br>
  * "type": "json"
  */
-public class ResponseModel extends FieldExampleModel<ResponseContainerModel> {
+public class ResponseModel extends ExampleModel<ResponseContainerModel> {
     private String header;// 响应报文中的头部
     private String body;// 响应报文中的响应体
 
@@ -25,8 +24,8 @@ public class ResponseModel extends FieldExampleModel<ResponseContainerModel> {
     private String statusCode = "";// 防止出现空指针异常
     private List<OutputParamModel> outputs = Collections.EMPTY_LIST;
 
-    public ResponseModel(ResponseContainerModel higherLevel, ExampleBean element) {
-        super(higherLevel, element);
+    public ResponseModel(ResponseContainerModel higherLevel) {
+        super(higherLevel);
     }
 
     public void setBodyAndBody(String header, String body) {

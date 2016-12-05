@@ -1,6 +1,5 @@
 package cn.ytxu.xhttp_wrapper.model.field;
 
-import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.example.ExampleBean;
 import cn.ytxu.xhttp_wrapper.model.BaseModel;
 
 /**
@@ -22,40 +21,31 @@ import cn.ytxu.xhttp_wrapper.model.BaseModel;
  * "content": "HTTP 200 OK\nContent-Type: application/json\nVary: Accept\nAllow: GET, PUT, PATCH, HEAD, OPTIONS\n{\n    \"status_code\": 0,\n    \"message\": \"\",\n    \"data\": {\n        \"first_name\": \"test\",\n        \"weibo_url\": \"weibo\",\n        \"weixin_number\": \"wechat\",\n        \"summary\": \"test\",\n        \"member_investhistory\": [\n            {\n                \"invest_date\": \"2015-11-12\",\n                \"project_type\": 5,\n                \"project_stage\": 2,\n                \"project_name\": \"test\"\n            }\n        ]\n    }\n}"<br>
  * "type": "json"
  */
-public class FieldExampleModel<T extends BaseModel> extends BaseModel<T, ExampleBean> {
+public class ExampleModel<T extends BaseModel> extends BaseModel<T, Void> {
     private String title;
     private String content;
     private String type;// text,json...
 
-    public FieldExampleModel(T higherLevel, ExampleBean element) {
-        super(higherLevel, element);
-        this.title = element.getTitle();
-        this.content = element.getContent();
-        this.type = element.getType();
+    public ExampleModel(T higherLevel) {
+        super(higherLevel);
+    }
+
+    public void init(String title, String content, String type) {
+        this.title = title;
+        this.content = content;
+        this.type = type;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getContent() {
         return content;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
     public String getType() {
         return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
 }

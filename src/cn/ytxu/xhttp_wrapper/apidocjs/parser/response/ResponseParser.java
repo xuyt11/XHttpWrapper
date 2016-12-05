@@ -1,48 +1,75 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.parser.response;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.example.ExampleBean;
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.field.ExamplesParser;
 import cn.ytxu.xhttp_wrapper.common.enums.ResponseContentType;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseModel;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseContainerModel;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by Administrator on 2016/9/23.
  */
 public class ResponseParser {
-    private ResponseContainerModel responseGroup;
-    private List<ExampleBean> examples;
+    private final ResponseContainerModel responseContainer;
+    private final List<ExampleBean> examples;
+    private final Callback callback;
 
-    public ResponseParser(ResponseContainerModel responseGroup, List<ExampleBean> examples) {
-        this.responseGroup = responseGroup;
+    public ResponseParser(ResponseContainerModel responseContainer, List<ExampleBean> examples,
+                          Callback callback) {
+        this.responseContainer = responseContainer;
         this.examples = examples;
+        this.callback = callback;
+
+        if (Objects.isNull(callback)) {
+            throw new RuntimeException("u must setup callback...");
+        }
     }
 
     public void start() {
-        if (examples.size() <= 0) {
+        if (examples.isEmpty()) {
             return;
         }
 
-        List<ResponseModel> responses = convertExampleBean2ResponseModel();
-        parseResponse(responses);
-        responseGroup.setResponses(responses);
+        createResponseModel();
+        parseResponse();
     }
 
-    private List<ResponseModel> convertExampleBean2ResponseModel() {
-        List<ResponseModel> responses = new ArrayList<>(examples.size());
-        examples.forEach(example -> {
-            ResponseModel exampleModel = new ResponseModel(responseGroup, example);
-            responses.add(exampleModel);
-        });
-        return responses;
+    private void createResponseModel() {
+        new ExamplesParser<>(examples, new ExamplesParser.Callback<ResponseModel>() {
+            @Override
+            public ResponseModel createExampleModel() {
+                return new ResponseModel(responseContainer);
+            }
+
+            @Override
+            public void parseExampleModelEnd(ResponseModel exampleModel) {
+            }
+
+            @Override
+            public void setExampleModels(List<ResponseModel> exampleModel) {
+            }
+
+            @Override
+            public void parseEnd(List<ResponseModel> exampleModel) {
+                callback.setExampleModels(exampleModel);
+            }
+        }).start();
     }
 
-    private void parseResponse(List<ResponseModel> responseExamples) {
-        responseExamples.forEach(responseExample -> {
+    private void parseResponse() {
+        callback.getResponseModels().forEach(responseExample -> {
             ResponseContentType type = ResponseContentType.getByTypeName(responseExample.getType());
             type.parse(responseExample);
         });
+    }
+
+
+    public interface Callback {
+        void setExampleModels(List<ResponseModel> responseModels);
+
+        List<ResponseModel> getResponseModels();
     }
 }

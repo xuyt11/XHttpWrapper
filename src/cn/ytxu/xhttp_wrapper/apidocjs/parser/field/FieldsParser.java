@@ -35,7 +35,7 @@ public class FieldsParser<F extends FieldModel> {
             F fieldModel = callback.createFieldModel();
             fieldModels.add(fieldModel);
 
-            new FieldParser(fieldModel, fieldBean).start();
+            new FieldParser<>(fieldModel, fieldBean).start();
 
             callback.parseFieldModelEnd(fieldModel);
         });

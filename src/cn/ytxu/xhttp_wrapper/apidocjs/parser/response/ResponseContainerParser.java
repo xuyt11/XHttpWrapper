@@ -5,6 +5,7 @@ import cn.ytxu.xhttp_wrapper.apidocjs.bean.api_data.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.FieldContainerBean;
 import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseContainerModel;
+import cn.ytxu.xhttp_wrapper.model.response.ResponseModel;
 import cn.ytxu.xhttp_wrapper.model.response.field.ResponseFieldGroupModel;
 
 import java.util.List;
@@ -26,24 +27,66 @@ public class ResponseContainerParser {
     }
 
     public void start() {
-        parseSuccess();
-        parseError();
+        parseSuccessField();
+        parseSuccessResponse();
+        parseErrorField();
+        parseErrorResponse();
     }
 
-    private void parseSuccess() {
+    private void parseSuccessField() {
+        if (successBean.getFields().isEmpty()) {
+            return;
+        }
+
         List<ResponseFieldGroupModel> successFieldGroups =
                 new ResponseFieldParser(responseContainer, successBean).start();
         responseContainer.setSuccessFieldGroups(successFieldGroups);
-
-        new ResponseParser(responseContainer, successBean.getExamples()).start();
     }
 
-    private void parseError() {
+    private void parseSuccessResponse() {
+        if (successBean.getExamples().isEmpty()) {
+            return;
+        }
+
+        new ResponseParser(responseContainer, successBean.getExamples(), new ResponseParser.Callback() {
+            @Override
+            public void setExampleModels(List<ResponseModel> responseModels) {
+                responseContainer.setSuccessResponses(responseModels);
+            }
+
+            @Override
+            public List<ResponseModel> getResponseModels() {
+                return responseContainer.getSuccessResponses();
+            }
+        }).start();
+    }
+
+    private void parseErrorField() {
+        if (errorBean.getFields().isEmpty()) {
+            return;
+        }
+
         List<ResponseFieldGroupModel> errorFieldGroups =
                 new ResponseFieldParser(responseContainer, errorBean).start();
         responseContainer.setErrorFieldGroups(errorFieldGroups);
+    }
 
-        new ResponseParser(responseContainer, errorBean.getExamples()).start();
+    private void parseErrorResponse() {
+        if (errorBean.getExamples().isEmpty()) {
+            return;
+        }
+
+        new ResponseParser(responseContainer, errorBean.getExamples(), new ResponseParser.Callback() {
+            @Override
+            public void setExampleModels(List<ResponseModel> responseModels) {
+                responseContainer.setErrorResponses(responseModels);
+            }
+
+            @Override
+            public List<ResponseModel> getResponseModels() {
+                return responseContainer.getErrorResponses();
+            }
+        }).start();
     }
 
 }

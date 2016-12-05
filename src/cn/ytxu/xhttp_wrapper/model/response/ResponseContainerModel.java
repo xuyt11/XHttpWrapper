@@ -13,7 +13,8 @@ public class ResponseContainerModel extends BaseModel<RequestModel, Void> {
     private List<ResponseFieldGroupModel> successFieldGroups = Collections.EMPTY_LIST;
     private List<ResponseFieldGroupModel> errorFieldGroups = Collections.EMPTY_LIST;
 
-    private List<ResponseModel> responses = Collections.EMPTY_LIST;
+    private List<ResponseModel> successResponses = Collections.EMPTY_LIST;
+    private List<ResponseModel> errorResponses = Collections.EMPTY_LIST;
 
     public ResponseContainerModel(RequestModel higherLevel) {
         super(higherLevel);
@@ -35,12 +36,20 @@ public class ResponseContainerModel extends BaseModel<RequestModel, Void> {
         this.errorFieldGroups = errorFieldGroups;
     }
 
-    public List<ResponseModel> getResponses() {
-        return responses;
+    public List<ResponseModel> getSuccessResponses() {
+        return successResponses;
     }
 
-    public void setResponses(List<ResponseModel> responses) {
-        this.responses = responses;
+    public void setSuccessResponses(List<ResponseModel> successResponses) {
+        this.successResponses = successResponses;
+    }
+
+    public List<ResponseModel> getErrorResponses() {
+        return errorResponses;
+    }
+
+    public void setErrorResponses(List<ResponseModel> errorResponses) {
+        this.errorResponses = errorResponses;
     }
 
     public List<ResponseFieldGroupModel> getFieldGroups() {
