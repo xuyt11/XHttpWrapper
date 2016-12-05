@@ -34,7 +34,7 @@ public class ResponseParser {
         }
 
         createResponseModel();
-        parseResponse();
+        parseResponseMessage();
     }
 
     private void createResponseModel() {
@@ -59,10 +59,10 @@ public class ResponseParser {
         }).start();
     }
 
-    private void parseResponse() {
+    private void parseResponseMessage() {
         callback.getResponseModels().forEach(responseExample -> {
             ResponseContentType type = ResponseContentType.getByTypeName(responseExample.getType());
-            type.parse(responseExample);
+            type.parseResponseMessage(responseExample);
         });
     }
 

@@ -10,24 +10,24 @@ import cn.ytxu.xhttp_wrapper.model.response.ResponseModel;
 public enum ResponseContentType {
     json {
         @Override
-        public void parse(ResponseModel response) {
+        public void parseResponseMessage(ResponseModel response) {
             new JsonResponseMessageParser(response).start();
         }
     },
     text {
         @Override
-        public void parse(ResponseModel response) {
+        public void parseResponseMessage(ResponseModel response) {
             throw new IllegalArgumentException("u must setup text`s response content type parser...");
         }
     },
     xml {
         @Override
-        public void parse(ResponseModel response) {
+        public void parseResponseMessage(ResponseModel response) {
             throw new IllegalArgumentException("u must setup xml`s response content type parser...");
         }
     };
 
-    public abstract void parse(ResponseModel response);
+    public abstract void parseResponseMessage(ResponseModel response);
 
     public static ResponseContentType getByTypeName(String typeName) {
         for (ResponseContentType responseContentType : ResponseContentType.values()) {
