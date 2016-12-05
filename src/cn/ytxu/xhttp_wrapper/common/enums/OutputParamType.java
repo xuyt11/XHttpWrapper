@@ -1,5 +1,8 @@
-package cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json.output;
+package cn.ytxu.xhttp_wrapper.common.enums;
 
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json.output.ArrayTypeOutputParser;
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json.output.ObjectTypeOutputParser;
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json.output.OutputParamParser;
 import cn.ytxu.xhttp_wrapper.model.response.OutputParamModel;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseModel;
 import com.alibaba.fastjson.JSONArray;
@@ -9,6 +12,7 @@ import java.util.List;
 
 /**
  * Created by ytxu on 2016/8/17.
+ * 响应消息中参数的类型枚举
  */
 public enum OutputParamType {
     // tip: 顺序是不能改动的，因为第一个是判空的类型，最后一个是确保为未知类型

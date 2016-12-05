@@ -1,5 +1,6 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json.output;
 
+import cn.ytxu.xhttp_wrapper.common.enums.OutputParamType;
 import cn.ytxu.xhttp_wrapper.model.response.OutputParamModel;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseModel;
 import com.alibaba.fastjson.JSON;
@@ -12,8 +13,8 @@ import java.util.*;
  */
 public class OutputParamParser {
 
-    private ResponseModel response;
-    private JSONObject bodyJObj;
+    private final ResponseModel response;
+    private final JSONObject bodyJObj;
 
     public OutputParamParser(ResponseModel response) {
         this.response = response;

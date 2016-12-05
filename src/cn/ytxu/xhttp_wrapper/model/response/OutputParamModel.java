@@ -1,7 +1,7 @@
 package cn.ytxu.xhttp_wrapper.model.response;
 
 import cn.ytxu.util.FileUtil;
-import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json.output.OutputParamType;
+import cn.ytxu.xhttp_wrapper.common.enums.OutputParamType;
 import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
 import cn.ytxu.xhttp_wrapper.model.BaseModel;
 import cn.ytxu.xhttp_wrapper.model.response.field.ResponseFieldModel;
@@ -29,7 +29,7 @@ public class OutputParamModel extends BaseModel<ResponseModel, Void> {
 
     public OutputParamModel(ResponseModel higherLevel, OutputParamModel parent, OutputParamType type,
                             String fieldName, Object fieldValue) {
-        super(higherLevel, null);
+        super(higherLevel);
         this.parent = parent;
         this.type = type;
         this.fieldName = fieldName;

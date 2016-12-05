@@ -1,6 +1,7 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json.output;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json.output.sub.SubOutputParser;
+import cn.ytxu.xhttp_wrapper.common.enums.OutputParamType;
 import cn.ytxu.xhttp_wrapper.model.response.OutputParamModel;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
