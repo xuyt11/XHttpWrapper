@@ -99,8 +99,8 @@ public enum OutputParamType {
 
     /**
      * tips:
-     * if tagettype is NULL, replace it with model;
-     * else if targetType is Object or Array, add model`s value to target`s values
+     * if taget type is NULL, replace it with model;
+     * else if target Type is Object or Array, add model`s value to target`s values
      * otherwise, do nothing...
      */
     public void replaceOutputIfIsNULLOrAddModelSValue2TargetSValuesIfIsObjectOrArrayOtherwiseDoNothing(List<OutputParamModel> outputs, OutputParamModel target, OutputParamModel model) {

@@ -6,16 +6,14 @@ import cn.ytxu.xhttp_wrapper.model.response.OutputParamModel;
 import com.alibaba.fastjson.JSONObject;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * 解析JSONObject与JSONArray子output
  */
 public class SubOutputParser {
-    private OutputParamParser parser;
-    private OutputParamModel output;
-    private JSONObject valueOfJSONObjectType;
+    private final OutputParamParser parser;
+    private final OutputParamModel output;
+    private final JSONObject valueOfJSONObjectType;
 
     public SubOutputParser(OutputParamParser parser, OutputParamModel output, JSONObject valueOfJSONObjectType) {
         this.parser = parser;
@@ -24,9 +22,11 @@ public class SubOutputParser {
     }
 
     public void parse() {
-        Set<Map.Entry<String, Object>> entrys = valueOfJSONObjectType.entrySet();
-        List<OutputParamModel> outputs = parser.getOutputs(entrys, output);
-        if (isNotNeedFilter()) {
+        List<OutputParamModel> outputs = parser.getOutputs(valueOfJSONObjectType, output);
+        if (outputs.isEmpty()) {
+            return;
+        }
+        if (isNotNeedFilter()) {// 第一次设置output的subs,所以直接set，不需要过滤
             output.setSubs(outputs);
             return;
         }
@@ -34,7 +34,7 @@ public class SubOutputParser {
     }
 
     private boolean isNotNeedFilter() {
-        return output.getSubs().size() == 0;
+        return output.getSubs().isEmpty();
     }
 
     public void addOutputsAfterFilter(List<OutputParamModel> models) {
@@ -61,13 +61,10 @@ public class SubOutputParser {
                 return sub;
             }
         }
-        throw new NotFoundSameNameItemException("");
+        throw new NotFoundSameNameItemException();
     }
 
     private static class NotFoundSameNameItemException extends Exception {
-        public NotFoundSameNameItemException(String message) {
-            super(message);
-        }
     }
 
 }

@@ -6,7 +6,10 @@ import cn.ytxu.xhttp_wrapper.model.response.ResponseModel;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 
 /**
  * Created by ytxu on 2016/8/17.
@@ -22,8 +25,7 @@ public class OutputParamParser {
     }
 
     public void start() {
-        Set<Map.Entry<String, Object>> entrys = bodyJObj.entrySet();
-        List<OutputParamModel> outputs = getOutputsOfResponse(entrys);
+        List<OutputParamModel> outputs = getOutputsOfResponse(bodyJObj);
         // 判断依据是当前是否需要解析outputs,若需要，则需要解析子outputs
         parseValueAndValuesOfOutputsThenParseSubsIfCan(outputs);
         response.setOutputs(outputs);
@@ -31,27 +33,21 @@ public class OutputParamParser {
 
 
     //********************** parse output of response **********************
-    private List<OutputParamModel> getOutputsOfResponse(Collection<Map.Entry<String, Object>> entrys) {
-        List<OutputParamModel> outputs = new ArrayList<>(entrys.size());
-        for (Map.Entry<String, Object> entry : entrys) {
-            String fieldName = entry.getKey();
-            Object fieldValue = entry.getValue();
-            OutputParamType type = OutputParamType.get(fieldValue);
-            OutputParamModel output = type.createOutput(response, null, fieldName, fieldValue);
-            outputs.add(output);
-        }
-        return outputs;
+    private List<OutputParamModel> getOutputsOfResponse(JSONObject jsonObject) {
+        return getOutputs(jsonObject, null);
     }
 
-    public List<OutputParamModel> getOutputs(Collection<Map.Entry<String, Object>> entrys, OutputParamModel parent) {
-        List<OutputParamModel> outputs = new ArrayList<>(entrys.size());
-        for (Map.Entry<String, Object> entry : entrys) {
-            String fieldName = entry.getKey();
-            Object fieldValue = entry.getValue();
+    public List<OutputParamModel> getOutputs(JSONObject jsonObject, OutputParamModel parent) {
+        if (jsonObject.isEmpty()) {
+            return Collections.EMPTY_LIST;
+        }
+
+        List<OutputParamModel> outputs = new ArrayList<>(jsonObject.size());
+        jsonObject.forEach((fieldName, fieldValue) -> {
             OutputParamType type = OutputParamType.get(fieldValue);
             OutputParamModel output = type.createOutput(response, parent, fieldName, fieldValue);
             outputs.add(output);
-        }
+        });
         return outputs;
     }
 
@@ -81,11 +77,11 @@ public class OutputParamParser {
     }
 
     private boolean isNeedAdd(List<OutputParamModel> subsOfOutput) {
-        return subsOfOutput.size() > 0;
+        return !subsOfOutput.isEmpty();
     }
 
     private boolean isNeedParseSubs(List<OutputParamModel> allSubsOfOuputs) {
-        return allSubsOfOuputs.size() > 0;
+        return !allSubsOfOuputs.isEmpty();
     }
 
 
