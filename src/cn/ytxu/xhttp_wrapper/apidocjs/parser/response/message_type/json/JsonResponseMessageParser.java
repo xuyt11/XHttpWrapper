@@ -1,8 +1,8 @@
-package cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json;
+package cn.ytxu.xhttp_wrapper.apidocjs.parser.response.message_type.json;
 
-import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json.output.OutputParamParser;
-import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json.output.defined.HandleSameDataTypeOutputUtil;
-import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json.output.defined.SetupDefined2OutputUtil;
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.message_type.json.output.OutputParamParser;
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.message_type.json.output.defined.HandleSameDataTypeOutputUtil;
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.message_type.json.output.defined.SetupDefined2OutputUtil;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseModel;
 
 /**

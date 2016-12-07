@@ -1,6 +1,6 @@
 package cn.ytxu.xhttp_wrapper.xtemp.creater;
 
-import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json.output.sub.GetOutputsThatCanGenerateResponseEntityFileUtil;
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.message_type.json.output.sub.GetOutputsThatCanGenerateResponseEntityFileUtil;
 import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
 import cn.ytxu.xhttp_wrapper.config.Suffix;
 import cn.ytxu.xhttp_wrapper.model.version.VersionModel;

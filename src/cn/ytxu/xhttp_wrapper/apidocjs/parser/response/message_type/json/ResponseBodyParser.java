@@ -1,4 +1,4 @@
-package cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json;
+package cn.ytxu.xhttp_wrapper.apidocjs.parser.response.message_type.json;
 
 import cn.ytxu.util.LogUtil;
 import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;

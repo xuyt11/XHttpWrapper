@@ -1,6 +1,6 @@
 package cn.ytxu.xhttp_wrapper.common.enums;
 
-import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json.JsonResponseMessageParser;
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.message_type.json.JsonResponseMessageParser;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseModel;
 
 /**

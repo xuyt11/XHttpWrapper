@@ -1,8 +1,8 @@
 package cn.ytxu.xhttp_wrapper.common.enums;
 
-import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json.output.ArrayTypeOutputParser;
-import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json.output.ObjectTypeOutputParser;
-import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json.output.OutputParamParser;
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.message_type.json.output.ArrayTypeOutputParser;
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.message_type.json.output.ObjectTypeOutputParser;
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.message_type.json.output.OutputParamParser;
 import cn.ytxu.xhttp_wrapper.model.response.OutputParamModel;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseModel;
 import com.alibaba.fastjson.JSONArray;

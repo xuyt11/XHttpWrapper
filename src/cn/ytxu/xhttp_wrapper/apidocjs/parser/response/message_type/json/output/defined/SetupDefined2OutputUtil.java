@@ -1,13 +1,12 @@
-package cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json.output.defined;
+package cn.ytxu.xhttp_wrapper.apidocjs.parser.response.message_type.json.output.defined;
 
-import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json.output.sub.GetAllOutputUtil;
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.message_type.json.output.sub.GetAllOutputUtil;
 import cn.ytxu.xhttp_wrapper.model.response.OutputParamModel;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseModel;
 import cn.ytxu.xhttp_wrapper.model.response.field.ResponseFieldModel;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Created by ytxu on 2016/8/21.

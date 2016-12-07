@@ -1,4 +1,4 @@
-package cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json.output;
+package cn.ytxu.xhttp_wrapper.apidocjs.parser.response.message_type.json.output;
 
 import cn.ytxu.xhttp_wrapper.common.enums.OutputParamType;
 import cn.ytxu.xhttp_wrapper.model.response.OutputParamModel;

@@ -1,6 +1,6 @@
-package cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json.output.defined;
+package cn.ytxu.xhttp_wrapper.apidocjs.parser.response.message_type.json.output.defined;
 
-import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json.output.sub.GetOutputsOfObjectAndArrayTypeUtil;
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.message_type.json.output.sub.GetOutputsOfObjectAndArrayTypeUtil;
 import cn.ytxu.xhttp_wrapper.model.response.OutputParamModel;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseModel;
 
