@@ -15,8 +15,8 @@ import java.util.List;
  */
 public class ArrayTypeOutputParser {
 
-    private OutputParamParser parser;
-    private OutputParamModel output;
+    private final OutputParamParser parser;
+    private final OutputParamModel output;
 
     public ArrayTypeOutputParser(OutputParamParser parser, OutputParamModel output) {
         this.parser = parser;
@@ -25,12 +25,15 @@ public class ArrayTypeOutputParser {
 
     public void start() {
         setSubType();
-        if (needParseValueAndValues()) {
+
+        if (needParseValueAndValuesIfSubTypeIsJsonObjectType()) {
             parseValue();
             parseValues();
         }
     }
 
+
+    //******************** set sub type ********************
     private void setSubType() {
         if (setSubTypeByValueIfCan()) {
             return;
@@ -70,13 +73,14 @@ public class ArrayTypeOutputParser {
     }
 
     private boolean canSetSubType(JSONArray jArr) {
-        return jArr.size() != 0;
+        return !jArr.isEmpty();
     }
 
-    private boolean needParseValueAndValues() {
+
+    //******************** parse value ********************
+    private boolean needParseValueAndValuesIfSubTypeIsJsonObjectType() {
         return OutputParamType.JSON_OBJECT == output.getSubType();
     }
-
 
     private void parseValue() {
         parseJSONArray((JSONArray) output.getValue());
@@ -91,12 +95,12 @@ public class ArrayTypeOutputParser {
 
     private void parseJSONArray(JSONArray value) {
         for (int i = 0, size = value.size(); i < size; i++) {
-            JSONObject subOfValue = null;
+            JSONObject subOfValue;
             try {
                 subOfValue = value.getJSONObject(i);
             } catch (ClassCastException e) {
                 e.printStackTrace();
-                throw new ClassCastException(e.getMessage());
+                throw new ClassCastException(e.getMessage() + "\n" + value.toString());
             }
             new SubOutputParser(parser, output, subOfValue).parse();
         }

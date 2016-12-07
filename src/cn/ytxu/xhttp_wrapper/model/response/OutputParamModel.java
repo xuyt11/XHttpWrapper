@@ -18,14 +18,16 @@ public class OutputParamModel extends BaseModel<ResponseModel, Void> {
 
     private final OutputParamModel parent;
     private final OutputParamType type;
-    private OutputParamType subType;// 只有array才有，如：List<Integer>,List<Long>,List<String>...
-    private ResponseFieldModel defined;
-    private boolean dontRequireGenerationResponseEntityFileTag = false;// 是否需要生成响应实体文件标记，默认为需要
-
     private final String fieldName;
+
     private final Object fieldValue;
     private List<Object> values = Collections.EMPTY_LIST;// 只有object与array，才会有的
-    private List<OutputParamModel> subs = Collections.EMPTY_LIST;
+
+    private OutputParamType subType;// 只有array才有，如：List<Integer>,List<Long>,List<String>...
+    private List<OutputParamModel> subs = Collections.EMPTY_LIST;// 只有object与array，才会有的
+
+    private ResponseFieldModel defined;
+    private boolean dontRequireGenerationResponseEntityFileTag = false;// 是否需要生成响应实体文件标记，默认为需要
 
     public OutputParamModel(ResponseModel higherLevel, OutputParamModel parent, OutputParamType type,
                             String fieldName, Object fieldValue) {
