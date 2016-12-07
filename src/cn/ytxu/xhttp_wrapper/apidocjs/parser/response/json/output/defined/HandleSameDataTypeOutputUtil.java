@@ -1,6 +1,6 @@
 package cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json.output.defined;
 
-import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json.output.sub.GetOAOutputsUtil;
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.json.output.sub.GetOutputsOfObjectAndArrayTypeUtil;
 import cn.ytxu.xhttp_wrapper.model.response.OutputParamModel;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseModel;
 
@@ -22,14 +22,14 @@ public class HandleSameDataTypeOutputUtil {
     }
 
     public void start() {
-        List<OutputParamModel> oaOutputs = new GetOAOutputsUtil(response).start();
+        List<OutputParamModel> oaOutputs = new GetOutputsOfObjectAndArrayTypeUtil(response).start();
         List<OutputParamModel> hasDataTypeOutputs = getAllOutputs4HasDataTypeFromOAOutputs(oaOutputs);
 
         for (OutputParamModel output : hasDataTypeOutputs) {
             if (hasSetAutoGenerationTag(output)) {
                 continue;
             }
-            loopSetDontRequireGenerationResponseEntityFileTag2TheSameDataTypeOutput(output, hasDataTypeOutputs);
+            loopSetNonGenerationResponseEntityFileTag2TheSameDataTypeOutput(output, hasDataTypeOutputs);
         }
     }
 
@@ -49,19 +49,19 @@ public class HandleSameDataTypeOutputUtil {
     }
 
     private boolean hasSetAutoGenerationTag(OutputParamModel output) {
-        return output.isDontRequireGenerationResponseEntityFileTag();
+        return output.isNonGenerationResponseEntityFileTag();
     }
 
     /**
      * 将oaOutputs中多有defined相同的output，设置为不需要再生成response entity file的
      */
-    private void loopSetDontRequireGenerationResponseEntityFileTag2TheSameDataTypeOutput(OutputParamModel target, List<OutputParamModel> hasDataTypeOutputs) {
+    private void loopSetNonGenerationResponseEntityFileTag2TheSameDataTypeOutput(OutputParamModel target, List<OutputParamModel> hasDataTypeOutputs) {
         for (OutputParamModel output : hasDataTypeOutputs) {
             if (output == target) {
                 continue;
             }
             if (isTheSameDataType(target, output)) {
-                output.setDontRequireGenerationResponseEntityFileTag();
+                output.setNonGenerationResponseEntityFileTag();
             }
         }
     }

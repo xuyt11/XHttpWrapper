@@ -19,7 +19,7 @@ public class GetOutputsThatCanGenerateResponseEntityFileUtil {
     }
 
     public List<OutputParamModel> start() {
-        List<OutputParamModel> oaOutputs = new GetOAOutputsUtil(response).start();
+        List<OutputParamModel> oaOutputs = new GetOutputsOfObjectAndArrayTypeUtil(response).start();
         return getOutputsThatCanGenerateResponseEntityFile(oaOutputs);
     }
 
@@ -34,7 +34,7 @@ public class GetOutputsThatCanGenerateResponseEntityFileUtil {
     }
 
     private boolean canGenerateResponseEntityFile(OutputParamModel output) {
-        if (output.isDontRequireGenerationResponseEntityFileTag()) {
+        if (output.isNonGenerationResponseEntityFileTag()) {
             return false;
         }
         if (output.getType() == OutputParamType.JSON_ARRAY && output.getSubType() != OutputParamType.JSON_OBJECT) {

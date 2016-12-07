@@ -27,7 +27,7 @@ public class OutputParamModel extends BaseModel<ResponseModel, Void> {
     private List<OutputParamModel> subs = Collections.EMPTY_LIST;// 只有object与array，才会有的
 
     private ResponseFieldModel defined;
-    private boolean dontRequireGenerationResponseEntityFileTag = false;// 是否需要生成响应实体文件标记，默认为需要
+    private boolean nonGenerationResponseEntityFileTag = false;// 是否需要生成响应实体文件的标记，默认为需要
 
     public OutputParamModel(ResponseModel higherLevel, OutputParamModel parent, OutputParamType type,
                             String fieldName, Object fieldValue) {
@@ -85,12 +85,12 @@ public class OutputParamModel extends BaseModel<ResponseModel, Void> {
         return subs;
     }
 
-    public void setDontRequireGenerationResponseEntityFileTag() {
-        dontRequireGenerationResponseEntityFileTag = true;
+    public void setNonGenerationResponseEntityFileTag() {
+        nonGenerationResponseEntityFileTag = true;
     }
 
-    public boolean isDontRequireGenerationResponseEntityFileTag() {
-        return dontRequireGenerationResponseEntityFileTag;
+    public boolean isNonGenerationResponseEntityFileTag() {
+        return nonGenerationResponseEntityFileTag;
     }
 
     @Override
@@ -121,7 +121,7 @@ public class OutputParamModel extends BaseModel<ResponseModel, Void> {
                 ", type=" + type +
                 ", subType=" + subType +
                 ", defined=" + defined +
-                ", dontRequireGenerationResponseEntityFileTag=" + dontRequireGenerationResponseEntityFileTag +
+                ", nonGenerationResponseEntityFileTag=" + nonGenerationResponseEntityFileTag +
                 ", fieldName='" + fieldName + '\'' +
                 ", fieldValue=" + fieldValue +
                 ", values=" + values +

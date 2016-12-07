@@ -10,10 +10,10 @@ import java.util.List;
  * Created by ytxu on 2016/8/24.
  * 获取到response中所有的JSONObject与JSONArray类型的output
  */
-public class GetOAOutputsUtil {
+public class GetOutputsOfObjectAndArrayTypeUtil {
     private ResponseModel response;
 
-    public GetOAOutputsUtil(ResponseModel response) {
+    public GetOutputsOfObjectAndArrayTypeUtil(ResponseModel response) {
         this.response = response;
     }
 
