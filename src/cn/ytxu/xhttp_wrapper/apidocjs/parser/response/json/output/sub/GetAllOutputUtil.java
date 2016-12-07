@@ -21,7 +21,7 @@ public class GetAllOutputUtil {
 
     public List<OutputParamModel> start() {
         List<OutputParamModel> outputs = response.getOutputs();
-        if (outputs.size() == 0) {
+        if (outputs.isEmpty()) {
             return outputs;
         }
 

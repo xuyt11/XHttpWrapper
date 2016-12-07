@@ -15,23 +15,12 @@ import java.util.Objects;
  */
 public class SetupDefined2OutputUtil {
 
-    private ResponseModel response;// TODO need ResponseContainerModel
+    private final ResponseModel response;
+    private final List<ResponseFieldModel> defineds;
 
     public SetupDefined2OutputUtil(ResponseModel response) {
         this.response = response;
-    }
-
-    public void start() {
-        List<ResponseFieldModel> defineds = getDefineds();
-        if (isNotNeed2LoopSetup(defineds)) {
-            return;
-        }
-        List<OutputParamModel> outputs = new GetAllOutputUtil(response).start();
-        loopSetupDefined2Output(defineds, outputs);
-    }
-
-    private boolean isNotNeed2LoopSetup(List<ResponseFieldModel> defineds) {
-        return Objects.isNull(defineds);
+        this.defineds = getDefineds();
     }
 
     private List<ResponseFieldModel> getDefineds() {
@@ -41,15 +30,27 @@ public class SetupDefined2OutputUtil {
         return list;
     }
 
+    public void start() {
+        if (isNotNeed2LoopSetup()) {
+            return;
+        }
+        List<OutputParamModel> outputs = new GetAllOutputUtil(response).start();
+        loopSetupDefined2Output(outputs);
+    }
+
+    private boolean isNotNeed2LoopSetup() {
+        return defineds.isEmpty();
+    }
+
 
     //********************** loop setup defined to output **********************
-    private void loopSetupDefined2Output(List<ResponseFieldModel> defineds, List<OutputParamModel> outputs) {
+    private void loopSetupDefined2Output(List<OutputParamModel> outputs) {
         for (OutputParamModel output : outputs) {
-            setupDefined2Output(output, defineds);
+            setupDefined2Output(output);
         }
     }
 
-    private void setupDefined2Output(OutputParamModel output, List<ResponseFieldModel> defineds) {
+    private void setupDefined2Output(OutputParamModel output) {
         final String outputName = output.getName();
         for (ResponseFieldModel defined : defineds) {
             if (findTargetDefined(outputName, defined)) {
