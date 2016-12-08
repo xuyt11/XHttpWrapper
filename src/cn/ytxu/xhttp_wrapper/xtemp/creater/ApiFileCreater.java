@@ -63,7 +63,7 @@ public class ApiFileCreater {
     private List<ResponseModel> getOKResponses() {
         final String statusCodeOKNumber = ConfigWrapper.getStatusCode().getOkNumber();
         List<ResponseModel> successResponses = new ArrayList<>();
-        for (ResponseModel response : VersionModel.getResponses(versions)) {
+        for (ResponseModel response : VersionModel.getSuccessResponses(versions)) {
             if (statusCodeOKNumber.equals(response.getStatusCode())) {// it`s ok response
                 successResponses.add(response);
             }

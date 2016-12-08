@@ -66,10 +66,10 @@ public class VersionModel extends BaseModel {
 
 
     //*************** get list data area ***************
-    public static List<ResponseModel> getResponses(List<VersionModel> versions) {
+    public static List<ResponseModel> getSuccessResponses(List<VersionModel> versions) {
         List<ResponseModel> responses = new ArrayList<>();
         for (RequestModel request : getRequests(versions)) {
-            responses.addAll(request.getSuccessFieldGroups().getResponses());
+            responses.addAll(request.getResponseContainer().getSuccessResponses());
         }
         return responses;
     }
