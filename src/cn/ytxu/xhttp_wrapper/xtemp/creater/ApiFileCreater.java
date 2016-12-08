@@ -47,8 +47,8 @@ public class ApiFileCreater {
 
     private void createRequest() {
         XTempModel model = new XTempUtil(Suffix.Request, xTempPrefixName).start();
-        VersionModel.getSections(versions).forEach(section ->
-                BaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, section)
+        VersionModel.getRequestGroups(versions).forEach(requestGroup ->
+                BaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, requestGroup)
         );
     }
 

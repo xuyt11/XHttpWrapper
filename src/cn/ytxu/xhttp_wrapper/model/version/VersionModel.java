@@ -76,13 +76,13 @@ public class VersionModel extends BaseModel {
 
     public static List<RequestModel> getRequests(List<VersionModel> versions) {
         List<RequestModel> requests = new ArrayList<>();
-        for (RequestGroupModel section : getSections(versions)) {
-            requests.addAll(section.getRequests());
+        for (RequestGroupModel requestGroup : getRequestGroups(versions)) {
+            requests.addAll(requestGroup.getRequests());
         }
         return requests;
     }
 
-    public static List<RequestGroupModel> getSections(List<VersionModel> versions) {
+    public static List<RequestGroupModel> getRequestGroups(List<VersionModel> versions) {
         return ConfigWrapper.getFilter().getRequestGroupsAfterFilted(versions);
     }
 
