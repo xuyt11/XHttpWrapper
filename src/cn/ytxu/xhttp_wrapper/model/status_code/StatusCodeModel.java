@@ -5,7 +5,7 @@ import cn.ytxu.xhttp_wrapper.model.BaseModel;
 /**
  * Created by ytxu on 2016/8/30
  */
-public class StatusCodeModel extends BaseModel<StatusCodeGroupModel, Void> {
+public class StatusCodeModel extends BaseModel<StatusCodeGroupModel> {
     private final String group;
     private final String name;
     private final String number;

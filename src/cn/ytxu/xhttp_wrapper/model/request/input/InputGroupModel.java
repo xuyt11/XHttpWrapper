@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/9/24.
  */
-public class InputGroupModel extends BaseModel<RequestModel, Void> {
+public class InputGroupModel extends BaseModel<RequestModel> {
     private final String name;
     private List<InputModel> inputs = Collections.EMPTY_LIST;
 

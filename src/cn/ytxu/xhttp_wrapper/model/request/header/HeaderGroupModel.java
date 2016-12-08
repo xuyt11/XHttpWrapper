@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/9/24.
  */
-public class HeaderGroupModel extends BaseModel<RequestModel, Void> {
+public class HeaderGroupModel extends BaseModel<RequestModel> {
     private final String name;
     private List<HeaderModel> headers = Collections.EMPTY_LIST;
 

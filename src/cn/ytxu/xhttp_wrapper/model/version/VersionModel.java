@@ -24,7 +24,7 @@ public class VersionModel extends BaseModel {
     private List<OutputParamModel> subsOfErrors;// base response 中所有的error内的字段
 
     public VersionModel(String name) {
-        super(null, null);
+        super(null);
         this.name = name;
     }
 

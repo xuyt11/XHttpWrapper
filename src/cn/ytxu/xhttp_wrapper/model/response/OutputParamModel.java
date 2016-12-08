@@ -14,7 +14,7 @@ import java.util.Objects;
 /**
  * Created by ytxu on 2016/8/17.
  */
-public class OutputParamModel extends BaseModel<ResponseModel, Void> {
+public class OutputParamModel extends BaseModel<ResponseModel> {
 
     private final OutputParamModel parent;
     private final OutputParamType type;

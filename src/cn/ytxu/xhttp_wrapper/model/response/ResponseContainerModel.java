@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ResponseContainerModel extends BaseModel<RequestModel, Void> {
+public class ResponseContainerModel extends BaseModel<RequestModel> {
 
     private List<ResponseFieldGroupModel> successFieldGroups = Collections.EMPTY_LIST;
     private List<ResponseFieldGroupModel> errorFieldGroups = Collections.EMPTY_LIST;

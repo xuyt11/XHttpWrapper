@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by ytxu on 2016-9-18
  */
-public class RequestGroupModel extends BaseModel<VersionModel, Void> {
+public class RequestGroupModel extends BaseModel<VersionModel> {
     private String name;
     private List<RequestModel> requests = Collections.EMPTY_LIST;
 

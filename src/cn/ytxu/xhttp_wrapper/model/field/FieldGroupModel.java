@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by ytxu on 2016/12/04.
  */
-public class FieldGroupModel extends BaseModel<RequestModel, Void> {
+public class FieldGroupModel extends BaseModel<RequestModel> {
     private final String name;
     private List<FieldModel> fields = Collections.EMPTY_LIST;
 

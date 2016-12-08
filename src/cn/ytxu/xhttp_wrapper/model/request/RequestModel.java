@@ -15,7 +15,7 @@ import java.util.*;
 /**
  * Created by ytxu on 2016/7/20.
  */
-public class RequestModel extends BaseModel<RequestGroupModel, Void> {
+public class RequestModel extends BaseModel<RequestGroupModel> {
     /**
      * 请求方法类型: request method string
      * 可以有多个，以空格分隔

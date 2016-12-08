@@ -6,7 +6,7 @@ import cn.ytxu.xhttp_wrapper.model.BaseModel;
 /**
  * Created by ytxu on 2016/9/21.
  */
-public class FieldModel<H extends BaseModel> extends BaseModel<H, Void> {
+public class FieldModel<H extends BaseModel> extends BaseModel<H> {
     // 字段的名称
     private String name;
     /**

@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by ytxu on 2016/6/16.
  */
-public class RESTfulUrlModel extends BaseModel<RequestModel, Void> {
+public class RESTfulUrlModel extends BaseModel<RequestModel> {
     private final String url;// 方法的相对路径，起始位置必须不是/,因为人
     private boolean isRESTfulUrl = false;
     private boolean hasMultiParam;// 是否有多选类型的参数，若有的话，则使用url是需要使用multiUrl

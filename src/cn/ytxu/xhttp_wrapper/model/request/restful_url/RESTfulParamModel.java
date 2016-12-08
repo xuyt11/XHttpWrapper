@@ -7,7 +7,7 @@ import java.text.DecimalFormat;
 /**
  * Created by ytxu on 2016/8/14.
  */
-public class RESTfulParamModel extends BaseModel<RESTfulUrlModel, Void> {
+public class RESTfulParamModel extends BaseModel<RESTfulUrlModel> {
 
     private final String param;// 在url或multiUrl中的字符串
     private final String realParam;// 在代码中实际的字符串
