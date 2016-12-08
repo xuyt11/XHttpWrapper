@@ -69,17 +69,17 @@ public class FieldTypeWrapper {
 
     public String getElementType(InputParamModel input) {
         ElementType etEnum = ElementType.getTypeByInput(input);
-        return etEnum.getElementTypeByInput(this, input);
+        return etEnum.getElementTypeByInput();
     }
 
     public String getElementRequestType(InputParamModel input) {
         ElementType etEnum = ElementType.getTypeByInput(input);
-        return etEnum.getElementRequestTypeByInput(this, input);
+        return etEnum.getElementRequestTypeByInput();
     }
 
     public String getElementTypeByOutput(OutputParamModel output) {
         ElementType etEnum = ElementType.getTypeByOutputType(output.getType());
-        return etEnum.getElementTypeByOutput(this, output);
+        return etEnum.getElementTypeByOutput(output);
     }
 
     public FieldTypeEnumBean.EtBean getNullET() {

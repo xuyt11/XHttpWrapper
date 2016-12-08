@@ -1,5 +1,6 @@
 package cn.ytxu.xhttp_wrapper.model.field;
 
+import cn.ytxu.xhttp_wrapper.config.property.element_type.ElementType;
 import cn.ytxu.xhttp_wrapper.model.BaseModel;
 
 /**
@@ -135,4 +136,21 @@ public class FieldModel<H extends BaseModel> extends BaseModel<H, Void> {
     public void setDataType(String dataType) {
         this.dataType = dataType;
     }
+
+
+    //*************** reflect method area ***************
+    public String type() {
+        ElementType etEnum = ElementType.getTypeByInput(type);
+        return etEnum.getElementTypeByInput();
+    }
+
+    public String requestParamType() {
+        ElementType etEnum = ElementType.getTypeByInput(type);
+        return etEnum.getElementRequestTypeByInput();
+    }
+
+    public boolean isFilterParam() {
+        return filterTag;
+    }
+
 }

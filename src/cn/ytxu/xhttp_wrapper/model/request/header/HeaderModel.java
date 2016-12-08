@@ -10,4 +10,23 @@ public class HeaderModel extends FieldModel<HeaderGroupModel> {
     public HeaderModel(HeaderGroupModel higherLevel) {
         super(higherLevel);
     }
+
+
+    //*************** reflect method area ***************
+    public String header_type() {
+        return type();
+    }
+
+    public String header_request_param_type() {
+        return requestParamType();
+    }
+
+    public String header_name() {
+        return getName();
+    }
+
+    public String header_desc() {
+        return getDescription();
+    }
+
 }

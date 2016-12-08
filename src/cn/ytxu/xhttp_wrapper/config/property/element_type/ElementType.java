@@ -2,6 +2,7 @@ package cn.ytxu.xhttp_wrapper.config.property.element_type;
 
 import cn.ytxu.api_semi_auto_creater.model.request.InputParamModel;
 import cn.ytxu.xhttp_wrapper.common.enums.OutputParamType;
+import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
 import cn.ytxu.xhttp_wrapper.model.response.OutputParamModel;
 
 import java.util.Objects;
@@ -32,7 +33,7 @@ public enum ElementType {
         }
 
         @Override
-        protected String getElementTypeByOutput(FieldTypeWrapper etProperty, OutputParamModel output) {
+        protected String getElementTypeByOutput(OutputParamModel output) {
             throw new RuntimeException("output param must not be file type");
         }
     },
@@ -87,17 +88,17 @@ public enum ElementType {
         }
 
         @Override
-        protected String getElementTypeByOutput(FieldTypeWrapper etProperty, OutputParamModel output) {
+        protected String getElementTypeByOutput(OutputParamModel output) {
             return output.entity_class_name();
         }
 
         @Override
-        protected String getElementTypeByInput(FieldTypeWrapper etProperty, InputParamModel input) {
+        public String getElementTypeByInput() {
             throw new RuntimeException("input param must not be object type");
         }
 
         @Override
-        protected String getElementRequestTypeByInput(FieldTypeWrapper etProperty, InputParamModel input) {
+        public String getElementRequestTypeByInput() {
             throw new RuntimeException("input param must not be object type");
         }
     },
@@ -108,20 +109,20 @@ public enum ElementType {
         }
 
         @Override
-        protected String getElementTypeByOutput(FieldTypeWrapper etProperty, OutputParamModel output) {
-            String etContent = super.getElementTypeByOutput(etProperty, output);
+        protected String getElementTypeByOutput(OutputParamModel output) {
+            String etContent = super.getElementTypeByOutput(output);
             ElementType subElementType = ElementType.getTypeByOutputType(output.getSubType());
-            String subElementTypeStr = getSubTypeContent(etProperty, output, subElementType);
+            String subElementTypeStr = getSubTypeContent(output, subElementType);
             etContent = etContent.replace("${object}", subElementTypeStr);
             return etContent;
         }
 
-        private String getSubTypeContent(FieldTypeWrapper etProperty, OutputParamModel output, ElementType subElementType) {
+        private String getSubTypeContent(OutputParamModel output, ElementType subElementType) {
             String subElementTypeStr;
             if (subElementType == OBJECT) {
-                subElementTypeStr = OBJECT.getElementTypeByOutput(etProperty, output);
+                subElementTypeStr = OBJECT.getElementTypeByOutput(output);
             } else {
-                subElementTypeStr = subElementType.getElementRequestTypeByInput(etProperty, null);
+                subElementTypeStr = subElementType.getElementRequestTypeByInput();
             }
             return subElementTypeStr;
         }
@@ -144,10 +145,26 @@ public enum ElementType {
         return NULL;
     }
 
-    protected String getElementTypeByOutput(FieldTypeWrapper etProperty, OutputParamModel output) {
-        return getEtBean(etProperty).getField_type();
+    protected String getElementTypeByOutput(OutputParamModel output) {
+        return getEtBean(ConfigWrapper.getFieldType()).getField_type();
     }
 
+    public static ElementType getTypeByInput(String inputTypeText) {
+        for (ElementType type : ElementType.values()) {
+            String[] inputTypes = type.inputTypes;
+            if (Objects.isNull(inputTypes)) {
+                continue;
+            }
+            for (String inputType : inputTypes) {
+                if (inputType.equalsIgnoreCase(inputTypeText)) {
+                    return type;
+                }
+            }
+        }
+        return NULL;
+    }
+
+    // TODO need delete
     protected static ElementType getTypeByInput(InputParamModel input) {
         String inputTypeStr = input.getType();
         for (ElementType type : ElementType.values()) {
@@ -164,12 +181,12 @@ public enum ElementType {
         return NULL;
     }
 
-    protected String getElementTypeByInput(FieldTypeWrapper etProperty, InputParamModel input) {
-        return getEtBean(etProperty).getField_type();
+    public String getElementTypeByInput() {
+        return getEtBean(ConfigWrapper.getFieldType()).getField_type();
     }
 
-    protected String getElementRequestTypeByInput(FieldTypeWrapper etProperty, InputParamModel input) {
-        return getEtBean(etProperty).getField_optional_type();
+    public String getElementRequestTypeByInput() {
+        return getEtBean(ConfigWrapper.getFieldType()).getField_optional_type();
     }
 
     protected abstract FieldTypeEnumBean.EtBean getEtBean(FieldTypeWrapper elementTypeEnum);

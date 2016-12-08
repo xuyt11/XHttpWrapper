@@ -167,7 +167,7 @@ public class RequestModel extends BaseModel<RequestGroupModel, Void> {
     }
 
     public List<HeaderModel> headers() {
-        if (headerGroups.size() <= 0) {
+        if (headerGroups.isEmpty()) {
             return Collections.EMPTY_LIST;
         }
         List<HeaderModel> headers = new ArrayList<>(headerGroups.size());
@@ -187,7 +187,7 @@ public class RequestModel extends BaseModel<RequestGroupModel, Void> {
     }
 
     public List<InputModel> inputs() {
-        if (inputGroups.size() <= 0) {
+        if (inputGroups.isEmpty()) {
             return Collections.EMPTY_LIST;
         }
         List<InputModel> inputs = new ArrayList<>(inputGroups.size());
