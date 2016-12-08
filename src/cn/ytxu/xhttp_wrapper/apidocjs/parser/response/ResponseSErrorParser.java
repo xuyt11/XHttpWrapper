@@ -14,14 +14,20 @@ import java.util.List;
  */
 public class ResponseSErrorParser {
 
-    private VersionModel version;
-    private List<ResponseModel> responses = new ArrayList<>();
+    private final VersionModel version;
+    private final String errorOutputName;// 响应中的错误字段的名称
+    private final List<ResponseModel> responses;
 
     public ResponseSErrorParser(VersionModel version) {
         this.version = version;
+        this.errorOutputName = ConfigWrapper.getResponse().getError();
+        this.responses = new ArrayList<>(200);
         version.getRequestGroups().stream().map(requestGroup ->
                 requestGroup.getRequests()).forEach(requests ->
-                requests.forEach(request -> responses.addAll(request.getErrorFieldGroups().getResponses())));
+                requests.forEach(request -> {
+                    responses.addAll(request.getResponseContainer().getErrorResponses());
+                    responses.addAll(request.getResponseContainer().getSuccessResponses());
+                }));
     }
 
     public void start() {
@@ -32,13 +38,11 @@ public class ResponseSErrorParser {
     }
 
     private List<OutputParamModel> getErrors() {
-        final String errorName = ConfigWrapper.getResponse().getError();
         List<OutputParamModel> errors = new ArrayList<>();
-        for (int i = 0; i < responses.size(); i++) {
-            ResponseModel response = responses.get(i);
+        for (ResponseModel response : responses) {
             List<OutputParamModel> outputs = response.getOutputs();
             try {
-                OutputParamModel error = getError(errorName, outputs);
+                OutputParamModel error = getError(outputs);
                 errors.add(error);
             } catch (NotFoundErrorParamException ignore) {
             }
@@ -46,10 +50,9 @@ public class ResponseSErrorParser {
         return errors;
     }
 
-    private OutputParamModel getError(String errorName, List<OutputParamModel> outputs) {
-        for (int i = 0; i < outputs.size(); i++) {
-            OutputParamModel output = outputs.get(i);
-            if (errorName.equalsIgnoreCase(output.getName())) {
+    private OutputParamModel getError(List<OutputParamModel> outputs) {
+        for (OutputParamModel output : outputs) {
+            if (errorOutputName.equalsIgnoreCase(output.getName())) {
                 return output;
             }
         }
