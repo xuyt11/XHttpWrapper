@@ -61,12 +61,7 @@ public class RequestInputGroupParser {
             }
 
             @Override
-            public void setFieldModels(List<InputModel> fieldModels) {
-                inputGroup.setInputs(fieldModels);
-            }
-
-            @Override
-            public void parseEnd(List<InputModel> fieldModels) {
+            public void parseEnd() {
             }
         }).start();
     }

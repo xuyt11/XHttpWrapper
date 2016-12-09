@@ -13,6 +13,7 @@ public class StatusCodeModel extends BaseModel<StatusCodeGroupModel> {
 
     public StatusCodeModel(StatusCodeGroupModel higherLevel, String group, String name, String number, String desc) {
         super(higherLevel);
+        higherLevel.addStatusCode(this);
         this.group = group;
         this.name = name;
         this.number = number;

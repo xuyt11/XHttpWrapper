@@ -31,19 +31,14 @@ public class StatusCodeParser {
 
     private void paseStatusCodeGroup(StatusCodeGroupModel statusCodeGroup) {
         ApiDataBean apiData = ApidocjsHelper.getApiData().getApiData(statusCodeGroup);
-        apiData.getParameter().getFields().values().forEach(fields -> {
-            List<StatusCodeModel> statusCodes = createStatusCodesByFields(statusCodeGroup, fields);
-            statusCodeGroup.addStatusCodes(statusCodes);
-        });
+        apiData.getParameter().getFields().values()
+                .forEach(fields -> createStatusCodesByFields(statusCodeGroup, fields));
     }
 
-    private List<StatusCodeModel> createStatusCodesByFields(StatusCodeGroupModel statusCodeGroup, List<FieldBean> fields) {
-        List<StatusCodeModel> statusCodes = new ArrayList<>(fields.size());
+    private void createStatusCodesByFields(StatusCodeGroupModel statusCodeGroup, List<FieldBean> fields) {
         for (FieldBean field : fields) {
-            StatusCodeModel statusCode = createStatusCodeByFieldBean(statusCodeGroup, field);
-            statusCodes.add(statusCode);
+            createStatusCodeByFieldBean(statusCodeGroup, field);
         }
-        return statusCodes;
     }
 
     private StatusCodeModel createStatusCodeByFieldBean(StatusCodeGroupModel statusCodeGroup, FieldBean field) {

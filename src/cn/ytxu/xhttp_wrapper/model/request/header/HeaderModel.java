@@ -9,6 +9,7 @@ public class HeaderModel extends FieldModel<HeaderGroupModel> {
 
     public HeaderModel(HeaderGroupModel higherLevel) {
         super(higherLevel);
+        higherLevel.addHeader(this);
     }
 
 

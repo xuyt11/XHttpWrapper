@@ -18,6 +18,7 @@ public class RequestGroupModel extends BaseModel<VersionModel> {
     public RequestGroupModel(VersionModel higherLevel, String groupName) {
         super(higherLevel);
         this.name = groupName;
+        higherLevel.addRequestGroup(this);
     }
 
     public String getName() {

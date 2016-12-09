@@ -33,6 +33,7 @@ public class StatusCodeGroupModel extends BaseModel<VersionModel> {
 
     public StatusCodeGroupModel(VersionModel higherLevel) {
         super(higherLevel);
+        higherLevel.addStatusCodeGroup(this);
     }
 
     public void init(String title, String name, String version) {
@@ -57,12 +58,11 @@ public class StatusCodeGroupModel extends BaseModel<VersionModel> {
         return statusCodes;
     }
 
-    public void addStatusCodes(List<StatusCodeModel> statusCodes) {
+    public void addStatusCode(StatusCodeModel statusCode) {
         if (this.statusCodes == Collections.EMPTY_LIST) {
-            this.statusCodes = new ArrayList<>(statusCodes);
-            return;
+            this.statusCodes = new ArrayList<>();
         }
-        this.statusCodes.addAll(statusCodes);
+        this.statusCodes.add(statusCode);
     }
 
 

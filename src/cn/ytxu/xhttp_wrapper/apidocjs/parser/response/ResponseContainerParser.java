@@ -3,6 +3,8 @@ package cn.ytxu.xhttp_wrapper.apidocjs.parser.response;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApidocjsHelper;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.api_data.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.FieldContainerBean;
+import cn.ytxu.xhttp_wrapper.apidocjs.parser.field.ExamplesParser;
+import cn.ytxu.xhttp_wrapper.common.enums.ResponseContentType;
 import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseContainerModel;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseModel;
@@ -47,19 +49,39 @@ public class ResponseContainerParser {
         if (successBean.getExamples().isEmpty()) {
             return;
         }
+        createSuccessResponseModel();
+        parseSuccessResponseMessage();
+    }
 
-        new ResponseParser(responseContainer, successBean.getExamples(), new ResponseParser.Callback() {
+    private void createSuccessResponseModel() {
+        new ExamplesParser<>(successBean.getExamples(), new ExamplesParser.Callback<ResponseModel>() {
             @Override
-            public void setExampleModels(List<ResponseModel> responseModels) {
-                responseContainer.setSuccessResponses(responseModels);
+            public ResponseModel createExampleModel() {
+                return new ResponseModel(responseContainer);
             }
 
             @Override
-            public List<ResponseModel> getResponseModels() {
-                return responseContainer.getSuccessResponses();
+            public void parseExampleModelEnd(ResponseModel exampleModel) {
+            }
+
+            @Override
+            public void setExampleModels(List<ResponseModel> exampleModel) {
+            }
+
+            @Override
+            public void parseEnd(List<ResponseModel> exampleModel) {
+                responseContainer.setSuccessResponses(exampleModel);
             }
         }).start();
     }
+
+    private void parseSuccessResponseMessage() {
+        responseContainer.getSuccessResponses().forEach(responseExample -> {
+            ResponseContentType type = ResponseContentType.getByTypeName(responseExample.getType());
+            type.parseResponseMessage(responseExample);
+        });
+    }
+
 
     private void parseErrorField() {
         if (errorBean.getFields().isEmpty()) {
@@ -76,17 +98,38 @@ public class ResponseContainerParser {
             return;
         }
 
-        new ResponseParser(responseContainer, errorBean.getExamples(), new ResponseParser.Callback() {
+        createErrorResponseModel();
+        parseErrorResponseMessage();
+    }
+
+    private void createErrorResponseModel() {
+        new ExamplesParser<>(errorBean.getExamples(), new ExamplesParser.Callback<ResponseModel>() {
             @Override
-            public void setExampleModels(List<ResponseModel> responseModels) {
-                responseContainer.setErrorResponses(responseModels);
+            public ResponseModel createExampleModel() {
+                return new ResponseModel(responseContainer);
             }
 
             @Override
-            public List<ResponseModel> getResponseModels() {
-                return responseContainer.getErrorResponses();
+            public void parseExampleModelEnd(ResponseModel exampleModel) {
+            }
+
+            @Override
+            public void setExampleModels(List<ResponseModel> exampleModel) {
+            }
+
+            @Override
+            public void parseEnd(List<ResponseModel> exampleModel) {
+                responseContainer.setErrorResponses(exampleModel);
             }
         }).start();
     }
+
+    private void parseErrorResponseMessage() {
+        responseContainer.getErrorResponses().forEach(responseExample -> {
+            ResponseContentType type = ResponseContentType.getByTypeName(responseExample.getType());
+            type.parseResponseMessage(responseExample);
+        });
+    }
+
 
 }

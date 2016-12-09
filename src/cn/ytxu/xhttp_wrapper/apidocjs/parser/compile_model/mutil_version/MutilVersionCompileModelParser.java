@@ -3,7 +3,6 @@ package cn.ytxu.xhttp_wrapper.apidocjs.parser.compile_model.mutil_version;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.api_data.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.ApidocjsHelper;
 import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
-import cn.ytxu.xhttp_wrapper.model.status_code.StatusCodeGroupModel;
 import cn.ytxu.xhttp_wrapper.model.version.VersionModel;
 
 import java.util.LinkedHashMap;
@@ -49,7 +48,7 @@ public class MutilVersionCompileModelParser {
                 continue;
             }
             if (ApidocjsHelper.getApiData().isAStatusCodeGroup(apiData)) {
-                createStatusCodeGroupModelThenAddIt2Version(version, apiData);
+                createStatusCodeGroupModel(version, apiData);
                 continue;
             }
             new MutilVersionRequestConverter(version, apiData).start();
@@ -60,9 +59,8 @@ public class MutilVersionCompileModelParser {
         return Objects.isNull(version);
     }
 
-    private void createStatusCodeGroupModelThenAddIt2Version(VersionModel version, ApiDataBean apiData) {
-        StatusCodeGroupModel scGroup = ApidocjsHelper.getApiData().createStatusCodeGroup(version, apiData);
-        version.addStatusCodeGroup(scGroup);
+    private void createStatusCodeGroupModel(VersionModel version, ApiDataBean apiData) {
+        ApidocjsHelper.getApiData().createStatusCodeGroup(version, apiData);
     }
 
     private List<VersionModel> getVersions() {

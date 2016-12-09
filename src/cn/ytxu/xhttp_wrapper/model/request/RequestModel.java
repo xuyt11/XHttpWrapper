@@ -67,6 +67,7 @@ public class RequestModel extends BaseModel<RequestGroupModel> {
 
     public RequestModel(RequestGroupModel higherLevel) {
         super(higherLevel);
+        higherLevel.addRequest(this);
     }
 
     public void init(String type, String url, String title, String version, String name, String group, String description) {

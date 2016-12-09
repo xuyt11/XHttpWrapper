@@ -6,7 +6,6 @@ import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
 import cn.ytxu.xhttp_wrapper.model.request.restful_url.RESTfulParamModel;
 import cn.ytxu.xhttp_wrapper.model.request.restful_url.RESTfulUrlModel;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,21 +17,16 @@ public class RESTfulUrlParser {
     private static final Pattern ID_OR_DATE_PATTERN = Pattern.compile("[\\{]{1}.{2,}?[\\}]{1}");
     private static final Pattern MULTI_PATTERN = Pattern.compile("[\\[]{1}.{2,}?[\\]]{1}");
 
-    private RequestModel request;
     private RESTfulUrlModel model;
 
     public RESTfulUrlParser(RequestModel request) {
-        this.request = request;
         model = new RESTfulUrlModel(request, request.getUrl());
     }
 
-    public RESTfulUrlModel start() {
+    public void start() {
         setIsRESTfulUrl();
         parseMultiUrl();
         parseIdOrDateParam();
-
-        request.setRestfulUrl(model);
-        return model;
     }
 
     private void setIsRESTfulUrl() {
@@ -80,14 +74,11 @@ public class RESTfulUrlParser {
 
         String url = model.hasMultiParam() ? model.getMultiUrl() : model.getUrl();
         Matcher m = ID_OR_DATE_PATTERN.matcher(url);
-        List<RESTfulParamModel> params = new ArrayList<>();
         int paramIndex = 0;
         while (m.find()) {
-            RESTfulParamModel paramModel = getResTfulParamModel(m, paramIndex);
-            params.add(paramModel);
+            getResTfulParamModel(m, paramIndex);
             paramIndex++;
         }
-        model.setParams(params);
     }
 
     private RESTfulParamModel getResTfulParamModel(Matcher m, int paramIndex) {

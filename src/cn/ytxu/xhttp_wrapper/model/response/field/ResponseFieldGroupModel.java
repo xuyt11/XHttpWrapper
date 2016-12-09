@@ -3,6 +3,7 @@ package cn.ytxu.xhttp_wrapper.model.response.field;
 import cn.ytxu.xhttp_wrapper.model.BaseModel;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseContainerModel;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -29,6 +30,13 @@ public class ResponseFieldGroupModel extends BaseModel<ResponseContainerModel> {
 
     public void setFields(List<ResponseFieldModel> fields) {
         this.fields = fields;
+    }
+
+    public void addField(ResponseFieldModel field) {
+        if (fields == Collections.EMPTY_LIST) {
+            fields = new ArrayList<>();
+        }
+        fields.add(field);
     }
 
 }

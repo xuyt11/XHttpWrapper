@@ -59,9 +59,7 @@ public class NonVersionRequestConverter {
     }
 
     private RequestGroupModel createAndAddRequestGroup() {
-        RequestGroupModel requestGroup = ApidocjsHelper.getApiData().createRequestGroup(version, apiData);
-        version.addRequestGroup(requestGroup);
-        return requestGroup;
+        return ApidocjsHelper.getApiData().createRequestGroup(version, apiData);
     }
 
 
@@ -94,8 +92,7 @@ public class NonVersionRequestConverter {
     }
 
     private void createAndAddRequest(RequestGroupModel requestGroup) {
-        RequestModel request = ApidocjsHelper.getApiData().createRequest(requestGroup, apiData);
-        requestGroup.addRequest(request);
+        ApidocjsHelper.getApiData().createRequest(requestGroup, apiData);
     }
 
 }

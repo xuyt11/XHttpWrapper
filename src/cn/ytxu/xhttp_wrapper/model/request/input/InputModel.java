@@ -9,6 +9,7 @@ public class InputModel extends FieldModel<InputGroupModel> {
 
     public InputModel(InputGroupModel higherLevel) {
         super(higherLevel);
+        higherLevel.addInput(this);
     }
 
 

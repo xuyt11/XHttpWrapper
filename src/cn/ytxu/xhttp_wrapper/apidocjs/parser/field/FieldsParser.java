@@ -3,7 +3,6 @@ package cn.ytxu.xhttp_wrapper.apidocjs.parser.field;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.field.FieldBean;
 import cn.ytxu.xhttp_wrapper.model.field.FieldModel;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -30,19 +29,15 @@ public class FieldsParser<F extends FieldModel> {
             return;
         }
 
-        List<F> fieldModels = new ArrayList<>(fieldBeans.size());
         fieldBeans.forEach(fieldBean -> {
             F fieldModel = callback.createFieldModel();
-            fieldModels.add(fieldModel);
 
             new FieldParser<>(fieldModel, fieldBean).start();
 
             callback.parseFieldModelEnd(fieldModel);
         });
 
-        callback.setFieldModels(fieldModels);
-
-        callback.parseEnd(fieldModels);
+        callback.parseEnd();
     }
 
     public interface Callback<F> {
@@ -50,9 +45,7 @@ public class FieldsParser<F extends FieldModel> {
 
         void parseFieldModelEnd(F fieldModel);
 
-        void setFieldModels(List<F> fieldModels);
-
-        void parseEnd(List<F> fieldModels);
+        void parseEnd();
     }
 
 }

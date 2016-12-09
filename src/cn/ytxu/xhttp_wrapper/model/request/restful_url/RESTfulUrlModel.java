@@ -4,6 +4,7 @@ import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
 import cn.ytxu.xhttp_wrapper.model.BaseModel;
 import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class RESTfulUrlModel extends BaseModel<RequestModel> {
     public RESTfulUrlModel(RequestModel higherLevel, String url) {
         super(higherLevel);
         this.url = url;
+        higherLevel.setRestfulUrl(this);
     }
 
     public String getUrl() {
@@ -50,8 +52,11 @@ public class RESTfulUrlModel extends BaseModel<RequestModel> {
         this.multiUrl = multiUrl;
     }
 
-    public void setParams(List<RESTfulParamModel> params) {
-        this.params = params;
+    public void addParam(RESTfulParamModel param) {
+        if (params == Collections.EMPTY_LIST) {
+            this.params = new ArrayList<>();
+        }
+        this.params.add(param);
     }
 
     public List<RESTfulParamModel> getParams() {

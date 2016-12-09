@@ -49,12 +49,7 @@ public class ResponseFieldParser {
             }
 
             @Override
-            public void setFieldModels(List<ResponseFieldModel> fieldModels) {
-                responseFieldGroup.setFields(fieldModels);
-            }
-
-            @Override
-            public void parseEnd(List<ResponseFieldModel> fieldModels) {
+            public void parseEnd() {
             }
         }).start();
     }

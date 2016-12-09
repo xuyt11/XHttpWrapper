@@ -49,14 +49,11 @@ public class MutilVersionRequestConverter {
     }
 
     private RequestGroupModel createAndAddRequestGroup() {
-        RequestGroupModel requestGroup = ApidocjsHelper.getApiData().createRequestGroup(version, apiData);
-        version.addRequestGroup(requestGroup);
-        return requestGroup;
+        return ApidocjsHelper.getApiData().createRequestGroup(version, apiData);
     }
 
     private void createRequest(RequestGroupModel requestGroup) {
-        RequestModel request = ApidocjsHelper.getApiData().createRequest(requestGroup, apiData);
-        requestGroup.addRequest(request);
+        ApidocjsHelper.getApiData().createRequest(requestGroup, apiData);
     }
 
 }

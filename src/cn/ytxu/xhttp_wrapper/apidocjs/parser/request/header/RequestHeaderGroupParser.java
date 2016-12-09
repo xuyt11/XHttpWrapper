@@ -63,12 +63,7 @@ public class RequestHeaderGroupParser {
             }
 
             @Override
-            public void setFieldModels(List<HeaderModel> fieldModels) {
-                headerGroup.setHeaders(fieldModels);
-            }
-
-            @Override
-            public void parseEnd(List<HeaderModel> fieldModels) {
+            public void parseEnd() {
             }
         }).start();
     }

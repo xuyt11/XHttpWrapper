@@ -3,6 +3,7 @@ package cn.ytxu.xhttp_wrapper.model.request.header;
 import cn.ytxu.xhttp_wrapper.model.BaseModel;
 import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -26,7 +27,10 @@ public class HeaderGroupModel extends BaseModel<RequestModel> {
         return headers;
     }
 
-    public void setHeaders(List<HeaderModel> headers) {
-        this.headers = headers;
+    public void addHeader(HeaderModel header) {
+        if (headers == Collections.EMPTY_LIST) {
+            headers = new ArrayList<>(10);
+        }
+        headers.add(header);
     }
 }

@@ -9,5 +9,6 @@ public class ResponseFieldModel extends FieldModel<ResponseFieldGroupModel> {
 
     public ResponseFieldModel(ResponseFieldGroupModel higherLevel) {
         super(higherLevel);
+        higherLevel.addField(this);
     }
 }

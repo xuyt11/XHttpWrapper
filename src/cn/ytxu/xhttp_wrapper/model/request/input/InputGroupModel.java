@@ -3,6 +3,7 @@ package cn.ytxu.xhttp_wrapper.model.request.input;
 import cn.ytxu.xhttp_wrapper.model.BaseModel;
 import cn.ytxu.xhttp_wrapper.model.request.RequestModel;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -26,7 +27,10 @@ public class InputGroupModel extends BaseModel<RequestModel> {
         return inputs;
     }
 
-    public void setInputs(List<InputModel> inputs) {
-        this.inputs = inputs;
+    public void addInput(InputModel input) {
+        if (inputs == Collections.EMPTY_LIST) {
+            inputs = new ArrayList<>(10);
+        }
+        inputs.add(input);
     }
 }

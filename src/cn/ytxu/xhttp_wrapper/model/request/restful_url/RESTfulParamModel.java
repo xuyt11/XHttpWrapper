@@ -21,6 +21,7 @@ public class RESTfulParamModel extends BaseModel<RESTfulUrlModel> {
         this.paramIndex = paramIndex;
         this.start = start;
         this.end = end;
+        higherLevel.addParam(this);
     }
 
     public String getParam() {
