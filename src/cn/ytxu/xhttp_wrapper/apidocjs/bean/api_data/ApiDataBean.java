@@ -4,6 +4,7 @@ import cn.ytxu.xhttp_wrapper.apidocjs.bean.field_container.FieldContainerBean;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.other.PermissionBean;
 import cn.ytxu.xhttp_wrapper.apidocjs.bean.other.SampleRequestBean;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -48,24 +49,24 @@ public class ApiDataBean {
      */
     private String group;
 
-    private List<PermissionBean> permission;
+    private List<PermissionBean> permission = Collections.EMPTY_LIST;
     /**
      * request input param data
      */
-    private FieldContainerBean parameter;
+    private FieldContainerBean parameter = FieldContainerBean.EMPTY;
     /**
      * response success data
      */
-    private FieldContainerBean success;
+    private FieldContainerBean success = FieldContainerBean.EMPTY;
     /**
      * response error data
      */
-    private FieldContainerBean error;
+    private FieldContainerBean error = FieldContainerBean.EMPTY;
     /**
      * request header data
      */
-    private FieldContainerBean header;
-    private List<SampleRequestBean> sampleRequest;
+    private FieldContainerBean header = FieldContainerBean.EMPTY;
+    private List<SampleRequestBean> sampleRequest = Collections.EMPTY_LIST;
     /**
      * request desc
      * 接口描述，支持html语法，且在两侧会有<p></p>标签

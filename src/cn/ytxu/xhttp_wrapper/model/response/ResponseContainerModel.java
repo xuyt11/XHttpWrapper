@@ -18,6 +18,7 @@ public class ResponseContainerModel extends BaseModel<RequestModel> {
 
     public ResponseContainerModel(RequestModel higherLevel) {
         super(higherLevel);
+        higherLevel.setResponseContainer(this);
     }
 
     public List<ResponseFieldGroupModel> getSuccessFieldGroups() {

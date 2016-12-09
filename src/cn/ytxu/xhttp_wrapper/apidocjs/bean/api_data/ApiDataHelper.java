@@ -47,7 +47,7 @@ public class ApiDataHelper {
     }
 
     public ApiDataBean getApiData(StatusCodeGroupModel statusCodeGroup) {
-        return requestCache.get(statusCodeGroup);
+        return statusCodeGroupCache.get(statusCodeGroup);
     }
 
 

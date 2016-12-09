@@ -10,9 +10,10 @@ import java.util.Map;
 /**
  * request:header,parameter
  * response:success,error
- *
  */
 public class FieldContainerBean {
+    public static final FieldContainerBean EMPTY = new FieldContainerBean();
+
     /**
      * 在request与response中的field
      * k:field group name

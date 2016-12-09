@@ -22,9 +22,8 @@ public class ResponseSErrorParser {
         this.version = version;
         this.errorOutputName = ConfigWrapper.getResponse().getError();
         this.responses = new ArrayList<>(200);
-        version.getRequestGroups().stream().map(requestGroup ->
-                requestGroup.getRequests()).forEach(requests ->
-                requests.forEach(request -> {
+        version.getRequestGroups().stream().map(requestGroup -> requestGroup.getRequests())
+                .forEach(requests -> requests.forEach(request -> {
                     responses.addAll(request.getResponseContainer().getErrorResponses());
                     responses.addAll(request.getResponseContainer().getSuccessResponses());
                 }));
