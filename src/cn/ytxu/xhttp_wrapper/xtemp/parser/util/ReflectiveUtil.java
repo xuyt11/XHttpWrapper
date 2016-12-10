@@ -5,6 +5,7 @@ import cn.ytxu.xhttp_wrapper.model.BaseModel;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by ytxu on 2016/7/24.
@@ -13,16 +14,29 @@ import java.util.List;
 public class ReflectiveUtil {
 
     public static Object invokeMethod(Object reflectObj, String methodName, String printTag) {
-        Class clazz = reflectObj.getClass();
+        Method method = null;
         try {
-            Method method = clazz.getDeclaredMethod(methodName);
-            return method.invoke(reflectObj);
+            Class clazz = reflectObj.getClass();
+            method = clazz.getDeclaredMethod(methodName);
         } catch (NoSuchMethodException ignore) {
-            Object reflectSuper = invokeMethodFromSuper(reflectObj, methodName, printTag);
-            if (reflectSuper != null) return reflectSuper;
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
+            try {
+                Class superClazz = reflectObj.getClass().getSuperclass();// 父类
+                method = superClazz.getDeclaredMethod(methodName);
+            } catch (NoSuchMethodException ignoreSuper) {
+                Object reflectSuper = invokeMethodFromSuper(reflectObj, methodName, printTag);
+                if (Objects.nonNull(reflectSuper)) {
+                    return reflectSuper;
+                }
+            }
+        }
+
+        try {
+            if (Objects.nonNull(method)) {
+                return method.invoke(reflectObj);
+            }
         } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
         throw new IllegalArgumentException(printTag + ", do not find this method :" + methodName);
