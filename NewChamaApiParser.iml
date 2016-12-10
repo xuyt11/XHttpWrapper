@@ -15,10 +15,11 @@
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="inheritedJdk" />
-    <orderEntry type="library" name="org.jsoup:jsoup:1.9.1" level="project" />
-    <orderEntry type="library" name="io.reactivex:rxjava:1.1.5" level="project" />
     <orderEntry type="library" name="com.alibaba:fastjson:1.2.11" level="project" />
     <orderEntry type="library" name="libs" level="project" />
     <orderEntry type="library" name="junit:junit:4.10" level="project" />
+    <orderEntry type="library" name="com.google.code.gson:gson:2.8.0" level="project" />
+    <orderEntry type="library" name="org.jsoup:jsoup:1.10.1" level="project" />
+    <orderEntry type="library" name="io.reactivex:rxjava:1.2.3" level="project" />
   </component>
 </module>
