@@ -16,7 +16,7 @@ public class RetainParser {
     static final String CategoryImportTag = "//** ytxu.import */";
     static final String CategoryFieldTag = "//** ytxu.field */";
     static final String CategoryMethodTag = "//** ytxu.method */";
-    static final String CategoryOtherTag = "//** ytxu.enums */";
+    static final String CategoryOtherTag = "//** ytxu.other */";
 
     /**
      * 1、先要判断目标文件是否存在；<br>
