@@ -41,9 +41,14 @@ public class ${section_class_name} extends BaseApi {
 
 <foreach each="requests">
 	/**
-	 * ${request_desc}
 	 * @version ${request_version}
 	 * @requestUrl ${request_url}
+	 <if isNotEmpty="request_title">
+	 * @title ${request_title}
+	 </if_end>
+	 <if isNotEmpty="request_desc">
+	 * @desc ${request_desc}
+	 </if_end>
 	 *
 	 <list each="headers">
 	 * @param ${header_name} ${header_desc}

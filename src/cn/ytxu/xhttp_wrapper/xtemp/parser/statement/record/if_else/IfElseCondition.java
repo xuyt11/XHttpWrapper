@@ -1,5 +1,8 @@
 package cn.ytxu.xhttp_wrapper.xtemp.parser.statement.record.if_else;
 
+import cn.ytxu.xhttp_wrapper.xtemp.parser.util.ReflectiveUtil;
+
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -7,8 +10,38 @@ import java.util.regex.Pattern;
  * if else 表达式的判断类型枚举
  */
 public enum IfElseCondition {
-    Boolean("布尔类型判断", "isTrue=\"", "\"", Pattern.compile("(isTrue=\")\\w+(\")"));
+    // boolean
+    Boolean("布尔类型判断", "isTrue=\"", "\"", Pattern.compile("(isTrue=\")\\w+(\")")) {
+        @Override
+        public boolean getBoolean(Object reflectModel, String methodName) {
+            return ReflectiveUtil.getBoolean(reflectModel, methodName);
+        }
+    },
+    // String
+    NotEmpty("String类型判断", "isNotEmpty=\"", "\"", Pattern.compile("(isNotEmpty=\")\\w+(\")")) {
+        @Override
+        public boolean getBoolean(Object reflectModel, String methodName) {
+            String text = ReflectiveUtil.getString(reflectModel, methodName);
+            if (Objects.isNull(text) || text.trim().isEmpty()) {
+                return false;
+            }
+            return true;
+        }
+    };
 //        String("字符串类型判断");
+
+    /**
+     * if else condition all pattern
+     */
+    public static final Pattern[] PATTERNS;
+
+    static {
+        IfElseCondition[] conditions = IfElseCondition.values();
+        PATTERNS = new Pattern[conditions.length];
+        for (int i = 0; i < conditions.length; i++) {
+            PATTERNS[i] = conditions[i].pattern;
+        }
+    }
 
     private final String tag;
     private final String pattern_front;
@@ -21,6 +54,7 @@ public enum IfElseCondition {
         this.pattern_end = pattern_end;
         this.pattern = pattern;
     }
+
 
     public String getMethodName(String startTagContent) {
         Matcher matcher = pattern.matcher(startTagContent);
@@ -49,4 +83,7 @@ public enum IfElseCondition {
         Matcher matcher = pattern.matcher(startTagContent);
         return matcher.find();
     }
+
+    public abstract boolean getBoolean(Object reflectModel, String methodName);
+
 }

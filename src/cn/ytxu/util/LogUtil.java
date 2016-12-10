@@ -7,7 +7,7 @@ public class LogUtil {
     private static final int w = 1;
     private static final int e = 2;
 
-    private static final int level = i;
+    private static final int level = printAll;
 
 	public static void i(String tag, String message) {
 		System.out.println(tag + ":" + message);

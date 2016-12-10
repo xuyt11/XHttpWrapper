@@ -1,6 +1,5 @@
 package cn.ytxu.xhttp_wrapper.xtemp.parser.statement.record.if_else;
 
-import cn.ytxu.xhttp_wrapper.xtemp.parser.util.ReflectiveUtil;
 import cn.ytxu.xhttp_wrapper.xtemp.parser.statement.record.retain.RetainModel;
 import cn.ytxu.xhttp_wrapper.xtemp.parser.statement.Statement;
 import cn.ytxu.xhttp_wrapper.xtemp.parser.statement.StatementRecord;
@@ -20,6 +19,7 @@ public class IfElseStatementRecord extends StatementRecord {
     private List<StatementRecord> ifRecords;
     private List<StatementRecord> elseRecords;
 
+    private IfElseCondition ifElseCondition;
     private String methodName;
 
     public IfElseStatementRecord(Statement statement, String startTagContent, List<String> contents) {
@@ -78,7 +78,8 @@ public class IfElseStatementRecord extends StatementRecord {
 
     @Override
     public void parse() {
-        methodName = IfElseCondition.get(startTagContent).getMethodName(startTagContent);
+        ifElseCondition = IfElseCondition.get(startTagContent);
+        methodName = ifElseCondition.getMethodName(startTagContent);
         parseSubs();
     }
 
@@ -95,7 +96,7 @@ public class IfElseStatementRecord extends StatementRecord {
 
     @Override
     public StringBuffer getWriteBuffer(Object reflectModel, RetainModel retain) {
-        boolean isTrue = ReflectiveUtil.getBoolean(reflectModel, methodName);
+        boolean isTrue = ifElseCondition.getBoolean(reflectModel, methodName);
         return getWriteBuffer(reflectModel, retain, isTrue ? ifRecords : elseRecords);
     }
 

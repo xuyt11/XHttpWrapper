@@ -146,6 +146,10 @@ public class RequestModel extends BaseModel<RequestGroupModel> {
         return description;
     }
 
+    public String request_title() {
+        return title;
+    }
+
     public String request_name() {
         return name;
     }
