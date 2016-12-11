@@ -82,15 +82,22 @@ public class FilterWrapper {// 需要输出的版本号列表
             FilterVersionBean filterVersionBean;
             try {
                 filterVersionBean = findOutputVersionByVersionModel(version);
+                requestGroups.addAll(getRequestGroupsAfterFilted(version, filterVersionBean));
+            } catch (NotNeedFilterOutputVersionException ignore) {
+                requestGroups.addAll(version.getRequestGroups());
+                continue;
             } catch (NotFoundOutputVersionException ignore) {
                 continue;
             }
-            requestGroups.addAll(getRequestGroupsAfterFilted(version, filterVersionBean));
         }
         return requestGroups;
     }
 
     private FilterVersionBean findOutputVersionByVersionModel(VersionModel version) {
+        if (!filter.isUseOutputVersions()) {
+            throw new NotNeedFilterOutputVersionException();
+        }
+
         final String targetVersionName = version.getName();
         for (FilterVersionBean outputVersion : filter.getOutputVersions()) {
             if (isOutputVersionByVersionName(targetVersionName, outputVersion)) {
@@ -98,6 +105,9 @@ public class FilterWrapper {// 需要输出的版本号列表
             }
         }
         throw new NotFoundOutputVersionException();
+    }
+
+    private static class NotNeedFilterOutputVersionException extends RuntimeException {
     }
 
     private boolean isOutputVersionByVersionName(String targetVersionName, FilterVersionBean output_version) {
