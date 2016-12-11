@@ -5,7 +5,6 @@ import cn.ytxu.xhttp_wrapper.model.BaseModel;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Created by ytxu on 2016/7/24.
@@ -14,26 +13,23 @@ import java.util.Objects;
 public class ReflectiveUtil {
 
     public static Object invokeMethod(Object reflectObj, String methodName, String printTag) {
-        Method method = null;
-        try {
-            Class clazz = reflectObj.getClass();
-            method = clazz.getDeclaredMethod(methodName);
-        } catch (NoSuchMethodException ignore) {
+        Object realReflectObj = reflectObj;
+        Method method;
+        do {
             try {
-                Class superClazz = reflectObj.getClass().getSuperclass();// 父类
-                method = superClazz.getDeclaredMethod(methodName);
-            } catch (NoSuchMethodException ignoreSuper) {
-                Object reflectSuper = invokeMethodFromSuper(reflectObj, methodName, printTag);
-                if (Objects.nonNull(reflectSuper)) {
-                    return reflectSuper;
+                method = getMethod4CurrReflectiveObject(realReflectObj, methodName);
+                break;
+            } catch (NoSuchMethodException ignore) {
+                try {
+                    realReflectObj = getHigherLevelReflectObject(realReflectObj);
+                } catch (NotCallThisMethodException e) {
+                    throw new RuntimeException("error : the data tree can not call this " + methodName + " method, and return a blank string...");
                 }
             }
-        }
+        } while (true);
 
         try {
-            if (Objects.nonNull(method)) {
-                return method.invoke(reflectObj);
-            }
+            return method.invoke(realReflectObj);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
@@ -42,21 +38,39 @@ public class ReflectiveUtil {
         throw new IllegalArgumentException(printTag + ", do not find this method :" + methodName);
     }
 
-    private static Object invokeMethodFromSuper(Object reflectObj, String methodName, String printTag) {
+    private static Method getMethod4CurrReflectiveObject(Object reflectObj, String methodName) throws NoSuchMethodException {
+        try {
+            Class clazz = reflectObj.getClass();
+            return clazz.getDeclaredMethod(methodName);
+        } catch (NoSuchMethodException ignore) {
+            try {
+                Class superClazz = reflectObj.getClass().getSuperclass();// 父类
+                return superClazz.getDeclaredMethod(methodName);
+            } catch (NoSuchMethodException e) {
+                throw new NoSuchMethodException(e.getMessage());
+            }
+        }
+    }
+
+    private static Object getHigherLevelReflectObject(Object reflectObj) throws NotCallThisMethodException {
         if (!(reflectObj instanceof BaseModel)) {
             throw new IllegalArgumentException(reflectObj.getClass().toString() + " is not extends BaseModel, you need extends it...");
         }
 
         // 是数据树中的对象，则调用父对象的方法
-        Object reflectSuper = ((BaseModel) reflectObj).getHigherLevel();
-        if (reflectSuper == null) {// reflectObj is DocModel, so it have not super base model
-            System.out.println("error : the data tree can not call this " + methodName + " method, and return a blank string...");
-            return null;
+        Object higherLevel = ((BaseModel) reflectObj).getHigherLevel();
+        if (higherLevel == null) {// reflectObj is VersionModel, so it have not super base model
+            throw new NotCallThisMethodException();
         }
 
-        return invokeMethod(reflectSuper, methodName, printTag);
+        return higherLevel;
     }
 
+    private static final class NotCallThisMethodException extends IllegalArgumentException {
+    }
+
+
+    //*********************** reflect sub type ***********************
     public static String getString(Object reflectObj, String methodName) {
         return (String) invokeMethod(reflectObj, methodName, reflectObj.getClass().getSimpleName());
     }

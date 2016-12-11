@@ -15,8 +15,7 @@ import java.util.List;
 
 <if isTrue="isResponseRootEntity">
 /**
- * ${request_desc}
- *
+ * @title ${request_title}
  * @version ${request_version}
  * @requestUrl ${request_url}
  */
