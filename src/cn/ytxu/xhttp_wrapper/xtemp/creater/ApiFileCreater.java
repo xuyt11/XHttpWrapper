@@ -11,6 +11,7 @@ import cn.ytxu.xhttp_wrapper.xtemp.parser.XTempModel;
 import cn.ytxu.xhttp_wrapper.xtemp.parser.XTempUtil;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -90,8 +91,18 @@ public class ApiFileCreater {
     }
 
     private void createBaseResponse() {
+        // it`s multi version, but use the single base response
+        List<OutputParamModel> subsOfErrors = new ArrayList<>(20);
+        for (VersionModel version : versions) {
+            subsOfErrors.addAll(version.getSubsOfErrors());
+        }
+        subsOfErrors = new ArrayList<>(new HashSet(subsOfErrors));// deduplicated
+
+        VersionModel subsOfErrorsSVersion = new VersionModel("subs of errors`s version");
+        subsOfErrorsSVersion.setSubsOfErrors(subsOfErrors);
+
         XTempModel model = new XTempUtil(Suffix.BaseResponse, xTempPrefixName).start();
-        BaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, versions.get(0));
+        BaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, subsOfErrorsSVersion);
     }
 
 }
