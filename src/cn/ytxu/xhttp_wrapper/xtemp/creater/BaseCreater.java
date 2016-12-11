@@ -2,7 +2,7 @@ package cn.ytxu.xhttp_wrapper.xtemp.creater;
 
 import cn.ytxu.xhttp_wrapper.xtemp.parser.statement.record.retain.RetainModel;
 import cn.ytxu.xhttp_wrapper.xtemp.parser.statement.record.retain.RetainParser;
-import cn.ytxu.xhttp_wrapper.xtemp.parser.XTempModel;
+import cn.ytxu.xhttp_wrapper.xtemp.parser.model.XTempModel;
 import cn.ytxu.xhttp_wrapper.xtemp.parser.statement.StatementRecord;
 import cn.ytxu.xhttp_wrapper.xtemp.parser.statement.record.TextStatementRecord;
 import cn.ytxu.util.FileUtil;

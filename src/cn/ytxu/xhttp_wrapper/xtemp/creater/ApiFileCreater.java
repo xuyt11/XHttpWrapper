@@ -7,7 +7,7 @@ import cn.ytxu.xhttp_wrapper.model.version.VersionModel;
 import cn.ytxu.xhttp_wrapper.model.response.OutputParamModel;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseModel;
 import cn.ytxu.xhttp_wrapper.model.status_code.StatusCodeGroupModel;
-import cn.ytxu.xhttp_wrapper.xtemp.parser.XTempModel;
+import cn.ytxu.xhttp_wrapper.xtemp.parser.model.XTempModel;
 import cn.ytxu.xhttp_wrapper.xtemp.parser.XTempUtil;
 
 import java.util.ArrayList;

@@ -1,6 +1,7 @@
 package cn.ytxu.xhttp_wrapper.xtemp.parser;
 
 import cn.ytxu.xhttp_wrapper.config.Suffix;
+import cn.ytxu.xhttp_wrapper.xtemp.parser.model.XTempModel;
 import cn.ytxu.xhttp_wrapper.xtemp.parser.statement.StatementRecord;
 
 import java.io.*;

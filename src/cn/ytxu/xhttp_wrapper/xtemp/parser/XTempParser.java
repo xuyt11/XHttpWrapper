@@ -1,11 +1,9 @@
 package cn.ytxu.xhttp_wrapper.xtemp.parser;
 
-import cn.ytxu.xhttp_wrapper.xtemp.parser.util.XmlParseUtil;
-import org.xmlpull.v1.XmlPullParser;
+import cn.ytxu.xhttp_wrapper.xtemp.parser.model.XTempFileModel;
+import cn.ytxu.xhttp_wrapper.xtemp.parser.model.XTempModel;
+import com.alibaba.fastjson.JSON;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -14,68 +12,50 @@ import java.util.List;
  * contents 进入之后,会抽离其中的header部分,剩下temp文件的内容，最后返回XTempModel
  */
 public class XTempParser {
-    private static final String HeaderStartTag = "<header>";
-    private static final String HeaderEndTag = "</header>";
-    private static final String FirstLine = HeaderStartTag;
 
-    private List<String> contents;
-    private XTempModel model = new XTempModel();
+    private final List<String> contents;
+    private final XTempModel model = new XTempModel();
 
     public XTempParser(List<String> contents) {
         this.contents = contents;
     }
 
     public XTempModel start() {
-        if (!FirstLine.equals(contents.get(0).trim())) {
-            throw new IllegalStateException("the first line must header tag");
-        }
+        judgeFirstLine();
 
         StringBuilder headerBuilder = getHeaderAndRemoveItInContent();
+        XTempFileModel xTempFile = JSON.parseObject(headerBuilder.toString(), XTempFileModel.class);
+        model.setFile(xTempFile);
+
         model.setContents(contents);
-        getHeader(headerBuilder);
         return model;
     }
 
-    private StringBuilder getHeaderAndRemoveItInContent() {
-        StringBuilder headerBuilder = new StringBuilder();
-        Iterator<String> iterator = contents.iterator();
-
-        while (iterator.hasNext()) {
-            String content = iterator.next();
-            headerBuilder.append(content);
-            iterator.remove();
-
-            if (HeaderEndTag.equals(content)) {
-                break;
-            }
+    private void judgeFirstLine() {
+        if (!XTempModel.HeaderStartTag.equals(contents.get(0).trim())) {
+            throw new TheFirstLineMustBeHeaderStartTagLineException();
         }
-        return headerBuilder;
     }
 
-    private void getHeader(StringBuilder headerBuilder) {
-        InputStream xml = new ByteArrayInputStream(headerBuilder.toString().getBytes());
-        new XmlParseUtil(xml, new XmlParseUtil.Callback() {
-            @Override
-            public void startDocument(XmlPullParser pullParser, String nodeName) {
+    private static final class TheFirstLineMustBeHeaderStartTagLineException extends RuntimeException {
+    }
+
+    private StringBuilder getHeaderAndRemoveItInContent() {
+        contents.remove(0);
+        StringBuilder headerBuilder = new StringBuilder();
+        Iterator<String> iterator = contents.iterator();
+        while (iterator.hasNext()) {
+            String content = iterator.next();
+
+            if (XTempModel.HeaderEndTag.equals(content.trim())) {
+                iterator.remove();
+                break;
             }
 
-            @Override
-            public void startTag(XmlPullParser pullParser, String nodeName) {
-                if ("fileDir".equals(nodeName)) {
-                    model.setFileDirs(new ArrayList<>());
-                } else if ("value".equals(nodeName)) {
-                    String osName = pullParser.getAttributeValue(null, "osName");
-                    String value = pullParser.getAttributeValue(null, "val");
-                    model.addFileDir(new XTempModel.FileDir(osName, value));
-                } else if ("fileName".equals(nodeName)) {
-                    model.setFileName(pullParser.getAttributeValue(null, "val"));
-                }
-            }
-
-            @Override
-            public void endTag(XmlPullParser pullParser, String nodeName) {
-            }
-        }).start();
+            headerBuilder.append(content);
+            iterator.remove();
+        }
+        return headerBuilder;
     }
 
 }

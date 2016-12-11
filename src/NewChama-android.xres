@@ -1,10 +1,17 @@
 <header>
-    <fileDir>
-        <value osName="Windows" val="I:/NewChamaStudio/newchama_android/NewChama/newchama.model/src/main/java/com/newchama/api/V${version_code}/entity/${section_newchama}/" />
-        <value osName="Mac OS X" val="/Users/newchama/Documents/ytxu/newchama_android2/NewChama/newchama.model/src/main/java/com/newchama/api/V${version_code}/entity/${section_newchama}/" />
-    </fileDir>
-
-    <fileName val="${entity_class_name}.java" />
+{
+    "fileName":"${entity_class_name}.java",
+    "fileDirs":[
+        {
+            "osName":"Windows",
+            "path":"I:/NewChamaStudio/newchama_android/NewChama/newchama.model/src/main/java/com/newchama/api/V${version_code}/entity/${section_newchama}/"
+        },
+        {
+            "osName":"Mac OS X",
+            "path":"/Users/newchama/Documents/ytxu/newchama_android2/NewChama/newchama.model/src/main/java/com/newchama/api/V${version_code}/entity/${section_newchama}/"
+        }
+    ]
+}
 </header>
 package com.newchama.api.V${version_code}.entity.${section_newchama};
 
