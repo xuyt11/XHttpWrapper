@@ -17,55 +17,48 @@ public class RetainModel {
     //** ytxu.retain-start *//** ytxu.other */
     //** ytxu.retain-end */
 
-    private StringBuffer importSb;// 需要保留的import语句
-    private StringBuffer fieldSb;// 需要保留的所有字段
-    private StringBuffer methodSb;// 需要保留的所有方法
-    private StringBuffer otherSb;// 需要保留的其他东东
+    private StringBuffer importRetainContent = new StringBuffer();// 需要保留的import语句
+    private StringBuffer fieldRetainContent = new StringBuffer();// 需要保留的所有字段
+    private StringBuffer methodRetainContent = new StringBuffer();// 需要保留的所有方法
+    private StringBuffer otherRetainContent = new StringBuffer();// 需要保留的其他东东
 
     public static RetainModel EmptyRetain = new RetainModel();
-
-    static {
-        EmptyRetain.importSb = RetainParser.getData(RetainParser.CategoryImportTag, null);
-        EmptyRetain.fieldSb = RetainParser.getData(RetainParser.CategoryFieldTag, null);
-        EmptyRetain.methodSb = RetainParser.getData(RetainParser.CategoryMethodTag, null);
-        EmptyRetain.otherSb = RetainParser.getData(RetainParser.CategoryOtherTag, null);
-    }
 
     RetainModel() {
         super();
     }
 
-    void setImportSb(StringBuffer importSb) {
-        this.importSb = importSb;
+    public void appendImport(StringBuffer retainContent) {
+        this.importRetainContent.append(retainContent);
     }
 
-    void setFieldSb(StringBuffer fieldSb) {
-        this.fieldSb = fieldSb;
+    public void appendField(StringBuffer retainContent) {
+        this.fieldRetainContent.append(retainContent);
     }
 
-    void setMethodSb(StringBuffer methodSb) {
-        this.methodSb = methodSb;
+    public void appendMethod(StringBuffer retainContent) {
+        this.methodRetainContent.append(retainContent);
     }
 
-    void setOtherSb(StringBuffer otherSb) {
-        this.otherSb = otherSb;
+    public void appendOther(StringBuffer retainContent) {
+        this.otherRetainContent.append(retainContent);
     }
 
     //********************* getter *********************
-    public StringBuffer getImportData() {
-        return importSb;
+    public StringBuffer getImportRetainContent() {
+        return importRetainContent;
     }
 
-    public StringBuffer getFieldData() {
-        return fieldSb;
+    public StringBuffer getFieldRetainContent() {
+        return fieldRetainContent;
     }
 
-    public StringBuffer getMethodData() {
-        return methodSb;
+    public StringBuffer getMethodRetainContent() {
+        return methodRetainContent;
     }
 
-    public StringBuffer getOtherData() {
-        return otherSb;
+    public StringBuffer getOtherRetainContent() {
+        return otherRetainContent;
     }
 
 }

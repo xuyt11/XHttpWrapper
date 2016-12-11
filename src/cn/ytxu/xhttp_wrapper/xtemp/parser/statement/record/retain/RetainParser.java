@@ -1,6 +1,7 @@
 package cn.ytxu.xhttp_wrapper.xtemp.parser.statement.record.retain;
 
 import cn.ytxu.util.LogUtil;
+import cn.ytxu.xhttp_wrapper.common.enums.RetainType;
 
 import java.io.*;
 
@@ -11,12 +12,6 @@ import java.io.*;
  * version v6
  */
 public class RetainParser {
-    private static final String StartTag = "//** ytxu.retain-start */";
-    private static final String EndTag = "//** ytxu.retain-end */";
-    static final String CategoryImportTag = "//** ytxu.import */";
-    static final String CategoryFieldTag = "//** ytxu.field */";
-    static final String CategoryMethodTag = "//** ytxu.method */";
-    static final String CategoryOtherTag = "//** ytxu.other */";
 
     /**
      * 1、先要判断目标文件是否存在；<br>
@@ -53,34 +48,18 @@ public class RetainParser {
     }
 
     private static RetainModel parserReaderAndGetRetain(BufferedReader reader) throws IOException {
-        StringBuffer importSb = new StringBuffer();
-        StringBuffer fieldSb = new StringBuffer();
-        StringBuffer methodSb = new StringBuffer();
-        StringBuffer otherSb = new StringBuffer();
-
+        RetainModel retain = new RetainModel();
         String strLine;
         while (null != (strLine = reader.readLine())) {
-            if (!strLine.contains(StartTag)) {
+            if (!strLine.contains(RetainType.StartTag)) {
                 continue;
             }
 
-            StringBuffer retain = getRetainData(reader);
-            if (strLine.contains(CategoryImportTag)) {
-                importSb.append(getData(CategoryImportTag, retain));
-            } else if (strLine.contains(CategoryFieldTag)) {
-                fieldSb.append(getData(CategoryFieldTag, retain));
-            } else if (strLine.contains(CategoryMethodTag)) {
-                methodSb.append(getData(CategoryMethodTag, retain));
-            } else {// contains enums tag or not, but it is all enums category retain data
-                otherSb.append(getData(CategoryOtherTag, retain));
-            }
+            RetainType retainType = RetainType.getByTag(strLine);
+            StringBuffer retainContent = getRetainData(reader);
+            retainType.appendRetainContent(retain, retainContent);
         }
 
-        RetainModel retain = new RetainModel();
-        retain.setImportSb(importSb);
-        retain.setFieldSb(fieldSb);
-        retain.setMethodSb(methodSb);
-        retain.setOtherSb(otherSb);
         return retain;
     }
 
@@ -89,7 +68,7 @@ public class RetainParser {
         String strLine;
         try {
             while (null != (strLine = reader.readLine())) {
-                if (strLine.contains(EndTag)) {
+                if (strLine.contains(RetainType.EndTag)) {
                     break;
                 }
                 sb.append(strLine).append("\n");
@@ -98,19 +77,6 @@ public class RetainParser {
             e.printStackTrace();
         }
         return sb;
-    }
-
-    static StringBuffer getData(String categoryTag, StringBuffer input) {
-        StringBuffer rtn = new StringBuffer();
-        // retain start tag
-        rtn.append(StartTag).append(categoryTag).append("\n");
-        // retain data
-        if (null != input && input.length() > 0) {
-            rtn.append(input);
-        }
-        // retain end tag
-        rtn.append(EndTag).append("\n");
-        return rtn;
     }
 
 }

@@ -40,7 +40,7 @@ public class RetainStatementRecord extends StatementRecord {
 
     @Override
     public StringBuffer getWriteBuffer(Object reflectModel, RetainModel retain) {
-        return type.getRetainContent(retain);
+        return type.getFormatRetainContent(retain);
     }
 
 }

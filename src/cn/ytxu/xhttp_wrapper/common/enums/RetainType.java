@@ -8,38 +8,81 @@ import cn.ytxu.xhttp_wrapper.xtemp.parser.statement.record.retain.RetainModel;
  * 而在其他地方的改动，都会被清除
  */
 public enum RetainType {
-    Import("import") {
+    Import("import", "//** ytxu.import */") {
         @Override
-        public StringBuffer getRetainContent(RetainModel retain) {
-            return retain.getImportData();
+        protected StringBuffer getRetainContent(RetainModel retain) {
+            return retain.getImportRetainContent();
+        }
+
+        @Override
+        public void appendRetainContent(RetainModel retain, StringBuffer retainContent) {
+            retain.appendImport(retainContent);
         }
     },
-    Field("field") {
+    Field("field", "//** ytxu.field */") {
         @Override
-        public StringBuffer getRetainContent(RetainModel retain) {
-            return retain.getFieldData();
+        protected StringBuffer getRetainContent(RetainModel retain) {
+            return retain.getFieldRetainContent();
+        }
+
+        @Override
+        public void appendRetainContent(RetainModel retain, StringBuffer retainContent) {
+            retain.appendField(retainContent);
         }
     },
-    Method("method") {
+    Method("method", "//** ytxu.method */") {
         @Override
-        public StringBuffer getRetainContent(RetainModel retain) {
-            return retain.getMethodData();
+        protected StringBuffer getRetainContent(RetainModel retain) {
+            return retain.getMethodRetainContent();
+        }
+
+        @Override
+        public void appendRetainContent(RetainModel retain, StringBuffer retainContent) {
+            retain.appendMethod(retainContent);
         }
     },
-    Other("other") {
+    Other("other", "//** ytxu.other */") {
         @Override
-        public StringBuffer getRetainContent(RetainModel retain) {
-            return retain.getOtherData();
+        protected StringBuffer getRetainContent(RetainModel retain) {
+            return retain.getOtherRetainContent();
+        }
+
+        @Override
+        public void appendRetainContent(RetainModel retain, StringBuffer retainContent) {
+            retain.appendOther(retainContent);
         }
     };
 
     private final String name;
+    private final String tag;
 
-    RetainType(String name) {
+    public static final String StartTag = "//** ytxu.retain-start */";
+    public static final String EndTag = "//** ytxu.retain-end */";
+
+    RetainType(String name, String tag) {
         this.name = name;
+        this.tag = tag;
     }
 
-    public abstract StringBuffer getRetainContent(RetainModel retain);
+    public String getTag() {
+        return tag;
+    }
+
+    public StringBuffer getFormatRetainContent(RetainModel retain) {
+        StringBuffer formatRetainContent = new StringBuffer();
+        // retain start tag
+        formatRetainContent.append(StartTag).append(tag).append("\n");
+        // retain data
+        formatRetainContent.append(getRetainContent(retain));
+        // retain end tag
+        formatRetainContent.append(EndTag).append("\n");
+        return formatRetainContent;
+    }
+
+    protected abstract StringBuffer getRetainContent(RetainModel retain);
+
+    public abstract void appendRetainContent(RetainModel retain, StringBuffer retainContent);
+
 
     public static RetainType get(String retainTypeName) {
         for (RetainType type : RetainType.values()) {
@@ -49,4 +92,15 @@ public enum RetainType {
         }
         throw new IllegalStateException("i do not defind this retain type, the error type name is " + retainTypeName);
     }
+
+    public static RetainType getByTag(String lineText) {
+        for (RetainType type : RetainType.values()) {
+            if (lineText.contains(type.tag)) {
+                return type;
+            }
+        }
+        // contains enums tag or not, but it is all enums category retain data
+        return Other;
+    }
+
 }
