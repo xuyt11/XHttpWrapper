@@ -38,7 +38,7 @@ public class XCustomModelStatusCodeParser {
         int separatorIndex = getSeparatorIndex(description);
 
         String statusCodeDesc = getStatusCodeDesc(description, separatorIndex);
-        String statusCodeNumber = getStatusCodeNumber(description, separatorIndex);
+        int statusCodeNumber = getStatusCodeNumber(description, separatorIndex);
 
         return ApidocjsHelper.getField().createStatusCode(statusCodeGroup, statusCodeGroupName, statusCodeName, statusCodeNumber, statusCodeDesc);
     }
@@ -55,24 +55,24 @@ public class XCustomModelStatusCodeParser {
         return description.substring(separatorIndex + 1).trim();
     }
 
-    private String getStatusCodeNumber(String description, int separatorIndex) {
+    private int getStatusCodeNumber(String description, int separatorIndex) {
         String statusCodeNumberStr = description.substring(0, separatorIndex).trim();
-        if (isLongStr(statusCodeNumberStr)) {
-            return statusCodeNumberStr;
+        if (isIntegerStr(statusCodeNumberStr)) {
+            return Integer.valueOf(statusCodeNumberStr);
         }
 
         // 防止在状态码前面有其他字符串
         while (statusCodeNumberStr.length() > 1) {
             statusCodeNumberStr = statusCodeNumberStr.substring(1, statusCodeNumberStr.length());
-            if (isLongStr(statusCodeNumberStr)) {
-                return statusCodeNumberStr;
+            if (isIntegerStr(statusCodeNumberStr)) {
+                return Integer.valueOf(statusCodeNumberStr);
             }
         }
         throw new IllegalArgumentException("the status code string can not convert long type value\n"
                 + "and the field bean is " + field.toString());
     }
 
-    private boolean isLongStr(String content) {
+    private boolean isIntegerStr(String content) {
         try {
             Long.parseLong(content);
             return true;

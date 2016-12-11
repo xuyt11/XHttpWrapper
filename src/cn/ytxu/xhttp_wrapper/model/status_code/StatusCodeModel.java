@@ -5,13 +5,13 @@ import cn.ytxu.xhttp_wrapper.model.BaseModel;
 /**
  * Created by ytxu on 2016/8/30
  */
-public class StatusCodeModel extends BaseModel<StatusCodeGroupModel> {
+public class StatusCodeModel extends BaseModel<StatusCodeGroupModel> implements Comparable<StatusCodeModel> {
     private final String group;
     private final String name;
-    private final String number;
+    private final int number;
     private final String desc;
 
-    public StatusCodeModel(StatusCodeGroupModel higherLevel, String group, String name, String number, String desc) {
+    public StatusCodeModel(StatusCodeGroupModel higherLevel, String group, String name, int number, String desc) {
         super(higherLevel);
         higherLevel.addStatusCode(this);
         this.group = group;
@@ -28,12 +28,17 @@ public class StatusCodeModel extends BaseModel<StatusCodeGroupModel> {
         return name;
     }
 
-    public String getNumber() {
+    public int getNumber() {
         return number;
     }
 
     public String getDesc() {
         return desc;
+    }
+
+    @Override
+    public int compareTo(StatusCodeModel o) {
+        return this.number - o.number;
     }
 
 
@@ -43,10 +48,11 @@ public class StatusCodeModel extends BaseModel<StatusCodeGroupModel> {
     }
 
     public String status_code_number() {
-        return number;
+        return number + "";
     }
 
     public String status_code_desc() {
         return desc;
     }
+
 }

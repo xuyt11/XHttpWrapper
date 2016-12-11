@@ -24,7 +24,7 @@ public class FieldHelper {
     }
 
     public StatusCodeModel createStatusCode(StatusCodeGroupModel statusCodeGroup,
-                                            String group, String name, String number, String desc) {
+                                            String group, String name, int number, String desc) {
         return new StatusCodeModel(statusCodeGroup, group, name, number, desc);
     }
 }

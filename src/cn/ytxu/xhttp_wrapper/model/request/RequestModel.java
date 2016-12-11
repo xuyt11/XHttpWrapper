@@ -15,7 +15,7 @@ import java.util.*;
 /**
  * Created by ytxu on 2016/7/20.
  */
-public class RequestModel extends BaseModel<RequestGroupModel> {
+public class RequestModel extends BaseModel<RequestGroupModel> implements Comparable<RequestModel> {
     /**
      * 请求方法类型: request method string
      * 可以有多个，以空格分隔
@@ -138,6 +138,11 @@ public class RequestModel extends BaseModel<RequestGroupModel> {
 
     public void setResponseContainer(ResponseContainerModel responseContainer) {
         this.responseContainer = responseContainer;
+    }
+
+    @Override
+    public int compareTo(RequestModel o) {
+        return this.name.compareToIgnoreCase(o.name);
     }
 
 

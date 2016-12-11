@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by ytxu on 2016/12/04.
  */
-public class ResponseFieldGroupModel extends BaseModel<ResponseContainerModel> {
+public class ResponseFieldGroupModel extends BaseModel<ResponseContainerModel> implements Comparable<ResponseFieldGroupModel> {
     private final String name;
 
     private List<ResponseFieldModel> fields = Collections.EMPTY_LIST;
@@ -39,4 +39,8 @@ public class ResponseFieldGroupModel extends BaseModel<ResponseContainerModel> {
         fields.add(field);
     }
 
+    @Override
+    public int compareTo(ResponseFieldGroupModel o) {
+        return this.name.compareToIgnoreCase(o.name);
+    }
 }

@@ -14,7 +14,7 @@ import java.util.Objects;
 /**
  * Created by ytxu on 2016/8/17.
  */
-public class OutputParamModel extends BaseModel<ResponseModel> {
+public class OutputParamModel extends BaseModel<ResponseModel> implements Comparable<OutputParamModel> {
 
     private final OutputParamModel parent;
     private final OutputParamType type;
@@ -94,6 +94,11 @@ public class OutputParamModel extends BaseModel<ResponseModel> {
     }
 
     @Override
+    public int compareTo(OutputParamModel o) {
+        return this.fieldName.compareToIgnoreCase(o.fieldName);
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -103,7 +108,6 @@ public class OutputParamModel extends BaseModel<ResponseModel> {
         if (type != that.type) return false;
         if (subType != that.subType) return false;
         return fieldName != null ? fieldName.equals(that.fieldName) : that.fieldName == null;
-
     }
 
     @Override

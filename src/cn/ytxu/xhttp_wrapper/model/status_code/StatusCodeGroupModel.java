@@ -12,7 +12,7 @@ import java.util.List;
  * 状态码的分类model；
  * tip: 若status_code category分类是与request的Section分类名称一致，则可以用于分类筛选
  */
-public class StatusCodeGroupModel extends BaseModel<VersionModel> {
+public class StatusCodeGroupModel extends BaseModel<VersionModel> implements Comparable<StatusCodeGroupModel> {
     /**
      * request title
      * 接口名称 zh
@@ -65,10 +65,14 @@ public class StatusCodeGroupModel extends BaseModel<VersionModel> {
         this.statusCodes.add(statusCode);
     }
 
+    @Override
+    public int compareTo(StatusCodeGroupModel o) {
+        return this.name.compareToIgnoreCase(o.name);
+    }
+
 
     //*************** reflect method area ***************
     public List<StatusCodeModel> status_codes() {
         return statusCodes;
     }
-
 }

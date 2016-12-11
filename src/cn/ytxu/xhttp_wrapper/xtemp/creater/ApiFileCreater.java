@@ -33,9 +33,9 @@ public class ApiFileCreater {
     private void createTargetFile() {
         createHttpApi();
         createRequest();
-        createResponseEntity();
-        createStatusCode();
-        createBaseResponse();
+//        createResponseEntity();
+//        createStatusCode();
+//        createBaseResponse();
     }
 
     private void createHttpApi() {

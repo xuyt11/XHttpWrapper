@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/9/24.
  */
-public class HeaderGroupModel extends BaseModel<RequestModel> {
+public class HeaderGroupModel extends BaseModel<RequestModel> implements Comparable<HeaderGroupModel> {
     private final String name;
     private List<HeaderModel> headers = Collections.EMPTY_LIST;
 
@@ -32,5 +32,10 @@ public class HeaderGroupModel extends BaseModel<RequestModel> {
             headers = new ArrayList<>(10);
         }
         headers.add(header);
+    }
+
+    @Override
+    public int compareTo(HeaderGroupModel o) {
+        return this.name.compareToIgnoreCase(o.name);
     }
 }

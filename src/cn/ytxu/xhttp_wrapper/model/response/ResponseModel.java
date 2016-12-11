@@ -16,7 +16,7 @@ import java.util.List;
  * "content": "HTTP 200 OK\nContent-Type: application/json\nVary: Accept\nAllow: GET, PUT, PATCH, HEAD, OPTIONS\n{\n    \"status_code\": 0,\n    \"message\": \"\",\n    \"data\": {\n        \"first_name\": \"test\",\n        \"weibo_url\": \"weibo\",\n        \"weixin_number\": \"wechat\",\n        \"summary\": \"test\",\n        \"member_investhistory\": [\n            {\n                \"invest_date\": \"2015-11-12\",\n                \"project_type\": 5,\n                \"project_stage\": 2,\n                \"project_name\": \"test\"\n            }\n        ]\n    }\n}"<br>
  * "type": "json"
  */
-public class ResponseModel extends ExampleModel<ResponseContainerModel> {
+public class ResponseModel extends ExampleModel<ResponseContainerModel> implements Comparable<ResponseModel> {
     private String header;// 响应报文中的头部
     private String body;// 响应报文中的响应体
 
@@ -58,5 +58,8 @@ public class ResponseModel extends ExampleModel<ResponseContainerModel> {
         return outputs;
     }
 
-
+    @Override
+    public int compareTo(ResponseModel o) {
+        return this.statusCode.compareToIgnoreCase(o.statusCode);
+    }
 }

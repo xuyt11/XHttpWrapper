@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by ytxu on 2016-9-18
  */
-public class RequestGroupModel extends BaseModel<VersionModel> {
+public class RequestGroupModel extends BaseModel<VersionModel> implements Comparable<RequestGroupModel> {
     private String name;
     private List<RequestModel> requests = Collections.EMPTY_LIST;
 
@@ -25,7 +25,6 @@ public class RequestGroupModel extends BaseModel<VersionModel> {
         return name;
     }
 
-
     public void addRequest(RequestModel request) {
         if (requests == Collections.EMPTY_LIST) {
             requests = new ArrayList<>(10);
@@ -35,6 +34,11 @@ public class RequestGroupModel extends BaseModel<VersionModel> {
 
     public List<RequestModel> getRequests() {
         return requests;
+    }
+
+    @Override
+    public int compareTo(RequestGroupModel o) {
+        return this.name.compareToIgnoreCase(o.name);
     }
 
 
@@ -65,4 +69,5 @@ public class RequestGroupModel extends BaseModel<VersionModel> {
     public List requests() {
         return requests;
     }
+
 }

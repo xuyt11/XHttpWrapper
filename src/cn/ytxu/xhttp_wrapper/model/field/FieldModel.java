@@ -6,7 +6,7 @@ import cn.ytxu.xhttp_wrapper.model.BaseModel;
 /**
  * Created by ytxu on 2016/9/21.
  */
-public class FieldModel<H extends BaseModel> extends BaseModel<H> {
+public class FieldModel<H extends BaseModel> extends BaseModel<H> implements Comparable<FieldModel>{
     // 字段的名称
     private String name;
     /**
@@ -137,6 +137,10 @@ public class FieldModel<H extends BaseModel> extends BaseModel<H> {
         this.dataType = dataType;
     }
 
+    @Override
+    public int compareTo(FieldModel o) {
+        return this.name.compareToIgnoreCase(o.name);
+    }
 
     //*************** reflect method area ***************
     public String type() {

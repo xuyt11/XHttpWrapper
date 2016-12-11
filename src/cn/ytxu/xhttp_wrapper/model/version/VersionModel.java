@@ -64,6 +64,9 @@ public class VersionModel extends BaseModel {
         this.subsOfErrors = subsOfErrors;
     }
 
+    public List<OutputParamModel> getSubsOfErrors() {
+        return subsOfErrors;
+    }
 
     //*************** get list data area ***************
     public static List<ResponseModel> getSuccessResponses(List<VersionModel> versions) {
