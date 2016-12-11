@@ -2,7 +2,8 @@ package cn.ytxu.xhttp_wrapper.xtemp.creater;
 
 import cn.ytxu.xhttp_wrapper.apidocjs.parser.response.message_type.json.output.sub.GetOutputsThatCanGenerateResponseEntityFileUtil;
 import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
-import cn.ytxu.xhttp_wrapper.config.Suffix;
+import cn.ytxu.xhttp_wrapper.config.XHWTFileType;
+import cn.ytxu.xhttp_wrapper.model.request.RequestGroupModel;
 import cn.ytxu.xhttp_wrapper.model.version.VersionModel;
 import cn.ytxu.xhttp_wrapper.model.response.OutputParamModel;
 import cn.ytxu.xhttp_wrapper.model.response.ResponseModel;
@@ -20,11 +21,11 @@ import java.util.List;
 public class ApiFileCreater {
 
     private List<VersionModel> versions;
-    private String xTempPrefixName;
+    private String xhwtConfigPath;
 
-    public ApiFileCreater(List<VersionModel> versions, String xTempPrefixName) {
+    public ApiFileCreater(List<VersionModel> versions, String xhwtConfigPath) {
         this.versions = versions;
-        this.xTempPrefixName = xTempPrefixName;
+        this.xhwtConfigPath = xhwtConfigPath;
     }
 
     public void start() {
@@ -40,25 +41,43 @@ public class ApiFileCreater {
     }
 
     private void createHttpApi() {
-        XTempModel model = new XTempUtil(Suffix.HttpApi, xTempPrefixName).start();
-        VersionModel.getVersions(versions).forEach(version ->
-                BaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, version)
-        );
+        XTempModel model;
+        try {
+            model = new XTempUtil(XHWTFileType.HttpApi, xhwtConfigPath).start();
+        } catch (XTempUtil.XHWTTemplateFileNotExistsException e) {
+            e.printStackTrace();
+            return;
+        }
+        for (VersionModel version : VersionModel.getVersions(versions)) {
+            BaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, version);
+        }
     }
 
     private void createRequest() {
-        XTempModel model = new XTempUtil(Suffix.Request, xTempPrefixName).start();
-        VersionModel.getRequestGroups(versions).forEach(requestGroup ->
-                BaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, requestGroup)
-        );
+        XTempModel model;
+        try {
+            model = new XTempUtil(XHWTFileType.Request, xhwtConfigPath).start();
+        } catch (XTempUtil.XHWTTemplateFileNotExistsException e) {
+            e.printStackTrace();
+            return;
+        }
+        for (RequestGroupModel requestGroup : VersionModel.getRequestGroups(versions)) {
+            BaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, requestGroup);
+        }
     }
 
     private void createResponseEntity() {
-        XTempModel model = new XTempUtil(Suffix.Response, xTempPrefixName).start();
+        XTempModel model;
+        try {
+            model = new XTempUtil(XHWTFileType.Response, xhwtConfigPath).start();
+        } catch (XTempUtil.XHWTTemplateFileNotExistsException e) {
+            e.printStackTrace();
+            return;
+        }
         List<ResponseModel> okResponses = getOKResponses();
-        getOutputsThatCanGenerateResponseEntityFile(okResponses).forEach(output ->
-                BaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, output)
-        );
+        for (OutputParamModel output : getOutputsThatCanGenerateResponseEntityFile(okResponses)) {
+            BaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, output);
+        }
     }
 
     private List<ResponseModel> getOKResponses() {
@@ -82,7 +101,13 @@ public class ApiFileCreater {
     }
 
     private void createStatusCode() {
-        XTempModel model = new XTempUtil(Suffix.StatusCode, xTempPrefixName).start();
+        XTempModel model;
+        try {
+            model = new XTempUtil(XHWTFileType.StatusCode, xhwtConfigPath).start();
+        } catch (XTempUtil.XHWTTemplateFileNotExistsException e) {
+            e.printStackTrace();
+            return;
+        }
 
         List<StatusCodeGroupModel> statusCodeGroups = ConfigWrapper.getStatusCode().getStatusCodeGroups(versions);
         for (StatusCodeGroupModel statusCodeGroup : statusCodeGroups) {
@@ -91,6 +116,14 @@ public class ApiFileCreater {
     }
 
     private void createBaseResponse() {
+        XTempModel model;
+        try {
+            model = new XTempUtil(XHWTFileType.BaseResponse, xhwtConfigPath).start();
+        } catch (XTempUtil.XHWTTemplateFileNotExistsException e) {
+            e.printStackTrace();
+            return;
+        }
+
         // it`s multi version, but use the single base response
         List<OutputParamModel> subsOfErrors = new ArrayList<>(20);
         for (VersionModel version : versions) {
@@ -101,7 +134,6 @@ public class ApiFileCreater {
         VersionModel subsOfErrorsSVersion = new VersionModel("subs of errors`s version");
         subsOfErrorsSVersion.setSubsOfErrors(subsOfErrors);
 
-        XTempModel model = new XTempUtil(Suffix.BaseResponse, xTempPrefixName).start();
         BaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, subsOfErrorsSVersion);
     }
 

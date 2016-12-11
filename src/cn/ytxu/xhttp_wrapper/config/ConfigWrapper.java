@@ -10,6 +10,7 @@ import cn.ytxu.xhttp_wrapper.config.property.request.RequestWrapper;
 import cn.ytxu.xhttp_wrapper.config.property.status_code.StatusCodeWrapper;
 import com.alibaba.fastjson.JSON;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -18,18 +19,18 @@ import java.io.InputStream;
  */
 public class ConfigWrapper {
 
-    public static void load(String xtempPrefixName) {
-        final String fileName = Suffix.Json.getTempFileName(xtempPrefixName);
+    public static void load(String xhwtConfigPath) {
+        final String filePath = XHWTFileType.Json.getFilePath(xhwtConfigPath);
         InputStream in = null;
         try {
-            LogUtil.i(ConfigWrapper.class, "init config file:(" + fileName + ") start...");
-            in = ConfigWrapper.class.getClassLoader().getResourceAsStream(fileName);
+            LogUtil.i(ConfigWrapper.class, "init config file:(" + filePath + ") start...");
+            in = new FileInputStream(filePath);
             ConfigBean object = JSON.parseObject(in, ConfigBean.class);
             load(object);
-            LogUtil.i(ConfigWrapper.class, "init config file:(" + fileName + ") success...");
+            LogUtil.i(ConfigWrapper.class, "init config file:(" + filePath + ") success...");
         } catch (IOException e) {
             e.printStackTrace();
-            LogUtil.i(ConfigWrapper.class, "init config file:(" + fileName + ") failure...");
+            LogUtil.i(ConfigWrapper.class, "init config file:(" + filePath + ") failure...");
         } finally {
             if (in == null) {
                 return;

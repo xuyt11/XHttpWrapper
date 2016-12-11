@@ -1,6 +1,6 @@
 package cn.ytxu.xhttp_wrapper.xtemp.parser;
 
-import cn.ytxu.xhttp_wrapper.config.Suffix;
+import cn.ytxu.xhttp_wrapper.config.XHWTFileType;
 import cn.ytxu.xhttp_wrapper.xtemp.parser.model.XTempModel;
 import cn.ytxu.xhttp_wrapper.xtemp.parser.statement.StatementRecord;
 
@@ -16,17 +16,21 @@ import java.util.regex.Pattern;
  */
 public class XTempUtil {
 
-    private String tempFileName;// 模板文件的全称
+    private final String filePath;// 模板文件的路径
 
     /**
-     * @param suffix
-     * @param tempPrefixName 需要解析的模板文件的名称
+     * @param xhwtFileType
+     * @param xhwtConfigPath       配置文件的路径
      */
-    public XTempUtil(Suffix suffix, String tempPrefixName) {
-        this.tempFileName = suffix.getTempFileName(tempPrefixName);
+    public XTempUtil(XHWTFileType xhwtFileType, String xhwtConfigPath) {
+        this.filePath = xhwtFileType.getFilePath(xhwtConfigPath);
     }
 
-    public XTempModel start() {
+    public XTempModel start() throws XHWTTemplateFileNotExistsException {
+        if (!new File(filePath).exists()) {
+            throw new XHWTTemplateFileNotExistsException(filePath);
+        }
+
         List<String> contents = getContents();
         XTempModel model = new XTempParser(contents).start();
         List<StatementRecord> records = parseStatementRecordsByXTempModel(model);
@@ -34,10 +38,16 @@ public class XTempUtil {
         return model;
     }
 
+    public static final class XHWTTemplateFileNotExistsException extends Exception {
+        public XHWTTemplateFileNotExistsException(String filePath) {
+            super("this template file is not exists, filePath:" + filePath);
+        }
+    }
+
     private List<String> getContents() {
         BufferedReader reader = null;
         try {
-            reader = getReader();
+            reader = new BufferedReader(new FileReader(filePath));
             return getContents(reader);
         } catch (IOException e) {
             e.printStackTrace();
@@ -45,11 +55,6 @@ public class XTempUtil {
         } finally {
             closeReader(reader);
         }
-    }
-
-    private BufferedReader getReader() {
-        return new BufferedReader(new InputStreamReader(
-                this.getClass().getClassLoader().getResourceAsStream(tempFileName)));
     }
 
     private List<String> getContents(BufferedReader reader) throws IOException {

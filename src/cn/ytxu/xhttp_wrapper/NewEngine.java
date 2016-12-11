@@ -13,17 +13,17 @@ import java.util.List;
  * Created by ytxu on 2016/6/16.
  */
 public class NewEngine {
-    // 配置文件与xtemp模板文件的前缀名称(可以有多个目标版本)
-    private static final String[] XTEMP_PREFIX_NAMES = {"NewChama-android"};//, "NewChama-ios"};
+    // 配置文件的路径(可以有多个)
+    private static final String[] XHWT_CONFIG_PATHS = {"./xhwt/newchama/NewChama-android.json"};//, "./xhwt/NewChama-ios.json"};
 
     public static void main(String... args) throws IOException {
-        for (int i = 0; i < XTEMP_PREFIX_NAMES.length; i++) {
+        for (int i = 0; i < XHWT_CONFIG_PATHS.length; i++) {
             long start = System.currentTimeMillis();
 
-            final String xTempPrefixName = XTEMP_PREFIX_NAMES[i];
-            ConfigWrapper.load(xTempPrefixName);
+            final String xhwtConfigPath = XHWT_CONFIG_PATHS[i];
+            ConfigWrapper.load(xhwtConfigPath);
             List<VersionModel> versions = new ApidocjsDataParser().start();
-            new ApiFileCreater(versions, xTempPrefixName).start();
+            new ApiFileCreater(versions, xhwtConfigPath).start();
 
             long end = System.currentTimeMillis();
             LogUtil.w("duration time is " + (end - start));
