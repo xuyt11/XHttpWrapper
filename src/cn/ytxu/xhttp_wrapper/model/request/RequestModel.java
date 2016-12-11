@@ -1,5 +1,6 @@
 package cn.ytxu.xhttp_wrapper.model.request;
 
+import cn.ytxu.util.CamelCaseUtils;
 import cn.ytxu.util.FileUtil;
 import cn.ytxu.xhttp_wrapper.model.BaseModel;
 import cn.ytxu.xhttp_wrapper.model.request.header.HeaderGroupModel;
@@ -156,7 +157,7 @@ public class RequestModel extends BaseModel<RequestGroupModel> implements Compar
     }
 
     public String request_name() {
-        return name;
+        return CamelCaseUtils.toCamelCase(name);
     }
 
     public String request_class_name() {
