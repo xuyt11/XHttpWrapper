@@ -1,10 +1,17 @@
 <header>
-    <fileDir>
-        <value osName="Windows" val="I:/NewChamaStudio/newchama_android/NewChama/newchama.common/src/main/java/com/newchama/api/V${version_code}/api/" />
-        <value osName="Mac OS X" val="/Users/newchama/Documents/ytxu/newchama_android2/NewChama/newchama.common/src/main/java/com/newchama/api/V${version_code}/api/" />
-    </fileDir>
-
-    <fileName val="HttpApiV${version_code}.java" />
+{
+    "fileName":"HttpApiV${version_code}.java",
+    "fileDirs":[
+        {
+            "osName":"Windows",
+            "path":"I:/NewChamaStudio/newchama_android/NewChama/newchama.common/src/main/java/com/newchama/api/V${version_code}/api/"
+        },
+        {
+            "osName":"Mac OS X",
+            "path":"/Users/newchama/Documents/ytxu/newchama_android2/NewChama/newchama.common/src/main/java/com/newchama/api/V${version_code}/api/"
+        }
+    ]
+}
 </header>
 package com.newchama.api.V${version_code}.api;
 
