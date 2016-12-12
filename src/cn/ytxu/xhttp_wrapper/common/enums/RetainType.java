@@ -1,6 +1,6 @@
 package cn.ytxu.xhttp_wrapper.common.enums;
 
-import cn.ytxu.xhttp_wrapper.xtemp.parser.statement.record.retain.RetainModel;
+import cn.ytxu.xhttp_wrapper.xhwt_engine.parser.statement.record.retain.RetainModel;
 
 /**
  * 在自动生成的代码文件中，由程序员根据情况，自己手写的代码；
