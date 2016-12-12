@@ -16,8 +16,8 @@ release version 0.4 future
     * 2 添加Object类型的参数设置，在.json配置文件中；
     * 3 对Array类型的参数，替换SubType的参数，不能再用${object}了，要用${sub_type}替换，因为SubType有可能为Array，Map，Object...
 
-release version 0.3 future
-=========================
+release version 0.3
+===================
 不再解析apidocjs的和HTML页面中的数据了，直接解析api_data.json；
 
 release version 0.2
