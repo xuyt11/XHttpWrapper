@@ -121,7 +121,7 @@ public class OutputParamModel extends BaseModel<ResponseModel> implements Compar
     @Override
     public String toString() {
         return "OutputParamModel{" +
-                "parent=" + parent +
+                "parent is null=" + Objects.isNull(parent) +
                 ", type=" + type +
                 ", subType=" + subType +
                 ", defined=" + defined +
