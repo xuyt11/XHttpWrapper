@@ -19,18 +19,18 @@ package com.newchama.api.V${version_code}.api;
 
 public class HttpApiV${version_code} {
 
-<foreach each="sections">
-	private static ${section_class_name} ${section_name};
+<foreach each="request_groups">
+	private static ${request_group_class_name} ${request_group_name};
 </foreach>
 
 <retain type="field"/>
 
-<foreach each="sections">
-	public static ${section_class_name} ${section_name}() {
-		if (null == ${section_name}) {
-			${section_name} = ${section_class_name}.getInstance();
+<foreach each="request_groups">
+	public static ${request_group_class_name} ${request_group_name}() {
+		if (null == ${request_group_name}) {
+			${request_group_name} = ${request_group_class_name}.getInstance();
 		}
-		return ${section_name};
+		return ${request_group_name};
 	}
 
 </foreach>

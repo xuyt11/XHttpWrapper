@@ -98,7 +98,7 @@ public class VersionModel extends BaseModel {
         return name.replace(".", "_");
     }
 
-    public List sections() {
+    public List request_groups() {
         return requestGroups;
     }
 

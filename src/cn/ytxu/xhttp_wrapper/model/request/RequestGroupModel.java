@@ -44,21 +44,21 @@ public class RequestGroupModel extends BaseModel<VersionModel> implements Compar
 
     //*************** reflect method area ***************
 
-    public String section_class_name() {
+    public String request_group_class_name() {
         String className = FileUtil.getClassFileName(getName());
         return className;
     }
 
-    public String section() {
+    public String request_group() {
         return FileUtil.getPackageName(getName());
     }
 
-    public String section_newchama() {
+    public String request_group_newchama() {
         return FileUtil.getCategoryPackageName(getName());
     }
 
-    public String section_name() {
-        String className = section_class_name();
+    public String request_group_name() {
+        String className = request_group_class_name();
         String fieldName = className.substring(0, 1).toLowerCase() + className.substring(1);
         if ("notify".equals(fieldName)) {
             fieldName += "0";
