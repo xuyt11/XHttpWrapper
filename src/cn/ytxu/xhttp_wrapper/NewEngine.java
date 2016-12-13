@@ -8,6 +8,7 @@ import cn.ytxu.util.LogUtil;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by ytxu on 2016/6/16.
@@ -19,10 +20,12 @@ public class NewEngine {
 //    ./xhwt/newchama/NewChama-android.json
 
     public static void main(String... args) throws IOException {
-        for (int i = 0; i < XHWT_CONFIG_PATHS.length; i++) {
+        final String[] xhwtConfigPaths = getXhwtConfigPaths(args);
+
+        for (int i = 0; i < xhwtConfigPaths.length; i++) {
             long start = System.currentTimeMillis();
 
-            final String xhwtConfigPath = XHWT_CONFIG_PATHS[i];
+            final String xhwtConfigPath = xhwtConfigPaths[i];
             ConfigWrapper.load(xhwtConfigPath);
 
             String apiDataSource = ConfigWrapper.getApiDataFile().getApiDataSource();
@@ -33,5 +36,18 @@ public class NewEngine {
             long end = System.currentTimeMillis();
             LogUtil.w("duration time is " + (end - start));
         }
+    }
+
+    /**
+     * 若没有输入参数args，则为我自己在intellij idea中使用，所以使用XHWT_CONFIG_PATHS；
+     * 否则，为使用其他用户使用jar包；
+     * @param args
+     * @return
+     */
+    private static String[] getXhwtConfigPaths(String[] args) {
+        if (Objects.isNull(args) || args.length <= 0) {
+            return XHWT_CONFIG_PATHS;
+        }
+        return args;
     }
 }
