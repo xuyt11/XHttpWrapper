@@ -1,7 +1,7 @@
 package cn.ytxu.test;
 
-import cn.ytxu.util.LogUtil;
-import cn.ytxu.xhttp_wrapper.config.ConfigBean;
+import cn.ytxu.http_wrapper.common.util.LogUtil;
+import cn.ytxu.http_wrapper.config.ConfigBean;
 import com.alibaba.fastjson.JSON;
 import org.junit.Test;
 

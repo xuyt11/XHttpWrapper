@@ -1,9 +1,9 @@
 package cn.ytxu.api_semi_auto_creater.apidocjs_parser.response;
 
-import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
+import cn.ytxu.http_wrapper.config.ConfigWrapper;
 import cn.ytxu.api_semi_auto_creater.model.response.ResponseModel;
 import cn.ytxu.api_semi_auto_creater.apidocjs_parser.response.output.OutputParamParser;
-import cn.ytxu.util.LogUtil;
+import cn.ytxu.http_wrapper.common.util.LogUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;

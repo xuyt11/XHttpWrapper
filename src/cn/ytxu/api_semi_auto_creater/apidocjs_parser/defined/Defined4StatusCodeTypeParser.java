@@ -1,8 +1,8 @@
 package cn.ytxu.api_semi_auto_creater.apidocjs_parser.defined;
 
-import cn.ytxu.util.JsoupParserUtil;
+import cn.ytxu.http_wrapper.common.util.JsoupParserUtil;
 import cn.ytxu.api_semi_auto_creater.model.request.DefinedParamModel;
-import cn.ytxu.util.LogUtil;
+import cn.ytxu.http_wrapper.common.util.LogUtil;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 

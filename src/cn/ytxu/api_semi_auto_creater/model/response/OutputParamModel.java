@@ -3,7 +3,7 @@ package cn.ytxu.api_semi_auto_creater.model.response;
 import cn.ytxu.api_semi_auto_creater.model.BaseModel;
 import cn.ytxu.api_semi_auto_creater.model.request.DefinedParamModel;
 import cn.ytxu.api_semi_auto_creater.apidocjs_parser.response.output.OutputParamType;
-import cn.ytxu.util.FileUtil;
+import cn.ytxu.http_wrapper.common.util.FileUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -1,7 +1,7 @@
 package cn.ytxu.api_semi_auto_creater.model.base;
 
-import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
-import cn.ytxu.xhttp_wrapper.config.property.response.BaseResponseParamBean;
+import cn.ytxu.http_wrapper.config.ConfigWrapper;
+import cn.ytxu.http_wrapper.config.property.response.BaseResponseParamBean;
 import cn.ytxu.api_semi_auto_creater.model.BaseModel;
 import cn.ytxu.api_semi_auto_creater.model.RequestModel;
 import cn.ytxu.api_semi_auto_creater.model.response.OutputParamModel;

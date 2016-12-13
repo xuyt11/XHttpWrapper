@@ -6,7 +6,7 @@ import cn.ytxu.api_semi_auto_creater.model.request.InputParamModel;
 import cn.ytxu.api_semi_auto_creater.model.request.restful_url.RESTfulParamModel;
 import cn.ytxu.api_semi_auto_creater.model.request.restful_url.RESTfulUrlModel;
 import cn.ytxu.api_semi_auto_creater.model.response.ResponseModel;
-import cn.ytxu.util.FileUtil;
+import cn.ytxu.http_wrapper.common.util.FileUtil;
 import org.jsoup.nodes.Element;
 
 import java.util.Collections;

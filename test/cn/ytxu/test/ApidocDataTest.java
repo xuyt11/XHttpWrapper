@@ -1,6 +1,6 @@
 package cn.ytxu.test;
 
-import cn.ytxu.xhttp_wrapper.apidocjs.bean.api_data.ApiDataBean;
+import cn.ytxu.http_wrapper.apidocjs.bean.api_data.ApiDataBean;
 import com.alibaba.fastjson.JSONArray;
 
 import java.io.BufferedReader;

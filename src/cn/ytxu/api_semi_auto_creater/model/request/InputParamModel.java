@@ -1,6 +1,6 @@
 package cn.ytxu.api_semi_auto_creater.model.request;
 
-import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
+import cn.ytxu.http_wrapper.config.ConfigWrapper;
 import cn.ytxu.api_semi_auto_creater.model.BaseModel;
 import cn.ytxu.api_semi_auto_creater.model.RequestModel;
 import org.jsoup.nodes.Element;

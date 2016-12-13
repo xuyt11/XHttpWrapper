@@ -7,7 +7,7 @@ import cn.ytxu.api_semi_auto_creater.model.status_code.StatusCodeCategoryModel;
 import cn.ytxu.api_semi_auto_creater.apidocjs_parser.base.entity.DocEntity;
 import cn.ytxu.api_semi_auto_creater.apidocjs_parser.base.entity.RequestEntity;
 import cn.ytxu.api_semi_auto_creater.apidocjs_parser.base.entity.SectionEntity;
-import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
+import cn.ytxu.http_wrapper.config.ConfigWrapper;
 import com.sun.istack.internal.NotNull;
 
 import java.util.ArrayList;

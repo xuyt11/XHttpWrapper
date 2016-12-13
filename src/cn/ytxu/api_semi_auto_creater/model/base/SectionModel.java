@@ -2,7 +2,7 @@ package cn.ytxu.api_semi_auto_creater.model.base;
 
 import cn.ytxu.api_semi_auto_creater.model.BaseModel;
 import cn.ytxu.api_semi_auto_creater.model.RequestModel;
-import cn.ytxu.util.FileUtil;
+import cn.ytxu.http_wrapper.common.util.FileUtil;
 import org.jsoup.nodes.Element;
 
 import java.util.List;
