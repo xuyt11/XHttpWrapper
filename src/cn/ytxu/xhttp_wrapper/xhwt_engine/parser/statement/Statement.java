@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
  * 表达式枚举
  */
 public enum Statement {
-    text("普通的文本", null, null) {
+    text("普通的文本", null) {
         @Override
         public boolean isThisType(String content) {
             return false;
@@ -88,7 +88,7 @@ public enum Statement {
     Statement(String tag, String endTag, Pattern... patterns) {
         this.tag = tag;
         this.endTag = endTag;
-        this.patterns = patterns;
+        this.patterns = (patterns == null ? new Pattern[0] : patterns);
     }
 
     public boolean isThisType(String content) {
