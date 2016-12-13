@@ -8,7 +8,7 @@ import cn.ytxu.xhttp_wrapper.xhwt_engine.parser.statement.record.retain.RetainMo
  * 而在其他地方的改动，都会被清除
  */
 public enum RetainType {
-    Import("import", "//** ytxu.import */") {
+    Import("import", "//** xhwt.import */") {
         @Override
         protected StringBuffer getRetainContent(RetainModel retain) {
             return retain.getImportRetainContent();
@@ -19,7 +19,7 @@ public enum RetainType {
             retain.appendImport(retainContent);
         }
     },
-    Field("field", "//** ytxu.field */") {
+    Field("field", "//** xhwt.field */") {
         @Override
         protected StringBuffer getRetainContent(RetainModel retain) {
             return retain.getFieldRetainContent();
@@ -30,7 +30,7 @@ public enum RetainType {
             retain.appendField(retainContent);
         }
     },
-    Method("method", "//** ytxu.method */") {
+    Method("method", "//** xhwt.method */") {
         @Override
         protected StringBuffer getRetainContent(RetainModel retain) {
             return retain.getMethodRetainContent();
@@ -41,7 +41,7 @@ public enum RetainType {
             retain.appendMethod(retainContent);
         }
     },
-    Other("other", "//** ytxu.other */") {
+    Other("other", "//** xhwt.other */") {
         @Override
         protected StringBuffer getRetainContent(RetainModel retain) {
             return retain.getOtherRetainContent();
@@ -56,8 +56,8 @@ public enum RetainType {
     private final String name;
     private final String tag;
 
-    public static final String StartTag = "//** ytxu.retain-start */";
-    public static final String EndTag = "//** ytxu.retain-end */";
+    public static final String StartTag = "//** xhwt.retain-start */";
+    public static final String EndTag = "//** xhwt.retain-end */";
 
     RetainType(String name, String tag) {
         this.name = name;
