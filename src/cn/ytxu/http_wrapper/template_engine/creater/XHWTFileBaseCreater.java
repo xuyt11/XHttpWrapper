@@ -17,7 +17,7 @@ import java.util.Objects;
 /**
  * Created by newchama on 16/4/7.
  */
-public class BaseCreater {
+public class XHWTFileBaseCreater {
 
     public interface OnGetWriter {
         void onGetWriter(Writer writer, RetainModel retain) throws IOException;

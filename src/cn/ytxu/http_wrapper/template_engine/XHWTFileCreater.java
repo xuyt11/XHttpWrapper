@@ -7,7 +7,7 @@ import cn.ytxu.http_wrapper.model.version.VersionModel;
 import cn.ytxu.http_wrapper.model.response.OutputParamModel;
 import cn.ytxu.http_wrapper.model.response.ResponseModel;
 import cn.ytxu.http_wrapper.model.status_code.StatusCodeGroupModel;
-import cn.ytxu.http_wrapper.template_engine.creater.BaseCreater;
+import cn.ytxu.http_wrapper.template_engine.creater.XHWTFileBaseCreater;
 import cn.ytxu.http_wrapper.template_engine.parser.model.XHWTModel;
 import cn.ytxu.http_wrapper.template_engine.parser.XHWTFileParser;
 
@@ -49,7 +49,7 @@ public class XHWTFileCreater {
             return;
         }
         for (VersionModel version : VersionModel.getVersions(versions)) {
-            BaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, version);
+            XHWTFileBaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, version);
         }
     }
 
@@ -62,7 +62,7 @@ public class XHWTFileCreater {
             return;
         }
         for (RequestGroupModel requestGroup : VersionModel.getRequestGroups(versions)) {
-            BaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, requestGroup);
+            XHWTFileBaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, requestGroup);
         }
     }
 
@@ -76,7 +76,7 @@ public class XHWTFileCreater {
         }
         List<ResponseModel> okResponses = getOKResponses();
         for (OutputParamModel output : getOutputsThatCanGenerateResponseEntityFile(okResponses)) {
-            BaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, output);
+            XHWTFileBaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, output);
         }
     }
 
@@ -111,7 +111,7 @@ public class XHWTFileCreater {
 
         List<StatusCodeGroupModel> statusCodeGroups = ConfigWrapper.getStatusCode().getStatusCodeGroups(versions);
         for (StatusCodeGroupModel statusCodeGroup : statusCodeGroups) {
-            BaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, statusCodeGroup);
+            XHWTFileBaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, statusCodeGroup);
         }
     }
 
@@ -134,7 +134,7 @@ public class XHWTFileCreater {
         VersionModel subsOfErrorsSVersion = new VersionModel("subs of errors`s version");
         subsOfErrorsSVersion.setSubsOfErrors(subsOfErrors);
 
-        BaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, subsOfErrorsSVersion);
+        XHWTFileBaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, subsOfErrorsSVersion);
     }
 
 }
