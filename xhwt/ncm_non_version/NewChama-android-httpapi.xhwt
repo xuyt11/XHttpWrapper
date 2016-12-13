@@ -4,16 +4,16 @@
     "fileDirs":[
         {
             "osName":"Windows",
-            "path":"I:/NewChamaStudio/newchama_android/NewChama/newchama.common/src/main/java/com/newchama/api2/api/"
+            "path":"I:/NewChamaStudio/newchama_android/NewChama/newchama.common/src/main/java/com/newchama/api/api/"
         },
         {
             "osName":"Mac OS X",
-            "path":"/Users/newchama/Documents/ytxu/newchama_android2/NewChama/newchama.common/src/main/java/com/newchama/api2/api/"
+            "path":"/Users/newchama/Documents/ytxu/newchama_android2/NewChama/newchama.common/src/main/java/com/newchama/api/api/"
         }
     ]
 }
 </header>
-package com.newchama.api2.api;
+package com.newchama.api.api;
 
 <retain type="import"/>
 
