@@ -8,6 +8,7 @@ import cn.ytxu.http_wrapper.config.property.element_type.FieldTypeWrapper;
 import cn.ytxu.http_wrapper.config.property.response.ResponseWrapper;
 import cn.ytxu.http_wrapper.config.property.request.RequestWrapper;
 import cn.ytxu.http_wrapper.config.property.status_code.StatusCodeWrapper;
+import cn.ytxu.http_wrapper.config.property.template_file_info.TemplateFileInfoWrapper;
 import cn.ytxu.http_wrapper.template_engine.XHWTFileType;
 import com.alibaba.fastjson.JSON;
 
@@ -26,8 +27,8 @@ public class ConfigWrapper {
         try {
             LogUtil.i(ConfigWrapper.class, "init config file:(" + filePath + ") start...");
             in = new FileInputStream(filePath);
-            ConfigBean object = JSON.parseObject(in, ConfigBean.class);
-            load(object);
+            ConfigBean configData = JSON.parseObject(in, ConfigBean.class);
+            load(xhwtConfigPath, configData);
             LogUtil.i(ConfigWrapper.class, "init config file:(" + filePath + ") success...");
         } catch (IOException e) {
             e.printStackTrace();
@@ -44,14 +45,15 @@ public class ConfigWrapper {
         }
     }
 
-    private static void load(ConfigBean config) {
-        ApiDataWrapper.load(config.getApiData());
-        BaseConfigWrapper.load(config.getBaseConfig());
-        FilterWrapper.load(config.getFilter());
-        RequestWrapper.load(config.getRequest());
-        ResponseWrapper.load(config.getResponse());
-        StatusCodeWrapper.load(config.getStatusCode());
-        FieldTypeWrapper.load(config.getFieldTypeEnum());
+    private static void load(String xhwtConfigPath, ConfigBean configData) {
+        ApiDataWrapper.load(configData.getApiData());
+        TemplateFileInfoWrapper.load(xhwtConfigPath, configData.getTemplateFileInfos());
+        BaseConfigWrapper.load(configData.getBaseConfig());
+        FilterWrapper.load(configData.getFilter());
+        RequestWrapper.load(configData.getRequest());
+        ResponseWrapper.load(configData.getResponse());
+        StatusCodeWrapper.load(configData.getStatusCode());
+        FieldTypeWrapper.load(configData.getFieldTypeEnum());
     }
 
     public static ApiDataWrapper getApiDataFile() {

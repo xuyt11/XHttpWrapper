@@ -13,6 +13,28 @@
     ],
     "file_charset": "UTF-8"
   },
+  "template_file_infos": {
+    "httpapi": {
+      "need_generate": true,
+      "path": "Newchama-android-httpapi.xhwt"
+    },
+    "request": {
+      "need_generate": true,
+      "path": "Newchama-android-request.xhwt"
+    },
+    "response": {
+      "need_generate": true,
+      "path": "Newchama-android-response.xhwt"
+    },
+    "statuscode": {
+      "need_generate": true,
+      "path": "Newchama-android-statuscode.xhwt"
+    },
+    "baseresponse": {
+      "need_generate": true,
+      "path": "Newchama-android-baseresponse.xhwt"
+    }
+  },
   "base_config": {
     "create_file_charset": "UTF-8",
     "compile_model": "mutil_version",

@@ -34,4 +34,15 @@ public enum XHWTFileType {
         String prefixOfTempFile = xhwtConfigPath.substring(0, pointerIndex);
         return prefixOfTempFile + "-" + name + "." + XHttpWrapperTemplateFileSuffixName;
     }
+
+    public static XHWTFileType get(String name) {
+        for (XHWTFileType xhwtFileType : XHWTFileType.values()) {
+            if (xhwtFileType.name().equals(name)) {
+                return xhwtFileType;
+            }
+        }
+        throw new IllegalArgumentException("u setup x-http-wrapper template file type error," +
+                " the error name is " + name +
+                ", u need modify this name, or add this type to XHWTFileType enum");
+    }
 }
