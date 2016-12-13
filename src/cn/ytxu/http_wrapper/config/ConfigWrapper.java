@@ -9,38 +9,36 @@ import cn.ytxu.http_wrapper.config.property.response.ResponseWrapper;
 import cn.ytxu.http_wrapper.config.property.request.RequestWrapper;
 import cn.ytxu.http_wrapper.config.property.status_code.StatusCodeWrapper;
 import cn.ytxu.http_wrapper.config.property.template_file_info.TemplateFileInfoWrapper;
-import cn.ytxu.http_wrapper.template_engine.XHWTFileType;
 import com.alibaba.fastjson.JSON;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Objects;
 
 /**
  * Created by ytxu on 2016/8/14.
  */
 public class ConfigWrapper {
 
-    public static void load(String xhwtConfigPath) {
-        final String filePath = XHWTFileType.Json.getFilePath(xhwtConfigPath);
+    public static void load(final String xhwtConfigPath) {
         InputStream in = null;
         try {
-            LogUtil.i(ConfigWrapper.class, "init config file:(" + filePath + ") start...");
-            in = new FileInputStream(filePath);
+            LogUtil.i(ConfigWrapper.class, "init config file:(" + xhwtConfigPath + ") start...");
+            in = new FileInputStream(xhwtConfigPath);
             ConfigBean configData = JSON.parseObject(in, ConfigBean.class);
             load(xhwtConfigPath, configData);
-            LogUtil.i(ConfigWrapper.class, "init config file:(" + filePath + ") success...");
+            LogUtil.i(ConfigWrapper.class, "init config file:(" + xhwtConfigPath + ") success...");
         } catch (IOException e) {
             e.printStackTrace();
-            LogUtil.i(ConfigWrapper.class, "init config file:(" + filePath + ") failure...");
+            LogUtil.i(ConfigWrapper.class, "init config file:(" + xhwtConfigPath + ") failure...");
         } finally {
-            if (in == null) {
-                return;
-            }
-            try {
-                in.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (Objects.nonNull(in)) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -58,6 +56,10 @@ public class ConfigWrapper {
 
     public static ApiDataWrapper getApiDataFile() {
         return ApiDataWrapper.getInstance();
+    }
+
+    public static TemplateFileInfoWrapper getTemplateFileInfo() {
+        return TemplateFileInfoWrapper.getInstance();
     }
 
     public static BaseConfigWrapper getBaseConfig() {

@@ -1,5 +1,7 @@
 package cn.ytxu.http_wrapper.template_engine.parser;
 
+import cn.ytxu.http_wrapper.config.ConfigWrapper;
+import cn.ytxu.http_wrapper.config.property.template_file_info.TemplateFileInfoWrapper;
 import cn.ytxu.http_wrapper.template_engine.XHWTFileType;
 import cn.ytxu.http_wrapper.template_engine.parser.model.XHWTModel;
 import cn.ytxu.http_wrapper.template_engine.parser.statement.StatementRecord;
@@ -16,19 +18,18 @@ import java.util.regex.Pattern;
  */
 public class XHWTFileParser {
 
-    private final String filePath;// 模板文件的路径
+    private final XHWTFileType xhwtFileType;
+    private String filePath;// 模板文件的路径
 
-    /**
-     * @param xhwtFileType
-     * @param xhwtConfigPath       配置文件的路径
-     */
-    public XHWTFileParser(XHWTFileType xhwtFileType, String xhwtConfigPath) {
-        this.filePath = xhwtFileType.getFilePath(xhwtConfigPath);
+    public XHWTFileParser(XHWTFileType xhwtFileType) {
+        this.xhwtFileType = xhwtFileType;
     }
 
-    public XHWTModel start() throws XHWTTemplateFileNotExistsException {
-        if (!new File(filePath).exists()) {
-            throw new XHWTTemplateFileNotExistsException(filePath);
+    public XHWTModel start() throws XHWTNonNeedParsedException {
+        try {
+            this.filePath = ConfigWrapper.getTemplateFileInfo().getTemplateFileAbsolutePath(xhwtFileType);
+        } catch (TemplateFileInfoWrapper.NonNeedParseTheTemplateFileException e) {
+            throw new XHWTNonNeedParsedException(filePath);
         }
 
         List<String> contents = getContents();
@@ -38,9 +39,9 @@ public class XHWTFileParser {
         return model;
     }
 
-    public static final class XHWTTemplateFileNotExistsException extends Exception {
-        public XHWTTemplateFileNotExistsException(String filePath) {
-            super("this template file is not exists, filePath:" + filePath);
+    public static final class XHWTNonNeedParsedException extends Exception {
+        public XHWTNonNeedParsedException(String filePath) {
+            super("this template type not need parsed, filePath:" + filePath);
         }
     }
 

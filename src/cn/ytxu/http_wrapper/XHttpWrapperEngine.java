@@ -6,6 +6,7 @@ import cn.ytxu.http_wrapper.model.version.VersionModel;
 import cn.ytxu.http_wrapper.template_engine.XHWTFileCreater;
 import cn.ytxu.http_wrapper.common.util.LogUtil;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
@@ -15,7 +16,7 @@ import java.util.Objects;
  */
 public class XHttpWrapperEngine {
     // 配置文件的路径(可以有多个)
-    private static final String[] XHWT_CONFIG_PATHS = {"./xhwt/ncm_non_version/NewChama-android.json"};
+    private static final String[] XHWT_CONFIG_PATHS = {"xhwt/ncm_non_version/NewChama-android.json"};
     //, "./xhwt/NewChama-ios.json"};
 //    ./xhwt/newchama/NewChama-android.json
 
@@ -41,13 +42,20 @@ public class XHttpWrapperEngine {
     /**
      * 若没有输入参数args，则为我自己在intellij idea中使用，所以使用XHWT_CONFIG_PATHS；
      * 否则，为使用其他用户使用jar包；
+     *
      * @param args
      * @return
      */
     private static String[] getXhwtConfigPaths(String[] args) {
-        if (Objects.isNull(args) || args.length <= 0) {
-            return XHWT_CONFIG_PATHS;
+        if (Objects.nonNull(args) && args.length > 0) {
+            return args;
         }
-        return args;
+        String[] paths = new String[XHWT_CONFIG_PATHS.length];
+        for (int i = 0; i < XHWT_CONFIG_PATHS.length; i++) {
+            String xhwtConfigPath = XHWT_CONFIG_PATHS[i];
+            File configFile = new File(xhwtConfigPath);
+            paths[i] = configFile.getAbsolutePath();
+        }
+        return paths;
     }
 }

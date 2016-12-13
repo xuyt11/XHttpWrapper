@@ -14,6 +14,9 @@ import java.util.Objects;
 public class TemplateFileInfoWrapper {
     private static TemplateFileInfoWrapper instance;
 
+    /**
+     * json配置文件的路径
+     */
     private String xhwtConfigPath;
     private LinkedHashMap<String, TemplateFileInfoBean> templateFileInfos;
 
@@ -35,18 +38,20 @@ public class TemplateFileInfoWrapper {
             throw new IllegalArgumentException("u must setup template file info property...");
         }
 
-        judgeHasValidTemplateFileInfo(templateFileInfos);
-    }
-
-    private void judgeHasValidTemplateFileInfo(LinkedHashMap<String, TemplateFileInfoBean> templateFileInfos) {
         templateFileInfos.keySet().forEach(templateFileTypeName -> XHWTFileType.get(templateFileTypeName));
 
-        templateFileInfos.values().forEach(templateFileInfo -> {
+        if (!hasValidTemplateFileInfo(templateFileInfos)) {
+            throw new IllegalArgumentException("no template file can be parsed, u must check the template file info property settting...");
+        }
+    }
+
+    private boolean hasValidTemplateFileInfo(LinkedHashMap<String, TemplateFileInfoBean> templateFileInfos) {
+        for (TemplateFileInfoBean templateFileInfo : templateFileInfos.values()) {
             if (isValidFileInfo(templateFileInfo)) {
-                return;
+                return true;
             }
-        });
-        throw new IllegalArgumentException("no template file can be parsed, u must check the template file info property settting...");
+        }
+        return false;
     }
 
     private boolean isValidFileInfo(TemplateFileInfoBean templateFileInfo) {
@@ -64,7 +69,8 @@ public class TemplateFileInfoWrapper {
             return templateFile.exists();
         }
 
-        templateFile = new File(xhwtConfigPath, path);
+        File dir = new File(xhwtConfigPath).getParentFile();
+        templateFile = new File(dir, path);
         return templateFile.exists();
     }
 
@@ -76,7 +82,7 @@ public class TemplateFileInfoWrapper {
     /**
      * @throws NonNeedParseTheTemplateFileException
      */
-    public String getTemplateFileAbsolutePath(XHWTFileType tFileType) {
+    public String getTemplateFileAbsolutePath(XHWTFileType tFileType) throws NonNeedParseTheTemplateFileException {
         if (!needParseTheTemplateFile(tFileType)) {
             throw new NonNeedParseTheTemplateFileException();
         }
@@ -88,7 +94,8 @@ public class TemplateFileInfoWrapper {
             return templateFile.getAbsolutePath();
         }
 
-        templateFile = new File(xhwtConfigPath, tFileInfo.getPath());
+        File dir = new File(xhwtConfigPath).getParentFile();
+        templateFile = new File(dir, tFileInfo.getPath());
         return templateFile.getAbsolutePath();
     }
 

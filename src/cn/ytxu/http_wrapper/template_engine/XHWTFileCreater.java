@@ -43,8 +43,8 @@ public class XHWTFileCreater {
     private void createHttpApi() {
         XHWTModel model;
         try {
-            model = new XHWTFileParser(XHWTFileType.HttpApi, xhwtConfigPath).start();
-        } catch (XHWTFileParser.XHWTTemplateFileNotExistsException e) {
+            model = new XHWTFileParser(XHWTFileType.HttpApi).start();
+        } catch (XHWTFileParser.XHWTNonNeedParsedException e) {
             e.printStackTrace();
             return;
         }
@@ -56,8 +56,8 @@ public class XHWTFileCreater {
     private void createRequest() {
         XHWTModel model;
         try {
-            model = new XHWTFileParser(XHWTFileType.Request, xhwtConfigPath).start();
-        } catch (XHWTFileParser.XHWTTemplateFileNotExistsException e) {
+            model = new XHWTFileParser(XHWTFileType.Request).start();
+        } catch (XHWTFileParser.XHWTNonNeedParsedException e) {
             e.printStackTrace();
             return;
         }
@@ -69,8 +69,8 @@ public class XHWTFileCreater {
     private void createResponseEntity() {
         XHWTModel model;
         try {
-            model = new XHWTFileParser(XHWTFileType.Response, xhwtConfigPath).start();
-        } catch (XHWTFileParser.XHWTTemplateFileNotExistsException e) {
+            model = new XHWTFileParser(XHWTFileType.Response).start();
+        } catch (XHWTFileParser.XHWTNonNeedParsedException e) {
             e.printStackTrace();
             return;
         }
@@ -103,8 +103,8 @@ public class XHWTFileCreater {
     private void createStatusCode() {
         XHWTModel model;
         try {
-            model = new XHWTFileParser(XHWTFileType.StatusCode, xhwtConfigPath).start();
-        } catch (XHWTFileParser.XHWTTemplateFileNotExistsException e) {
+            model = new XHWTFileParser(XHWTFileType.StatusCode).start();
+        } catch (XHWTFileParser.XHWTNonNeedParsedException e) {
             e.printStackTrace();
             return;
         }
@@ -118,8 +118,8 @@ public class XHWTFileCreater {
     private void createBaseResponse() {
         XHWTModel model;
         try {
-            model = new XHWTFileParser(XHWTFileType.BaseResponse, xhwtConfigPath).start();
-        } catch (XHWTFileParser.XHWTTemplateFileNotExistsException e) {
+            model = new XHWTFileParser(XHWTFileType.BaseResponse).start();
+        } catch (XHWTFileParser.XHWTNonNeedParsedException e) {
             e.printStackTrace();
             return;
         }

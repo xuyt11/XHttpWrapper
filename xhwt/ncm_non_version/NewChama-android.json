@@ -14,23 +14,23 @@
     "file_charset": "UTF-8"
   },
   "template_file_infos": {
-    "httpapi": {
+    "HttpApi": {
       "need_generate": true,
       "path": "Newchama-android-httpapi.xhwt"
     },
-    "request": {
+    "Request": {
       "need_generate": true,
       "path": "Newchama-android-request.xhwt"
     },
-    "response": {
+    "Response": {
       "need_generate": true,
       "path": "Newchama-android-response.xhwt"
     },
-    "statuscode": {
+    "StatusCode": {
       "need_generate": true,
       "path": "Newchama-android-statuscode.xhwt"
     },
-    "baseresponse": {
+    "BaseResponse": {
       "need_generate": true,
       "path": "Newchama-android-baseresponse.xhwt"
     }
