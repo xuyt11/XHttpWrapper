@@ -4,16 +4,16 @@
     "fileDirs":[
         {
             "osName":"Windows",
-            "path":"I:/NewChamaStudio/newchama_android/NewChama/newchama.model/src/main/java/com/newchama/api/V${version_code}/entity/${request_group_newchama}/"
+            "path":"I:/NewChamaStudio/newchama_android/NewChama/newchama.model/src/main/java/com/newchama/api/entity/${request_group_newchama}/"
         },
         {
             "osName":"Mac OS X",
-            "path":"/Users/newchama/Documents/ytxu/newchama_android2/NewChama/newchama.model/src/main/java/com/newchama/api/V${version_code}/entity/${request_group_newchama}/"
+            "path":"/Users/newchama/Documents/ytxu/newchama_android2/NewChama/newchama.model/src/main/java/com/newchama/api/entity/${request_group_newchama}/"
         }
     ]
 }
 </header>
-package com.newchama.api.V${version_code}.entity.${request_group_newchama};
+package com.newchama.api.entity.${request_group_newchama};
 
 import java.io.Serializable;
 import java.util.List;
