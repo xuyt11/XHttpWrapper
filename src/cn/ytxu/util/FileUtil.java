@@ -58,7 +58,7 @@ public class FileUtil {
         }
 
         Writer writer = new OutputStreamWriter(new FileOutputStream(
-                new File(dir, classFileFullName)), ConfigWrapper.getBaseConfig().getApiDataFileCharset());
+                new File(dir, classFileFullName)), ConfigWrapper.getBaseConfig().getCreateFileCharset());
         return writer;
     }
 

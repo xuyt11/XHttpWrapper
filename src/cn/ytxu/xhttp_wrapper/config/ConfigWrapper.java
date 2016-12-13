@@ -1,7 +1,7 @@
 package cn.ytxu.xhttp_wrapper.config;
 
 import cn.ytxu.util.LogUtil;
-import cn.ytxu.xhttp_wrapper.config.property.api_data_file.ApiDataFileWrapper;
+import cn.ytxu.xhttp_wrapper.config.property.api_data.ApiDataWrapper;
 import cn.ytxu.xhttp_wrapper.config.property.base_config.BaseConfigWrapper;
 import cn.ytxu.xhttp_wrapper.config.property.filter.FilterWrapper;
 import cn.ytxu.xhttp_wrapper.config.property.element_type.FieldTypeWrapper;
@@ -43,18 +43,18 @@ public class ConfigWrapper {
         }
     }
 
-    private static void load(ConfigBean object) {
-        ApiDataFileWrapper.load(object.getApiDataFile());
-        BaseConfigWrapper.load(object.getConfig());
-        FilterWrapper.load(object.getFilter());
-        RequestWrapper.load(object.getRequest());
-        ResponseWrapper.load(object.getResponse());
-        StatusCodeWrapper.load(object.getStatusCode());
-        FieldTypeWrapper.load(object.getFieldTypeEnum());
+    private static void load(ConfigBean config) {
+        ApiDataWrapper.load(config.getApiData());
+        BaseConfigWrapper.load(config.getBaseConfig());
+        FilterWrapper.load(config.getFilter());
+        RequestWrapper.load(config.getRequest());
+        ResponseWrapper.load(config.getResponse());
+        StatusCodeWrapper.load(config.getStatusCode());
+        FieldTypeWrapper.load(config.getFieldTypeEnum());
     }
 
-    public static ApiDataFileWrapper getApiDataFile() {
-        return ApiDataFileWrapper.getInstance();
+    public static ApiDataWrapper getApiDataFile() {
+        return ApiDataWrapper.getInstance();
     }
 
     public static BaseConfigWrapper getBaseConfig() {

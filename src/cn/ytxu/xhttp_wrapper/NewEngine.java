@@ -1,6 +1,6 @@
 package cn.ytxu.xhttp_wrapper;
 
-import cn.ytxu.xhttp_wrapper.apidocjs.parser.ApidocjsDataParser;
+import cn.ytxu.xhttp_wrapper.common.enums.ApiDataSourceType;
 import cn.ytxu.xhttp_wrapper.config.ConfigWrapper;
 import cn.ytxu.xhttp_wrapper.model.version.VersionModel;
 import cn.ytxu.xhttp_wrapper.xhwt_engine.XHWTFileCreater;
@@ -22,7 +22,10 @@ public class NewEngine {
 
             final String xhwtConfigPath = XHWT_CONFIG_PATHS[i];
             ConfigWrapper.load(xhwtConfigPath);
-            List<VersionModel> versions = new ApidocjsDataParser().start();
+
+            String apiDataSource = ConfigWrapper.getApiDataFile().getApiDataSource();
+            List<VersionModel> versions = ApiDataSourceType.get(apiDataSource).createXHWTModelByParseApiData();
+
             new XHWTFileCreater(versions, xhwtConfigPath).start();
 
             long end = System.currentTimeMillis();

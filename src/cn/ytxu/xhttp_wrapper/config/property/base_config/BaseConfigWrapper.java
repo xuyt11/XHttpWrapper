@@ -33,8 +33,8 @@ public class BaseConfigWrapper {
         }
     }
 
-    public String getApiDataFileCharset() {
-        return baseConfig.getApiDataFileCharset();
+    public String getCreateFileCharset() {
+        return baseConfig.getCreateFileCharset();
     }
 
     public String getCompileModelName() {

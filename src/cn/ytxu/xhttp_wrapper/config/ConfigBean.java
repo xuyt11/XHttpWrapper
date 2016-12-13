@@ -1,6 +1,6 @@
 package cn.ytxu.xhttp_wrapper.config;
 
-import cn.ytxu.xhttp_wrapper.config.property.api_data_file.ApiDataFileBean;
+import cn.ytxu.xhttp_wrapper.config.property.api_data.ApiDataBean;
 import cn.ytxu.xhttp_wrapper.config.property.response.ResponseBean;
 import cn.ytxu.xhttp_wrapper.config.property.base_config.BaseConfigBean;
 import cn.ytxu.xhttp_wrapper.config.property.element_type.FieldTypeEnumBean;
@@ -8,14 +8,12 @@ import cn.ytxu.xhttp_wrapper.config.property.filter.FilterBean;
 import cn.ytxu.xhttp_wrapper.config.property.request.RequestBean;
 import cn.ytxu.xhttp_wrapper.config.property.status_code.StatusCodeBean;
 
-import java.util.List;
-
 /**
  * Created by ytxu on 2016/8/31.<br>
  * 配置中数据的实体类
  */
 public class ConfigBean {
-    private List<ApiDataFileBean> api_data_file;
+    private ApiDataBean api_data;
     private BaseConfigBean base_config = BaseConfigBean.DEFAULT;
     private FilterBean filter = FilterBean.DEFAULT;
     private RequestBean request;
@@ -23,11 +21,11 @@ public class ConfigBean {
     private StatusCodeBean status_code;
     private FieldTypeEnumBean field_type_enum;
 
-    public List<ApiDataFileBean> getApiDataFile() {
-        return api_data_file;
+    public ApiDataBean getApiData() {
+        return api_data;
     }
 
-    public BaseConfigBean getConfig() {
+    public BaseConfigBean getBaseConfig() {
         return base_config;
     }
 
@@ -51,8 +49,8 @@ public class ConfigBean {
         return field_type_enum;
     }
 
-    public void setApi_data_file(List<ApiDataFileBean> api_data_file) {
-        this.api_data_file = api_data_file;
+    public void setApi_data(ApiDataBean api_data) {
+        this.api_data = api_data;
     }
 
     public void setBase_config(BaseConfigBean base_config) {

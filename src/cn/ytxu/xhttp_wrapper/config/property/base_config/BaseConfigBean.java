@@ -9,9 +9,9 @@ public class BaseConfigBean {
     public static final BaseConfigBean DEFAULT = new BaseConfigBean();
 
     /**
-     * 自动生成文件的字符编码
+     * 生成文件的字符编码
      */
-    private String api_data_file_charset = "UTF-8";
+    private String create_file_charset = "UTF-8";
 
     /**
      * 编译模式:
@@ -28,12 +28,12 @@ public class BaseConfigBean {
     private List<String> order_versions;
 
 
-    public String getApiDataFileCharset() {
-        return api_data_file_charset;
+    public String getCreateFileCharset() {
+        return create_file_charset;
     }
 
-    public void setApiDataFileCharset(String api_data_file_charset) {
-        this.api_data_file_charset = api_data_file_charset;
+    public void setCreateFileCharset(String create_file_charset) {
+        this.create_file_charset = create_file_charset;
     }
 
     public String getCompileModelName() {
