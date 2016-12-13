@@ -14,7 +14,9 @@ import java.util.List;
  */
 public class NewEngine {
     // 配置文件的路径(可以有多个)
-    private static final String[] XHWT_CONFIG_PATHS = {"./xhwt/newchama/NewChama-android.json"};//, "./xhwt/NewChama-ios.json"};
+    private static final String[] XHWT_CONFIG_PATHS = {"./xhwt/ncm_non_version/NewChama-android.json"};
+    //, "./xhwt/NewChama-ios.json"};
+//    ./xhwt/newchama/NewChama-android.json
 
     public static void main(String... args) throws IOException {
         for (int i = 0; i < XHWT_CONFIG_PATHS.length; i++) {

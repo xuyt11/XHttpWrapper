@@ -31,16 +31,16 @@ public class NonVersionHelper {
     }
 
     public boolean firstVersionIsBiggerThanTheSecondVersion(String firstVersion, String secondVersion) {
-        final Integer firstIndex = findVersionIndex(firstVersion);
-        final Integer secondIndex = findVersionIndex(secondVersion);
+        final int firstIndex = findVersionIndex(firstVersion);
+        final int secondIndex = findVersionIndex(secondVersion);
         return firstIndex > secondIndex;
     }
 
-    private Integer findVersionIndex(String version) {
+    private int findVersionIndex(String version) {
         return orderVersionIndexs.get(version);
     }
 
     public boolean isNotNeedParsedVersion(String versionName) {
-        return orderVersionIndexs.containsKey(versionName);
+        return !orderVersionIndexs.containsKey(versionName);
     }
 }

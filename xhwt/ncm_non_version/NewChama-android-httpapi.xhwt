@@ -1,0 +1,42 @@
+<header>
+{
+    "fileName":"HttpApi.java",
+    "fileDirs":[
+        {
+            "osName":"Windows",
+            "path":"I:/NewChamaStudio/newchama_android/NewChama/newchama.common/src/main/java/com/newchama/api2/api/"
+        },
+        {
+            "osName":"Mac OS X",
+            "path":"/Users/newchama/Documents/ytxu/newchama_android2/NewChama/newchama.common/src/main/java/com/newchama/api2/api/"
+        }
+    ]
+}
+</header>
+package com.newchama.api2.api;
+
+<retain type="import"/>
+
+public class HttpApi {
+
+<foreach each="request_groups">
+	private static ${request_group_class_name} ${request_group_name};
+</foreach>
+
+<retain type="field"/>
+
+<foreach each="request_groups">
+	public static ${request_group_class_name} ${request_group_name}() {
+		if (null == ${request_group_name}) {
+			${request_group_name} = ${request_group_class_name}.getInstance();
+		}
+		return ${request_group_name};
+	}
+
+</foreach>
+
+<retain type="method"/>
+
+<retain type="other"/>
+
+}

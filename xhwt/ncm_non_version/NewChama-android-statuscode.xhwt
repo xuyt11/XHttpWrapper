@@ -1,0 +1,33 @@
+<header>
+{
+    "fileName":"StatusCode.java",
+    "fileDirs":[
+        {
+            "osName":"Windows",
+            "path":"I:/NewChamaStudio/newchama_android/NewChama/newchama.common/src/main/java/com/newchama/api/"
+        },
+        {
+            "osName":"Mac OS X",
+            "path":"/Users/newchama/Documents/ytxu/newchama_android2/NewChama/newchama.common/src/main/java/com/newchama/api/"
+        }
+    ]
+}
+</header>
+package com.newchama.api;
+
+<retain type="import"/>
+
+public class StatusCode {
+
+<retain type="field"/>
+
+<foreach each="status_codes">
+    /** ${status_code_desc} */
+    public static final int ${status_code_name} = ${status_code_number};
+</foreach>
+
+<retain type="method"/>
+
+<retain type="other"/>
+
+}
