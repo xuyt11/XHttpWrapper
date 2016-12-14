@@ -70,4 +70,13 @@ public class RequestGroupModel extends BaseModel<VersionModel> implements Compar
         return requests;
     }
 
+    public boolean needImportOptionalRequestParamPackage() {
+        for (RequestModel request : requests) {
+            if (request.needGenerateOptionalRequestMethod()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

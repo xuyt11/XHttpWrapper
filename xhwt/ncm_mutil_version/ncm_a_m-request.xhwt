@@ -21,7 +21,9 @@ import com.loopj.android.http.RequestHandle;
 import com.loopj.android.http.ResponseHandlerInterface;
 
 import com.newchama.api.BaseApi;
-import com.newchama.api.request_param.${request_group_name}.*;
+<if isTrue="needImportOptionalRequestParamPackage">
+import com.newchama.api.request_param.${request_group_newchama}.*;
+</if_end>
 
 import com.newchama.tool.net.NetRequest;
 import com.newchama.tool.net.NetRequest.Method;
