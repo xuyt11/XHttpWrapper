@@ -1,6 +1,5 @@
 package cn.ytxu.http_wrapper.config.property.element_type;
 
-import cn.ytxu.api_semi_auto_creater.model.request.InputParamModel;
 import cn.ytxu.http_wrapper.common.enums.OutputParamType;
 import cn.ytxu.http_wrapper.config.ConfigWrapper;
 import cn.ytxu.http_wrapper.model.response.OutputParamModel;
@@ -157,23 +156,6 @@ public enum ElementType {
             }
             for (String inputType : inputTypes) {
                 if (inputType.equalsIgnoreCase(inputTypeText)) {
-                    return type;
-                }
-            }
-        }
-        return NULL;
-    }
-
-    // TODO need delete
-    protected static ElementType getTypeByInput(InputParamModel input) {
-        String inputTypeStr = input.getType();
-        for (ElementType type : ElementType.values()) {
-            String[] inputTypes = type.inputTypes;
-            if (Objects.isNull(inputTypes)) {
-                continue;
-            }
-            for (String inputType : inputTypes) {
-                if (inputType.equalsIgnoreCase(inputTypeStr)) {
                     return type;
                 }
             }

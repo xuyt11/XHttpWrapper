@@ -1,6 +1,5 @@
 package cn.ytxu.http_wrapper.config.property.element_type;
 
-import cn.ytxu.api_semi_auto_creater.model.request.InputParamModel;
 import cn.ytxu.http_wrapper.common.util.LogUtil;
 import cn.ytxu.http_wrapper.model.response.OutputParamModel;
 
@@ -65,16 +64,6 @@ public class FieldTypeWrapper {
         if (!Objects.isNull(etBean) && !etBean.isInvalid()) {
             LogUtil.i(FieldTypeWrapper.class, logMessage);
         }
-    }
-
-    public String getElementType(InputParamModel input) {
-        ElementType etEnum = ElementType.getTypeByInput(input);
-        return etEnum.getElementTypeByInput();
-    }
-
-    public String getElementRequestType(InputParamModel input) {
-        ElementType etEnum = ElementType.getTypeByInput(input);
-        return etEnum.getElementRequestTypeByInput();
     }
 
     public String getElementTypeByOutput(OutputParamModel output) {
