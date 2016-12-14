@@ -57,6 +57,6 @@ public class XHttpWrapperEngine {
         String apiDataSource = ConfigWrapper.getApiDataFile().getApiDataSource();
         List<VersionModel> versions = ApiDataSourceType.get(apiDataSource).createXHWTModelByParseApiData();
 
-        new XHWTFileCreater(versions, xhwtConfigPath).start();
+        new XHWTFileCreater(versions).start();
     }
 }
