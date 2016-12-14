@@ -21,7 +21,7 @@ import com.loopj.android.http.RequestHandle;
 import com.loopj.android.http.ResponseHandlerInterface;
 
 import com.newchama.api.BaseApi;
-import com.newchama.api.request_param.${request_group_name}.*;
+import com.newchama.api.request_param.${request_group_newchama}.*;
 
 import com.newchama.tool.net.NetRequest;
 import com.newchama.tool.net.NetRequest.Method;
@@ -144,7 +144,7 @@ public class ${request_group_class_name} extends BaseApi {
             <eachTemp value="${header_name}, "/>
             <end value=""/>
         </list>
-        <list each="input_group_fileds" singleLine>
+        <list each="input_groups_fileds" singleLine>
             <start value="		"/>
             <eachTemp value="${input_group_name}.${input_group_filed_name}, "/>
             <end value=""/>
