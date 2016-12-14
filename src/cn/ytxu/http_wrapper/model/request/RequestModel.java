@@ -2,6 +2,7 @@ package cn.ytxu.http_wrapper.model.request;
 
 import cn.ytxu.http_wrapper.common.util.CamelCaseUtils;
 import cn.ytxu.http_wrapper.common.util.FileUtil;
+import cn.ytxu.http_wrapper.config.ConfigWrapper;
 import cn.ytxu.http_wrapper.model.BaseModel;
 import cn.ytxu.http_wrapper.model.request.header.HeaderGroupModel;
 import cn.ytxu.http_wrapper.model.request.header.HeaderModel;
@@ -226,23 +227,9 @@ public class RequestModel extends BaseModel<RequestGroupModel> implements Compar
     /**
      * 是否需要生成可选的请求方法(或叫缩略请求方法)；
      * 即：请求参数分组归类；
-     * detail:
-     * 1、若没有请求参数，不需要生成；
-     * 2、若有超过两个请求参数组，则需要生成；
-     * 3、只有一个请求组，判断内种参数的个数，若少于3个则不需要生成
      */
     public boolean needGenerateOptionalRequestMethod() {
-        switch (inputGroups.size()) {
-            case 0: {
-                return false;
-            }
-            case 1: {
-                return inputGroups.get(0).getInputs().size() > 3;
-            }
-            default: {
-                return true;
-            }
-        }
+        return ConfigWrapper.getRequest().needGenerateOptionalRequestMethod(inputGroups);
     }
 
     public List<InputGroupModel> input_groups() {

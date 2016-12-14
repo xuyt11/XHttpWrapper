@@ -73,6 +73,10 @@
           "date_request_param": "restful_date_param"
         }
       ]
+    },
+    "optional_request_method": {
+      "need_generate": true,
+      "min_number_of_input_params_in_one_input_group": 3
     }
   },
   "response": {
