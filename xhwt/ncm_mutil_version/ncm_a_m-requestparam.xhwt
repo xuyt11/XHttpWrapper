@@ -34,7 +34,12 @@ public class ${request_param_class_name} implements Serializable {
 
     public static final class ${input_group_class_name} implements Serializable {
         <list each="input_group_fileds">
-        public ${input_request_param_type} ${input_name};// ${input_desc}
+        /**
+         * type: ${input_type}
+         * <br>
+         * desc: ${input_desc}
+         */
+        public ${input_request_param_type} ${input_name};
         </list>
     }
 
