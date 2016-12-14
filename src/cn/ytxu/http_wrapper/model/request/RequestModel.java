@@ -224,12 +224,19 @@ public class RequestModel extends BaseModel<RequestGroupModel> implements Compar
     }
 
 
+    //*************** request param-->reflect method area ***************
+
     /**
      * 是否需要生成可选的请求方法(或叫缩略请求方法)；
      * 即：请求参数分组归类；
      */
     public boolean needGenerateOptionalRequestMethod() {
         return ConfigWrapper.getRequest().needGenerateOptionalRequestMethod(inputGroups);
+    }
+
+    public String request_param_class_name() {
+        String className = FileUtil.getClassFileName(name);
+        return className + "RP";
     }
 
     public List<InputGroupModel> input_groups() {

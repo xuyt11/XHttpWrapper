@@ -80,6 +80,9 @@ public class XHWTFileCreater {
             return;
         }
         for (RequestModel request : VersionModel.getRequests(versions)) {
+            if (!request.needGenerateOptionalRequestMethod()) {
+                continue;
+            }
             XHWTFileBaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, request);
         }
         LogUtil.i(XHWTFileCreater.class, "this template type has been successfully parsed, the type is " + XHWTFileType.RequestParam.name());

@@ -129,7 +129,7 @@ public class ${request_group_class_name} extends BaseApi {
         </list>
         <list each="input_groups" singleLine>
             <start value="		"/>
-            <eachTemp value="${request_class_name}.${input_group_class_name} ${input_group_name}, "/>
+            <eachTemp value="${request_param_class_name}.${input_group_class_name} ${input_group_name}, "/>
             <end value=""/>
         </list>
         ResponseHandlerInterface response) {

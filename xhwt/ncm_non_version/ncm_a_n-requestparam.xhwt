@@ -1,6 +1,6 @@
 <header>
 {
-    "fileName":"${request_class_name}.java",
+    "fileName":"${request_param_class_name}.java",
     "fileDirs":[
         {
             "osName":"Windows",
@@ -26,20 +26,22 @@ import java.util.List;
  * @version ${request_version}
  * @requestUrl ${request_url}
  */
-public class ${request_class_name} implements Serializable {
+public class ${request_param_class_name} implements Serializable {
 
 <retain type="field"/>
 
 <foreach each="input_groups">
+
     public static final class ${input_group_class_name} implements Serializable {
         <list each="input_group_fileds">
-            <if isTrue="isFilterParam">
+            <if isTrue="input_isOptional">
         public ${input_request_param_type} ${input_name};// ${input_desc}
-            </if_else>
+            <if_else>
         public ${input_type} ${input_name};// ${input_desc}
             </if_end>
         </list>
     }
+
 </foreach>
 
 <retain type="method"/>
