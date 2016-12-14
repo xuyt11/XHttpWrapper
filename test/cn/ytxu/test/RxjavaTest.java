@@ -1,6 +1,5 @@
 package cn.ytxu.test;
 
-import cn.ytxu.util.LogUtil;
 import org.junit.Test;
 import rx.Observable;
 import rx.functions.Action1;

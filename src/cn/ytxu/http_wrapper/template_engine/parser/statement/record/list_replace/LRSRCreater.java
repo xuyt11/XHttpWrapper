@@ -5,7 +5,6 @@ import cn.ytxu.http_wrapper.template_engine.parser.statement.StatementRecord;
 import cn.ytxu.http_wrapper.template_engine.parser.statement.record.TextStatementRecord;
 import cn.ytxu.http_wrapper.template_engine.parser.statement.record.retain.RetainModel;
 import cn.ytxu.http_wrapper.template_engine.parser.util.ReflectiveUtil;
-import cn.ytxu.http_wrapper.common.util.ListUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +28,7 @@ public class LRSRCreater {
 
     public StringBuffer getWriteBuffer(Object reflectModel, RetainModel retain) {
         List subModels = ReflectiveUtil.getList(reflectModel, methodName);
-        if (ListUtil.isEmpty(subModels)) {
+        if (subModels == null || subModels.isEmpty()) {
             return new StringBuffer();
         }
 

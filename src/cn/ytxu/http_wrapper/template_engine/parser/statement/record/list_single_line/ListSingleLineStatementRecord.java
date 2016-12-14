@@ -5,7 +5,6 @@ import cn.ytxu.http_wrapper.template_engine.parser.statement.record.retain.Retai
 import cn.ytxu.http_wrapper.template_engine.parser.util.ReflectiveUtil;
 import cn.ytxu.http_wrapper.template_engine.parser.statement.Statement;
 import cn.ytxu.http_wrapper.template_engine.parser.statement.StatementRecord;
-import cn.ytxu.http_wrapper.common.util.ListUtil;
 
 import java.util.List;
 import java.util.Objects;
@@ -36,7 +35,7 @@ public class ListSingleLineStatementRecord extends StatementRecord {
         List subModels = ReflectiveUtil.getList(reflectModel, parser.getMethodName());
         StringBuffer listSingleLineBuffer = new StringBuffer();
 
-        if (ListUtil.isEmpty(subModels)) {
+        if (subModels == null || subModels.isEmpty()) {
             return listSingleLineBuffer;
         }
 
