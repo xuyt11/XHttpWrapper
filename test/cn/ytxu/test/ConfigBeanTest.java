@@ -14,7 +14,7 @@ public class ConfigBeanTest {
 
     @Test
     public void test() {
-        InputStream in = ConfigBeanTest.class.getClassLoader().getResourceAsStream("xhwt/NewChama-android.json");
+        InputStream in = ConfigBeanTest.class.getClassLoader().getResourceAsStream("xhwt/ncm_a_m.json");
         try {
             ConfigBean object = JSON.parseObject(in, ConfigBean.class);
             LogUtil.i("config content:" + object.toString());

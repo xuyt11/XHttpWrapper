@@ -11,10 +11,10 @@ import java.io.IOException;
  * Created by Administrator on 2016/12/13.
  */
 public class FileTest {
-    private static final String filePath = "I:/ytxuStudio/ApiSemiAutoCreater/xhwt/ncm_non_version/NewChama-android.json";
-    private static final String filePath2 = "../NewChama-android-httpapi.xhwt";
-    private static final String filePath3 = "/NewChama-android-httpapi.xhwt";
-    private static final String filePath4 = "NewChama-android-httpapi.xhwt";
+    private static final String filePath = "I:/ytxuStudio/ApiSemiAutoCreater/xhwt/ncm_non_version/ncm_a_m.json";
+    private static final String filePath2 = "../ncm_a_n-httpapi.xhwt";
+    private static final String filePath3 = "/ncm_a_n-httpapi.xhwt";
+    private static final String filePath4 = "ncm_a_n-httpapi.xhwt";
 
 
     @Test
