@@ -52,7 +52,6 @@ public class NonVersionStatusCodeGroupConverter {
     }
 
     private void setApiData2StatusCodes() {
-        StatusCodeGroupModel scGroup = ApidocjsHelper.getApiData().createStatusCodeGroup(version, apiData);
-        version.addStatusCodeGroup(scGroup);
+        ApidocjsHelper.getApiData().createStatusCodeGroup(version, apiData);
     }
 }
