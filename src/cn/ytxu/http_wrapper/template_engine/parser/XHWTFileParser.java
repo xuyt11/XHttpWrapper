@@ -1,5 +1,6 @@
 package cn.ytxu.http_wrapper.template_engine.parser;
 
+import cn.ytxu.http_wrapper.common.util.LogUtil;
 import cn.ytxu.http_wrapper.config.ConfigWrapper;
 import cn.ytxu.http_wrapper.config.property.template_file_info.TemplateFileInfoWrapper;
 import cn.ytxu.http_wrapper.template_engine.XHWTFileType;
@@ -29,7 +30,7 @@ public class XHWTFileParser {
         try {
             this.filePath = ConfigWrapper.getTemplateFileInfo().getTemplateFileAbsolutePath(xhwtFileType);
         } catch (TemplateFileInfoWrapper.NonNeedParseTheTemplateFileException e) {
-            throw new XHWTNonNeedParsedException(filePath);
+            throw new XHWTNonNeedParsedException(xhwtFileType);
         }
 
         List<String> contents = getContents();
@@ -40,8 +41,8 @@ public class XHWTFileParser {
     }
 
     public static final class XHWTNonNeedParsedException extends Exception {
-        public XHWTNonNeedParsedException(String filePath) {
-            super("this template type not need parsed, filePath:" + filePath);
+        public XHWTNonNeedParsedException(XHWTFileType xhwtFileType) {
+            super("this template type not need parsed, the type is " + xhwtFileType.name());
         }
     }
 

@@ -19,19 +19,19 @@
       "path": "Newchama-android-httpapi.xhwt"
     },
     "Request": {
-      "need_generate": true,
+      "need_generate": false,
       "path": "Newchama-android-request.xhwt"
     },
     "Response": {
-      "need_generate": true,
+      "need_generate": false,
       "path": "Newchama-android-response.xhwt"
     },
     "StatusCode": {
-      "need_generate": true,
+      "need_generate": false,
       "path": "Newchama-android-statuscode.xhwt"
     },
     "BaseResponse": {
-      "need_generate": true,
+      "need_generate": false,
       "path": "Newchama-android-baseresponse.xhwt"
     }
   },

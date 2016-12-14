@@ -1,6 +1,7 @@
 package cn.ytxu.http_wrapper.template_engine;
 
 import cn.ytxu.http_wrapper.apidocjs.parser.response.message_type.json.output.sub.GetOutputsThatCanGenerateResponseEntityFileUtil;
+import cn.ytxu.http_wrapper.common.util.LogUtil;
 import cn.ytxu.http_wrapper.config.ConfigWrapper;
 import cn.ytxu.http_wrapper.model.request.RequestGroupModel;
 import cn.ytxu.http_wrapper.model.version.VersionModel;
@@ -45,12 +46,13 @@ public class XHWTFileCreater {
         try {
             model = new XHWTFileParser(XHWTFileType.HttpApi).start();
         } catch (XHWTFileParser.XHWTNonNeedParsedException e) {
-            e.printStackTrace();
+            LogUtil.i(XHWTFileCreater.class, e.getMessage());
             return;
         }
         for (VersionModel version : VersionModel.getVersions(versions)) {
             XHWTFileBaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, version);
         }
+        LogUtil.i(XHWTFileCreater.class, "this template type has been successfully parsed, the type is " + XHWTFileType.HttpApi.name());
     }
 
     private void createRequest() {
@@ -58,12 +60,13 @@ public class XHWTFileCreater {
         try {
             model = new XHWTFileParser(XHWTFileType.Request).start();
         } catch (XHWTFileParser.XHWTNonNeedParsedException e) {
-            e.printStackTrace();
+            LogUtil.i(XHWTFileCreater.class, e.getMessage());
             return;
         }
         for (RequestGroupModel requestGroup : VersionModel.getRequestGroups(versions)) {
             XHWTFileBaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, requestGroup);
         }
+        LogUtil.i(XHWTFileCreater.class, "this template type has been successfully parsed, the type is " + XHWTFileType.Request.name());
     }
 
     private void createResponseEntity() {
@@ -71,13 +74,14 @@ public class XHWTFileCreater {
         try {
             model = new XHWTFileParser(XHWTFileType.Response).start();
         } catch (XHWTFileParser.XHWTNonNeedParsedException e) {
-            e.printStackTrace();
+            LogUtil.i(XHWTFileCreater.class, e.getMessage());
             return;
         }
         List<ResponseModel> okResponses = getOKResponses();
         for (OutputParamModel output : getOutputsThatCanGenerateResponseEntityFile(okResponses)) {
             XHWTFileBaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, output);
         }
+        LogUtil.i(XHWTFileCreater.class, "this template type has been successfully parsed, the type is " + XHWTFileType.Response.name());
     }
 
     private List<ResponseModel> getOKResponses() {
@@ -105,7 +109,7 @@ public class XHWTFileCreater {
         try {
             model = new XHWTFileParser(XHWTFileType.StatusCode).start();
         } catch (XHWTFileParser.XHWTNonNeedParsedException e) {
-            e.printStackTrace();
+            LogUtil.i(XHWTFileCreater.class, e.getMessage());
             return;
         }
 
@@ -113,6 +117,7 @@ public class XHWTFileCreater {
         for (StatusCodeGroupModel statusCodeGroup : statusCodeGroups) {
             XHWTFileBaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, statusCodeGroup);
         }
+        LogUtil.i(XHWTFileCreater.class, "this template type has been successfully parsed, the type is " + XHWTFileType.StatusCode.name());
     }
 
     private void createBaseResponse() {
@@ -120,7 +125,7 @@ public class XHWTFileCreater {
         try {
             model = new XHWTFileParser(XHWTFileType.BaseResponse).start();
         } catch (XHWTFileParser.XHWTNonNeedParsedException e) {
-            e.printStackTrace();
+            LogUtil.i(XHWTFileCreater.class, e.getMessage());
             return;
         }
 
@@ -135,6 +140,7 @@ public class XHWTFileCreater {
         subsOfErrorsSVersion.setSubsOfErrors(subsOfErrors);
 
         XHWTFileBaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, subsOfErrorsSVersion);
+        LogUtil.i(XHWTFileCreater.class, "this template type has been successfully parsed, the type is " + XHWTFileType.StatusCode.name());
     }
 
 }
