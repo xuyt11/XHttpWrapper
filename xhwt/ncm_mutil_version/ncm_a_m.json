@@ -15,7 +15,7 @@
   },
   "template_file_infos": {
     "HttpApi": {
-      "need_generate": true,
+      "need_generate": false,
       "path": "ncm_a_m-httpapi.xhwt"
     },
     "Request": {
@@ -24,18 +24,18 @@
     },
     "RequestParam": {
       "need_generate": true,
-      "path": "ncm_a_n-requestparam.xhwt"
+      "path": "ncm_a_m-requestparam.xhwt"
     },
     "Response": {
-      "need_generate": true,
+      "need_generate": false,
       "path": "ncm_a_m-response.xhwt"
     },
     "StatusCode": {
-      "need_generate": true,
+      "need_generate": false,
       "path": "ncm_a_m-statuscode.xhwt"
     },
     "BaseResponse": {
-      "need_generate": true,
+      "need_generate": false,
       "path": "ncm_a_m-baseresponse.xhwt"
     }
   },

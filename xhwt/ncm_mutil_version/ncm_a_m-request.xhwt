@@ -22,7 +22,7 @@ import com.loopj.android.http.ResponseHandlerInterface;
 
 import com.newchama.api.BaseApi;
 <if isTrue="needImportOptionalRequestParamPackage">
-import com.newchama.api.request_param.${request_group_newchama}.*;
+import com.newchama.api.V${version_code}.request_param.${request_group_newchama}.*;
 </if_end>
 
 import com.newchama.tool.net.NetRequest;
