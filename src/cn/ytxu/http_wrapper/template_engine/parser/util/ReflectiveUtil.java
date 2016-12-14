@@ -5,6 +5,7 @@ import cn.ytxu.http_wrapper.model.BaseModel;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by ytxu on 2016/7/24.
@@ -73,7 +74,11 @@ public class ReflectiveUtil {
 
     //*********************** reflect sub type ***********************
     public static String getString(Object reflectObj, String methodName) {
-        return (String) invokeMethod(reflectObj, methodName, reflectObj.getClass().getSimpleName());
+        Object data = invokeMethod(reflectObj, methodName, reflectObj.getClass().getSimpleName());
+        if (Objects.isNull(data)) {
+            return null;
+        }
+        return data.toString();
     }
 
     public static List<?> getList(Object reflectObj, String methodName) {
