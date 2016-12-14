@@ -222,4 +222,39 @@ public class RequestModel extends BaseModel<RequestGroupModel> implements Compar
         return restfulUrl.request_convert_url();
     }
 
+
+    /**
+     * 是否需要生成可选的请求方法(或叫缩略请求方法)；
+     * 即：请求参数分组归类；
+     * detail:
+     * 1、若没有请求参数，不需要生成；
+     * 2、若有超过两个请求参数组，则需要生成；
+     * 3、只有一个请求组，判断内种参数的个数，若少于3个则不需要生成
+     */
+    public boolean needGenerateOptionalRequestMethod() {
+        switch (inputGroups.size()) {
+            case 0: {
+                return false;
+            }
+            case 1: {
+                return inputGroups.get(0).getInputs().size() > 3;
+            }
+            default: {
+                return true;
+            }
+        }
+    }
+
+    public List<InputGroupModel> input_groups() {
+        return inputGroups;
+    }
+
+    public List<InputModel> input_group_fileds() {
+        List<InputModel> inputs = new ArrayList<>();
+        for (InputGroupModel inputGroup : inputGroups) {
+            inputs.addAll(inputGroup.getInputs());
+        }
+        return inputs;
+    }
+
 }

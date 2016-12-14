@@ -34,5 +34,7 @@ public class InputModel extends FieldModel<InputGroupModel> {
         return isOptional();
     }
 
-
+    public String input_group_filed_name() {
+        return getName();
+    }
 }

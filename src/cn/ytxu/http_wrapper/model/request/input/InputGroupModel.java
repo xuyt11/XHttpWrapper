@@ -1,5 +1,7 @@
 package cn.ytxu.http_wrapper.model.request.input;
 
+import cn.ytxu.http_wrapper.common.util.CamelCaseUtils;
+import cn.ytxu.http_wrapper.common.util.FileUtil;
 import cn.ytxu.http_wrapper.model.BaseModel;
 import cn.ytxu.http_wrapper.model.request.RequestModel;
 
@@ -37,5 +39,16 @@ public class InputGroupModel extends BaseModel<RequestModel> implements Comparab
     @Override
     public int compareTo(InputGroupModel o) {
         return this.name.compareToIgnoreCase(o.name);
+    }
+
+
+    //*************** reflect method area ***************
+    public String input_group_name() {
+        return CamelCaseUtils.toCamelCase(name);
+    }
+
+    public String input_group_class_name() {
+        String className = FileUtil.getClassFileName(name);
+        return className;
     }
 }
