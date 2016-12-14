@@ -23,7 +23,8 @@ public class ReflectiveUtil {
                 try {
                     realReflectObj = getHigherLevelReflectObject(realReflectObj);
                 } catch (NotCallThisMethodException e) {
-                    throw new RuntimeException("error : the data tree can not call this " + methodName + " method, and return a blank string...");
+                    throw new RuntimeException("error : the data tree can not call this (" + methodName + ") method," +
+                            " and the reflectObj is " + reflectObj.getClass().getSimpleName());
                 }
             }
         } while (true);
