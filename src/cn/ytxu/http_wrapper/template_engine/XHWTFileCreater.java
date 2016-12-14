@@ -10,6 +10,7 @@ import cn.ytxu.http_wrapper.model.response.OutputParamModel;
 import cn.ytxu.http_wrapper.model.response.ResponseModel;
 import cn.ytxu.http_wrapper.model.status_code.StatusCodeGroupModel;
 import cn.ytxu.http_wrapper.template_engine.creater.XHWTFileBaseCreater;
+import cn.ytxu.http_wrapper.template_engine.creater.XHWTFileType;
 import cn.ytxu.http_wrapper.template_engine.parser.model.XHWTModel;
 import cn.ytxu.http_wrapper.template_engine.parser.XHWTFileParser;
 

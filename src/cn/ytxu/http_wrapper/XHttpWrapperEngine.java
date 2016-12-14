@@ -26,13 +26,7 @@ public class XHttpWrapperEngine {
         for (int i = 0; i < xhwtConfigPaths.length; i++) {
             long start = System.currentTimeMillis();
 
-            final String xhwtConfigPath = xhwtConfigPaths[i];
-            ConfigWrapper.load(xhwtConfigPath);
-
-            String apiDataSource = ConfigWrapper.getApiDataFile().getApiDataSource();
-            List<VersionModel> versions = ApiDataSourceType.get(apiDataSource).createXHWTModelByParseApiData();
-
-            new XHWTFileCreater(versions, xhwtConfigPath).start();
+            run(xhwtConfigPaths[i]);
 
             long end = System.currentTimeMillis();
             LogUtil.w("duration time is " + (end - start));
@@ -42,14 +36,12 @@ public class XHttpWrapperEngine {
     /**
      * 若没有输入参数args，则为我自己在intellij idea中使用，所以使用XHWT_CONFIG_PATHS；
      * 否则，为使用其他用户使用jar包；
-     *
-     * @param args
-     * @return
      */
     private static String[] getXhwtConfigPaths(String[] args) {
         if (Objects.nonNull(args) && args.length > 0) {
             return args;
         }
+
         String[] paths = new String[XHWT_CONFIG_PATHS.length];
         for (int i = 0; i < XHWT_CONFIG_PATHS.length; i++) {
             String xhwtConfigPath = XHWT_CONFIG_PATHS[i];
@@ -57,5 +49,14 @@ public class XHttpWrapperEngine {
             paths[i] = configFile.getAbsolutePath();
         }
         return paths;
+    }
+
+    private static void run(final String xhwtConfigPath) throws IOException {
+        ConfigWrapper.load(xhwtConfigPath);
+
+        String apiDataSource = ConfigWrapper.getApiDataFile().getApiDataSource();
+        List<VersionModel> versions = ApiDataSourceType.get(apiDataSource).createXHWTModelByParseApiData();
+
+        new XHWTFileCreater(versions, xhwtConfigPath).start();
     }
 }

@@ -2,7 +2,7 @@ package cn.ytxu.http_wrapper.config.property.template_file_info;
 
 import cn.ytxu.http_wrapper.common.util.LogUtil;
 import cn.ytxu.http_wrapper.common.util.TextUtil;
-import cn.ytxu.http_wrapper.template_engine.XHWTFileType;
+import cn.ytxu.http_wrapper.template_engine.creater.XHWTFileType;
 
 import java.io.File;
 import java.util.LinkedHashMap;

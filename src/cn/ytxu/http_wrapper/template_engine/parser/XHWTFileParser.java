@@ -1,9 +1,8 @@
 package cn.ytxu.http_wrapper.template_engine.parser;
 
-import cn.ytxu.http_wrapper.common.util.LogUtil;
 import cn.ytxu.http_wrapper.config.ConfigWrapper;
 import cn.ytxu.http_wrapper.config.property.template_file_info.TemplateFileInfoWrapper;
-import cn.ytxu.http_wrapper.template_engine.XHWTFileType;
+import cn.ytxu.http_wrapper.template_engine.creater.XHWTFileType;
 import cn.ytxu.http_wrapper.template_engine.parser.model.XHWTModel;
 import cn.ytxu.http_wrapper.template_engine.parser.statement.StatementRecord;
 

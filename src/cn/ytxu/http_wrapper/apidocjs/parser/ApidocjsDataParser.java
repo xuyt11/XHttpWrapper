@@ -7,7 +7,6 @@ import cn.ytxu.http_wrapper.apidocjs.parser.status_code.StatusCodeParser;
 import cn.ytxu.http_wrapper.config.ConfigWrapper;
 import cn.ytxu.http_wrapper.apidocjs.bean.api_data.ApiDataBean;
 import cn.ytxu.http_wrapper.common.enums.CompileModel;
-import cn.ytxu.http_wrapper.model.ModelHelper;
 import cn.ytxu.http_wrapper.model.request.RequestGroupModel;
 import cn.ytxu.http_wrapper.model.request.RequestModel;
 import cn.ytxu.http_wrapper.model.request.header.HeaderGroupModel;
@@ -33,7 +32,6 @@ public class ApidocjsDataParser {
     }
 
     public List<VersionModel> start() throws IOException {
-        ModelHelper.reload();
         ApidocjsHelper.reload();
         List<ApiDataBean> apiDatas = ApidocjsHelper.getApiDatasFromFile();
         versions = createVersionModelsByApiDatas(apiDatas);
