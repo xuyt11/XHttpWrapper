@@ -34,11 +34,7 @@ public class ${request_param_class_name} implements Serializable {
 
     public static final class ${input_group_class_name} implements Serializable {
         <list each="input_group_fileds">
-            <if isTrue="input_isOptional">
         public ${input_request_param_type} ${input_name};// ${input_desc}
-            <if_else>
-        public ${input_type} ${input_name};// ${input_desc}
-            </if_end>
         </list>
     }
 
