@@ -236,7 +236,7 @@ public class RequestModel extends BaseModel<RequestGroupModel> implements Compar
         return inputGroups;
     }
 
-    public List<InputModel> input_group_fileds() {
+    public List<InputModel> input_groups_fileds() {
         List<InputModel> inputs = new ArrayList<>();
         for (InputGroupModel inputGroup : inputGroups) {
             inputs.addAll(inputGroup.getInputs());

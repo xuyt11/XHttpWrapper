@@ -1,0 +1,49 @@
+<header>
+{
+    "fileName":"${request_class_name}.java",
+    "fileDirs":[
+        {
+            "osName":"Windows",
+            "path":"I:/NewChamaStudio/newchama_android/NewChama/newchama.model/src/main/java/com/newchama/api/request_param/${request_group_newchama}/"
+        },
+        {
+            "osName":"Mac OS X",
+            "path":"/Users/newchama/Documents/ytxu/newchama_android2/NewChama/newchama.model/src/main/java/com/newchama/api/request_param/${request_group_newchama}/"
+        }
+    ]
+}
+</header>
+package com.newchama.api.request_param.${request_group_newchama};
+
+import java.io.Serializable;
+import java.io.File;
+import java.util.List;
+
+<retain type="import"/>
+
+/**
+ * @title ${request_title}
+ * @version ${request_version}
+ * @requestUrl ${request_url}
+ */
+public class ${request_class_name} implements Serializable {
+
+<retain type="field"/>
+
+<foreach each="input_groups">
+    public static final class ${input_group_class_name} implements Serializable {
+        <list each="input_group_fileds">
+            <if isTrue="isFilterParam">
+        public ${input_request_param_type} ${input_name};// ${input_desc}
+            </if_else>
+        public ${input_type} ${input_name};// ${input_desc}
+            </if_end>
+        </list>
+    }
+</foreach>
+
+<retain type="method"/>
+
+<retain type="other"/>
+
+}

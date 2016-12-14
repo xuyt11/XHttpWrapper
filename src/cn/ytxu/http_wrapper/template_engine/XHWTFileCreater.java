@@ -4,6 +4,7 @@ import cn.ytxu.http_wrapper.apidocjs.parser.response.message_type.json.output.su
 import cn.ytxu.http_wrapper.common.util.LogUtil;
 import cn.ytxu.http_wrapper.config.ConfigWrapper;
 import cn.ytxu.http_wrapper.model.request.RequestGroupModel;
+import cn.ytxu.http_wrapper.model.request.RequestModel;
 import cn.ytxu.http_wrapper.model.version.VersionModel;
 import cn.ytxu.http_wrapper.model.response.OutputParamModel;
 import cn.ytxu.http_wrapper.model.response.ResponseModel;
@@ -36,6 +37,7 @@ public class XHWTFileCreater {
     private void createTargetFile() {
         createHttpApi();
         createRequest();
+        createRequestParam();
         createResponseEntity();
         createStatusCode();
         createBaseResponse();
@@ -67,6 +69,20 @@ public class XHWTFileCreater {
             XHWTFileBaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, requestGroup);
         }
         LogUtil.i(XHWTFileCreater.class, "this template type has been successfully parsed, the type is " + XHWTFileType.Request.name());
+    }
+
+    private void createRequestParam() {
+        XHWTModel model;
+        try {
+            model = new XHWTFileParser(XHWTFileType.RequestParam).start();
+        } catch (XHWTFileParser.XHWTNonNeedParsedException e) {
+            LogUtil.i(XHWTFileCreater.class, e.getMessage());
+            return;
+        }
+        for (RequestModel request : VersionModel.getRequests(versions)) {
+            XHWTFileBaseCreater.writeContent2TargetFileByXTempAndReflectModel(model, request);
+        }
+        LogUtil.i(XHWTFileCreater.class, "this template type has been successfully parsed, the type is " + XHWTFileType.RequestParam.name());
     }
 
     private void createResponseEntity() {

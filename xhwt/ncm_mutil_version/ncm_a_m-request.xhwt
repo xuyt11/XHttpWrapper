@@ -144,7 +144,7 @@ public class ${request_group_class_name} extends BaseApi {
             <eachTemp value="${header_name}, "/>
             <end value=""/>
         </list>
-        <list each="input_group_fileds" singleLine>
+        <list each="input_groups_fileds" singleLine>
             <start value="		"/>
             <eachTemp value="${input_group_name}.${input_group_filed_name}, "/>
             <end value=""/>

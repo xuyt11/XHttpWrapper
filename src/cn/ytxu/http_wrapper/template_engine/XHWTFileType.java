@@ -7,6 +7,7 @@ package cn.ytxu.http_wrapper.template_engine;
 public enum XHWTFileType {
     HttpApi(),
     Request(),
+    RequestParam(),
     Response(),
     BaseResponse(),
     StatusCode();

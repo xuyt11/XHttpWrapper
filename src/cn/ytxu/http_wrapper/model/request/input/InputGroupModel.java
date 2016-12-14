@@ -51,4 +51,8 @@ public class InputGroupModel extends BaseModel<RequestModel> implements Comparab
         String className = FileUtil.getClassFileName(name);
         return className;
     }
+
+    public List<InputModel> input_group_fileds() {
+        return inputs;
+    }
 }

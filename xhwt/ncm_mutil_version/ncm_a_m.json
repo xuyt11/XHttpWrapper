@@ -22,6 +22,10 @@
       "need_generate": true,
       "path": "ncm_a_m-request.xhwt"
     },
+    "RequestParam": {
+      "need_generate": true,
+      "path": "ncm_a_n-requestparam.xhwt"
+    },
     "Response": {
       "need_generate": true,
       "path": "ncm_a_m-response.xhwt"
