@@ -178,6 +178,10 @@ public class RequestModel extends BaseModel<RequestGroupModel> implements Compar
         return methodType.toUpperCase();
     }
 
+    public String requestMethodByCapitalizeCamelCase() {//首字母大写的驼峰法命名
+        return CamelCaseUtils.toCapitalizeCamelCase(methodType);
+    }
+
     public List<HeaderModel> headers() {
         if (headerGroups.isEmpty()) {
             return Collections.EMPTY_LIST;

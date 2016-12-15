@@ -76,7 +76,7 @@ public class ${request_group_class_name} extends BaseApi {
         <if_else>
 		String realUrl = getFullUrl("${request_normal_url}");
         </if_end>
-        HttpProxy.getInstance(cxt001).onGetRequest(realUrl, requset, callBack);
+        HttpProxy.getInstance(cxt001).on${requestMethodByCapitalizeCamelCase}Request(realUrl, requset, callBack);
 	}
 
 </foreach>
