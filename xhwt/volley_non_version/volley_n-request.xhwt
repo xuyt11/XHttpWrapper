@@ -17,11 +17,10 @@ package ytxu.cn.volley.api.api;
 
 import android.content.Context;
 
+import com.kdlc.framework.http.BaseApi;
 import com.kdlc.framework.http.HttpProxy;
 import com.kdlc.framework.http.bean.RequestBean;
 import com.kdlc.framework.http.interfaces.HttpResultInterface;
-
-import ytxu.cn.volley.api.BaseApi;
 
 <xhwt:retain type="import"/>
 
