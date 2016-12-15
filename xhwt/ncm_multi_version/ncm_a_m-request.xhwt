@@ -1,4 +1,4 @@
-<xhwt:header>
+<t:header>
 {
     "fileName":"${request_group_class_name}.java",
     "fileDirs":[
@@ -12,7 +12,7 @@
         }
     ]
 }
-</xhwt:header>
+</t:header>
 package com.newchama.api.V${version_code}.api;
 
 import android.content.Context;
@@ -21,9 +21,9 @@ import com.loopj.android.http.RequestHandle;
 import com.loopj.android.http.ResponseHandlerInterface;
 
 import com.newchama.api.BaseApi;
-<xhwt:if isTrue="needImportOptionalRequestParamPackage">
+<t:if isTrue="needImportOptionalRequestParamPackage">
 import com.newchama.api.V${version_code}.request_param.${request_group_newchama}.*;
-</xhwt:if_end>
+</t:if_end>
 
 import com.newchama.tool.net.NetRequest;
 import com.newchama.tool.net.NetRequest.Method;
@@ -31,7 +31,7 @@ import com.newchama.tool.net.NetWorker;
 
 import java.io.File;
 
-<xhwt:retain type="import"/>
+<t:retain type="import"/>
 
 public class ${request_group_class_name} extends BaseApi {
 
@@ -47,118 +47,118 @@ public class ${request_group_class_name} extends BaseApi {
 	    super();
 	}
 
-<xhwt:retain type="field"/>
+<t:retain type="field"/>
 
-<xhwt:foreach each="requests">
+<t:foreach each="requests">
 	/**
 	 * @version ${request_version}
 	 * @requestUrl ${request_url}
-	 <xhwt:if isNotEmpty="request_title">
+	 <t:if isNotEmpty="request_title">
 	 * @title ${request_title}
-	 </xhwt:if_end>
-	 <xhwt:if isNotEmpty="request_desc">
+	 </t:if_end>
+	 <t:if isNotEmpty="request_desc">
 	 * @desc ${request_desc}
-	 </xhwt:if_end>
+	 </t:if_end>
 	 *
-	 <xhwt:list each="headers">
+	 <t:list each="headers">
 	 * @param ${header_name} ${header_desc}
-	 </xhwt:list>
-	 <xhwt:list each="inputs">
-	 <xhwt:if isTrue="input_isOptional">
+	 </t:list>
+	 <t:list each="inputs">
+	 <t:if isTrue="input_isOptional">
 	 * @param ${input_name} isOptional ${input_desc}
-	 <xhwt:if_else>
+	 <t:if_else>
 	 * @param ${input_name} ${input_desc}
-	 </xhwt:if_end>
-	 </xhwt:list>
+	 </t:if_end>
+	 </t:list>
 	 */
 	public RequestHandle ${request_name}(Context cxt001,
-	    <xhwt:list each="RESTful_fields" singleLine>
-            </xhwt:start value="		"/>
-            </xhwt:eachTemp value="String ${RESTful_field_name}, "/>
-            </xhwt:end value=""/>
-	    </xhwt:list>
-	    <xhwt:list each="filtered_headers" singleLine>
-            </xhwt:start value="		"/>
-            </xhwt:eachTemp value="${header_request_param_type} ${header_name}, "/>
-            </xhwt:end value=""/>
-	    </xhwt:list>
-	    <xhwt:list each="inputs" singleLine>
-	        </xhwt:start value="		"/>
-	        </xhwt:eachTemp value="${input_request_param_type} ${input_name}, "/>
-	        </xhwt:end value=""/>
-	    </xhwt:list>
+	    <t:list each="RESTful_fields" singleLine>
+            </t:start value="		"/>
+            </t:eachTemp value="String ${RESTful_field_name}, "/>
+            </t:end value=""/>
+	    </t:list>
+	    <t:list each="filtered_headers" singleLine>
+            </t:start value="		"/>
+            </t:eachTemp value="${header_request_param_type} ${header_name}, "/>
+            </t:end value=""/>
+	    </t:list>
+	    <t:list each="inputs" singleLine>
+	        </t:start value="		"/>
+	        </t:eachTemp value="${input_request_param_type} ${input_name}, "/>
+	        </t:end value=""/>
+	    </t:list>
 		ResponseHandlerInterface response) {
 		NetRequest request = new NetRequest();
 		request.setMethod(Method.${request_METHOD});
 
-        <xhwt:if isTrue="request_url_is_RESTful">
-        <xhwt:list_replace each="RESTful_fields" replace_key="restful_name_list" list_value=", ${RESTful_field_name}">
+        <t:if isTrue="request_url_is_RESTful">
+        <t:list_replace each="RESTful_fields" replace_key="restful_name_list" list_value=", ${RESTful_field_name}">
 		request.setUrl(String.format(getFullUrl("${request_convert_url}")${restful_name_list}));
 		</list_replace>
-        <xhwt:if_else>
+        <t:if_else>
 		request.setUrl(getFullUrl("${request_normal_url}"));
-        </xhwt:if_end>
+        </t:if_end>
 
-	    <xhwt:list each="headers">
-        <xhwt:if isTrue="isFilterParam">
+	    <t:list each="headers">
+        <t:if isTrue="isFilterParam">
    	    // request.addHeader("${header_name}", ${header_name});// 被过滤的header字段
-        <xhwt:if_else>
+        <t:if_else>
    	    request.addHeader("${header_name}", ${header_name});
-        </xhwt:if_end>
-        </xhwt:list>
-	    <xhwt:list each="inputs">
-	    <xhwt:if isTrue="input_isOptional">
+        </t:if_end>
+        </t:list>
+	    <t:list each="inputs">
+	    <t:if isTrue="input_isOptional">
 	    if (null != ${input_name}) request.addParam("${input_name}", ${input_name});
-	    <xhwt:if_else>
+	    <t:if_else>
 	    request.addParam("${input_name}", ${input_name});
-	    </xhwt:if_end>
-        </xhwt:list>
+	    </t:if_end>
+        </t:list>
 
 		return NetWorker.execute(cxt001, request, response);
 	}
 
-    <xhwt:if isTrue="needGenerateOptionalRequestMethod">
+    <t:if isTrue="needGenerateOptionalRequestMethod">
 	public RequestHandle ${request_name}(Context cxt001,
-        <xhwt:list each="RESTful_fields" singleLine>
-            </xhwt:start value="		"/>
-            </xhwt:eachTemp value="String ${RESTful_field_name}, "/>
-            </xhwt:end value=""/>
-        </xhwt:list>
-        <xhwt:list each="filtered_headers" singleLine>
-            </xhwt:start value="		"/>
-            </xhwt:eachTemp value="${header_request_param_type} ${header_name}, "/>
-            </xhwt:end value=""/>
-        </xhwt:list>
-        <xhwt:list each="input_groups" singleLine>
-            </xhwt:start value="		"/>
-            </xhwt:eachTemp value="${request_param_class_name}.${input_group_class_name} ${input_group_name}, "/>
-            </xhwt:end value=""/>
-        </xhwt:list>
+        <t:list each="RESTful_fields" singleLine>
+            </t:start value="		"/>
+            </t:eachTemp value="String ${RESTful_field_name}, "/>
+            </t:end value=""/>
+        </t:list>
+        <t:list each="filtered_headers" singleLine>
+            </t:start value="		"/>
+            </t:eachTemp value="${header_request_param_type} ${header_name}, "/>
+            </t:end value=""/>
+        </t:list>
+        <t:list each="input_groups" singleLine>
+            </t:start value="		"/>
+            </t:eachTemp value="${request_param_class_name}.${input_group_class_name} ${input_group_name}, "/>
+            </t:end value=""/>
+        </t:list>
         ResponseHandlerInterface response) {
         return ${request_name}(cxt001,
-        <xhwt:list each="RESTful_fields" singleLine>
-            </xhwt:start value="		"/>
-            </xhwt:eachTemp value="${RESTful_field_name}, "/>
-            </xhwt:end value=""/>
-        </xhwt:list>
-        <xhwt:list each="filtered_headers" singleLine>
-            </xhwt:start value="		"/>
-            </xhwt:eachTemp value="${header_name}, "/>
-            </xhwt:end value=""/>
-        </xhwt:list>
-        <xhwt:list each="input_groups_fileds" singleLine>
-            </xhwt:start value="		"/>
-            </xhwt:eachTemp value="${input_group_name}.${input_name}, "/>
-            </xhwt:end value=""/>
-        </xhwt:list>
+        <t:list each="RESTful_fields" singleLine>
+            </t:start value="		"/>
+            </t:eachTemp value="${RESTful_field_name}, "/>
+            </t:end value=""/>
+        </t:list>
+        <t:list each="filtered_headers" singleLine>
+            </t:start value="		"/>
+            </t:eachTemp value="${header_name}, "/>
+            </t:end value=""/>
+        </t:list>
+        <t:list each="input_groups_fileds" singleLine>
+            </t:start value="		"/>
+            </t:eachTemp value="${input_group_name}.${input_name}, "/>
+            </t:end value=""/>
+        </t:list>
         response);
     }
 
-    </xhwt:if_end>
-</xhwt:foreach>
+    </t:if_end>
+</t:foreach>
 
-<xhwt:retain type="method"/>
+<t:retain type="method"/>
 
-<xhwt:retain type="other"/>
+<t:retain type="other"/>
 
 }

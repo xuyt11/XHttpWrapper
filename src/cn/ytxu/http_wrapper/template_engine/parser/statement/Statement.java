@@ -34,14 +34,14 @@ public enum Statement {
             throw new IllegalAccessError("text type can not has end tag");
         }
     },
-    foreach("循环", "</xhwt:foreach>", Pattern.compile("(<xhwt:foreach each=\")\\w+(\">)")) {
+    foreach("循环", "</t:foreach>", Pattern.compile("(<t:foreach each=\")\\w+(\">)")) {
         @Override
         public void getAndAddRecord(String content, List<StatementRecord> records, Iterator<String> contentIterator) {
             List<String> foreachContents = getContents(contentIterator);
             records.add(new ForeachStatementRecord(this, content, foreachContents));
         }
     },
-    retain("保留代码区域", null, Pattern.compile("(<xhwt:retain type=\")\\w+(\"/>)")) {
+    retain("保留代码区域", null, Pattern.compile("(<t:retain type=\")\\w+(\"/>)")) {
         @Override
         public void getAndAddRecord(String content, List<StatementRecord> records, Iterator<String> contentIterator) {
             records.add(new RetainStatementRecord(this, content));
@@ -52,28 +52,28 @@ public enum Statement {
             throw new IllegalAccessError("retain type can not has end tag");
         }
     },
-    list("在foreach中的循环，防止foreach循环嵌套", "</xhwt:list>", Pattern.compile("(<xhwt:list each=\")\\w+(\">)")) {
+    list("在foreach中的循环，防止foreach循环嵌套", "</t:list>", Pattern.compile("(<t:list each=\")\\w+(\">)")) {
         @Override
         public void getAndAddRecord(String content, List<StatementRecord> records, Iterator<String> contentIterator) {
             List<String> listContents = getContents(contentIterator);
             records.add(new ListStatementRecord(this, content, listContents));
         }
     },
-    list_single_line("单行循环，防止foreach循环嵌套", "</xhwt:list>", Pattern.compile("(<xhwt:list each=\")\\w+(\")( singleLine>)")) {
+    list_single_line("单行循环，防止foreach循环嵌套", "</t:list>", Pattern.compile("(<t:list each=\")\\w+(\")( singleLine>)")) {
         @Override
         public void getAndAddRecord(String content, List<StatementRecord> records, Iterator<String> contentIterator) {
             List<String> listSingleLineContents = getContents(contentIterator);
             records.add(new ListSingleLineStatementRecord(this, content, listSingleLineContents));
         }
     },
-    if_else("if else 条件判断", "</xhwt:if_end>", IfElseCondition.PATTERNS) {
+    if_else("if else 条件判断", "</t:if_end>", IfElseCondition.PATTERNS) {
         @Override
         public void getAndAddRecord(String content, List<StatementRecord> records, Iterator<String> contentIterator) {
             List<String> ifElseContents = getContents(contentIterator);
             records.add(new IfElseStatementRecord(this, content, ifElseContents));
         }
     },
-    list_replace("替换数组的文本", "</xhwt:list_replace>", Pattern.compile("(<xhwt:list_replace each=\")\\w+(\" replace_key=\")\\w+(\" list_value=\")[\\p{Print}\\p{Space}]+(\">)")) {
+    list_replace("替换数组的文本", "</t:list_replace>", Pattern.compile("(<t:list_replace each=\")\\w+(\" replace_key=\")\\w+(\" list_value=\")[\\p{Print}\\p{Space}]+(\">)")) {
         @Override
         public void getAndAddRecord(String content, List<StatementRecord> records, Iterator<String> contentIterator) {
             List<String> listReplaceContents = getContents(contentIterator);

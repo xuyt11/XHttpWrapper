@@ -1,4 +1,4 @@
-<xhwt:header>
+<t:header>
 {
     "fileName":"${request_group_class_name}.java",
     "fileDirs":[
@@ -12,7 +12,7 @@
         }
     ]
 }
-</xhwt:header>
+</t:header>
 package ytxu.cn.volley.api.api;
 
 import android.content.Context;
@@ -22,7 +22,7 @@ import com.kdlc.framework.http.HttpProxy;
 import com.kdlc.framework.http.bean.RequestBean;
 import com.kdlc.framework.http.interfaces.HttpResultInterface;
 
-<xhwt:retain type="import"/>
+<t:retain type="import"/>
 
 public class ${request_group_class_name} extends BaseApi {
 
@@ -38,51 +38,51 @@ public class ${request_group_class_name} extends BaseApi {
 	    super();
 	}
 
-<xhwt:retain type="field"/>
+<t:retain type="field"/>
 
-<xhwt:foreach each="requests">
+<t:foreach each="requests">
 	/**
 	 * @version ${request_version}
 	 * @requestUrl ${request_url}
-	 <xhwt:if isNotEmpty="request_title">
+	 <t:if isNotEmpty="request_title">
 	 * @title ${request_title}
-	 </xhwt:if_end>
-	 <xhwt:if isNotEmpty="request_desc">
+	 </t:if_end>
+	 <t:if isNotEmpty="request_desc">
 	 * @desc ${request_desc}
-	 </xhwt:if_end>
+	 </t:if_end>
 	 *
-	 <xhwt:list each="headers">
+	 <t:list each="headers">
 	 * @param ${header_name} ${header_desc}
-	 </xhwt:list>
-	 <xhwt:list each="inputs">
-	 <xhwt:if isTrue="input_isOptional">
+	 </t:list>
+	 <t:list each="inputs">
+	 <t:if isTrue="input_isOptional">
 	 * @param ${input_name} isOptional ${input_desc}
-	 <xhwt:if_else>
+	 <t:if_else>
 	 * @param ${input_name} ${input_desc}
-	 </xhwt:if_end>
-	 </xhwt:list>
+	 </t:if_end>
+	 </t:list>
 	 */
 	public void ${request_name}(Context cxt001,
-	    <xhwt:list each="RESTful_fields" singleLine>
-            </xhwt:start value="		"/>
-            </xhwt:eachTemp value="String ${RESTful_field_name}, "/>
-            </xhwt:end value=""/>
-	    </xhwt:list>
+	    <t:list each="RESTful_fields" singleLine>
+            </t:start value="		"/>
+            </t:eachTemp value="String ${RESTful_field_name}, "/>
+            </t:end value=""/>
+	    </t:list>
 		RequestBean requset, HttpResultInterface callBack) {
-        <xhwt:if isTrue="request_url_is_RESTful">
-        <xhwt:list_replace each="RESTful_fields" replace_key="restful_name_list" list_value=", ${RESTful_field_name}">
+        <t:if isTrue="request_url_is_RESTful">
+        <t:list_replace each="RESTful_fields" replace_key="restful_name_list" list_value=", ${RESTful_field_name}">
 		String realUrl = String.format(getFullUrl("${request_convert_url}")${restful_name_list});
 		</list_replace>
-        <xhwt:if_else>
+        <t:if_else>
 		String realUrl = getFullUrl("${request_normal_url}");
-        </xhwt:if_end>
+        </t:if_end>
         HttpProxy.getInstance(cxt001).on${requestMethodByCapitalizeCamelCase}Request(realUrl, requset, callBack);
 	}
 
-</xhwt:foreach>
+</t:foreach>
 
-<xhwt:retain type="method"/>
+<t:retain type="method"/>
 
-<xhwt:retain type="other"/>
+<t:retain type="other"/>
 
 }

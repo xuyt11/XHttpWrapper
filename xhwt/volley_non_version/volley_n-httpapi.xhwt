@@ -1,4 +1,4 @@
-<xhwt:header>
+<t:header>
 {
     "fileName":"HttpApi.java",
     "fileDirs":[
@@ -12,22 +12,22 @@
         }
     ]
 }
-</xhwt:header>
+</t:header>
 package ytxu.cn.volley.api;
 
 import ytxu.cn.volley.api.api.*;
 
-<xhwt:retain type="import"/>
+<t:retain type="import"/>
 
 public class HttpApi {
 
-<xhwt:foreach each="request_groups">
+<t:foreach each="request_groups">
 	private static ${request_group_class_name} ${request_group_name};
-</xhwt:foreach>
+</t:foreach>
 
-<xhwt:retain type="field"/>
+<t:retain type="field"/>
 
-<xhwt:foreach each="request_groups">
+<t:foreach each="request_groups">
 	public static ${request_group_class_name} ${request_group_name}() {
 		if (null == ${request_group_name}) {
 			${request_group_name} = ${request_group_class_name}.getInstance();
@@ -35,10 +35,10 @@ public class HttpApi {
 		return ${request_group_name};
 	}
 
-</xhwt:foreach>
+</t:foreach>
 
-<xhwt:retain type="method"/>
+<t:retain type="method"/>
 
-<xhwt:retain type="other"/>
+<t:retain type="other"/>
 
 }

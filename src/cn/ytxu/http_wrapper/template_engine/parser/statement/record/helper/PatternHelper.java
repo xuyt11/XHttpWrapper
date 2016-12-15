@@ -50,7 +50,7 @@ public class PatternHelper {
     private static final PatternModel END_MODEL
             = new PatternModel("end=\"", "\"", Pattern.compile("(end=\")\\w+(\")"));
 
-    private static final String startTagContent = "\t    <xhwt:list each=\"RESTful_fields\" singleLine start=\"   \t    \" value=\"String ${RESTful_field_name}, \" end=\"\"/>";
+    private static final String startTagContent = "\t    <t:list each=\"RESTful_fields\" singleLine start=\"   \t    \" value=\"String ${RESTful_field_name}, \" end=\"\"/>";
 
     public static void main(String... args) {
         String methodName = PatternHelper.getPatternValue(EACH_MODEL, startTagContent);

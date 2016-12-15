@@ -1,4 +1,4 @@
-<xhwt:header>
+<t:header>
 {
     "fileName":"${request_param_class_name}.java",
     "fileDirs":[
@@ -12,14 +12,14 @@
         }
     ]
 }
-</xhwt:header>
+</t:header>
 package com.newchama.api.request_param.${request_group_newchama};
 
 import java.io.Serializable;
 import java.io.File;
 import java.util.List;
 
-<xhwt:retain type="import"/>
+<t:retain type="import"/>
 
 /**
  * @title ${request_title}
@@ -28,25 +28,25 @@ import java.util.List;
  */
 public class ${request_param_class_name} implements Serializable {
 
-<xhwt:retain type="field"/>
+<t:retain type="field"/>
 
-<xhwt:foreach each="input_groups">
+<t:foreach each="input_groups">
 
     public static final class ${input_group_class_name} implements Serializable {
-        <xhwt:list each="input_group_fileds">
+        <t:list each="input_group_fileds">
         /**
          * type: ${input_type}<br>
          * isOptional : ${input_isOptional}<br>
          * desc: ${input_desc}
          */
         public ${input_request_param_type} ${input_name};
-        </xhwt:list>
+        </t:list>
     }
 
-</xhwt:foreach>
+</t:foreach>
 
-<xhwt:retain type="method"/>
+<t:retain type="method"/>
 
-<xhwt:retain type="other"/>
+<t:retain type="other"/>
 
 }
