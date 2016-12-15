@@ -1,7 +1,7 @@
 package cn.ytxu.http_wrapper.common.enums;
 
 import cn.ytxu.http_wrapper.apidocjs.bean.api_data.ApiDataBean;
-import cn.ytxu.http_wrapper.apidocjs.parser.compile_model.mutil_version.MutilVersionCompileModelParser;
+import cn.ytxu.http_wrapper.apidocjs.parser.compile_model.multi_version.MultiVersionCompileModelParser;
 import cn.ytxu.http_wrapper.apidocjs.parser.compile_model.non_version.NonVersionCompileModelParser;
 import cn.ytxu.http_wrapper.model.version.VersionModel;
 
@@ -15,10 +15,10 @@ public enum CompileModel {
     /**
      * 多版本模式：相同request有多版本
      */
-    mutil_version() {
+    multi_version() {
         @Override
         public List<VersionModel> createApiDatasFromApidocJsData(List<ApiDataBean> apiDatas) {
-            return new MutilVersionCompileModelParser(apiDatas).start();
+            return new MultiVersionCompileModelParser(apiDatas).start();
         }
     },
     /**

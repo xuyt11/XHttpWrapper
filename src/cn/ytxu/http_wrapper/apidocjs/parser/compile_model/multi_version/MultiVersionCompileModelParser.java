@@ -1,4 +1,4 @@
-package cn.ytxu.http_wrapper.apidocjs.parser.compile_model.mutil_version;
+package cn.ytxu.http_wrapper.apidocjs.parser.compile_model.multi_version;
 
 import cn.ytxu.http_wrapper.apidocjs.bean.api_data.ApiDataBean;
 import cn.ytxu.http_wrapper.apidocjs.bean.ApidocjsHelper;
@@ -14,12 +14,12 @@ import java.util.stream.Collectors;
  * Created by ytxu on 2016/9/17.
  * version-->request group-->request
  */
-public class MutilVersionCompileModelParser {
+public class MultiVersionCompileModelParser {
     private final List<ApiDataBean> apiDatas;
     private final LinkedHashMap<String, VersionModel> orderVersionMap;// 根据配置文件，生成顺序的版本号
 
 
-    public MutilVersionCompileModelParser(List<ApiDataBean> apiDatas) {
+    public MultiVersionCompileModelParser(List<ApiDataBean> apiDatas) {
         this.apiDatas = apiDatas;
         this.orderVersionMap = createOrderVersions();
     }
@@ -51,7 +51,7 @@ public class MutilVersionCompileModelParser {
                 createStatusCodeGroupModel(version, apiData);
                 continue;
             }
-            new MutilVersionRequestConverter(version, apiData).start();
+            new MultiVersionRequestConverter(version, apiData).start();
         }
     }
 

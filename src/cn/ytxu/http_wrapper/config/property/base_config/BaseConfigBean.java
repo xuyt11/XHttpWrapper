@@ -15,7 +15,7 @@ public class BaseConfigBean {
 
     /**
      * 编译模式:
-     * enum:mutil_version,non_version;
+     * enum:multi_version,non_version;
      */
     private String compile_model;
 

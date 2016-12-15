@@ -1,4 +1,4 @@
-package cn.ytxu.http_wrapper.apidocjs.parser.compile_model.mutil_version;
+package cn.ytxu.http_wrapper.apidocjs.parser.compile_model.multi_version;
 
 import cn.ytxu.http_wrapper.apidocjs.bean.ApidocjsHelper;
 import cn.ytxu.http_wrapper.apidocjs.bean.api_data.ApiDataBean;
@@ -10,11 +10,11 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/9/20.
  */
-public class MutilVersionRequestConverter {
+public class MultiVersionRequestConverter {
     private VersionModel version;
     private ApiDataBean apiData;
 
-    public MutilVersionRequestConverter(VersionModel version, ApiDataBean apiData) {
+    public MultiVersionRequestConverter(VersionModel version, ApiDataBean apiData) {
         this.version = version;
         this.apiData = apiData;
     }
