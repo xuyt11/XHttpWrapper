@@ -1,0 +1,169 @@
+{
+  "api_data": {
+    "api_data_source": "apidocjs",
+    "file_path_infos": [
+      {
+        "OSName": "Mac OS X",
+        "address": "/Users/newchama/Desktop/api_data.json"
+      },
+      {
+        "OSName": "Windows",
+        "address": "E:/NewChama/apidoc/api_data.json"
+      }
+    ],
+    "file_charset": "UTF-8"
+  },
+  "template_file_infos": {
+    "HttpApi": {
+      "need_generate": true,
+      "path": "volley_n-httpapi.xhwt"
+    },
+    "Request": {
+      "need_generate": true,
+      "path": "volley_n-request.xhwt"
+    },
+    "RequestParam": {
+      "need_generate": false,
+      "path": "volley_n-requestparam.xhwt"
+    },
+    "Response": {
+      "need_generate": false,
+      "path": "volley_n-response.xhwt"
+    },
+    "StatusCode": {
+      "need_generate": false,
+      "path": "volley_n-statuscode.xhwt"
+    },
+    "BaseResponse": {
+      "need_generate": false,
+      "path": "volley_n-baseresponse.xhwt"
+    }
+  },
+  "base_config": {
+    "create_file_charset": "UTF-8",
+    "compile_model": "non_version",
+    "order_versions": [
+      "1.3.1",
+      "1.4.0",
+      "2.0.0",
+      "2.0.1"
+    ]
+  },
+  "filter": {
+    "use_headers": true,
+    "headers": [
+      "Authorization"
+    ],
+    "use_output_versions": false,
+    "output_versions": [
+      {
+        "output_version_name": "2.0.0",
+        "use_output_request_group": false,
+        "output_request_groups": [
+          "Data"
+        ]
+      }
+    ]
+  },
+  "request": {
+    "RESTful": {
+      "replaceString": "%s",
+      "multi_replace": [
+        "android"
+      ],
+      "date_replace": [
+        {
+          "date_format": "YYYY-MM-DD",
+          "date_request_param": "restful_date_param"
+        }
+      ]
+    },
+    "optional_request_method": {
+      "need_generate": true,
+      "min_number_of_input_params_in_one_input_group": 3
+    }
+  },
+  "response": {
+    "statusCode": {
+      "name": "status_code",
+      "type": "int"
+    },
+    "message": {
+      "name": "message",
+      "type": "String"
+    },
+    "error": {
+      "name": "error",
+      "type": "Error"
+    },
+    "data": {
+      "name": "data",
+      "type": "T"
+    }
+  },
+  "status_code": {
+    "request_group_name": "StatusCode",
+    "parse_model": "x_custom_model",
+    "use_version_filter": false,
+    "filted_versions": [
+      "1.3.1"
+    ],
+    "ok_number": "0"
+  },
+  "field_type_enum": {
+    "null_et": {
+      "field_type": "String",
+      "field_optional_type": "String"
+    },
+    "date_et": {
+      "field_type": "String",
+      "field_optional_type": "String"
+    },
+    "file_et": {
+      "field_type": "File",
+      "field_optional_type": "File"
+    },
+    "integer_et": {
+      "field_type": "int",
+      "field_optional_type": "Integer"
+    },
+    "long_et": {
+      "field_type": "long",
+      "field_optional_type": "Long"
+    },
+    "boolean_et": {
+      "field_type": "boolean",
+      "field_optional_type": "Boolean"
+    },
+    "float_et": {
+      "field_type": "float",
+      "field_optional_type": "Float"
+    },
+    "double_et": {
+      "field_type": "double",
+      "field_optional_type": "Double"
+    },
+    "number_et": {
+      "field_type": "long",
+      "field_optional_type": "Long"
+    },
+    "string_et": {
+      "field_type": "String",
+      "field_optional_type": "String"
+    },
+    "map_et": {
+      "field_type": "Map<String, ${object}>",
+      "field_optional_type": "Map<String, Object>"
+    },
+    "object_et": {
+      "field_type": "${object}",
+      "field_optional_type": "${object}"
+    },
+    "array_et": {
+      "field_type": "List<${object}>",
+      "field_optional_type": "String"
+    }
+  }
+}
+
+

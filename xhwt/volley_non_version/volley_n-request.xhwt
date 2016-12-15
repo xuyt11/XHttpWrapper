@@ -1,0 +1,89 @@
+<header>
+{
+    "fileName":"${request_group_class_name}.java",
+    "fileDirs":[
+        {
+            "osName":"Windows",
+            "path":"u should setup by self"
+        },
+        {
+            "osName":"Mac OS X",
+            "path":"/Users/newchama/Documents/ytxu/VolleyWrapper/app/src/main/java/ytxu/cn/volley/api/api"
+        }
+    ]
+}
+</header>
+package ytxu.cn.volley.api.api;
+
+import android.content.Context;
+
+import com.kdlc.framework.http.HttpProxy;
+import com.kdlc.framework.http.bean.RequestBean;
+import com.kdlc.framework.http.interfaces.HttpResultInterface;
+
+import ytxu.cn.volley.api.BaseApi;
+
+<xhwt:retain type="import"/>
+
+public class ${request_group_class_name} extends BaseApi {
+
+	public static ${request_group_class_name} getInstance() {
+		return Helper.instance;
+	}
+
+	private static class Helper {
+		public static final ${request_group_class_name} instance = new ${request_group_class_name}();
+	}
+
+	private ${request_group_class_name}() {
+	    super();
+	}
+
+<xhwt:retain type="field"/>
+
+<foreach each="requests">
+	/**
+	 * @version ${request_version}
+	 * @requestUrl ${request_url}
+	 <if isNotEmpty="request_title">
+	 * @title ${request_title}
+	 </if_end>
+	 <if isNotEmpty="request_desc">
+	 * @desc ${request_desc}
+	 </if_end>
+	 *
+	 <list each="headers">
+	 * @param ${header_name} ${header_desc}
+	 </list>
+	 <list each="inputs">
+	 <if isTrue="input_isOptional">
+	 * @param ${input_name} isOptional ${input_desc}
+	 <if_else>
+	 * @param ${input_name} ${input_desc}
+	 </if_end>
+	 </list>
+	 */
+	public void ${request_name}(Context cxt001,
+	    <list each="RESTful_fields" singleLine>
+            <start value="		"/>
+            <eachTemp value="String ${RESTful_field_name}, "/>
+            <end value=""/>
+	    </list>
+		RequestBean requset, HttpResultInterface callBack) {
+        <if isTrue="request_url_is_RESTful">
+        <list_replace each="RESTful_fields" replace_key="restful_name_list" list_value=", ${RESTful_field_name}">
+		String realUrl = String.format(getFullUrl("${request_convert_url}")${restful_name_list});
+		</list_replace>
+        <if_else>
+		String realUrl = getFullUrl("${request_normal_url}");
+        </if_end>
+        HttpProxy.getInstance(cxt001).onGetRequest(realUrl, requset, callBack);
+	}
+
+</foreach>
+
+<xhwt:retain type="method"/>
+
+<xhwt:retain type="other"/>
+
+}
