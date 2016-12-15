@@ -89,6 +89,10 @@ public class ReflectiveUtil {
         return (boolean) invokeMethod(reflectObj, methodName, reflectObj.getClass().getSimpleName());
     }
 
+    public static long getNumber(Object reflectObj, String methodName) {
+        return (long) invokeMethod(reflectObj, methodName, reflectObj.getClass().getSimpleName());
+    }
+
 
     public static void main(String... args) {
 
