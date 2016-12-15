@@ -17,7 +17,7 @@ package com.newchama.api;
 
 import java.util.List;
 
-<retain type="import"/>
+<xhwt:retain type="import"/>
 
 public class ResponseEntity<T> {
 
@@ -25,14 +25,14 @@ public class ResponseEntity<T> {
 	private ${bro_type} ${bro_name};
 	</list>
 
-<retain type="field"/>
+<xhwt:retain type="field"/>
 
     <list each="base_response_outputs">
     public ${bro_type} ${bro_getter}() {return ${bro_name};}
     public void ${bro_setter}(${bro_type} ${bro_name}) {this.${bro_name} = ${bro_name};}
 	</list>
 
-<retain type="method"/>
+<xhwt:retain type="method"/>
 
 	public static class ${error_bro_type} {
         <list each="subs_of_errors">
@@ -45,7 +45,7 @@ public class ResponseEntity<T> {
         </list>
     }
 
-<retain type="other"/>
+<xhwt:retain type="other"/>
 
 }
 

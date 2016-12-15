@@ -31,7 +31,7 @@ import com.newchama.tool.net.NetWorker;
 
 import java.io.File;
 
-<retain type="import"/>
+<xhwt:retain type="import"/>
 
 public class ${request_group_class_name} extends BaseApi {
 
@@ -47,7 +47,7 @@ public class ${request_group_class_name} extends BaseApi {
 	    super();
 	}
 
-<retain type="field"/>
+<xhwt:retain type="field"/>
 
 <foreach each="requests">
 	/**
@@ -157,8 +157,8 @@ public class ${request_group_class_name} extends BaseApi {
     </if_end>
 </foreach>
 
-<retain type="method"/>
+<xhwt:retain type="method"/>
 
-<retain type="other"/>
+<xhwt:retain type="other"/>
 
 }

@@ -18,7 +18,7 @@ package com.newchama.api.V${version_code}.entity.${request_group_newchama};
 import java.io.Serializable;
 import java.util.List;
 
-<retain type="import"/>
+<xhwt:retain type="import"/>
 
 <if isTrue="isResponseRootEntity">
 /**
@@ -33,16 +33,16 @@ public class ${entity_class_name} implements Serializable {
 	private ${output_type} ${output_name};// ${output_original_type}
 	</list>
 
-<retain type="field"/>
+<xhwt:retain type="field"/>
 
     <list each="outputs">
     public ${output_type} ${output_getter}() {return ${output_name};}
     public void ${output_setter}(${output_type} ${output_name}) {this.${output_name} = ${output_name};}
 	</list>
 
-<retain type="method"/>
+<xhwt:retain type="method"/>
 
-<retain type="other"/>
+<xhwt:retain type="other"/>
 
 }
 

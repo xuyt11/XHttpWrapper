@@ -19,7 +19,7 @@ import java.io.Serializable;
 import java.io.File;
 import java.util.List;
 
-<retain type="import"/>
+<xhwt:retain type="import"/>
 
 /**
  * @title ${request_title}
@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class ${request_param_class_name} implements Serializable {
 
-<retain type="field"/>
+<xhwt:retain type="field"/>
 
 <foreach each="input_groups">
 
@@ -45,8 +45,8 @@ public class ${request_param_class_name} implements Serializable {
 
 </foreach>
 
-<retain type="method"/>
+<xhwt:retain type="method"/>
 
-<retain type="other"/>
+<xhwt:retain type="other"/>
 
 }
