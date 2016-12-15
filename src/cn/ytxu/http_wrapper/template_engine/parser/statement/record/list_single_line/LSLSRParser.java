@@ -20,14 +20,14 @@ public class LSLSRParser {
     // eachTemp 必须要有, start end 可以没有
     public enum SubContentType {
         eachTemp("遍历的数据模板，一定要有的",
-                new PatternHelper.PatternModel("<eachTemp value=\"", "\"/>",
-                        Pattern.compile("(<eachTemp value=\")[\\p{Print}\\p{Space}]+(\"/>)"))),
+                new PatternHelper.PatternModel("</xhwt:eachTemp value=\"", "\"/>",
+                        Pattern.compile("(</xhwt:eachTemp value=\")[\\p{Print}\\p{Space}]+(\"/>)"))),
         start("数据填充后，插入到首位",
-                new PatternHelper.PatternModel("<start value=\"", "\"/>",
-                        Pattern.compile("(<start value=\")[\\p{Print}\\p{Space}]+(\"/>)"))),
+                new PatternHelper.PatternModel("</xhwt:start value=\"", "\"/>",
+                        Pattern.compile("(</xhwt:start value=\")[\\p{Print}\\p{Space}]+(\"/>)"))),
         end("数据填充后，添加到末尾",
-                new PatternHelper.PatternModel("<end value=\"", "\"/>",
-                        Pattern.compile("(<end value=\")[\\p{Print}\\p{Space}]+(\"/>)")));
+                new PatternHelper.PatternModel("</xhwt:end value=\"", "\"/>",
+                        Pattern.compile("(</xhwt:end value=\")[\\p{Print}\\p{Space}]+(\"/>)")));
 
         private final String tag;
         private final PatternHelper.PatternModel patternModel;// 判断是否为该分类
@@ -141,20 +141,20 @@ public class LSLSRParser {
 
 
     public static void main(String... args) {
-        Pattern p = Pattern.compile("(<eachTemp value=')\\.+('>)");
-        Matcher m = p.matcher("<eachTemp value='${input_type} ${input_name}, '>");
+        Pattern p = Pattern.compile("(</xhwt:eachTemp value=')\\.+('>)");
+        Matcher m = p.matcher("</xhwt:eachTemp value='${input_type} ${input_name}, '>");
         System.out.println("find " + m.find());
 
         p = Pattern.compile("(eachTemp value=')[\\p{Punct}\\s\\w]+('>)");
-        m = p.matcher("<eachTemp value='${input_type} ${input_name}, '>");
+        m = p.matcher("</xhwt:eachTemp value='${input_type} ${input_name}, '>");
         System.out.println("find 1" + m.find());
 
         p = Pattern.compile("(eachTemp value=')[\\p{Print}\\p{Space}]+('>)");
-        m = p.matcher("<eachTemp value='${input_type} ${input_name}, '>");
+        m = p.matcher("</xhwt:eachTemp value='${input_type} ${input_name}, '>");
         System.out.println("find 12" + m.find());
 
         p = Pattern.compile("(eachTemp value=')[\\p{Print}\\p{Blank}]+('>)");
-        m = p.matcher("<eachTemp value='${input_type} ${input_name}, '>");
+        m = p.matcher("</xhwt:eachTemp value='${input_type} ${input_name}, '>");
         System.out.println("find 123" + m.find());
 
     }

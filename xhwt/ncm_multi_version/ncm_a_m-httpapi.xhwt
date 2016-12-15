@@ -1,4 +1,4 @@
-<header>
+<xhwt:header>
 {
     "fileName":"HttpApiV${version_code}.java",
     "fileDirs":[
@@ -12,20 +12,20 @@
         }
     ]
 }
-</header>
+</xhwt:header>
 package com.newchama.api.V${version_code}.api;
 
 <xhwt:retain type="import"/>
 
 public class HttpApiV${version_code} {
 
-<foreach each="request_groups">
+<xhwt:foreach each="request_groups">
 	private static ${request_group_class_name} ${request_group_name};
-</foreach>
+</xhwt:foreach>
 
 <xhwt:retain type="field"/>
 
-<foreach each="request_groups">
+<xhwt:foreach each="request_groups">
 	public static ${request_group_class_name} ${request_group_name}() {
 		if (null == ${request_group_name}) {
 			${request_group_name} = ${request_group_class_name}.getInstance();
@@ -33,7 +33,7 @@ public class HttpApiV${version_code} {
 		return ${request_group_name};
 	}
 
-</foreach>
+</xhwt:foreach>
 
 <xhwt:retain type="method"/>
 

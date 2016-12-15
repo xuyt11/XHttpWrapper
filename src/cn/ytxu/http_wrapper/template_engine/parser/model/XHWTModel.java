@@ -10,8 +10,8 @@ import java.util.Objects;
  * Created by ytxu on 16/7/30.
  */
 public class XHWTModel {
-    public static final String HeaderStartTag = "<header>";
-    public static final String HeaderEndTag = "</header>";
+    public static final String HeaderStartTag = "<xhwt:header>";
+    public static final String HeaderEndTag = "</xhwt:header>";
 
     private XHWTFileModel file;
     private List<String> contents;
@@ -26,7 +26,7 @@ public class XHWTModel {
 
     public String getFileDir() {
         if (Objects.isNull(file)) {
-            throw new NullPointerException("u need setup auto generat file config in <header>, or u setup error");
+            throw new NullPointerException("u need setup auto generat file config in <xhwt:header>, or u setup error");
         }
 
         String currOsName = OSPlatform.getCurrentOSPlatform().getOsName();

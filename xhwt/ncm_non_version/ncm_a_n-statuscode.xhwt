@@ -1,4 +1,4 @@
-<header>
+<xhwt:header>
 {
     "fileName":"StatusCode.java",
     "fileDirs":[
@@ -12,7 +12,7 @@
         }
     ]
 }
-</header>
+</xhwt:header>
 package com.newchama.api;
 
 <xhwt:retain type="import"/>
@@ -21,10 +21,10 @@ public class StatusCode {
 
 <xhwt:retain type="field"/>
 
-<foreach each="status_codes">
+<xhwt:foreach each="status_codes">
     /** ${status_code_desc} */
     public static final int ${status_code_name} = ${status_code_number};
-</foreach>
+</xhwt:foreach>
 
 <xhwt:retain type="method"/>
 

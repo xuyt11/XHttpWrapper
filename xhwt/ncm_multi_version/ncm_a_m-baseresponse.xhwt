@@ -1,4 +1,4 @@
-<header>
+<xhwt:header>
 {
     "fileName":"ResponseEntity.java",
     "fileDirs":[
@@ -12,7 +12,7 @@
         }
     ]
 }
-</header>
+</xhwt:header>
 package com.newchama.api;
 
 import java.util.List;
@@ -21,28 +21,28 @@ import java.util.List;
 
 public class ResponseEntity<T> {
 
-    <list each="base_response_outputs">
+    <xhwt:list each="base_response_outputs">
 	private ${bro_type} ${bro_name};
-	</list>
+	</xhwt:list>
 
 <xhwt:retain type="field"/>
 
-    <list each="base_response_outputs">
+    <xhwt:list each="base_response_outputs">
     public ${bro_type} ${bro_getter}() {return ${bro_name};}
     public void ${bro_setter}(${bro_type} ${bro_name}) {this.${bro_name} = ${bro_name};}
-	</list>
+	</xhwt:list>
 
 <xhwt:retain type="method"/>
 
 	public static class ${error_bro_type} {
-        <list each="subs_of_errors">
+        <xhwt:list each="subs_of_errors">
         private ${output_type} ${output_name};
-        </list>
+        </xhwt:list>
 
-        <list each="subs_of_errors">
+        <xhwt:list each="subs_of_errors">
         public ${output_type} ${output_getter}() {return ${output_name};}
         public void ${output_setter}(${output_type} ${output_name}) {this.${output_name} = ${output_name};}
-        </list>
+        </xhwt:list>
     }
 
 <xhwt:retain type="other"/>

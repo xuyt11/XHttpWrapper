@@ -85,8 +85,8 @@ public class XHWTFileParser {
     }
 
     public static void main(String... args) {
-        String regStr = "<foreach each=\"sections\">";
-        Pattern p = Pattern.compile("(<foreach each=\")\\w+(\">)");
+        String regStr = "<xhwt:foreach each=\"sections\">";
+        Pattern p = Pattern.compile("(<xhwt:foreach each=\")\\w+(\">)");
         Matcher m = p.matcher(regStr);
         while (m.find()) {
             System.out.println(m.group());

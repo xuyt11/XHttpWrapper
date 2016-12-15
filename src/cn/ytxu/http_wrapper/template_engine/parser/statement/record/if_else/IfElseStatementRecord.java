@@ -11,7 +11,7 @@ import java.util.List;
  * Created by ytxu on 2016/7/18.
  */
 public class IfElseStatementRecord extends StatementRecord {
-    private static final String ElseTag = "<if_else>";
+    private static final String ElseTag = "<xhwt:if_else>";
 
     private List<String> ifContents;
     private List<String> elseContents;

@@ -1,4 +1,4 @@
-<header>
+<xhwt:header>
 {
     "fileName":"${entity_class_name}.java",
     "fileDirs":[
@@ -12,7 +12,7 @@
         }
     ]
 }
-</header>
+</xhwt:header>
 package com.newchama.api.V${version_code}.entity.${request_group_newchama};
 
 import java.io.Serializable;
@@ -20,25 +20,25 @@ import java.util.List;
 
 <xhwt:retain type="import"/>
 
-<if isTrue="isResponseRootEntity">
+<xhwt:if isTrue="isResponseRootEntity">
 /**
  * @title ${request_title}
  * @version ${request_version}
  * @requestUrl ${request_url}
  */
-</if_end>
+</xhwt:if_end>
 public class ${entity_class_name} implements Serializable {
 
-    <list each="outputs">
+    <xhwt:list each="outputs">
 	private ${output_type} ${output_name};// ${output_original_type}
-	</list>
+	</xhwt:list>
 
 <xhwt:retain type="field"/>
 
-    <list each="outputs">
+    <xhwt:list each="outputs">
     public ${output_type} ${output_getter}() {return ${output_name};}
     public void ${output_setter}(${output_type} ${output_name}) {this.${output_name} = ${output_name};}
-	</list>
+	</xhwt:list>
 
 <xhwt:retain type="method"/>
 

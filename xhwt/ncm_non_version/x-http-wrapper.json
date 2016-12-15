@@ -19,7 +19,7 @@
       "path": "ncm_a_n-httpapi.xhwt"
     },
     "Request": {
-      "need_generate": true,
+      "need_generate": false,
       "path": "ncm_a_n-request.xhwt"
     },
     "RequestParam": {
