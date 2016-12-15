@@ -14,6 +14,10 @@ public class RetainStatementRecord extends StatementRecord {
     private static final String PATTERN_FRONT = "type=\"";
     private static final String PATTERN_END = "\"";
     private static final Pattern PATTERN = Pattern.compile("(type=\")\\w+(\")");
+//    private static final String PATTERN_FRONT = "<xhwt:retain type=\"";
+//    private static final String PATTERN_END = "\"/>";
+//    private static final Pattern PATTERN = Pattern.compile("(<xhwt:retain type=\")\\w+(\"/>)");
+
 
     private RetainType type;
 

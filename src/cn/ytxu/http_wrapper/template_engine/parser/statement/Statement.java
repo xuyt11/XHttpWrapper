@@ -41,7 +41,7 @@ public enum Statement {
             records.add(new ForeachStatementRecord(this, content, foreachContents));
         }
     },
-    retain("保留代码区域", null, Pattern.compile("(<retain type=\")\\w+(\"/>)")) {
+    retain("保留代码区域", null, Pattern.compile("(<xhwt:retain type=\")\\w+(\"/>)")) {
         @Override
         public void getAndAddRecord(String content, List<StatementRecord> records, Iterator<String> contentIterator) {
             records.add(new RetainStatementRecord(this, content));
