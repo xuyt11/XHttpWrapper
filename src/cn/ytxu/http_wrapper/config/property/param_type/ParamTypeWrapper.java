@@ -1,0 +1,77 @@
+package cn.ytxu.http_wrapper.config.property.param_type;
+
+import cn.ytxu.http_wrapper.common.util.LogUtil;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
+/**
+ * Created by ytxu on 16/12/16.
+ */
+public class ParamTypeWrapper {
+
+    private static ParamTypeWrapper instance;
+    private Map<String, ParamTypeBean> paramTypes;
+
+    public static ParamTypeWrapper getInstance() {
+        return instance;
+    }
+
+    public static void load(Map<String, ParamTypeBean> paramTypes) {
+        LogUtil.i(ParamTypeWrapper.class, "load param types property start...");
+        instance = new ParamTypeWrapper(paramTypes);
+        LogUtil.i(ParamTypeWrapper.class, "load param types property success...");
+    }
+
+    private ParamTypeWrapper(Map<String, ParamTypeBean> paramTypes) {
+        this.paramTypes = paramTypes;
+
+        if (Objects.isNull(paramTypes) || paramTypes.isEmpty()) {
+            throw new NullPointerException("u need setup param types property...");
+        }
+
+        for (ParamTypeEnum paramTypeEnum : ParamTypeEnum.values()) {
+            ParamTypeBean paramTypeBean = paramTypes.get(paramTypeEnum.name());
+
+            checkMatchTypeName(paramTypeEnum, paramTypeBean);
+            checkParamTypeDefined(paramTypeEnum, paramTypeBean);
+
+            paramTypeBean.setParamTypeEnum(paramTypeEnum);
+        }
+    }
+
+    private void checkMatchTypeName(ParamTypeEnum paramTypeEnum, ParamTypeBean paramTypeBean) {
+        List<String> matchTypeNames = paramTypeBean.getMatchTypeNames();
+        if (Objects.isNull(matchTypeNames) || matchTypeNames.isEmpty()) {
+            if (ParamTypeEnum.UNKNOWN != paramTypeEnum) {
+                throw new IllegalArgumentException("the param type(" + paramTypeEnum.name() + ") property, u need setup match type names...");
+            }
+        }
+    }
+
+    private void checkParamTypeDefined(ParamTypeEnum paramTypeEnum, ParamTypeBean paramTypeBean) {
+        boolean isInvalid = Objects.isNull(paramTypeBean) || paramTypeBean.isInvalid();
+        if (ParamTypeEnum.NUMBER == paramTypeEnum) {
+            if (!isInvalid) {
+                LogUtil.w("this param type(number) property, u need not setup and use it... ");
+            }
+        } else {
+            if (isInvalid) {
+                throw new IllegalArgumentException("the param type(" + paramTypeEnum.name() + ") property, don`t setup or setup error...");
+            }
+        }
+    }
+
+
+    public ParamTypeBean getParamTypeBean(String inputTypeText) {
+        for (ParamTypeBean paramType : paramTypes.values()) {
+            List<String> matchTypeNames = paramType.getMatchTypeNames();
+            if (matchTypeNames.contains(inputTypeText)) {
+                return paramType;
+            }
+        }
+        return paramTypes.get(ParamTypeEnum.UNKNOWN.name());
+    }
+
+}

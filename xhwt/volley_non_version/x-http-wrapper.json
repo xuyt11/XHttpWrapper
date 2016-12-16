@@ -110,58 +110,113 @@
     ],
     "ok_number": "0"
   },
-  "field_type_enum": {
-    "null_et": {
-      "field_type": "String",
-      "field_optional_type": "String"
+  "param_types": {
+    "DATE": {
+      "match_type_names": [
+        "Date",
+        "Datetime"
+      ],
+      "request_param_type": "String",
+      "request_optional_param_type": "String",
+      "response_param_type": "String"
     },
-    "date_et": {
-      "field_type": "String",
-      "field_optional_type": "String"
+    "FILE": {
+      "match_type_names": [
+        "File"
+      ],
+      "request_param_type": "File",
+      "request_optional_param_type": "File",
+      "response_param_type": "no such response param"
     },
-    "file_et": {
-      "field_type": "File",
-      "field_optional_type": "File"
+    "INTEGER": {
+      "match_type_names": [
+        "int",
+        "Integer"
+      ],
+      "request_param_type": "int",
+      "request_optional_param_type": "Integer",
+      "response_param_type": "int"
     },
-    "integer_et": {
-      "field_type": "int",
-      "field_optional_type": "Integer"
+    "LONG": {
+      "match_type_names": [
+        "Long"
+      ],
+      "request_param_type": "long",
+      "request_optional_param_type": "Long",
+      "response_param_type": "long"
     },
-    "long_et": {
-      "field_type": "long",
-      "field_optional_type": "Long"
+    "BOOLEAN": {
+      "match_type_names": [
+        "Boolean"
+      ],
+      "request_param_type": "boolean",
+      "request_optional_param_type": "Boolean",
+      "response_param_type": "boolean"
     },
-    "boolean_et": {
-      "field_type": "boolean",
-      "field_optional_type": "Boolean"
+    "FLOAT": {
+      "match_type_names": [
+        "Float"
+      ],
+      "request_param_type": "float",
+      "request_optional_param_type": "Float",
+      "response_param_type": "float"
     },
-    "float_et": {
-      "field_type": "float",
-      "field_optional_type": "Float"
+    "DOUBLE": {
+      "match_type_names": [
+        "Double"
+      ],
+      "request_param_type": "double",
+      "request_optional_param_type": "Double",
+      "response_param_type": "double"
     },
-    "double_et": {
-      "field_type": "double",
-      "field_optional_type": "Double"
+    "NUMBER": {
+      "match_type_names": [
+        "Number"
+      ],
+      "request_param_type": "long",
+      "request_optional_param_type": "Long",
+      "response_param_type": "long"
     },
-    "number_et": {
-      "field_type": "long",
-      "field_optional_type": "Long"
+    "STRING": {
+      "match_type_names": [
+        "String"
+      ],
+      "request_param_type": "String",
+      "request_optional_param_type": "String",
+      "response_param_type": "String"
     },
-    "string_et": {
-      "field_type": "String",
-      "field_optional_type": "String"
+    "MAP": {
+      "match_type_names": [
+        "Map",
+        "Dict",
+        "Dictionary"
+      ],
+      "request_param_type": "String",
+      "request_optional_param_type": "String",
+      "response_param_type": "Map<String, ${object}>"
     },
-    "map_et": {
-      "field_type": "Map<String, ${object}>",
-      "field_optional_type": "Map<String, Object>"
+    "OBJECT": {
+      "match_type_names": [
+        "Object"
+      ],
+      "request_param_type": "String",
+      "request_optional_param_type": "String",
+      "response_param_type": "${object}"
     },
-    "object_et": {
-      "field_type": "${object}",
-      "field_optional_type": "${object}"
+    "ARRAY": {
+      "match_type_names": [
+        "Array",
+        "List"
+      ],
+      "request_param_type": "String",
+      "request_optional_param_type": "String",
+      "response_param_type": "List<${object}>"
     },
-    "array_et": {
-      "field_type": "List<${object}>",
-      "field_optional_type": "String"
+    "UNKNOWN": {
+      "match_type_names": [],
+      "request_param_type": "String",
+      "request_optional_param_type": "String",
+      "response_param_type": "String"
     }
   }
 }
