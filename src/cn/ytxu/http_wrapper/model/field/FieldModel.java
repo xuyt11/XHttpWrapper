@@ -1,6 +1,6 @@
 package cn.ytxu.http_wrapper.model.field;
 
-import cn.ytxu.http_wrapper.config.property.element_type.ElementType;
+import cn.ytxu.http_wrapper.config.property.param_type.ParamTypeBean;
 import cn.ytxu.http_wrapper.model.BaseModel;
 
 /**
@@ -44,7 +44,7 @@ public class FieldModel<H extends BaseModel> extends BaseModel<H> implements Com
     // 是否为可过滤掉的参数
     private boolean filterTag = false;
     // 字段的类型，依赖于type解析出来的
-    private FieldType fieldType;
+    private ParamTypeBean paramTypeBean;
     /**
      * tip:在描述字段(description)解析出来的该字段的类型名称；可以用于response 中数组、对象的起名
      * 例如：results中有children字段，但两个都是Area属性
@@ -121,12 +121,12 @@ public class FieldModel<H extends BaseModel> extends BaseModel<H> implements Com
         this.filterTag = filterTag;
     }
 
-    public FieldType getFieldType() {
-        return fieldType;
+    public ParamTypeBean getParamTypeBean() {
+        return paramTypeBean;
     }
 
-    public void setFieldType(FieldType fieldType) {
-        this.fieldType = fieldType;
+    public void setParamTypeBean(ParamTypeBean paramTypeBean) {
+        this.paramTypeBean = paramTypeBean;
     }
 
     public String getDataType() {
@@ -144,13 +144,11 @@ public class FieldModel<H extends BaseModel> extends BaseModel<H> implements Com
 
     //*************** reflect method area ***************
     public String type() {
-        ElementType etEnum = ElementType.getTypeByInput(type);
-        return etEnum.getElementTypeByInput();
+        return paramTypeBean.getResponseParamType();
     }
 
     public String requestParamType() {
-        ElementType etEnum = ElementType.getTypeByInput(type);
-        return etEnum.getElementRequestTypeByInput();
+        return paramTypeBean.getRequestOptionalParamType();
     }
 
     public boolean isFilterParam() {

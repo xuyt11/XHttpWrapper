@@ -5,6 +5,7 @@ import cn.ytxu.http_wrapper.config.property.api_data.ApiDataWrapper;
 import cn.ytxu.http_wrapper.config.property.base_config.BaseConfigWrapper;
 import cn.ytxu.http_wrapper.config.property.filter.FilterWrapper;
 import cn.ytxu.http_wrapper.config.property.element_type.FieldTypeWrapper;
+import cn.ytxu.http_wrapper.config.property.param_type.ParamTypeWrapper;
 import cn.ytxu.http_wrapper.config.property.response.ResponseWrapper;
 import cn.ytxu.http_wrapper.config.property.request.RequestWrapper;
 import cn.ytxu.http_wrapper.config.property.status_code.StatusCodeWrapper;
@@ -51,7 +52,7 @@ public class ConfigWrapper {
         RequestWrapper.load(configData.getRequest());
         ResponseWrapper.load(configData.getResponse());
         StatusCodeWrapper.load(configData.getStatusCode());
-        FieldTypeWrapper.load(configData.getFieldTypeEnum());
+        ParamTypeWrapper.load(configData.getParamTypes());
     }
 
     public static ApiDataWrapper getApiDataFile() {
@@ -84,6 +85,10 @@ public class ConfigWrapper {
 
     public static FieldTypeWrapper getFieldType() {
         return FieldTypeWrapper.getInstance();
+    }
+
+    public static ParamTypeWrapper getParamType() {
+        return ParamTypeWrapper.getInstance();
     }
 
 }

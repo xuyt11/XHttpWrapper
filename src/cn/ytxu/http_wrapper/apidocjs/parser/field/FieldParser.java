@@ -1,8 +1,9 @@
 package cn.ytxu.http_wrapper.apidocjs.parser.field;
 
 import cn.ytxu.http_wrapper.apidocjs.bean.field_container.field.FieldBean;
+import cn.ytxu.http_wrapper.config.ConfigWrapper;
+import cn.ytxu.http_wrapper.config.property.param_type.ParamTypeBean;
 import cn.ytxu.http_wrapper.model.field.FieldModel;
-import cn.ytxu.http_wrapper.model.field.FieldType;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -39,8 +40,8 @@ public class FieldParser<T extends FieldModel> {
     }
 
     private void setFieldType() {
-        FieldType fieldType = FieldType.getByFieldTypeStr(field.getType());
-        field.setFieldType(fieldType);
+        ParamTypeBean paramTypeBean = ConfigWrapper.getParamType().getParamTypeBean(field.getType());
+        field.setParamTypeBean(paramTypeBean);
     }
 
     private void setDataType() {

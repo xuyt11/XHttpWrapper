@@ -1,15 +1,17 @@
 package cn.ytxu.http_wrapper.config;
 
 import cn.ytxu.http_wrapper.config.property.api_data.ApiDataBean;
+import cn.ytxu.http_wrapper.config.property.param_type.ParamTypeBean;
 import cn.ytxu.http_wrapper.config.property.response.ResponseBean;
 import cn.ytxu.http_wrapper.config.property.base_config.BaseConfigBean;
-import cn.ytxu.http_wrapper.config.property.element_type.FieldTypeEnumBean;
 import cn.ytxu.http_wrapper.config.property.filter.FilterBean;
 import cn.ytxu.http_wrapper.config.property.request.RequestBean;
 import cn.ytxu.http_wrapper.config.property.status_code.StatusCodeBean;
 import cn.ytxu.http_wrapper.config.property.template_file_info.TemplateFileInfoBean;
 
+import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Created by ytxu on 2016/8/31.<br>
@@ -23,7 +25,7 @@ public class ConfigBean {
     private RequestBean request;
     private ResponseBean response;
     private StatusCodeBean status_code;
-    private FieldTypeEnumBean field_type_enum;
+    private Map<String, ParamTypeBean> param_types = Collections.EMPTY_MAP;
 
 
     public ApiDataBean getApiData() {
@@ -54,10 +56,6 @@ public class ConfigBean {
         return status_code;
     }
 
-    public FieldTypeEnumBean getFieldTypeEnum() {
-        return field_type_enum;
-    }
-
     public void setApi_data(ApiDataBean api_data) {
         this.api_data = api_data;
     }
@@ -86,7 +84,11 @@ public class ConfigBean {
         this.status_code = status_code;
     }
 
-    public void setField_type_enum(FieldTypeEnumBean field_type_enum) {
-        this.field_type_enum = field_type_enum;
+    public Map<String, ParamTypeBean> getParamTypes() {
+        return param_types;
+    }
+
+    public void setParamypes(Map<String, ParamTypeBean> param_types) {
+        this.param_types = param_types;
     }
 }
