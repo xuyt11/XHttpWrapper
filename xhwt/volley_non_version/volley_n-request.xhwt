@@ -72,7 +72,7 @@ public class ${request_group_class_name} extends BaseApi {
         <t:if isTrue="request_url_is_RESTful">
         <t:list_replace each="RESTful_fields" replace_key="restful_name_list" list_value=", ${RESTful_field_name}">
 		String realUrl = String.format(getFullUrl("${request_convert_url}")${restful_name_list});
-		</list_replace>
+		</t:list_replace>
         <t:if_else>
 		String realUrl = getFullUrl("${request_normal_url}");
         </t:if_end>
