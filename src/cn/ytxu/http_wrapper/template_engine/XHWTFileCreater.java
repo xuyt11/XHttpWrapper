@@ -70,13 +70,13 @@ public class XHWTFileCreater {
         });
     }
 
-    private static String getString(String content, Object reflectModel) {
+    private String getString(String content, Object reflectModel) {
         TextStatementRecord record = new TextStatementRecord(null, content);
         record.parse();
         return record.getWriteBuffer(reflectModel, null).toString().trim();
     }
 
-    private static void getRetainAndWriter4TargetFile(String dirPath, String fileName, OnGetWriter onGetWriter) {
+    private void getRetainAndWriter4TargetFile(String dirPath, String fileName, OnGetWriter onGetWriter) {
         if (Objects.isNull(onGetWriter)) {
             throw new RuntimeException("OnGetWriter listener is null...");
         }

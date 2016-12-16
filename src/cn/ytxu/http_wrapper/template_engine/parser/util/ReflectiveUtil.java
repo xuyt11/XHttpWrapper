@@ -94,15 +94,4 @@ public class ReflectiveUtil {
     }
 
 
-    public static void main(String... args) {
-
-        A a = new A();
-        System.out.println(getString(a, "get "));
-    }
-
-    public static class A {
-        public String get() {
-            return "abc get";
-        }
-    }
 }

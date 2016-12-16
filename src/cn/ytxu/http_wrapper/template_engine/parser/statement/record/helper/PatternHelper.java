@@ -38,34 +38,4 @@ public class PatternHelper {
         }
     }
 
-
-    private static final PatternModel EACH_MODEL
-            = new PatternModel("each=\"", "\"", Pattern.compile("(each=\")\\w+(\")"));
-    private static final PatternModel VALUE_MODEL
-            = new PatternModel("value=\"", "\"", Pattern.compile("(value=\")\\.+(\")"));
-
-    // start end 可以没有
-    private static final PatternModel START_MODEL
-            = new PatternModel("start=\"", "\"", Pattern.compile("(start=\")\\w+(\")"));
-    private static final PatternModel END_MODEL
-            = new PatternModel("end=\"", "\"", Pattern.compile("(end=\")\\w+(\")"));
-
-    private static final String startTagContent = "\t    <t:list each=\"RESTful_fields\" singleLine start=\"   \t    \" value=\"String ${RESTful_field_name}, \" end=\"\"/>";
-
-    public static void main(String... args) {
-        String methodName = PatternHelper.getPatternValue(EACH_MODEL, startTagContent);
-        String value = PatternHelper.getPatternValue(VALUE_MODEL, startTagContent);
-
-        boolean hasStart = PatternHelper.matchThisPattern(START_MODEL, startTagContent);
-        if (hasStart) {
-            String start = PatternHelper.getPatternValue(START_MODEL, startTagContent);
-        }
-
-        boolean hasEnd = PatternHelper.matchThisPattern(END_MODEL, startTagContent);
-        if (hasEnd) {
-            String end = PatternHelper.getPatternValue(END_MODEL, startTagContent);
-        }
-
-    }
-
 }

@@ -1,6 +1,6 @@
 package cn.ytxu.http_wrapper.common.enums;
 
-import cn.ytxu.http_wrapper.apidocjs.parser.ApidocjsDataParser;
+import cn.ytxu.http_wrapper.apidocjs.ApidocjsDataParser;
 import cn.ytxu.http_wrapper.model.version.VersionModel;
 
 import java.io.IOException;

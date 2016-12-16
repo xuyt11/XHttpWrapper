@@ -1,4 +1,4 @@
-package cn.ytxu.http_wrapper.apidocjs.parser;
+package cn.ytxu.http_wrapper.apidocjs;
 
 import cn.ytxu.http_wrapper.apidocjs.bean.ApidocjsHelper;
 import cn.ytxu.http_wrapper.apidocjs.parser.request.RequestParser;
@@ -45,6 +45,33 @@ public class ApidocjsDataParser {
         return versions;
     }
 
+    private List<VersionModel> createVersionModelsByApiDatas(List<ApiDataBean> apiDatas) {
+        CompileModel compileModel = ConfigWrapper.getBaseConfig().getCompileModelType();
+        return compileModel.createApiDatasFromApidocJsData(apiDatas);
+    }
+
+    private void parseStatusCode() {
+        for (VersionModel version : versions) {
+            List<StatusCodeGroupModel> statusCodeGroups = version.getStatusCodeGroups();
+            new StatusCodeParser(statusCodeGroups).start();
+        }
+    }
+
+    private void parseRequest() {
+        for (VersionModel version : versions) {
+            List<RequestGroupModel> requestGroups = version.getRequestGroups();
+            new RequestParser(requestGroups).start();
+        }
+    }
+
+    private void parseResponseSErrors() {
+        for (VersionModel version : versions) {
+            new ResponseSErrorParser(version).start();
+        }
+    }
+
+
+    //******************* sort *******************
     private void sort() {
         for (VersionModel version : versions) {
             Collections.sort(version.getRequestGroups());
@@ -101,31 +128,6 @@ public class ApidocjsDataParser {
                 continue;
             }
             sortOutpouts(output.getSubs());
-        }
-    }
-
-    private List<VersionModel> createVersionModelsByApiDatas(List<ApiDataBean> apiDatas) {
-        CompileModel compileModel = ConfigWrapper.getBaseConfig().getCompileModelType();
-        return compileModel.createApiDatasFromApidocJsData(apiDatas);
-    }
-
-    private void parseStatusCode() {
-        for (VersionModel version : versions) {
-            List<StatusCodeGroupModel> statusCodeGroups = version.getStatusCodeGroups();
-            new StatusCodeParser(statusCodeGroups).start();
-        }
-    }
-
-    private void parseRequest() {
-        for (VersionModel version : versions) {
-            List<RequestGroupModel> requestGroups = version.getRequestGroups();
-            new RequestParser(requestGroups).start();
-        }
-    }
-
-    private void parseResponseSErrors() {
-        for (VersionModel version : versions) {
-            new ResponseSErrorParser(version).start();
         }
     }
 

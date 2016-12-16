@@ -139,23 +139,4 @@ public class LSLSRParser {
         void unGet();
     }
 
-
-    public static void main(String... args) {
-        Pattern p = Pattern.compile("(</t:eachTemp value=')\\.+('>)");
-        Matcher m = p.matcher("</t:eachTemp value='${input_type} ${input_name}, '>");
-        System.out.println("find " + m.find());
-
-        p = Pattern.compile("(eachTemp value=')[\\p{Punct}\\s\\w]+('>)");
-        m = p.matcher("</t:eachTemp value='${input_type} ${input_name}, '>");
-        System.out.println("find 1" + m.find());
-
-        p = Pattern.compile("(eachTemp value=')[\\p{Print}\\p{Space}]+('>)");
-        m = p.matcher("</t:eachTemp value='${input_type} ${input_name}, '>");
-        System.out.println("find 12" + m.find());
-
-        p = Pattern.compile("(eachTemp value=')[\\p{Print}\\p{Blank}]+('>)");
-        m = p.matcher("</t:eachTemp value='${input_type} ${input_name}, '>");
-        System.out.println("find 123" + m.find());
-
-    }
 }
