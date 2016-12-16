@@ -1,7 +1,7 @@
 package cn.ytxu.http_wrapper.apidocjs.parser.response.message_type.json.output.sub;
 
 import cn.ytxu.http_wrapper.apidocjs.parser.response.message_type.json.output.OutputParamParser;
-import cn.ytxu.http_wrapper.common.enums.OutputParamType;
+import cn.ytxu.http_wrapper.config.property.param_type.ParamTypeEnum;
 import cn.ytxu.http_wrapper.model.response.OutputParamModel;
 import com.alibaba.fastjson.JSONObject;
 
@@ -47,7 +47,7 @@ public class SubOutputParser {
         List<OutputParamModel> subs = output.getSubs();
         try {
             OutputParamModel target = findSameNameItemByModel(model);
-            OutputParamType targetType = target.getType();
+            ParamTypeEnum targetType = target.getType();
             targetType.replaceOutputIfIsNULLOrAddModelSValue2TargetSValuesIfIsObjectOrArrayOtherwiseDoNothing(subs, target, model);
         } catch (NotFoundSameNameItemException ignore) {
             subs.add(model);

@@ -1,7 +1,7 @@
 package cn.ytxu.http_wrapper.apidocjs.parser.response.message_type.json.output;
 
 import cn.ytxu.http_wrapper.apidocjs.parser.response.message_type.json.output.sub.SubOutputParser;
-import cn.ytxu.http_wrapper.common.enums.OutputParamType;
+import cn.ytxu.http_wrapper.config.property.param_type.ParamTypeEnum;
 import cn.ytxu.http_wrapper.model.response.OutputParamModel;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -41,7 +41,7 @@ public class ArrayTypeOutputParser {
         if (setSubTypeByValuesIfCan()) {
             return;
         }
-        output.setSubType(OutputParamType.NULL);
+        output.setSubType(ParamTypeEnum.UNKNOWN);
     }
 
     private boolean setSubTypeByValueIfCan() {
@@ -66,7 +66,7 @@ public class ArrayTypeOutputParser {
     private boolean setSubTypeIfCan(JSONArray jArr) {
         boolean canSetSubType = canSetSubType(jArr);
         if (canSetSubType) {
-            OutputParamType subType = OutputParamType.get(jArr.get(0));
+            ParamTypeEnum subType = ParamTypeEnum.get(jArr.get(0));
             output.setSubType(subType);
         }
         return canSetSubType;
@@ -79,7 +79,7 @@ public class ArrayTypeOutputParser {
 
     //******************** parse value ********************
     private boolean needParseValueAndValuesIfSubTypeIsJsonObjectType() {
-        return OutputParamType.JSON_OBJECT == output.getSubType();
+        return ParamTypeEnum.OBJECT == output.getSubType();
     }
 
     private void parseValue() {

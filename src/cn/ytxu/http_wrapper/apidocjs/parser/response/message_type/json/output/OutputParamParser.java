@@ -1,6 +1,6 @@
 package cn.ytxu.http_wrapper.apidocjs.parser.response.message_type.json.output;
 
-import cn.ytxu.http_wrapper.common.enums.OutputParamType;
+import cn.ytxu.http_wrapper.config.property.param_type.ParamTypeEnum;
 import cn.ytxu.http_wrapper.model.response.OutputParamModel;
 import cn.ytxu.http_wrapper.model.response.ResponseModel;
 import com.alibaba.fastjson.JSON;
@@ -44,7 +44,7 @@ public class OutputParamParser {
 
         List<OutputParamModel> outputs = new ArrayList<>(jsonObject.size());
         jsonObject.forEach((fieldName, fieldValue) -> {
-            OutputParamType type = OutputParamType.get(fieldValue);
+            ParamTypeEnum type = ParamTypeEnum.get(fieldValue);
             OutputParamModel output = type.createOutput(response, parent, fieldName, fieldValue);
             outputs.add(output);
         });

@@ -1,6 +1,7 @@
 package cn.ytxu.http_wrapper.config.property.param_type;
 
 import cn.ytxu.http_wrapper.common.util.LogUtil;
+import cn.ytxu.http_wrapper.model.response.OutputParamModel;
 
 import java.util.List;
 import java.util.Map;
@@ -74,4 +75,7 @@ public class ParamTypeWrapper {
         return paramTypes.get(ParamTypeEnum.UNKNOWN.name());
     }
 
+    public String getResponseParamType(OutputParamModel output) {
+        return getParamTypeBean(output.getType().name()).getResponseParamType(output);
+    }
 }

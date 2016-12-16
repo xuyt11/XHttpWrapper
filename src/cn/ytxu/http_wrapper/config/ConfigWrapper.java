@@ -4,7 +4,6 @@ import cn.ytxu.http_wrapper.common.util.LogUtil;
 import cn.ytxu.http_wrapper.config.property.api_data.ApiDataWrapper;
 import cn.ytxu.http_wrapper.config.property.base_config.BaseConfigWrapper;
 import cn.ytxu.http_wrapper.config.property.filter.FilterWrapper;
-import cn.ytxu.http_wrapper.config.property.element_type.FieldTypeWrapper;
 import cn.ytxu.http_wrapper.config.property.param_type.ParamTypeWrapper;
 import cn.ytxu.http_wrapper.config.property.response.ResponseWrapper;
 import cn.ytxu.http_wrapper.config.property.request.RequestWrapper;
@@ -81,10 +80,6 @@ public class ConfigWrapper {
 
     public static StatusCodeWrapper getStatusCode() {
         return StatusCodeWrapper.getInstance();
-    }
-
-    public static FieldTypeWrapper getFieldType() {
-        return FieldTypeWrapper.getInstance();
     }
 
     public static ParamTypeWrapper getParamType() {

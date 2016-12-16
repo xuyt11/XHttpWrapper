@@ -1,6 +1,6 @@
 package cn.ytxu.http_wrapper.apidocjs.parser.response.message_type.json.output.sub;
 
-import cn.ytxu.http_wrapper.common.enums.OutputParamType;
+import cn.ytxu.http_wrapper.config.property.param_type.ParamTypeEnum;
 import cn.ytxu.http_wrapper.model.response.OutputParamModel;
 import cn.ytxu.http_wrapper.model.response.ResponseModel;
 
@@ -37,7 +37,7 @@ public class GetOutputsThatCanGenerateResponseEntityFileUtil {
         if (output.isNonGenerationResponseEntityFileTag()) {
             return false;
         }
-        if (output.getType() == OutputParamType.JSON_ARRAY && output.getSubType() != OutputParamType.JSON_OBJECT) {
+        if (output.getType() == ParamTypeEnum.ARRAY && output.getSubType() != ParamTypeEnum.OBJECT) {
             return false;
         }
         return true;

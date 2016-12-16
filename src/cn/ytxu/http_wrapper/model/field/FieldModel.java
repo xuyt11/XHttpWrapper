@@ -144,7 +144,7 @@ public class FieldModel<H extends BaseModel> extends BaseModel<H> implements Com
 
     //*************** reflect method area ***************
     public String type() {
-        return paramTypeBean.getResponseParamType();
+        return paramTypeBean.getRequestParamType();
     }
 
     public String requestParamType() {

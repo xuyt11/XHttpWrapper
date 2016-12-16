@@ -1,6 +1,7 @@
 package cn.ytxu.http_wrapper.config.property.param_type;
 
 import cn.ytxu.http_wrapper.common.util.TextUtil;
+import cn.ytxu.http_wrapper.model.response.OutputParamModel;
 
 import java.util.Collections;
 import java.util.List;
@@ -57,8 +58,8 @@ public class ParamTypeBean {
         this.request_optional_param_type = request_optional_param_type;
     }
 
-    public String getResponseParamType() {
-        return response_param_type;
+    public String getResponseParamType(OutputParamModel output) {
+       return paramTypeEnum.getResponseParamType(response_param_type, output);
     }
 
     public void setResponseParamType(String response_param_type) {

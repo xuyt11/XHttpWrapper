@@ -27,8 +27,9 @@ public class GetOutputsOfObjectAndArrayTypeUtil {
         List<OutputParamModel> oaOutputs = new ArrayList<>();
         for (OutputParamModel output : outputs) {
             switch (output.getType()) {
-                case JSON_OBJECT:
-                case JSON_ARRAY:
+                case OBJECT:
+                case ARRAY:
+                case MAP:// TODO need check map
                     oaOutputs.add(output);
                     break;
             }

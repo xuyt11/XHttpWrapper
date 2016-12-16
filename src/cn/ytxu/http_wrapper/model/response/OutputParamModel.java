@@ -1,8 +1,8 @@
 package cn.ytxu.http_wrapper.model.response;
 
 import cn.ytxu.http_wrapper.common.util.FileUtil;
-import cn.ytxu.http_wrapper.common.enums.OutputParamType;
 import cn.ytxu.http_wrapper.config.ConfigWrapper;
+import cn.ytxu.http_wrapper.config.property.param_type.ParamTypeEnum;
 import cn.ytxu.http_wrapper.model.BaseModel;
 import cn.ytxu.http_wrapper.model.response.field.ResponseFieldModel;
 
@@ -17,19 +17,19 @@ import java.util.Objects;
 public class OutputParamModel extends BaseModel<ResponseModel> implements Comparable<OutputParamModel> {
 
     private final OutputParamModel parent;
-    private final OutputParamType type;
+    private final ParamTypeEnum type;
     private final String fieldName;
 
     private final Object fieldValue;
     private List<Object> values = Collections.EMPTY_LIST;// 只有object与array，才会有的
 
-    private OutputParamType subType;// 只有array才有，如：List<Integer>,List<Long>,List<String>...
+    private ParamTypeEnum subType;// 只有array才有，如：List<Integer>,List<Long>,List<String>...
     private List<OutputParamModel> subs = Collections.EMPTY_LIST;// 只有object与array，才会有的
 
     private ResponseFieldModel defined;
     private boolean nonGenerationResponseEntityFileTag = false;// 是否需要生成响应实体文件的标记，默认为需要
 
-    public OutputParamModel(ResponseModel higherLevel, OutputParamModel parent, OutputParamType type,
+    public OutputParamModel(ResponseModel higherLevel, OutputParamModel parent, ParamTypeEnum type,
                             String fieldName, Object fieldValue) {
         super(higherLevel);
         this.parent = parent;
@@ -38,15 +38,15 @@ public class OutputParamModel extends BaseModel<ResponseModel> implements Compar
         this.fieldValue = fieldValue;
     }
 
-    public OutputParamType getType() {
+    public ParamTypeEnum getType() {
         return type;
     }
 
-    public void setSubType(OutputParamType subType) {
+    public void setSubType(ParamTypeEnum subType) {
         this.subType = subType;
     }
 
-    public OutputParamType getSubType() {
+    public ParamTypeEnum getSubType() {
         return subType;
     }
 
@@ -165,7 +165,7 @@ public class OutputParamModel extends BaseModel<ResponseModel> implements Compar
     }
 
     public String output_type() {
-        return ConfigWrapper.getFieldType().getElementTypeByOutput(this);
+        return ConfigWrapper.getParamType().getResponseParamType(this);
     }
 
     public String output_name() {
@@ -177,7 +177,7 @@ public class OutputParamModel extends BaseModel<ResponseModel> implements Compar
     }
 
     public String output_getter() {
-        if (type == OutputParamType.BOOLEAN) {
+        if (type == ParamTypeEnum.BOOLEAN) {
             String classFileName = FileUtil.getClassFileName(fieldName);
             classFileName = classFileName.substring(0, 1).toLowerCase() + classFileName.substring(1);
             return classFileName;
