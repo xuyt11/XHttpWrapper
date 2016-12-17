@@ -16,9 +16,9 @@ import java.util.Objects;
  */
 public class XHttpWrapperEngine {
     // 配置文件的路径(可以有多个)
-//    private static final String[] XHWT_CONFIG_PATHS = {"xhwt/ncm_multi_version/x-http-wrapper.json"};
-    private static final String[] XHWT_CONFIG_PATHS = {"xhwt/ncm_non_version/x-http-wrapper.json"};
-//    private static final String[] XHWT_CONFIG_PATHS = {"xhwt/volley_non_version/x-http-wrapper.json"};
+//    private static final String[] XHWT_CONFIG_PATHS = {"xhwt/ncm/multi_version/x-http-wrapper.json"};
+    private static final String[] XHWT_CONFIG_PATHS = {"xhwt/ncm/non_version/x-http-wrapper.json"};
+//    private static final String[] XHWT_CONFIG_PATHS = {"xhwt/volley/non_version/x-http-wrapper.json"};
     //, "xhwt/NewChama-ios.json"};
 
     public static void main(String... args) throws IOException {
