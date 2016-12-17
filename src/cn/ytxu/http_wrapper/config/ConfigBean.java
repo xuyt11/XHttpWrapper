@@ -88,7 +88,7 @@ public class ConfigBean {
         return param_types;
     }
 
-    public void setParamypes(Map<String, ParamTypeBean> param_types) {
+    public void setParamTypes(Map<String, ParamTypeBean> param_types) {
         this.param_types = param_types;
     }
 }

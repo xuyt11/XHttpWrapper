@@ -15,11 +15,11 @@
   },
   "template_file_infos": {
     "HttpApi": {
-      "need_generate": true,
+      "need_generate": false,
       "path": "ncm_a_n-httpapi.xhwt"
     },
     "Request": {
-      "need_generate": true,
+      "need_generate": false,
       "path": "ncm_a_n-request.xhwt"
     },
     "RequestParam": {
@@ -27,7 +27,7 @@
       "path": "ncm_a_n-requestparam.xhwt"
     },
     "Response": {
-      "need_generate": false,
+      "need_generate": true,
       "path": "ncm_a_n-response.xhwt"
     },
     "StatusCode": {

@@ -75,7 +75,18 @@ public class ParamTypeWrapper {
         return paramTypes.get(ParamTypeEnum.UNKNOWN.name());
     }
 
+    public ParamTypeBean getParamTypeBean(ParamTypeEnum paramTypeEnum) {
+        String paramTypeName = paramTypeEnum.name();
+        for (Map.Entry<String, ParamTypeBean> paramTypeBeanEntry : paramTypes.entrySet()) {
+            String paramTypeKey = paramTypeBeanEntry.getKey();
+            if (paramTypeKey.equals(paramTypeName)) {
+                return paramTypeBeanEntry.getValue();
+            }
+        }
+        return paramTypes.get(ParamTypeEnum.UNKNOWN.name());
+    }
+
     public String getResponseParamType(OutputParamModel output) {
-        return getParamTypeBean(output.getType().name()).getResponseParamType(output);
+        return getParamTypeBean(output.getType()).getResponseParamType(output);
     }
 }

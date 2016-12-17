@@ -78,23 +78,9 @@ public enum ParamTypeEnum {
             if (subElementType == OBJECT) {
                 subElementTypeStr = OBJECT.getResponseParamType(response_param_type, output);
             } else {
-                subElementTypeStr = ConfigWrapper.getParamType().getParamTypeBean(subElementType.name()).getRequestParamType();
+                subElementTypeStr = ConfigWrapper.getParamType().getParamTypeBean(subElementType).getRequestParamType();
             }
             return subElementTypeStr;
-        }
-    },
-
-    DATE(String.class) {
-        @Override
-        public String getResponseParamType(String response_param_type, OutputParamModel output) {
-            throw new RuntimeException("output param must not be date type");
-        }
-    },
-
-    FILE(String.class) {
-        @Override
-        public String getResponseParamType(String response_param_type, OutputParamModel output) {
-            throw new RuntimeException("output param must not be file type");
         }
     },
 
@@ -113,12 +99,24 @@ public enum ParamTypeEnum {
             if (subElementType == OBJECT) {
                 subElementTypeStr = OBJECT.getResponseParamType(response_param_type, output);
             } else {
-                subElementTypeStr = ConfigWrapper.getParamType().getParamTypeBean(subElementType.name()).getRequestParamType();
+                subElementTypeStr = ConfigWrapper.getParamType().getParamTypeBean(subElementType).getRequestParamType();
             }
             return subElementTypeStr;
         }
     },
 
+    DATE(String.class) {
+        @Override
+        public String getResponseParamType(String response_param_type, OutputParamModel output) {
+            throw new RuntimeException("output param must not be date type");
+        }
+    },
+    FILE(String.class) {
+        @Override
+        public String getResponseParamType(String response_param_type, OutputParamModel output) {
+            throw new RuntimeException("output param must not be file type");
+        }
+    },
     UNKNOWN(null) {
         @Override
         boolean isThisType(Object obj) {
