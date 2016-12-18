@@ -148,7 +148,10 @@ public class FieldModel<H extends BaseModel> extends BaseModel<H> implements Com
     }
 
     public String requestParamType() {
-        return paramTypeBean.getRequestOptionalParamType();
+        if (optional) {
+            return paramTypeBean.getRequestOptionalParamType();
+        }
+        return paramTypeBean.getRequestParamType();
     }
 
     public boolean isFilterParam() {
