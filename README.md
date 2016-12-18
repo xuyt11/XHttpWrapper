@@ -4,17 +4,17 @@
 4 由于这些只是自己在开发公司项目中做的一个东东,所以,很多东西都是只符合当前项目,若要拿去使用,可以自己更改.
 
 
-release version 0.5 future
+release version 0.6 future
 ==========================
 * 重构xtemp解析器，
     * 使得foreach标签能够多层嵌套，去除掉list等标签
 
-release version 0.4 future
-==========================
-* 添加响应实体类类型的解析功能；
-    * 1 添加Map类型的解析---在defined parameter的type中需要为Map---SubType参数需要考虑为List；
-    * 2 添加Object类型的参数设置，在.json配置文件中；
-    * 3 对Array类型的参数，替换SubType的参数，不能再用${object}了，要用${sub_type}替换，因为SubType有可能为Array，Map，Object...
+release version 0.5
+===================
+1、add prefix(t) to template tags;
+2、add volley and asynchttp lib x-http-wrapper template file;
+3、refactor input and output type enum;-->add map type
+4、add is_polymerization fun;
 
 release version 0.4
 ===================
