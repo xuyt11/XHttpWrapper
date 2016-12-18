@@ -75,8 +75,12 @@ public class TemplateFileInfoWrapper {
     }
 
     public boolean needParseTheTemplateFile(XHWTFileType tFileType) {
-        TemplateFileInfoBean tFileInfo = templateFileInfos.get(tFileType.name());
+        TemplateFileInfoBean tFileInfo = getTemplateFileInfoBean(tFileType);
         return isValidFileInfo(tFileInfo);
+    }
+
+    private TemplateFileInfoBean getTemplateFileInfoBean(XHWTFileType tFileType) {
+        return templateFileInfos.get(tFileType.name());
     }
 
     /**
@@ -87,7 +91,7 @@ public class TemplateFileInfoWrapper {
             throw new NonNeedParseTheTemplateFileException();
         }
 
-        TemplateFileInfoBean tFileInfo = templateFileInfos.get(tFileType.name());
+        TemplateFileInfoBean tFileInfo = getTemplateFileInfoBean(tFileType);
 
         File templateFile = new File(tFileInfo.getPath());
         if (templateFile.isAbsolute()) {
@@ -102,4 +106,8 @@ public class TemplateFileInfoWrapper {
     public static final class NonNeedParseTheTemplateFileException extends RuntimeException {
     }
 
+    public boolean isPolymerization(XHWTFileType tFileType) {
+        TemplateFileInfoBean tFileInfo = getTemplateFileInfoBean(tFileType);
+        return tFileInfo.isPolymerization();
+    }
 }

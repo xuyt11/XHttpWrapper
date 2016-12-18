@@ -56,7 +56,11 @@ public class ReflectiveDataConvertor {
         return outputs;
     }
 
-    public static List getBaseResponseReflectiveDatas(List<VersionModel> versions) {
+    public static List getBaseResponseReflectiveDatas(List<VersionModel> versions, boolean isPolymerization) {
+        if (!isPolymerization) {
+            return versions;
+        }
+
         // it`s multi version, but use the single base response
         List<OutputParamModel> subsOfErrors = new ArrayList<>(20);
         for (VersionModel version : versions) {

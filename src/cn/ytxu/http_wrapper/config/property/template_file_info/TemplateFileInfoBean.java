@@ -9,10 +9,16 @@ public class TemplateFileInfoBean {
      * 是否需要根据temp文件去生成http相关文件
      */
     private boolean need_generate = true;
+
     /**
      * temp文件的路径：支持同文件夹下的文件名，或是绝对路径
      */
     private String path;
+
+    /**
+     * 是否需要聚合数据
+     */
+    private boolean is_polymerization = false;
 
     public boolean isNeedGenerate() {
         return need_generate;
@@ -28,5 +34,13 @@ public class TemplateFileInfoBean {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public boolean isPolymerization() {
+        return is_polymerization;
+    }
+
+    public void setIsPolymerization(boolean polymerization) {
+        is_polymerization = polymerization;
     }
 }

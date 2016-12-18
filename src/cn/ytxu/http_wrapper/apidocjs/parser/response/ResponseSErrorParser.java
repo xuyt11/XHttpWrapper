@@ -6,6 +6,7 @@ import cn.ytxu.http_wrapper.model.response.OutputParamModel;
 import cn.ytxu.http_wrapper.model.response.ResponseModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
@@ -33,6 +34,7 @@ public class ResponseSErrorParser {
         List<OutputParamModel> errors = getErrors();
         List<OutputParamModel> subsOfErrors = getSubsOfErrors(errors);
         List<OutputParamModel> subs = deduplicated(subsOfErrors);
+        Collections.sort(subs);
         version.setSubsOfErrors(subs);
     }
 

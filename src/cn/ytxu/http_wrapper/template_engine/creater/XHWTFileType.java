@@ -1,5 +1,6 @@
 package cn.ytxu.http_wrapper.template_engine.creater;
 
+import cn.ytxu.http_wrapper.config.ConfigWrapper;
 import cn.ytxu.http_wrapper.model.version.VersionModel;
 
 import java.util.List;
@@ -36,7 +37,8 @@ public enum XHWTFileType {
     BaseResponse() {
         @Override
         public List getReflectiveDatas(List<VersionModel> versions) {
-            return ReflectiveDataConvertor.getBaseResponseReflectiveDatas(versions);
+            boolean isPolymerization = ConfigWrapper.getTemplateFileInfo().isPolymerization(this);
+            return ReflectiveDataConvertor.getBaseResponseReflectiveDatas(versions, isPolymerization);
         }
     },
     StatusCode() {
