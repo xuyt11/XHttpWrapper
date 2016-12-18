@@ -27,7 +27,7 @@
       "path": "ncm_a_n-requestparam.xhwt"
     },
     "Response": {
-      "need_generate": true,
+      "need_generate": false,
       "path": "ncm_a_n-response.xhwt"
     },
     "StatusCode": {
@@ -35,7 +35,7 @@
       "path": "ncm_a_n-statuscode.xhwt"
     },
     "BaseResponse": {
-      "need_generate": false,
+      "need_generate": true,
       "path": "ncm_a_n-baseresponse.xhwt"
     }
   },
