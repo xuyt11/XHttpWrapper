@@ -19,11 +19,11 @@
       "path": "ncm_a_n-httpapi.xhwt"
     },
     "Request": {
-      "need_generate": false,
+      "need_generate": true,
       "path": "ncm_a_n-request.xhwt"
     },
     "RequestParam": {
-      "need_generate": false,
+      "need_generate": true,
       "path": "ncm_a_n-requestparam.xhwt"
     },
     "Response": {
@@ -35,7 +35,7 @@
       "path": "ncm_a_n-statuscode.xhwt"
     },
     "BaseResponse": {
-      "need_generate": true,
+      "need_generate": false,
       "path": "ncm_a_n-baseresponse.xhwt",
       "is_polymerization": true
     }
@@ -148,6 +148,7 @@
     },
     "BOOLEAN": {
       "match_type_names": [
+        "bool",
         "Boolean"
       ],
       "request_param_type": "boolean",

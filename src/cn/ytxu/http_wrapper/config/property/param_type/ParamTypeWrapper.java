@@ -46,7 +46,15 @@ public class ParamTypeWrapper {
         List<String> matchTypeNames = paramTypeBean.getMatchTypeNames();
         if (Objects.isNull(matchTypeNames) || matchTypeNames.isEmpty()) {
             if (ParamTypeEnum.UNKNOWN != paramTypeEnum) {
-                throw new IllegalArgumentException("the param type(" + paramTypeEnum.name() + ") property, u need setup match type names...");
+                throw new IllegalArgumentException("the param type(" + paramTypeEnum.name()
+                        + ") property, u need setup match type names...");
+            }
+        } else {
+            for (String matchTypeName : matchTypeNames) {
+                if (Objects.isNull(matchTypeName) || matchTypeName.trim().isEmpty()) {
+                    throw new IllegalArgumentException("the param type(" + paramTypeEnum.name()
+                            + ") property, u don`t setup empty to match type name, u are a bad kid...");
+                }
             }
         }
     }
@@ -68,8 +76,10 @@ public class ParamTypeWrapper {
     public ParamTypeBean getParamTypeBean(String inputTypeText) {
         for (ParamTypeBean paramType : paramTypes.values()) {
             List<String> matchTypeNames = paramType.getMatchTypeNames();
-            if (matchTypeNames.contains(inputTypeText)) {
-                return paramType;
+            for (String matchTypeName : matchTypeNames) {
+                if (matchTypeName.equalsIgnoreCase(inputTypeText)) {
+                    return paramType;
+                }
             }
         }
         return paramTypes.get(ParamTypeEnum.UNKNOWN.name());
