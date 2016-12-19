@@ -6,7 +6,7 @@ import cn.ytxu.http_wrapper.model.BaseModel;
 /**
  * Created by ytxu on 2016/9/21.
  */
-public class FieldModel<H extends BaseModel> extends BaseModel<H> implements Comparable<FieldModel>{
+public class FieldModel<H extends BaseModel> extends BaseModel<H> implements Comparable<FieldModel> {
     // 字段的名称
     private String name;
     /**
@@ -143,6 +143,10 @@ public class FieldModel<H extends BaseModel> extends BaseModel<H> implements Com
     }
 
     //*************** reflect method area ***************
+    public String field_read_type() {
+        return type;
+    }
+
     public String type() {
         return paramTypeBean.getRequestParamType();
     }

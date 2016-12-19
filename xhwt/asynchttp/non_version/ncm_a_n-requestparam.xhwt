@@ -35,7 +35,7 @@ public class ${request_param_class_name} implements Serializable {
     public static final class ${input_group_class_name} implements Serializable {
         <t:list each="input_group_fileds">
         /**
-         * type: ${input_type}<br>
+         * type: ${field_read_type}<br>
          * isOptional : ${input_isOptional}<br>
          * desc: ${input_desc}
          */
