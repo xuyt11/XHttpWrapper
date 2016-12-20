@@ -11,14 +11,15 @@ release version 0.6 future
 
 release version 0.5
 ===================
-1、add prefix(t) to template tags;
-2、add volley and asynchttp lib x-http-wrapper template file;
-3、refactor input and output type enum;-->add map type
-4、add is_polymerization fun;
+1、add prefix(t) to template tags;  
+2、add volley and asynchttp lib x-http-wrapper template file;  
+3、refactor input and output type enum;-->add map type  
+4、add is_polymerization fun;  
+5、add guide;
 
 release version 0.4
 ===================
-add request param template type;
+add request param template type;  
 添加了请求参数组模板类型，用于简化请求参数的个数过多的情况；
 
 release version 0.3
