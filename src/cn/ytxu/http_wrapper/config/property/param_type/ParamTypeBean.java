@@ -12,12 +12,12 @@ import java.util.List;
 public class ParamTypeBean {
 
     /**
-     * 在api文档中写入的类型名称，用于匹配类型
+     * 在api文档中写入的类型名称，用于匹配类型，且忽略大小写
      */
     private List<String> match_type_names = Collections.EMPTY_LIST;
 
     /**
-     * 请求与实体类中参数的类型
+     * 请求参数的类型
      */
     private String request_param_type;
 

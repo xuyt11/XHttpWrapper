@@ -22,7 +22,7 @@ public enum CompileModel {
         }
     },
     /**
-     * 无版本模式：request只有最新的版本，
+     * 无版本模式：request只有最新的版本(在转换数据为内部model的过程中，只会保留该请求最新的版本)
      * 版本大小依赖于配置文件中base_config的order_versions属性顺序
      */
     non_version() {

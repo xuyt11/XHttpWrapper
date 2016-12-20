@@ -11,15 +11,17 @@ import java.util.List;
  */
 public class FilterVersionBean {
     /**
-     * 输出的版本名称
+     * 输出的版本名称，且该版本号需要在base_config的order_versions中存在，否则无效；
      */
     private String output_version_name = "";
     /**
      * 是否对分类进行输出过滤
+     * 默认不使用，即全部都输出，不需要过滤，
+     * 即全部都输出，不需要过滤，否则需要在output_request_groups中枚举出所有的输出请求分类；
      */
     private boolean use_output_request_group = false;
     /**
-     * 输出的版本下,需要输出的分类名称的数组
+     * 输出的版本下,需要输出的分类名称数组
      */
     private List<String> output_request_groups = Collections.EMPTY_LIST;
 

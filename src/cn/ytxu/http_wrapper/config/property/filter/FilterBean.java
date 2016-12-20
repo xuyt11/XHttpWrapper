@@ -14,7 +14,11 @@ public class FilterBean {
     private boolean use_headers = false;// 是否使用过滤request header的功能
     private List<String> headers = Collections.EMPTY_LIST;
     private boolean use_output_versions = false;// 是否使用版本输出过滤；若为false，则下面的output_versions参数就失效
+    /**
+     * 可以添加多个过滤规则，但是，每一个版本号只能在同一个规则中，否则只会使用第一个匹配的版本号规则进行过滤
+     */
     private List<FilterVersionBean> output_versions = Collections.EMPTY_LIST;
+
 
     public boolean isUseHeaders() {
         return use_headers;

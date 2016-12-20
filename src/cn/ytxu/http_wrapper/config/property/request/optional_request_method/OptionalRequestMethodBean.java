@@ -8,6 +8,8 @@ package cn.ytxu.http_wrapper.config.property.request.optional_request_method;
  * 1、若没有请求参数，不需要生成；
  * 2、若有超过两个请求参数组，则需要生成；
  * 3、只有一个请求组，判断组中参数的个数，若少于3个则不需要生成
+ * <p>
+ * tip: 若开启了生成缩略请求方法的功能，则该请求组中，所有作用的请求，都需要生成对应的RequestParam文件；
  */
 public class OptionalRequestMethodBean {
     public static final OptionalRequestMethodBean DEFAULT = new OptionalRequestMethodBean();
