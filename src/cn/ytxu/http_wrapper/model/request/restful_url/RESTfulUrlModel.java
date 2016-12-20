@@ -13,9 +13,9 @@ import java.util.List;
  */
 public class RESTfulUrlModel extends BaseModel<RequestModel> {
     private final String url;// 方法的相对路径，起始位置必须不是/,因为人
-    private boolean isRESTfulUrl = false;
-    private boolean hasMultiParam;// 是否有多选类型的参数，若有的话，则使用url是需要使用multiUrl
-    private String multiUrl;
+    private boolean isRESTfulUrl = false;// 简单来说就是，是否有需要动态输入的参数，来拼凑出真正请求的URL；
+    private boolean hasMultiParam;// 是否有多选类型的参数，若有的话，则使用url时需要使用multiUrl
+    private String multiUrl;// url经转换变为的多选类型url, 使用了config文件中request.multi_replace功能之后的URL
     private List<RESTfulParamModel> params = Collections.EMPTY_LIST;
 
     public RESTfulUrlModel(RequestModel higherLevel, String url) {
