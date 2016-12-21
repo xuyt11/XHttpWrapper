@@ -45,6 +45,7 @@ public class TextExpressionRecord extends ExpressionRecord {
         }
     }
 
+
     @Override
     public StringBuffer getWriteBuffer(Object reflectModel, RetainModel retain) {
         return getNormalWriteBuffer(reflectModel, retain).append(NextLine);
@@ -100,7 +101,6 @@ public class TextExpressionRecord extends ExpressionRecord {
     private boolean hasTextBehindTheLastRange(int end) {
         return startLineContent.length() != end;
     }
-
 
 
     static class Range {

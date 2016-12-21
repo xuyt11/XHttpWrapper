@@ -1,9 +1,12 @@
 package cn.ytxu.http_wrapper.template.expression.retain;
 
+import cn.ytxu.http_wrapper.common.enums.RetainType;
 import cn.ytxu.http_wrapper.template.expression.ExpressionEnum;
 import cn.ytxu.http_wrapper.template.expression.ExpressionRecord;
+import cn.ytxu.http_wrapper.template_engine.parser.statement.record.retain.RetainModel;
 
 import java.util.ListIterator;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -17,6 +20,8 @@ public class RetainExpressionRecord extends ExpressionRecord {
     private static final String PATTERN_FRONT = "type=\"";
     private static final String PATTERN_END = "\"";
     private static final Pattern PATTERN = Pattern.compile("(type=\")\\w+(\")");
+
+    private RetainType type;
 
     public RetainExpressionRecord(String startLineContent, boolean isTopRecord) {
         super(ExpressionEnum.retain, startLineContent, isTopRecord, false);
@@ -38,6 +43,23 @@ public class RetainExpressionRecord extends ExpressionRecord {
     //********************** loop parse record **********************
     @Override
     protected void parseRecordAndSubRecords() {
+        String retainTypeName = getRetainTypeName();
+        type = RetainType.get(retainTypeName);
+    }
 
+    private String getRetainTypeName() {
+        Matcher matcher = PATTERN.matcher(startLineContent);
+        // be sure to match, but also need call matcher.find()
+        matcher.find();
+        String group = matcher.group();
+        int methodNameStart = PATTERN_FRONT.length();
+        int methodNameEnd = group.length() - PATTERN_END.length();
+        return group.substring(methodNameStart, methodNameEnd);
+    }
+
+
+    @Override
+    public StringBuffer getWriteBuffer(Object reflectModel, RetainModel retain) {
+        return type.getFormatRetainContent(retain);
     }
 }
