@@ -4,6 +4,8 @@ import cn.ytxu.http_wrapper.template.expression.Content2ExpressionRecordConverte
 import cn.ytxu.http_wrapper.template.expression.Content2ExpressionRecordConverter.Callback;
 import cn.ytxu.http_wrapper.template.expression.ExpressionEnum;
 import cn.ytxu.http_wrapper.template.expression.ExpressionRecord;
+import cn.ytxu.http_wrapper.template_engine.parser.statement.record.if_else.IfElseCondition;
+import cn.ytxu.http_wrapper.template_engine.parser.statement.record.retain.RetainModel;
 
 import java.util.*;
 import java.util.regex.Pattern;
@@ -61,11 +63,17 @@ public class IfElseExpressionRecord extends ExpressionRecord implements Callback
     public static final class Relation {
         final String conditionLine;
         final ConditionType conditionType;
+        final IfElseCondition condition;
+        final String methodName;
+
         List<ExpressionRecord> records = Collections.EMPTY_LIST;
 
         public Relation(String conditionLine, ConditionType conditionType) {
             this.conditionLine = conditionLine;
             this.conditionType = conditionType;
+            // parse record
+            this.condition = IfElseCondition.get(conditionLine);
+            this.methodName = condition.getMethodName(conditionLine);
         }
 
         public void setRecords(List<ExpressionRecord> records) {
@@ -84,6 +92,35 @@ public class IfElseExpressionRecord extends ExpressionRecord implements Callback
     //********************** loop parse record **********************
     @Override
     public void parseRecordAndSubRecords() {
+        for (Relation relation : relations) {
+            for (ExpressionRecord record : relation.records) {
+                record.parseRecordAndSubRecords();
+            }
+        }
+    }
 
+
+    @Override
+    public StringBuffer getWriteBuffer(Object reflectModel, RetainModel retain) {
+        for (Relation relation : relations) {
+            if (relation.conditionType == ConditionType.ELSE) {
+                return getWriteBuffer(reflectModel, retain, relation.records);
+            }
+
+            boolean isThisCondition = relation.condition.getBoolean(reflectModel, relation.methodName);
+            if (isThisCondition) {
+                return getWriteBuffer(reflectModel, retain, relation.records);
+            }
+        }
+        // not have else condition, and not have one condition is true
+        return new StringBuffer();
+    }
+
+    private StringBuffer getWriteBuffer(Object reflectModel, RetainModel retain, List<ExpressionRecord> records) {
+        StringBuffer buffer = new StringBuffer();
+        for (ExpressionRecord record : records) {
+            buffer.append(record.getWriteBuffer(reflectModel, retain));
+        }
+        return buffer;
     }
 }
