@@ -2,7 +2,7 @@ package cn.ytxu.http_wrapper.template_engine.parser.statement.record;
 
 import cn.ytxu.http_wrapper.template_engine.parser.statement.record.retain.RetainModel;
 import cn.ytxu.http_wrapper.template_engine.parser.util.ReflectiveUtil;
-import cn.ytxu.http_wrapper.template_engine.parser.statement.Statement;
+import cn.ytxu.http_wrapper.template_engine.parser.statement.StatementEnum;
 import cn.ytxu.http_wrapper.template_engine.parser.statement.StatementRecord;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ public class TextStatementRecord extends StatementRecord {
 
     private List<Range> ranges = new ArrayList<>();
 
-    public TextStatementRecord(Statement statement, String startTagContent) {
+    public TextStatementRecord(StatementEnum statement, String startTagContent) {
         super(statement, startTagContent, null);
     }
 

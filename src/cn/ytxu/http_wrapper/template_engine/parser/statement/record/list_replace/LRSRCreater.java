@@ -1,6 +1,6 @@
 package cn.ytxu.http_wrapper.template_engine.parser.statement.record.list_replace;
 
-import cn.ytxu.http_wrapper.template_engine.parser.statement.Statement;
+import cn.ytxu.http_wrapper.template_engine.parser.statement.StatementEnum;
 import cn.ytxu.http_wrapper.template_engine.parser.statement.StatementRecord;
 import cn.ytxu.http_wrapper.template_engine.parser.statement.record.TextStatementRecord;
 import cn.ytxu.http_wrapper.template_engine.parser.statement.record.retain.RetainModel;
@@ -66,7 +66,7 @@ public class LRSRCreater {
     private List<StatementRecord> createSubs(List<String> newContents) {
         List<StatementRecord> subs = new ArrayList<>(newContents.size());
         for (String content : newContents) {
-            TextStatementRecord tsr = new TextStatementRecord(Statement.text, content);
+            TextStatementRecord tsr = new TextStatementRecord(StatementEnum.text, content);
             tsr.parse();
             subs.add(tsr);
         }

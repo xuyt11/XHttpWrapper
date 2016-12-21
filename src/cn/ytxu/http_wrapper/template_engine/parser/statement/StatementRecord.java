@@ -13,13 +13,13 @@ import java.util.List;
 public abstract class StatementRecord {
     public static final String NextLine = "\n";
 
-    protected Statement statement;// 该条表达式的类型
+    protected StatementEnum statement;// 该条表达式的类型
     protected String startTagContent;// 表达式的首行
     protected List<String> contents;// 表达式的所有内容
 
     protected List<StatementRecord> subs;
 
-    public StatementRecord(Statement statement, String startTagContent, List<String> contents) {
+    public StatementRecord(StatementEnum statement, String startTagContent, List<String> contents) {
         this.statement = statement;
         this.startTagContent = startTagContent;
         this.contents = contents;
@@ -39,7 +39,7 @@ public abstract class StatementRecord {
 
         while (iterator.hasNext()) {
             String content = iterator.next();
-            Statement statement = Statement.get(content);
+            StatementEnum statement = StatementEnum.get(content);
             statement.getAndAddRecord(content, records, iterator);
         }
         return records;

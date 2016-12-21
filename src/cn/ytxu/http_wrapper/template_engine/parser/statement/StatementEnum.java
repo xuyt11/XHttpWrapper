@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 /**
  * 表达式枚举
  */
-public enum Statement {
+public enum StatementEnum {
     text("普通的文本", null) {
         @Override
         public boolean isThisType(String content) {
@@ -85,7 +85,7 @@ public enum Statement {
     private final String endTag;// 结束标签
     private final Pattern[] patterns;// 判断是否为该分类
 
-    Statement(String tag, String endTag, Pattern... patterns) {
+    StatementEnum(String tag, String endTag, Pattern... patterns) {
         this.tag = tag;
         this.endTag = endTag;
         this.patterns = (patterns == null ? new Pattern[0] : patterns);
@@ -123,8 +123,8 @@ public enum Statement {
     }
 
 
-    public static Statement get(String content) {
-        for (Statement s : Statement.values()) {
+    public static StatementEnum get(String content) {
+        for (StatementEnum s : StatementEnum.values()) {
             if (s.isThisType(content)) {
                 return s;
             }

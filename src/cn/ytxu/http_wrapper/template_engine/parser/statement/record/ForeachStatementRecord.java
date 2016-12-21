@@ -1,6 +1,6 @@
 package cn.ytxu.http_wrapper.template_engine.parser.statement.record;
 
-import cn.ytxu.http_wrapper.template_engine.parser.statement.Statement;
+import cn.ytxu.http_wrapper.template_engine.parser.statement.StatementEnum;
 import cn.ytxu.http_wrapper.template_engine.parser.statement.StatementRecord;
 import cn.ytxu.http_wrapper.template_engine.parser.statement.record.retain.RetainModel;
 import cn.ytxu.http_wrapper.template_engine.parser.util.ReflectiveUtil;
@@ -20,7 +20,7 @@ public class ForeachStatementRecord extends StatementRecord {
 
     private String methodName;
 
-    public ForeachStatementRecord(Statement statement, String startTagContent, List<String> contents) {
+    public ForeachStatementRecord(StatementEnum statement, String startTagContent, List<String> contents) {
         super(statement, startTagContent, contents);
         if (contents != null) {
             this.subs = StatementRecord.getRecords(contents);

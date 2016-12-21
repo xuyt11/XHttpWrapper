@@ -2,7 +2,7 @@ package cn.ytxu.http_wrapper.template_engine.parser.statement.record;
 
 import cn.ytxu.http_wrapper.template_engine.parser.util.ReflectiveUtil;
 import cn.ytxu.http_wrapper.template_engine.parser.statement.record.retain.RetainModel;
-import cn.ytxu.http_wrapper.template_engine.parser.statement.Statement;
+import cn.ytxu.http_wrapper.template_engine.parser.statement.StatementEnum;
 import cn.ytxu.http_wrapper.template_engine.parser.statement.StatementRecord;
 
 import java.util.List;
@@ -20,7 +20,7 @@ public class ListStatementRecord extends StatementRecord {
 
     private String methodName;
 
-    public ListStatementRecord(Statement statement, String startTagContent, List<String> contents) {
+    public ListStatementRecord(StatementEnum statement, String startTagContent, List<String> contents) {
         super(statement, startTagContent, contents);
         if (contents != null) {
             this.subs = StatementRecord.getRecords(contents);

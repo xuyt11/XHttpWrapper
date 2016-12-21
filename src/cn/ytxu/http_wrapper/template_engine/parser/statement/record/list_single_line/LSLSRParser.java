@@ -1,11 +1,10 @@
 package cn.ytxu.http_wrapper.template_engine.parser.statement.record.list_single_line;
 
-import cn.ytxu.http_wrapper.template_engine.parser.statement.Statement;
+import cn.ytxu.http_wrapper.template_engine.parser.statement.StatementEnum;
 import cn.ytxu.http_wrapper.template_engine.parser.statement.record.TextStatementRecord;
 import cn.ytxu.http_wrapper.template_engine.parser.statement.record.helper.PatternHelper;
 
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -57,7 +56,7 @@ public class LSLSRParser {
         parsePatternValue(SubContentType.eachTemp, new GetPatternValueCallback() {
             @Override
             public void get(String patternValue) {
-                eachTempStatementRecord = new TextStatementRecord(Statement.text, patternValue);
+                eachTempStatementRecord = new TextStatementRecord(StatementEnum.text, patternValue);
                 eachTempStatementRecord.parse();
             }
 

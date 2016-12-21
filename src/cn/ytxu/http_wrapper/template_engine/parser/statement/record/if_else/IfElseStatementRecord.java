@@ -1,7 +1,7 @@
 package cn.ytxu.http_wrapper.template_engine.parser.statement.record.if_else;
 
 import cn.ytxu.http_wrapper.template_engine.parser.statement.record.retain.RetainModel;
-import cn.ytxu.http_wrapper.template_engine.parser.statement.Statement;
+import cn.ytxu.http_wrapper.template_engine.parser.statement.StatementEnum;
 import cn.ytxu.http_wrapper.template_engine.parser.statement.StatementRecord;
 
 import java.util.Collections;
@@ -22,7 +22,7 @@ public class IfElseStatementRecord extends StatementRecord {
     private IfElseCondition ifElseCondition;
     private String methodName;
 
-    public IfElseStatementRecord(Statement statement, String startTagContent, List<String> contents) {
+    public IfElseStatementRecord(StatementEnum statement, String startTagContent, List<String> contents) {
         super(statement, startTagContent, contents);
         setupData();
     }

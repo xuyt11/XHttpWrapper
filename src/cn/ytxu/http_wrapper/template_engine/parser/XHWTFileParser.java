@@ -52,7 +52,13 @@ public class XHWTFileParser {
             e.printStackTrace();
             return null;
         } finally {
-            closeReader(reader);
+            if (null != reader) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
@@ -63,17 +69,6 @@ public class XHWTFileParser {
             contents.add(strLine);
         }
         return contents;
-    }
-
-    private void closeReader(BufferedReader reader) {
-        if (null == reader) {
-            return;
-        }
-        try {
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private List<StatementRecord> parseStatementRecordsByXHWTModel(XHWTModel model) {

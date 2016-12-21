@@ -21,26 +21,30 @@ public class XHWTContentParser {
     }
 
     public XHWTModel start() {
-        judgeFirstLine();
+        checkFirstLine();
 
-        StringBuilder headerBuilder = getHeaderAndRemoveItInContent();
-        XHWTFileModel xTempFile = JSON.parseObject(headerBuilder.toString(), XHWTFileModel.class);
+        String header = getHeaderAndRemoveItInContent();
+        XHWTFileModel xTempFile = JSON.parseObject(header, XHWTFileModel.class);
         model.setFile(xTempFile);
 
         model.setContents(contents);
         return model;
     }
 
-    private void judgeFirstLine() {
-        if (!XHWTModel.HeaderStartTag.equals(contents.get(0).trim())) {
-            throw new TheFirstLineMustBeHeaderStartTagLineException();
+    private void checkFirstLine() {
+        String fistLineContent = contents.get(0).trim();
+        if (!XHWTModel.HeaderStartTag.equals(fistLineContent)) {
+            throw new TheFirstLineMustBeHeaderStartTagLineException(fistLineContent);
         }
     }
 
     private static final class TheFirstLineMustBeHeaderStartTagLineException extends RuntimeException {
+        public TheFirstLineMustBeHeaderStartTagLineException(String fistLineContent) {
+            super("the fist line is " + fistLineContent);
+        }
     }
 
-    private StringBuilder getHeaderAndRemoveItInContent() {
+    private String getHeaderAndRemoveItInContent() {
         contents.remove(0);
         StringBuilder headerBuilder = new StringBuilder();
         Iterator<String> iterator = contents.iterator();
@@ -55,7 +59,7 @@ public class XHWTContentParser {
             headerBuilder.append(content);
             iterator.remove();
         }
-        return headerBuilder;
+        return headerBuilder.toString();
     }
 
 }

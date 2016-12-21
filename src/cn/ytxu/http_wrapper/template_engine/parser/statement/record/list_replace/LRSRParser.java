@@ -1,7 +1,7 @@
 package cn.ytxu.http_wrapper.template_engine.parser.statement.record.list_replace;
 
 import cn.ytxu.http_wrapper.template_engine.parser.statement.record.TextStatementRecord;
-import cn.ytxu.http_wrapper.template_engine.parser.statement.Statement;
+import cn.ytxu.http_wrapper.template_engine.parser.statement.StatementEnum;
 import cn.ytxu.http_wrapper.template_engine.parser.statement.record.helper.PatternHelper;
 
 import java.util.regex.Pattern;
@@ -44,7 +44,7 @@ public class LRSRParser {
         replaceKey = PatternHelper.getPatternValue(Attr.replace_key.patternModel, startTagContent);
 
         String listValue = PatternHelper.getPatternValue(Attr.list_value.patternModel, startTagContent);
-        listValueRecord = new TextStatementRecord(Statement.text, listValue);
+        listValueRecord = new TextStatementRecord(StatementEnum.text, listValue);
         listValueRecord.parse();
     }
 

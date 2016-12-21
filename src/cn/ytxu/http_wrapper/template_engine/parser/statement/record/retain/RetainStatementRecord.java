@@ -1,7 +1,7 @@
 package cn.ytxu.http_wrapper.template_engine.parser.statement.record.retain;
 
 import cn.ytxu.http_wrapper.common.enums.RetainType;
-import cn.ytxu.http_wrapper.template_engine.parser.statement.Statement;
+import cn.ytxu.http_wrapper.template_engine.parser.statement.StatementEnum;
 import cn.ytxu.http_wrapper.template_engine.parser.statement.StatementRecord;
 
 import java.util.regex.Matcher;
@@ -21,7 +21,7 @@ public class RetainStatementRecord extends StatementRecord {
 
     private RetainType type;
 
-    public RetainStatementRecord(Statement statement, String startTagContent) {
+    public RetainStatementRecord(StatementEnum statement, String startTagContent) {
         super(statement, startTagContent, null);
     }
 

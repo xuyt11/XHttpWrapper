@@ -3,7 +3,7 @@ package cn.ytxu.http_wrapper.template_engine.parser.statement.record.list_single
 import cn.ytxu.http_wrapper.template_engine.parser.statement.record.TextStatementRecord;
 import cn.ytxu.http_wrapper.template_engine.parser.statement.record.retain.RetainModel;
 import cn.ytxu.http_wrapper.template_engine.parser.util.ReflectiveUtil;
-import cn.ytxu.http_wrapper.template_engine.parser.statement.Statement;
+import cn.ytxu.http_wrapper.template_engine.parser.statement.StatementEnum;
 import cn.ytxu.http_wrapper.template_engine.parser.statement.StatementRecord;
 
 import java.util.List;
@@ -17,7 +17,7 @@ public class ListSingleLineStatementRecord extends StatementRecord {
 
     private LSLSRParser parser;
 
-    public ListSingleLineStatementRecord(Statement statement, String startTagContent, List<String> listSingleLineContents) {
+    public ListSingleLineStatementRecord(StatementEnum statement, String startTagContent, List<String> listSingleLineContents) {
         super(statement, startTagContent, listSingleLineContents);
         if (contents.size() < 1) {
             throw new IllegalArgumentException("list single line statement record must have one sub...");
