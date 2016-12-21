@@ -2,6 +2,8 @@ package cn.ytxu.http_wrapper.template_engine.parser;
 
 import cn.ytxu.http_wrapper.config.ConfigWrapper;
 import cn.ytxu.http_wrapper.config.property.template_file_info.TemplateFileInfoWrapper;
+import cn.ytxu.http_wrapper.template.expression.Content2ExpressionRecordConverter;
+import cn.ytxu.http_wrapper.template.expression.ExpressionRecord;
 import cn.ytxu.http_wrapper.template_engine.creater.XHWTFileType;
 import cn.ytxu.http_wrapper.template_engine.parser.model.XHWTModel;
 import cn.ytxu.http_wrapper.template_engine.parser.statement.StatementRecord;
@@ -72,6 +74,9 @@ public class XHWTFileParser {
     }
 
     private List<StatementRecord> parseStatementRecordsByXHWTModel(XHWTModel model) {
+        List<ExpressionRecord> erecords = Content2ExpressionRecordConverter.getTop(model.getContents()).start();
+        ExpressionRecord.parseRecords(erecords);
+
         List<StatementRecord> records = StatementRecord.getRecords(model.getContents());
         StatementRecord.parseRecords(records);
         return records;
