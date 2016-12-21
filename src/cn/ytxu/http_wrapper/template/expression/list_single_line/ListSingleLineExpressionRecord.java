@@ -27,4 +27,11 @@ public class ListSingleLineExpressionRecord extends ExpressionRecord {
 
 
     //********************** parse content to record **********************
+
+
+    //********************** loop parse record **********************
+    @Override
+    protected void parseRecordAndSubRecords() {
+
+    }
 }

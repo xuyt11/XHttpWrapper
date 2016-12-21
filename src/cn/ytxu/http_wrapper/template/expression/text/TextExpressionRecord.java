@@ -24,4 +24,11 @@ public class TextExpressionRecord extends ExpressionRecord {
     protected boolean isEndTagLine(String content) {
         throw new IllegalAccessError("text type not has end tag");
     }
+
+
+    //********************** loop parse record **********************
+    @Override
+    protected void parseRecordAndSubRecords() {
+        // do nothing...
+    }
 }

@@ -33,4 +33,11 @@ public class RetainExpressionRecord extends ExpressionRecord {
     protected boolean isEndTagLine(String content) {
         throw new IllegalAccessError("retain type not has end tag");
     }
+
+
+    //********************** loop parse record **********************
+    @Override
+    protected void parseRecordAndSubRecords() {
+
+    }
 }

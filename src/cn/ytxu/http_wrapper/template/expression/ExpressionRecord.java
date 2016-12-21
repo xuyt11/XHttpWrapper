@@ -45,7 +45,6 @@ public abstract class ExpressionRecord {
 
     //********************** content to record converter **********************
 
-
     public boolean hasMiddleTag() {
         return false;
     }
@@ -91,6 +90,7 @@ public abstract class ExpressionRecord {
     protected void convertContentsIfHas(ListIterator<String> contentListIterator) {
         this.subRecords = Content2ExpressionRecordConverter.getNormal(contentListIterator, this).start();
     }
+
 
     //********************** loop parse record **********************
     public static void parseRecords(List<ExpressionRecord> records) {
