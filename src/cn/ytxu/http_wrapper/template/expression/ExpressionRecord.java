@@ -1,5 +1,7 @@
 package cn.ytxu.http_wrapper.template.expression;
 
+import cn.ytxu.http_wrapper.template_engine.parser.statement.record.retain.RetainModel;
+
 import java.util.List;
 import java.util.ListIterator;
 
@@ -44,7 +46,6 @@ public abstract class ExpressionRecord {
 
 
     //********************** content to record converter **********************
-
     public boolean hasMiddleTag() {
         return false;
     }
@@ -92,13 +93,31 @@ public abstract class ExpressionRecord {
     }
 
 
-    //********************** loop parse record **********************
+    //********************** loop parse record(解析表达式) **********************
     public static void parseRecords(List<ExpressionRecord> records) {
         for (ExpressionRecord record : records) {
             record.parseRecordAndSubRecords();
         }
     }
 
+    /**
+     * 解析表达式
+     */
     protected abstract void parseRecordAndSubRecords();
+
+
+    //********************** 获取写入数据**********************
+    public static StringBuffer getWriteBuffer(List<ExpressionRecord> records, Object reflectModel, RetainModel retain) {
+        StringBuffer writeBuffer = new StringBuffer();
+        for (ExpressionRecord record : records) {
+            writeBuffer.append(record.getWriteBuffer(reflectModel, retain));
+        }
+        return writeBuffer;
+    }
+
+    /**
+     * 获取写入数据
+     */
+    public abstract StringBuffer getWriteBuffer(Object reflectModel, RetainModel retain);
 
 }
