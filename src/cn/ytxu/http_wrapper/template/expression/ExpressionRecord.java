@@ -103,7 +103,7 @@ public abstract class ExpressionRecord {
     /**
      * 解析表达式
      */
-    protected abstract void parseRecordAndSubRecords();
+    public abstract void parseRecordAndSubRecords();
 
 
     //********************** 获取写入数据**********************

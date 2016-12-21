@@ -42,7 +42,7 @@ public class RetainExpressionRecord extends ExpressionRecord {
 
     //********************** loop parse record **********************
     @Override
-    protected void parseRecordAndSubRecords() {
+    public void parseRecordAndSubRecords() {
         String retainTypeName = getRetainTypeName();
         type = RetainType.get(retainTypeName);
     }

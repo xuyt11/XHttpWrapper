@@ -37,7 +37,7 @@ public class TextExpressionRecord extends ExpressionRecord {
 
     //********************** loop parse record **********************
     @Override
-    protected void parseRecordAndSubRecords() {
+    public void parseRecordAndSubRecords() {
         Matcher matcher = PATTERN.matcher(startLineContent);
         while (matcher.find()) {
             Range range = new Range(matcher.start(), matcher.end(), matcher.group());

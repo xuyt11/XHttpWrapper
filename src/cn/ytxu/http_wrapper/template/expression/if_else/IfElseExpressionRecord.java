@@ -83,7 +83,7 @@ public class IfElseExpressionRecord extends ExpressionRecord implements Callback
 
     //********************** loop parse record **********************
     @Override
-    protected void parseRecordAndSubRecords() {
+    public void parseRecordAndSubRecords() {
 
     }
 }

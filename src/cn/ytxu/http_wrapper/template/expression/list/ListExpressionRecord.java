@@ -31,7 +31,7 @@ public class ListExpressionRecord extends ExpressionRecord {
 
     //********************** loop parse record **********************
     @Override
-    protected void parseRecordAndSubRecords() {
+    public void parseRecordAndSubRecords() {
 
     }
 }
