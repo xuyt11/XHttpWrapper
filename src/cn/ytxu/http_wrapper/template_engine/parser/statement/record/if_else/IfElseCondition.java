@@ -11,14 +11,14 @@ import java.util.regex.Pattern;
  */
 public enum IfElseCondition {
     // boolean
-    Boolean("布尔类型判断", "<t:if isTrue=\"", "\">", Pattern.compile("(<t:if isTrue=\")\\w+(\">)")) {
+    Boolean("布尔类型判断", "isTrue=\"", "\"", Pattern.compile("(isTrue=\")\\w+(\")")) {
         @Override
         public boolean getBoolean(Object reflectModel, String methodName) {
             return ReflectiveUtil.getBoolean(reflectModel, methodName);
         }
     },
     // String
-    NotEmpty("String类型判断", "<t:if isNotEmpty=\"", "\">", Pattern.compile("(<t:if isNotEmpty=\")\\w+(\">)")) {
+    NotEmpty("String类型判断", "isNotEmpty=\"", "\"", Pattern.compile("(isNotEmpty=\")\\w+(\")")) {
         @Override
         public boolean getBoolean(Object reflectModel, String methodName) {
             String text = ReflectiveUtil.getString(reflectModel, methodName);
