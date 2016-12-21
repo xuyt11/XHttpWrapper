@@ -4,6 +4,7 @@ import cn.ytxu.http_wrapper.template_engine.parser.statement.record.retain.Retai
 
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Objects;
 
 /**
  * Created by ytxu on 2016/12/21.
@@ -58,6 +59,10 @@ public abstract class ExpressionRecord {
         return endTag.equals(content.trim());
     }
 
+    public boolean hasEndTagLine() {
+        return Objects.nonNull(endTag);
+    }
+
     /**
      * 解析出子表达式
      * 1、判断该表达式，是否可能有子表达式；
@@ -75,9 +80,8 @@ public abstract class ExpressionRecord {
         }
 
         // parse sub records end
-        if (!isTopRecord) {
-            String content = contentListIterator.previous();
-            throw new IllegalArgumentException(content);
+        if (!isTopRecord && !contentListIterator.hasNext()) {
+            throw new IllegalArgumentException("this expression(" + startLineContent + "), have not end tag");
         }
     }
 

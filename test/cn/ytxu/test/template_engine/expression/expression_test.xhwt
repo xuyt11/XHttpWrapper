@@ -1,0 +1,155 @@
+package com.newchama.api.api;
+
+import android.content.Context;
+
+import com.loopj.android.http.RequestHandle;
+import com.loopj.android.http.ResponseHandlerInterface;
+
+import com.newchama.api.BaseApi;
+<t:if isTrue="needImportOptionalRequestParamPackage">
+import com.newchama.api.request_param.${request_group_newchama}.*;
+</t:if_end>
+
+import com.newchama.tool.net.NetRequest;
+import com.newchama.tool.net.NetRequest.Method;
+import com.newchama.tool.net.NetWorker;
+
+import java.io.File;
+
+<t:retain type="import"/>
+
+public class ${request_group_class_name} extends BaseApi {
+
+	public static ${request_group_class_name} getInstance() {
+		return Helper.instance;
+	}
+
+	private static class Helper {
+		public static final ${request_group_class_name} instance = new ${request_group_class_name}();
+	}
+
+	private ${request_group_class_name}() {
+	    super();
+	}
+
+<t:retain type="field"/>
+
+<t:foreach each="requests">
+	/**
+	 * @version ${request_version}
+	 * @requestUrl ${request_url}
+	 <t:if isNotEmpty="request_title">
+	 * @title ${request_title}
+	 </t:if_end>
+	 <t:if isNotEmpty="request_desc">
+	 * @desc ${request_desc}
+	 </t:if_end>
+	 *
+	 <t:list each="headers">
+	 * @param ${header_name} ${header_desc}
+	 </t:list>
+	 <t:list each="inputs">
+	 <t:if isTrue="input_isOptional">
+	 * @param ${input_name} isOptional ${field_read_type} ${input_desc}
+	 <t:if_else>
+	 * @param ${input_name} ${field_read_type} ${input_desc}
+	 </t:if_end>
+	 </t:list>
+	 */
+	public RequestHandle ${request_name}(Context cxt001,
+	    <t:list each="RESTful_fields" singleLine>
+            </t:start value="		"/>
+            </t:eachTemp value="String ${RESTful_field_name}, "/>
+            </t:end value=""/>
+	    </t:list>
+	    <t:list each="filtered_headers" singleLine>
+            </t:start value="		"/>
+            </t:eachTemp value="${header_request_param_type} ${header_name}, "/>
+            </t:end value=""/>
+	    </t:list>
+	    <t:list each="inputs" singleLine>
+	        </t:start value="		"/>
+	        </t:eachTemp value="${input_request_param_type} ${input_name}, "/>
+	        </t:end value=""/>
+	    </t:list>
+		ResponseHandlerInterface response) {
+		NetRequest request = new NetRequest();
+		request.setMethod(Method.${request_METHOD});
+
+        <t:if isTrue="request_url_is_RESTful">
+        <t:list_replace each="RESTful_fields" replace_key="restful_name_list" list_value=", ${RESTful_field_name}">
+		request.setUrl(String.format(getFullUrl("${request_convert_url}")${restful_name_list}));
+		</t:list_replace>
+        <t:if_else>
+		request.setUrl(getFullUrl("${request_normal_url}"));
+        </t:if_end>
+
+	    <t:list each="headers">
+        <t:if isTrue="isFilterParam">
+   	    // request.addHeader("${header_name}", ${header_name});// 被过滤的header字段
+        <t:if_else>
+   	    request.addHeader("${header_name}", ${header_name});
+        </t:if_end>
+        </t:list>
+	    <t:list each="inputs">
+	    <t:if isTrue="input_isOptional">
+	    if (null != ${input_name}) request.addParam("${input_name}", ${input_name});
+	    <t:if_else>
+	    request.addParam("${input_name}", ${input_name});
+	    </t:if_end>
+        </t:list>
+
+		return NetWorker.execute(cxt001, request, response);
+	}
+
+    <t:if isTrue="needGenerateOptionalRequestMethod">
+	public RequestHandle ${request_name}(Context cxt001,
+        <t:list each="RESTful_fields" singleLine>
+            </t:start value="		"/>
+            </t:eachTemp value="String ${RESTful_field_name}, "/>
+            </t:end value=""/>
+        </t:list>
+        <t:list each="filtered_headers" singleLine>
+            </t:start value="		"/>
+            </t:eachTemp value="${header_request_param_type} ${header_name}, "/>
+            </t:end value=""/>
+        </t:list>
+        <t:list each="input_groups" singleLine>
+            </t:start value="		"/>
+            </t:eachTemp value="${request_param_class_name}.${input_group_class_name} ${input_group_name}, "/>
+            </t:end value=""/>
+        </t:list>
+        ResponseHandlerInterface response) {
+        return ${request_name}(cxt001,
+        <t:list each="RESTful_fields" singleLine>
+            </t:start value="		"/>
+            </t:eachTemp value="${RESTful_field_name}, "/>
+            </t:end value=""/>
+        </t:list>
+        <t:list each="filtered_headers" singleLine>
+            </t:start value="		"/>
+            </t:eachTemp value="${header_name}, "/>
+            </t:end value=""/>
+        </t:list>
+        <t:list each="input_groups_fileds" singleLine>
+            </t:start value="		"/>
+            </t:eachTemp value="${input_group_name}.${input_name}, "/>
+            </t:end value=""/>
+        </t:list>
+        response);
+    }
+
+    </t:if_end>
+</t:foreach>
+
+<t:retain type="method"/>
+
+<t:retain type="other"/>
+
+}
+
+<t:list each="input_groups_fileds12312312" singleLine>
+    </t:start value="		"/>
+    </t:eachTemp value="${input_group_name}.${input_name}, "/>
+    </t:end value=""/>
+</t:list>

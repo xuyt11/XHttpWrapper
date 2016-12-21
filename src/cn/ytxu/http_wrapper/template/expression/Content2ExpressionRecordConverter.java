@@ -1,9 +1,6 @@
 package cn.ytxu.http_wrapper.template.expression;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Created by ytxu on 16/12/21.
@@ -15,7 +12,7 @@ public class Content2ExpressionRecordConverter {
     private final ListIterator<String> contentListIterator;// 表达式内容(template文件的内容)的遍历器
     private final boolean isTopRecord;// 是否为最顶部的记录
     private final ExpressionRecord parentERecord;// 在records中所有的record的parent
-    private final List<ExpressionRecord> records;// 表达式的记录(分析后所有的表达式记录)
+    private final LinkedList<ExpressionRecord> records;// 表达式的记录(分析后所有的表达式记录)
     private final Callback callback;//
 
 
@@ -46,7 +43,7 @@ public class Content2ExpressionRecordConverter {
         this.isTopRecord = isTopRecord;
         this.parentERecord = parentERecord;
         this.callback = callback;
-        this.records = new ArrayList<>();
+        this.records = new LinkedList<>();
     }
 
     public List<ExpressionRecord> start() {
@@ -63,7 +60,11 @@ public class Content2ExpressionRecordConverter {
             records.add(record);
             record.convertContents2SubRecordsIfCan(contentListIterator);
         }
-        throw new IllegalArgumentException("this expression(" + parentERecord.startLineContent + ") has not end tag....");
+
+//        if (isTopRecord && records.getLast().hasEndTagLine()) {
+//            throw new IllegalArgumentException("this expression(" + parentERecord.startLineContent + ") has not end tag....");
+//        }
+        return records;
     }
 
     private void checkMiddleTagLine(String content) {
