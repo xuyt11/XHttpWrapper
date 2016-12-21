@@ -1,11 +1,16 @@
 package cn.ytxu.http_wrapper.template.expression.list_single_line;
 
 import cn.ytxu.http_wrapper.template.expression.ExpressionEnum;
-import cn.ytxu.http_wrapper.template.expression.Content2ExpressionRecordConverter;
 import cn.ytxu.http_wrapper.template.expression.ExpressionRecord;
+import cn.ytxu.http_wrapper.template_engine.parser.statement.record.TextStatementRecord;
+import cn.ytxu.http_wrapper.template_engine.parser.statement.record.list_single_line.LSLSRParser;
+import cn.ytxu.http_wrapper.template_engine.parser.statement.record.retain.RetainModel;
+import cn.ytxu.http_wrapper.template_engine.parser.util.ReflectiveUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 /**
@@ -21,17 +26,58 @@ public class ListSingleLineExpressionRecord extends ExpressionRecord {
 //    private static final String PATTERN_END = "\">";
 //    private static final Pattern PATTERN = Pattern.compile("(each=\")\\w+(\">)");
 
+    private LSLSRParser parser;
+    private List<String> subContents = new ArrayList<>();
+
     public ListSingleLineExpressionRecord(String startLineContent, boolean isTopRecord) {
         super(ExpressionEnum.list_single_line, startLineContent, END_TAG, isTopRecord, true);
     }
 
 
     //********************** parse content to record **********************
+    @Override
+    protected void convertContentsIfHas(ListIterator<String> contentListIterator) {
+        while (contentListIterator.hasNext()) {
+            String content = contentListIterator.next();
+            if (isEndTagLine(content)) {
+                return;
+            }
+            subContents.add(content);
+        }
+    }
 
 
     //********************** loop parse record **********************
     @Override
     public void parseRecordAndSubRecords() {
+        parser = new LSLSRParser(startLineContent, subContents);
+        parser.parse();
+    }
 
+
+    @Override
+    public StringBuffer getWriteBuffer(Object reflectModel, RetainModel retain) {
+        List subModels = ReflectiveUtil.getList(reflectModel, parser.getMethodName());
+        StringBuffer listSingleLineBuffer = new StringBuffer();
+
+        if (subModels == null || subModels.isEmpty()) {
+            return listSingleLineBuffer;
+        }
+
+        for (Object subModel : subModels) {
+            TextStatementRecord record = parser.getEachTempStatementRecord();
+            StringBuffer buffer = record.getNormalWriteBuffer(subModel, retain);
+            listSingleLineBuffer.append(buffer);
+        }
+
+        if (Objects.nonNull(parser.getStart())) {
+            listSingleLineBuffer.insert(0, parser.getStart());
+        }
+
+        if (Objects.nonNull(parser.getEnd())) {
+            listSingleLineBuffer.append(parser.getEnd());
+        }
+
+        return listSingleLineBuffer.append(NextLine);
     }
 }
