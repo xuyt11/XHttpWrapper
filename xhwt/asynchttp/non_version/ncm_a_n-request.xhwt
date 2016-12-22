@@ -66,7 +66,7 @@ public class ${request_group_class_name} extends BaseApi {
 	 <t:foreach each="inputs">
 	 <t:if isTrue="input_isOptional">
 	 * @param ${input_name} isOptional ${field_read_type} ${input_desc}
-	 <t:if_else>
+	 <t:else>
 	 * @param ${input_name} ${field_read_type} ${input_desc}
 	 </t:if_end>
 	 </t:foreach>
@@ -95,21 +95,21 @@ public class ${request_group_class_name} extends BaseApi {
         <t:list_replace each="RESTful_fields" replace_key="restful_name_list" list_value=", ${RESTful_field_name}">
 		request.setUrl(String.format(getFullUrl("${request_convert_url}")${restful_name_list}));
 		</t:list_replace>
-        <t:if_else>
+        <t:else>
 		request.setUrl(getFullUrl("${request_normal_url}"));
         </t:if_end>
 
 	    <t:foreach each="headers">
         <t:if isTrue="isFilterParam">
    	    // request.addHeader("${header_name}", ${header_name});// 被过滤的header字段
-        <t:if_else>
+        <t:else>
    	    request.addHeader("${header_name}", ${header_name});
         </t:if_end>
         </t:foreach>
 	    <t:foreach each="inputs">
 	    <t:if isTrue="input_isOptional">
 	    if (null != ${input_name}) request.addParam("${input_name}", ${input_name});
-	    <t:if_else>
+	    <t:else>
 	    request.addParam("${input_name}", ${input_name});
 	    </t:if_end>
         </t:foreach>

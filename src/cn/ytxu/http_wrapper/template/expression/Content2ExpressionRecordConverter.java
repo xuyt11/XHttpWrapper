@@ -87,7 +87,13 @@ public class Content2ExpressionRecordConverter {
 
             while (contentListIterator.hasNext()) {
                 String content = contentListIterator.next();
-                checkMiddleTagLine(content);
+
+                // check is the parent expression middle tag
+                if (parentERecord.hasMiddleTag() && parentERecord.isMiddleTagLine(content)) {
+                    callback.middleTagLine(content, records);
+                    records.clear();
+                    continue;
+                }
 
                 if (parentERecord.isEndTagLine(content)) {
                     callback.endTagLine(records);
@@ -103,18 +109,5 @@ public class Content2ExpressionRecordConverter {
             throw new IllegalArgumentException("this expression(" + parentERecord.startLineContent + ") has not end tag....");
         }
 
-        private void checkMiddleTagLine(String content) {
-            // check is the parent expression middle tag
-            if (!parentERecord.hasMiddleTag()) {
-                return;
-            }
-
-            // if it`s true, stop convert
-            // otherwise, again
-            if (parentERecord.isMiddleTagLine(content)) {
-                callback.middleTagLine(content, records);
-                records.clear();
-            }
-        }
     }
 }

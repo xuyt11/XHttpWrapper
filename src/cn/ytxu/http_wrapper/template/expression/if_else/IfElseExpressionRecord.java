@@ -76,8 +76,14 @@ public class IfElseExpressionRecord extends ExpressionRecord {
             this.conditionLine = conditionLine;
             this.conditionType = conditionType;
             // parse record
-            this.condition = IfElseCondition.get(conditionLine);
-            this.methodName = condition.getMethodName(conditionLine);
+            if (conditionType == ConditionType.ELSE) {
+                // tip: else condition not have IfElseCondition and the reflect methodName
+                this.condition = null;
+                this.methodName = null;
+            } else {
+                this.condition = IfElseCondition.get(conditionLine);
+                this.methodName = condition.getMethodName(conditionLine);
+            }
         }
 
         public void setRecords(List<ExpressionRecord> records) {
@@ -123,7 +129,11 @@ public class IfElseExpressionRecord extends ExpressionRecord {
     private StringBuffer getWriteBuffer(Object reflectModel, RetainModel retain, List<ExpressionRecord> records) {
         StringBuffer buffer = new StringBuffer();
         for (ExpressionRecord record : records) {
-            buffer.append(record.getWriteBuffer(reflectModel, retain));
+            try {
+                buffer.append(record.getWriteBuffer(reflectModel, retain));
+            } catch (StringIndexOutOfBoundsException e) {
+                e.printStackTrace();
+            }
         }
         return buffer;
     }
