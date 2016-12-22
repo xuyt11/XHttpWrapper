@@ -20,16 +20,8 @@ public class ExpressionRecordTest {
     @Test
     public void test() {
         List<String> fileData = getContents();
-        Content2ExpressionRecordConverter.getTop(fileData, new Content2ExpressionRecordConverter.Callback() {
-            @Override
-            public void middleTagLine(String content, List<ExpressionRecord> records) {
-            }
-
-            @Override
-            public void endTagLine(List<ExpressionRecord> records) {
-                ExpressionRecord.parseRecords(records);
-            }
-        }).start();
+        List<ExpressionRecord> records = new Content2ExpressionRecordConverter.Top(fileData).start();
+        ExpressionRecord.parseRecords(records);
     }
 
     private List<String> getContents() {

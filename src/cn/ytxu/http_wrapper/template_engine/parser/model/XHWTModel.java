@@ -1,6 +1,7 @@
 package cn.ytxu.http_wrapper.template_engine.parser.model;
 
 import cn.ytxu.http_wrapper.common.util.OSPlatform;
+import cn.ytxu.http_wrapper.template.expression.ExpressionRecord;
 import cn.ytxu.http_wrapper.template_engine.parser.statement.StatementRecord;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class XHWTModel {
 
     private XHWTFileModel file;
     private List<String> contents;
-    private List<StatementRecord> records;
+    private List<ExpressionRecord> records;
 
     public XHWTModel() {
     }
@@ -51,11 +52,11 @@ public class XHWTModel {
         return contents;
     }
 
-    public void setRecords(List<StatementRecord> records) {
+    public void setRecords(List<ExpressionRecord> records) {
         this.records = records;
     }
 
-    public List<StatementRecord> getRecords() {
+    public List<ExpressionRecord> getRecords() {
         return records;
     }
 

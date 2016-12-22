@@ -42,7 +42,7 @@ public class IfElseExpressionRecord extends ExpressionRecord {
 
     @Override
     protected boolean convertContentsIfHas(ListIterator<String> contentListIterator) {
-        return Content2ExpressionRecordConverter.getNormal(contentListIterator, this, new Content2ExpressionRecordConverter.Callback() {
+        return new Content2ExpressionRecordConverter.Normal(contentListIterator, this, new Content2ExpressionRecordConverter.Callback() {
             @Override
             public void middleTagLine(String content, List<ExpressionRecord> records) {
                 relations.getLast().setRecords(records);

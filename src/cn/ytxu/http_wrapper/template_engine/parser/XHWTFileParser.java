@@ -6,7 +6,6 @@ import cn.ytxu.http_wrapper.template.expression.Content2ExpressionRecordConverte
 import cn.ytxu.http_wrapper.template.expression.ExpressionRecord;
 import cn.ytxu.http_wrapper.template_engine.creater.XHWTFileType;
 import cn.ytxu.http_wrapper.template_engine.parser.model.XHWTModel;
-import cn.ytxu.http_wrapper.template_engine.parser.statement.StatementRecord;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -34,7 +33,7 @@ public class XHWTFileParser {
 
         List<String> contents = getContents();
         XHWTModel model = new XHWTContentParser(contents).start();
-        List<StatementRecord> records = parseStatementRecordsByXHWTModel(model);
+        List<ExpressionRecord> records = parseStatementRecordsByXHWTModel(model);
         model.setRecords(records);
         return model;
     }
@@ -73,20 +72,12 @@ public class XHWTFileParser {
         return contents;
     }
 
-    private List<StatementRecord> parseStatementRecordsByXHWTModel(XHWTModel model) {
-        Content2ExpressionRecordConverter.getTop(model.getContents(), new Content2ExpressionRecordConverter.Callback() {
-            @Override
-            public void middleTagLine(String content, List<ExpressionRecord> records) {
-            }
+    private List<ExpressionRecord> parseStatementRecordsByXHWTModel(XHWTModel model) {
+        List<ExpressionRecord> records = new Content2ExpressionRecordConverter.Top(model.getContents()).start();
+        ExpressionRecord.parseRecords(records);
 
-            @Override
-            public void endTagLine(List<ExpressionRecord> records) {
-                ExpressionRecord.parseRecords(records);
-            }
-        }).start();
-
-        List<StatementRecord> records = StatementRecord.getRecords(model.getContents());
-        StatementRecord.parseRecords(records);
+//        List<StatementRecord> records = StatementRecord.getRecords(model.getContents());
+//        StatementRecord.parseRecords(records);
         return records;
     }
 
