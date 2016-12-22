@@ -4,10 +4,10 @@ import cn.ytxu.http_wrapper.common.util.FileUtil;
 import cn.ytxu.http_wrapper.common.util.LogUtil;
 import cn.ytxu.http_wrapper.config.ConfigWrapper;
 import cn.ytxu.http_wrapper.model.version.VersionModel;
+import cn.ytxu.http_wrapper.template.expression.ExpressionRecord;
 import cn.ytxu.http_wrapper.template_engine.creater.XHWTFileType;
 import cn.ytxu.http_wrapper.template_engine.parser.model.XHWTModel;
 import cn.ytxu.http_wrapper.template_engine.parser.XHWTFileParser;
-import cn.ytxu.http_wrapper.template_engine.parser.statement.StatementRecord;
 import cn.ytxu.http_wrapper.template_engine.parser.statement.record.TextStatementRecord;
 import cn.ytxu.http_wrapper.template_engine.parser.statement.record.retain.RetainModel;
 import cn.ytxu.http_wrapper.template_engine.parser.statement.record.retain.RetainParser;
@@ -65,7 +65,7 @@ public class XHWTFileCreater {
         String fileName = getString(tModel.getFileName(), reflectData);
 
         getRetainAndWriter4TargetFile(dirPath, fileName, (writer, retain) -> {
-            StringBuffer contentBuffer = StatementRecord.getWriteBuffer(tModel.getRecords(), reflectData, retain);
+            StringBuffer contentBuffer = ExpressionRecord.getWriteBuffer(tModel.getRecords(), reflectData, retain);
             writer.write(contentBuffer.toString());
         });
     }

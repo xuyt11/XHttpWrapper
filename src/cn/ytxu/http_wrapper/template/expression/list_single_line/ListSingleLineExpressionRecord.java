@@ -2,8 +2,7 @@ package cn.ytxu.http_wrapper.template.expression.list_single_line;
 
 import cn.ytxu.http_wrapper.template.expression.ExpressionEnum;
 import cn.ytxu.http_wrapper.template.expression.ExpressionRecord;
-import cn.ytxu.http_wrapper.template_engine.parser.statement.record.TextStatementRecord;
-import cn.ytxu.http_wrapper.template_engine.parser.statement.record.list_single_line.LSLSRParser;
+import cn.ytxu.http_wrapper.template.expression.text.TextExpressionRecord;
 import cn.ytxu.http_wrapper.template_engine.parser.statement.record.retain.RetainModel;
 import cn.ytxu.http_wrapper.template_engine.parser.util.ReflectiveUtil;
 
@@ -66,7 +65,7 @@ public class ListSingleLineExpressionRecord extends ExpressionRecord {
         }
 
         for (Object subModel : subModels) {
-            TextStatementRecord record = parser.getEachTempStatementRecord();
+            TextExpressionRecord record = parser.getEachTempStatementRecord();
             StringBuffer buffer = record.getNormalWriteBuffer(subModel, retain);
             listSingleLineBuffer.append(buffer);
         }
