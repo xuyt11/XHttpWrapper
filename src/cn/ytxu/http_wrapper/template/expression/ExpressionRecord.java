@@ -81,11 +81,11 @@ public abstract class ExpressionRecord {
             if (convertEndTagLine) {
                 return true;
             }
-            throw new IllegalArgumentException("this expression(" + startLineContent + "), have not end tag");
+            throw new NonHaveEndTagException("this expression(" + startLineContent + "), have not end tag");
         }
 
         // 到模板文件最后一行了，却不能解析到endtagline
-        throw new IllegalArgumentException("move to end line, but this expression(" + startLineContent + "), have not end tag");
+        throw new NonHaveEndTagException("move to end line, but this expression(" + startLineContent + "), have not end tag");
     }
 
     /**
@@ -109,6 +109,11 @@ public abstract class ExpressionRecord {
         }).start();
     }
 
+    public static final class NonHaveEndTagException extends IllegalArgumentException {
+        public NonHaveEndTagException(String s) {
+            super(s);
+        }
+    }
 
     //********************** loop parse record(解析表达式) **********************
     public static void parseRecords(List<ExpressionRecord> records) {
