@@ -129,11 +129,7 @@ public class IfElseExpressionRecord extends ExpressionRecord {
     private StringBuffer getWriteBuffer(Object reflectModel, RetainModel retain, List<ExpressionRecord> records) {
         StringBuffer buffer = new StringBuffer();
         for (ExpressionRecord record : records) {
-            try {
-                buffer.append(record.getWriteBuffer(reflectModel, retain));
-            } catch (StringIndexOutOfBoundsException e) {
-                e.printStackTrace();
-            }
+            buffer.append(record.getWriteBuffer(reflectModel, retain));
         }
         return buffer;
     }

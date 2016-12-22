@@ -90,7 +90,7 @@ public class Content2ExpressionRecordConverter {
 
                 // check is the parent expression middle tag
                 if (parentERecord.hasMiddleTag() && parentERecord.isMiddleTagLine(content)) {
-                    callback.middleTagLine(content, records);
+                    callback.middleTagLine(content, new ArrayList<>(records));
                     records.clear();
                     continue;
                 }
