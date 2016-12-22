@@ -1,7 +1,6 @@
 package cn.ytxu.http_wrapper.template.expression.if_else;
 
 import cn.ytxu.http_wrapper.template.expression.Content2ExpressionRecordConverter;
-import cn.ytxu.http_wrapper.template.expression.Content2ExpressionRecordConverter.Callback;
 import cn.ytxu.http_wrapper.template.expression.ExpressionEnum;
 import cn.ytxu.http_wrapper.template.expression.ExpressionRecord;
 import cn.ytxu.http_wrapper.template_engine.parser.statement.record.if_else.IfElseCondition;
@@ -14,7 +13,7 @@ import java.util.regex.Pattern;
  * Created by ytxu on 16/12/21.
  * 条件判断表达式的记录
  */
-public class IfElseExpressionRecord extends ExpressionRecord implements Callback {
+public class IfElseExpressionRecord extends ExpressionRecord {
 
     private static final Pattern ifElsePattern = Pattern.compile("(<t:if_else \\w+>)");
     private static final String ELSE_TAG = "<t:else>";
@@ -43,23 +42,27 @@ public class IfElseExpressionRecord extends ExpressionRecord implements Callback
 
     @Override
     protected boolean convertContentsIfHas(ListIterator<String> contentListIterator) {
-        List<ExpressionRecord> records = Content2ExpressionRecordConverter.getNormal(contentListIterator, this, this).start();
-        relations.getLast().setRecords(records);
-        return true;
+        return Content2ExpressionRecordConverter.getNormal(contentListIterator, this, new Content2ExpressionRecordConverter.Callback() {
+            @Override
+            public void middleTagLine(String content, List<ExpressionRecord> records) {
+                relations.getLast().setRecords(records);
+
+                ConditionType conditionType;
+                if (ELSE_TAG.equals(content.trim())) {// else tag
+                    conditionType = ConditionType.ELSE;
+                } else {// if_else tag
+                    conditionType = ConditionType.IF_ELSE;
+                }
+                relations.add(new Relation(content, conditionType));
+            }
+
+            @Override
+            public void endTagLine(List<ExpressionRecord> records) {
+                relations.getLast().setRecords(records);
+            }
+        }).start();
     }
 
-    @Override
-    public void middleTagLine(String content, List<ExpressionRecord> records) {
-        relations.getLast().setRecords(records);
-
-        ConditionType conditionType;
-        if (ELSE_TAG.equals(content.trim())) {// else tag
-            conditionType = ConditionType.ELSE;
-        } else {// if_else tag
-            conditionType = ConditionType.IF_ELSE;
-        }
-        relations.add(new Relation(content, conditionType));
-    }
 
     public static final class Relation {
         final String conditionLine;

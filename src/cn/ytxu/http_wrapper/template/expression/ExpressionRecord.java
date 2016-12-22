@@ -55,12 +55,12 @@ public abstract class ExpressionRecord {
         return false;
     }
 
-    protected boolean isEndTagLine(String content) {
-        return endTag.equals(content.trim());
-    }
-
     public boolean hasEndTagLine() {
         return Objects.nonNull(endTag);
+    }
+
+    protected boolean isEndTagLine(String content) {
+        return endTag.equals(content.trim());
     }
 
     /**
@@ -72,7 +72,7 @@ public abstract class ExpressionRecord {
      */
     public void convertContents2SubRecordsIfCan(ListIterator<String> contentListIterator) {
         if (!maybeHasSubRecords) {
-            return ;
+            return;
         }
 
         if (contentListIterator.hasNext()) {
@@ -94,8 +94,16 @@ public abstract class ExpressionRecord {
      * @return convertEndTagLine 是否解析到了end tag
      */
     protected boolean convertContentsIfHas(ListIterator<String> contentListIterator) {
-        this.subRecords = Content2ExpressionRecordConverter.getNormal(contentListIterator, this).start();
-        return true;
+        return Content2ExpressionRecordConverter.getNormal(contentListIterator, this, new Content2ExpressionRecordConverter.Callback() {
+            @Override
+            public void middleTagLine(String content, List<ExpressionRecord> records) {
+            }
+
+            @Override
+            public void endTagLine(List<ExpressionRecord> records) {
+                ExpressionRecord.this.subRecords = records;
+            }
+        }).start();
     }
 
 

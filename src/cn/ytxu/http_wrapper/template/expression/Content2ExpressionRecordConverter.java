@@ -20,15 +20,8 @@ public class Content2ExpressionRecordConverter {
      * @param contents template文件中全部的内容(去除头部信息的)
      * @return
      */
-    public static Content2ExpressionRecordConverter getTop(List<String> contents) {
-        return new Content2ExpressionRecordConverter(contents.listIterator(), true, null, null);
-    }
-
-    public static Content2ExpressionRecordConverter getNormal(ListIterator<String> contentListIterator, ExpressionRecord parentERecord) {
-        if (Objects.isNull(parentERecord)) {
-            throw new NullPointerException("u must setup parent expression record...");
-        }
-        return new Content2ExpressionRecordConverter(contentListIterator, false, parentERecord, null);
+    public static Content2ExpressionRecordConverter getTop(List<String> contents, Callback callback) {
+        return new Content2ExpressionRecordConverter(contents.listIterator(), true, null, callback);
     }
 
     public static Content2ExpressionRecordConverter getNormal(ListIterator<String> contentListIterator, ExpressionRecord parentERecord, Callback callback) {
@@ -47,40 +40,14 @@ public class Content2ExpressionRecordConverter {
     }
 
     public boolean start() {
-        if (!isTopRecord) {// 不是第一级的表达式，所以有parent expression record
-            if (!parentERecord.hasEndTagLine()) {
-                callback.endTagLine(Collections.EMPTY_LIST);
-                return true;
-            }
-        }
-
-        while (contentListIterator.hasNext()) {
-            String content = contentListIterator.next();
-            checkMiddleTagLine(content);
-
-            if (checkEndTagLine(content)) {
-                callback.endTagLine(records);
-                return true;
-            }
-
-            ExpressionEnum expression = ExpressionEnum.getByStartLineContent(content);
-            ExpressionRecord record = expression.createRecord(content, isTopRecord);
-            records.add(record);
-            record.convertContents2SubRecordsIfCan(contentListIterator);
-        }
-
-        if (isTopRecord) {// 第一级的表达式，所以有parent expression record
-            if (records.getLast().hasEndTagLine()) {
-                throw new IllegalArgumentException("this expression(" + parentERecord.startLineContent + ") has not end tag....");
-            }
+        if (isTopRecord) {// 第一级的表达式
+            return start4Top();
         } else {
-
+            return start4Normal();
         }
-        return records;
     }
 
-
-    public boolean start4Top() {
+    private boolean start4Top() {
         while (contentListIterator.hasNext()) {
             String content = contentListIterator.next();
             ExpressionEnum expression = ExpressionEnum.getByStartLineContent(content);
@@ -92,13 +59,14 @@ public class Content2ExpressionRecordConverter {
         return true;
     }
 
-    public boolean start4Normal() {
-        // TODO need implements
-        if (!isTopRecord) {// 不是第一级的表达式，所以有parent expression record
-            if (!parentERecord.hasEndTagLine()) {
-                callback.endTagLine(Collections.EMPTY_LIST);
-                return true;
-            }
+    /**
+     * 不是第一级的表达式，所以有parent expression record
+     *
+     * @return 是否解析到了endTagLine; (对于没有endtag的expression，直接返回true；否则，判断是否真的解析到了这行)
+     */
+    private boolean start4Normal() {
+        if (!parentERecord.hasEndTagLine()) {// 没有结束标签，直接返回；不需要再做遍历解析了；也不需要回调callback的endtagLine，因为没有中间的expression
+            return true;
         }
 
         while (contentListIterator.hasNext()) {
@@ -116,23 +84,11 @@ public class Content2ExpressionRecordConverter {
             record.convertContents2SubRecordsIfCan(contentListIterator);
         }
 
-        if (isTopRecord) {// 第一级的表达式，所以有parent expression record
-            if (records.getLast().hasEndTagLine()) {
-                throw new IllegalArgumentException("this expression(" + parentERecord.startLineContent + ") has not end tag....");
-            }
-        } else {
-
-        }
-        return records;
+        throw new IllegalArgumentException("this expression(" + parentERecord.startLineContent + ") has not end tag....");
     }
 
     private void checkMiddleTagLine(String content) {
-        // 1. the top record has not parent expression, so need not check
-        if (isTopRecord) {
-            return;
-        }
-
-        // 2. check is the parent expression middle tag
+        // check is the parent expression middle tag
         if (!parentERecord.hasMiddleTag()) {
             return;
         }
@@ -140,9 +96,8 @@ public class Content2ExpressionRecordConverter {
         // if it`s true, stop convert
         // otherwise, again
         if (parentERecord.isMiddleTagLine(content)) {
-            final List<ExpressionRecord> middleTagRecords = records;
+            callback.middleTagLine(content, records);
             records.clear();
-            callback.middleTagLine(content, middleTagRecords);
         }
     }
 
