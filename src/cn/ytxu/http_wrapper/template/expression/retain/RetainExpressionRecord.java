@@ -23,8 +23,8 @@ public class RetainExpressionRecord extends ExpressionRecord {
 
     private RetainType type;
 
-    public RetainExpressionRecord(String startLineContent, boolean isTopRecord) {
-        super(ExpressionEnum.retain, startLineContent, isTopRecord, false);
+    public RetainExpressionRecord(String startLineContent) {
+        super(ExpressionEnum.retain, startLineContent, false);
     }
 
 

@@ -26,8 +26,8 @@ public class ListReplaceExpressionRecord extends ExpressionRecord {
     private LRSRParser parser;
     private List<String> subContents = new ArrayList<>();
 
-    public ListReplaceExpressionRecord(String startLineContent, boolean isTopRecord) {
-        super(ExpressionEnum.list_replace, startLineContent, END_TAG, isTopRecord, true);
+    public ListReplaceExpressionRecord(String startLineContent) {
+        super(ExpressionEnum.list_replace, startLineContent, END_TAG, true);
     }
 
 

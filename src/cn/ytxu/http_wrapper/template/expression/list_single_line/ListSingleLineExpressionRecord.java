@@ -28,8 +28,8 @@ public class ListSingleLineExpressionRecord extends ExpressionRecord {
     private LSLSRParser parser;
     private List<String> subContents = new ArrayList<>();
 
-    public ListSingleLineExpressionRecord(String startLineContent, boolean isTopRecord) {
-        super(ExpressionEnum.list_single_line, startLineContent, END_TAG, isTopRecord, true);
+    public ListSingleLineExpressionRecord(String startLineContent) {
+        super(ExpressionEnum.list_single_line, startLineContent, END_TAG, true);
     }
 
 

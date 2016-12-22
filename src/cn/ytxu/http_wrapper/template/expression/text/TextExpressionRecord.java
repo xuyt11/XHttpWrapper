@@ -20,8 +20,8 @@ public class TextExpressionRecord extends ExpressionRecord {
 
     private List<Range> ranges = new ArrayList<>();
 
-    public TextExpressionRecord(String startLineContent, boolean isTopRecord) {
-        super(ExpressionEnum.text, startLineContent, isTopRecord, false);
+    public TextExpressionRecord(String startLineContent) {
+        super(ExpressionEnum.text, startLineContent, false);
     }
 
     @Override

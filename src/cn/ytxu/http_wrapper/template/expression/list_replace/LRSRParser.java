@@ -43,7 +43,7 @@ public class LRSRParser {
         replaceKey = PatternHelper.getPatternValue(Attr.replace_key.patternModel, startTagContent);
 
         String listValue = PatternHelper.getPatternValue(Attr.list_value.patternModel, startTagContent);
-        listValueRecord = new TextExpressionRecord(listValue, false);
+        listValueRecord = new TextExpressionRecord(listValue);
         listValueRecord.parseRecordAndSubRecords();
     }
 

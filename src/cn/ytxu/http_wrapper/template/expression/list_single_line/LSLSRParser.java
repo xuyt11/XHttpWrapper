@@ -55,7 +55,7 @@ public class LSLSRParser {
         parsePatternValue(SubContentType.eachTemp, new GetPatternValueCallback() {
             @Override
             public void get(String patternValue) {
-                eachTempStatementRecord = new TextExpressionRecord(patternValue, false);
+                eachTempStatementRecord = new TextExpressionRecord(patternValue);
                 eachTempStatementRecord.parseRecordAndSubRecords();
             }
 

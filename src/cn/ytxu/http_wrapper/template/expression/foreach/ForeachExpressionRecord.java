@@ -25,8 +25,8 @@ public class ForeachExpressionRecord extends ExpressionRecord {
 
     private String methodName;
 
-    public ForeachExpressionRecord(String startLineContent, boolean isTopRecord) {
-        super(ExpressionEnum.foreach, startLineContent, END_TAG, isTopRecord, true);
+    public ForeachExpressionRecord(String startLineContent) {
+        super(ExpressionEnum.foreach, startLineContent, END_TAG, true);
     }
 
 

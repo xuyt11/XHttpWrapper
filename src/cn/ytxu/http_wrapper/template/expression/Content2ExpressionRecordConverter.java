@@ -57,7 +57,7 @@ public class Content2ExpressionRecordConverter {
             while (contentListIterator.hasNext()) {
                 String content = contentListIterator.next();
                 ExpressionEnum expression = ExpressionEnum.getByStartLineContent(content);
-                ExpressionRecord record = expression.createRecord(content, true);
+                ExpressionRecord record = expression.createRecord(content);
                 records.add(record);
                 record.convertContents2SubRecordsIfCan(contentListIterator);
             }
@@ -101,7 +101,7 @@ public class Content2ExpressionRecordConverter {
                 }
 
                 ExpressionEnum expression = ExpressionEnum.getByStartLineContent(content);
-                ExpressionRecord record = expression.createRecord(content, false);
+                ExpressionRecord record = expression.createRecord(content);
                 records.add(record);
                 record.convertContents2SubRecordsIfCan(contentListIterator);
             }

@@ -21,39 +21,39 @@ public enum ExpressionEnum {
         }
 
         @Override
-        public ExpressionRecord createRecord(String startLineContent, boolean isTopRecord) {
-            return new TextExpressionRecord(startLineContent, isTopRecord);
+        public ExpressionRecord createRecord(String startLineContent) {
+            return new TextExpressionRecord(startLineContent);
         }
     },
     foreach("循环", ForeachExpressionRecord.PATTERNS) {
         @Override
-        public ExpressionRecord createRecord(String startLineContent, boolean isTopRecord) {
-            return new ForeachExpressionRecord(startLineContent, isTopRecord);
+        public ExpressionRecord createRecord(String startLineContent) {
+            return new ForeachExpressionRecord(startLineContent);
         }
     },
     retain("保留代码区域", RetainExpressionRecord.PATTERNS) {
         @Override
-        public ExpressionRecord createRecord(String startLineContent, boolean isTopRecord) {
-            return new RetainExpressionRecord(startLineContent, isTopRecord);
+        public ExpressionRecord createRecord(String startLineContent) {
+            return new RetainExpressionRecord(startLineContent);
         }
 //
     },
     list_single_line("单行循环，防止foreach循环嵌套", ListSingleLineExpressionRecord.PATTERNS) {
         @Override
-        public ExpressionRecord createRecord(String startLineContent, boolean isTopRecord) {
-            return new ListSingleLineExpressionRecord(startLineContent, isTopRecord);
+        public ExpressionRecord createRecord(String startLineContent) {
+            return new ListSingleLineExpressionRecord(startLineContent);
         }
     },
     if_else("if else 条件判断", IfElseCondition.PATTERNS) {
         @Override
-        public ExpressionRecord createRecord(String startLineContent, boolean isTopRecord) {
-            return new IfElseExpressionRecord(startLineContent, isTopRecord);
+        public ExpressionRecord createRecord(String startLineContent) {
+            return new IfElseExpressionRecord(startLineContent);
         }
     },
     list_replace("替换数组的文本", ListReplaceExpressionRecord.PATTERNS) {
         @Override
-        public ExpressionRecord createRecord(String startLineContent, boolean isTopRecord) {
-            return new ListReplaceExpressionRecord(startLineContent, isTopRecord);
+        public ExpressionRecord createRecord(String startLineContent) {
+            return new ListReplaceExpressionRecord(startLineContent);
         }
     };
 
@@ -84,6 +84,6 @@ public enum ExpressionEnum {
         return false;
     }
 
-    public abstract ExpressionRecord createRecord(String startLineContent, boolean isTopRecord);
+    public abstract ExpressionRecord createRecord(String startLineContent);
 }
 

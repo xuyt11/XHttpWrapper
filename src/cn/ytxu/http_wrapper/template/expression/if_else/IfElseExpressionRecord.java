@@ -21,8 +21,8 @@ public class IfElseExpressionRecord extends ExpressionRecord {
 
     private LinkedList<Relation> relations = new LinkedList<>();
 
-    public IfElseExpressionRecord(String startLineContent, boolean isTopRecord) {
-        super(ExpressionEnum.if_else, startLineContent, END_TAG, isTopRecord, true);
+    public IfElseExpressionRecord(String startLineContent) {
+        super(ExpressionEnum.if_else, startLineContent, END_TAG, true);
         relations.add(new Relation(startLineContent, ConditionType.IF));
     }
 

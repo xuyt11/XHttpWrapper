@@ -65,7 +65,7 @@ public class LRSRCreater {
     private List<ExpressionRecord> createSubs(List<String> newContents) {
         List<ExpressionRecord> subs = new ArrayList<>(newContents.size());
         for (String content : newContents) {
-            TextExpressionRecord tsr = new TextExpressionRecord(content, false);
+            TextExpressionRecord tsr = new TextExpressionRecord(content);
             tsr.parseRecordAndSubRecords();
             subs.add(tsr);
         }
