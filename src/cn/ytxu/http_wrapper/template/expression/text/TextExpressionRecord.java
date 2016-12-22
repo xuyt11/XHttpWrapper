@@ -25,8 +25,9 @@ public class TextExpressionRecord extends ExpressionRecord {
     }
 
     @Override
-    protected void convertContentsIfHas(ListIterator<String> contentListIterator) {
+    protected boolean convertContentsIfHas(ListIterator<String> contentListIterator) {
         // do nothing...
+        return true;
     }
 
     @Override

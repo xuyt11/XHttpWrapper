@@ -72,11 +72,11 @@ public abstract class ExpressionRecord {
      */
     public void convertContents2SubRecordsIfCan(ListIterator<String> contentListIterator) {
         if (!maybeHasSubRecords) {
-            return;
+            return ;
         }
 
         if (contentListIterator.hasNext()) {
-            convertContentsIfHas(contentListIterator);
+            boolean convertEndTagLine = convertContentsIfHas(contentListIterator);
         }
 
         // parse sub records end
@@ -91,9 +91,11 @@ public abstract class ExpressionRecord {
      * otherwise, get its ExpressionEnum and then start sub parser
      *
      * @param contentListIterator 表达式内容的遍历器
+     * @return convertEndTagLine 是否解析到了end tag
      */
-    protected void convertContentsIfHas(ListIterator<String> contentListIterator) {
+    protected boolean convertContentsIfHas(ListIterator<String> contentListIterator) {
         this.subRecords = Content2ExpressionRecordConverter.getNormal(contentListIterator, this).start();
+        return true;
     }
 
 

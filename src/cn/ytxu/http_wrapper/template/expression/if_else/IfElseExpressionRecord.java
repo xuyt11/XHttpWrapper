@@ -42,9 +42,10 @@ public class IfElseExpressionRecord extends ExpressionRecord implements Callback
     }
 
     @Override
-    protected void convertContentsIfHas(ListIterator<String> contentListIterator) {
+    protected boolean convertContentsIfHas(ListIterator<String> contentListIterator) {
         List<ExpressionRecord> records = Content2ExpressionRecordConverter.getNormal(contentListIterator, this, this).start();
         relations.getLast().setRecords(records);
+        return true;
     }
 
     @Override

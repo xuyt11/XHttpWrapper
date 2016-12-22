@@ -36,14 +36,15 @@ public class ListSingleLineExpressionRecord extends ExpressionRecord {
 
     //********************** parse content to record **********************
     @Override
-    protected void convertContentsIfHas(ListIterator<String> contentListIterator) {
+    protected boolean convertContentsIfHas(ListIterator<String> contentListIterator) {
         while (contentListIterator.hasNext()) {
             String content = contentListIterator.next();
             if (isEndTagLine(content)) {
-                return;
+                return true;
             }
             subContents.add(content);
         }
+        return false;
     }
 
 

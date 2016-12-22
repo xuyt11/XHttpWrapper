@@ -46,13 +46,21 @@ public class Content2ExpressionRecordConverter {
         this.records = new LinkedList<>();
     }
 
-    public List<ExpressionRecord> start() {
+    public boolean start() {
+        if (!isTopRecord) {// 不是第一级的表达式，所以有parent expression record
+            if (!parentERecord.hasEndTagLine()) {
+                callback.endTagLine(Collections.EMPTY_LIST);
+                return true;
+            }
+        }
+
         while (contentListIterator.hasNext()) {
             String content = contentListIterator.next();
             checkMiddleTagLine(content);
 
             if (checkEndTagLine(content)) {
-                return records;
+                callback.endTagLine(records);
+                return true;
             }
 
             ExpressionEnum expression = ExpressionEnum.getByStartLineContent(content);
@@ -61,9 +69,13 @@ public class Content2ExpressionRecordConverter {
             record.convertContents2SubRecordsIfCan(contentListIterator);
         }
 
-//        if (isTopRecord && records.getLast().hasEndTagLine()) {
-//            throw new IllegalArgumentException("this expression(" + parentERecord.startLineContent + ") has not end tag....");
-//        }
+        if (isTopRecord) {// 第一级的表达式，所以有parent expression record
+            if (records.getLast().hasEndTagLine()) {
+                throw new IllegalArgumentException("this expression(" + parentERecord.startLineContent + ") has not end tag....");
+            }
+        } else {
+
+        }
         return records;
     }
 
@@ -108,5 +120,12 @@ public class Content2ExpressionRecordConverter {
          * @param records 该中间标签之上的所有的记录
          */
         void middleTagLine(String content, List<ExpressionRecord> records);
+
+        /**
+         * 解析到了结束标签
+         *
+         * @param records 解析到的所有记录
+         */
+        void endTagLine(List<ExpressionRecord> records);
     }
 }
