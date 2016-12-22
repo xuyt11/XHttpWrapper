@@ -33,14 +33,14 @@ public class ${request_param_class_name} implements Serializable {
 <t:foreach each="input_groups">
 
     public static final class ${input_group_class_name} implements Serializable {
-        <t:list each="input_group_fileds">
+        <t:foreach each="input_group_fileds">
         /**
          * type: ${field_read_type}<br>
          * isOptional : ${input_isOptional}<br>
          * desc: ${input_desc}
          */
         public ${input_request_param_type} ${input_name};
-        </t:list>
+        </t:foreach>
     }
 
 </t:foreach>

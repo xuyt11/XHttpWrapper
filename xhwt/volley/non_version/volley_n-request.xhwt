@@ -51,16 +51,16 @@ public class ${request_group_class_name} extends BaseApi {
 	 * @desc ${request_desc}
 	 </t:if_end>
 	 *
-	 <t:list each="headers">
+	 <t:foreach each="headers">
 	 * @param ${header_name} ${header_desc}
-	 </t:list>
-	 <t:list each="inputs">
+	 </t:foreach>
+	 <t:foreach each="inputs">
 	 <t:if isTrue="input_isOptional">
 	 * @param ${input_name} isOptional ${field_read_type} ${input_desc}
 	 <t:if_else>
 	 * @param ${input_name} ${field_read_type} ${input_desc}
 	 </t:if_end>
-	 </t:list>
+	 </t:foreach>
 	 */
 	public void ${request_name}(Context cxt001,
 	    <t:list each="RESTful_fields" singleLine>

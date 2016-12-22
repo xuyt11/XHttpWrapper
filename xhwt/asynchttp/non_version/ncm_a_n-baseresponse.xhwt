@@ -21,28 +21,28 @@ import java.util.List;
 
 public class ResponseEntity<T> {
 
-    <t:list each="base_response_outputs">
+    <t:foreach each="base_response_outputs">
 	private ${bro_type} ${bro_name};
-	</t:list>
+	</t:foreach>
 
 <t:retain type="field"/>
 
-    <t:list each="base_response_outputs">
+    <t:foreach each="base_response_outputs">
     public ${bro_type} ${bro_getter}() {return ${bro_name};}
     public void ${bro_setter}(${bro_type} ${bro_name}) {this.${bro_name} = ${bro_name};}
-	</t:list>
+	</t:foreach>
 
 <t:retain type="method"/>
 
 	public static class ${error_bro_type} {
-        <t:list each="subs_of_errors">
+        <t:foreach each="subs_of_errors">
         private ${output_type} ${output_name};
-        </t:list>
+        </t:foreach>
 
-        <t:list each="subs_of_errors">
+        <t:foreach each="subs_of_errors">
         public ${output_type} ${output_getter}() {return ${output_name};}
         public void ${output_setter}(${output_type} ${output_name}) {this.${output_name} = ${output_name};}
-        </t:list>
+        </t:foreach>
     }
 
 <t:retain type="other"/>
