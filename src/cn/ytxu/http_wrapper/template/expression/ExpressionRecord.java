@@ -69,20 +69,23 @@ public abstract class ExpressionRecord {
      * 2、若有，则解析子表达式记录；
      *
      * @param contentListIterator 表达式内容的遍历器
+     * @return convertEndTagLine 是否解析到了end tag
      */
-    public void convertContents2SubRecordsIfCan(ListIterator<String> contentListIterator) {
+    public boolean convertContents2SubRecordsIfCan(ListIterator<String> contentListIterator) {
         if (!maybeHasSubRecords) {
-            return;
+            return true;
         }
 
         if (contentListIterator.hasNext()) {
             boolean convertEndTagLine = convertContentsIfHas(contentListIterator);
-        }
-
-        // parse sub records end
-        if (!isTopRecord && !contentListIterator.hasNext()) {
+            if (convertEndTagLine) {
+                return true;
+            }
             throw new IllegalArgumentException("this expression(" + startLineContent + "), have not end tag");
         }
+
+        // 到模板文件最后一行了，却不能解析到endtagline
+        throw new IllegalArgumentException("move to end line, but this expression(" + startLineContent + "), have not end tag");
     }
 
     /**
