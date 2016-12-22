@@ -79,6 +79,53 @@ public class Content2ExpressionRecordConverter {
         return records;
     }
 
+
+    public boolean start4Top() {
+        while (contentListIterator.hasNext()) {
+            String content = contentListIterator.next();
+            ExpressionEnum expression = ExpressionEnum.getByStartLineContent(content);
+            ExpressionRecord record = expression.createRecord(content, isTopRecord);
+            records.add(record);
+            record.convertContents2SubRecordsIfCan(contentListIterator);
+        }
+        callback.endTagLine(records);
+        return true;
+    }
+
+    public boolean start4Normal() {
+        // TODO need implements
+        if (!isTopRecord) {// 不是第一级的表达式，所以有parent expression record
+            if (!parentERecord.hasEndTagLine()) {
+                callback.endTagLine(Collections.EMPTY_LIST);
+                return true;
+            }
+        }
+
+        while (contentListIterator.hasNext()) {
+            String content = contentListIterator.next();
+            checkMiddleTagLine(content);
+
+            if (checkEndTagLine(content)) {
+                callback.endTagLine(records);
+                return true;
+            }
+
+            ExpressionEnum expression = ExpressionEnum.getByStartLineContent(content);
+            ExpressionRecord record = expression.createRecord(content, isTopRecord);
+            records.add(record);
+            record.convertContents2SubRecordsIfCan(contentListIterator);
+        }
+
+        if (isTopRecord) {// 第一级的表达式，所以有parent expression record
+            if (records.getLast().hasEndTagLine()) {
+                throw new IllegalArgumentException("this expression(" + parentERecord.startLineContent + ") has not end tag....");
+            }
+        } else {
+
+        }
+        return records;
+    }
+
     private void checkMiddleTagLine(String content) {
         // 1. the top record has not parent expression, so need not check
         if (isTopRecord) {
