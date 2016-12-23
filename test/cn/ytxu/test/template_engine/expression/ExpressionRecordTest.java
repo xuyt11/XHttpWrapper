@@ -19,8 +19,8 @@ import java.util.concurrent.CountDownLatch;
  */
 public class ExpressionRecordTest {
 
-    public static final String ExpressionFilePath = "I:\\ytxuStudio\\ApiSemiAutoCreater\\test\\cn\\ytxu\\test\\template_engine\\expression\\expression_test.xhwt";
-
+//    public static final String ExpressionFilePath = "I:\\ytxuStudio\\ApiSemiAutoCreater\\test\\cn\\ytxu\\test\\template_engine\\expression\\expression_test.xhwt";
+    public static final String ExpressionFilePath = "/Users/newchama/Documents/ytxu/workspace/ApiSemiAutoCreater/test/cn/ytxu/test/template_engine/expression/expression_test.xhwt";
     @Test
     public void test() {
         List<String> fileData = getContents();
