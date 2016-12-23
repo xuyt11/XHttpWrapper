@@ -1,7 +1,10 @@
 package cn.ytxu.test.template_engine.expression;
 
+import cn.ytxu.http_wrapper.common.util.LogUtil;
 import cn.ytxu.http_wrapper.template.expression.Content2ExpressionRecordConverter;
 import cn.ytxu.http_wrapper.template.expression.ExpressionRecord;
+import cn.ytxu.http_wrapper.template_engine.parser.statement.StatementRecord;
+import cn.ytxu.test.StringBufferTest;
 import org.junit.Test;
 
 import java.io.BufferedReader;
@@ -9,6 +12,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * Created by Administrator on 2016/12/21.
@@ -52,4 +56,82 @@ public class ExpressionRecordTest {
         return contents;
     }
 
+
+    @Test
+    public void testExpressionAndStatementSpeed() {
+        CountDownLatch mCountDownLatch = new CountDownLatch(2);
+        int cycleCount = 40000;
+        List<String> fileData = getContents();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                testStatement(fileData, cycleCount);
+                mCountDownLatch.countDown();
+            }
+        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                testExpression(fileData, cycleCount);
+                mCountDownLatch.countDown();
+            }
+        }).start();
+
+        try {
+            mCountDownLatch.await();//等待所有子线程执行完
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void testStatement(List<String> fileData, int cycleCount) {
+//        LogUtil.i("testStatement:");
+//        StringBuffer logBuffer = new StringBuffer(cycleCount * 4);
+//        logBuffer.append("testStatement" + "\n");
+        long startT = getCurrTime();
+        long duration = 0;
+        for (int i = 0; i < cycleCount; i++) {
+            long middle1T = getCurrTime();
+
+            List<StatementRecord> records2 = StatementRecord.getRecords(fileData);
+//            StatementRecord.parseRecords(records2);
+
+            long middle2T = getCurrTime();
+            long currDuration = middle2T - middle1T;
+//            logBuffer.append(currDuration + "\t");
+            duration += currDuration;
+        }
+//        logBuffer.append("\n");
+//        LogUtil.i(logBuffer.toString());
+        long endT = getCurrTime();
+        LogUtil.i("testStatement end:" + (endT - startT) + ", real duration:" + duration);
+    }
+
+    public void testExpression(List<String> fileData, int cycleCount) {
+//        LogUtil.i("testExpression:");
+//        StringBuffer logBuffer = new StringBuffer(cycleCount * 4);
+//        logBuffer.append("testExpression" + "\n");
+        long startT = getCurrTime();
+        long duration = 0;
+        for (int i = 0; i < cycleCount; i++) {
+            long middle1T = getCurrTime();
+
+            List<ExpressionRecord> records = new Content2ExpressionRecordConverter.Top(fileData).start();
+//            ExpressionRecord.parseRecords(records);
+
+            long middle2T = getCurrTime();
+            long currDuration = middle2T - middle1T;
+//            logBuffer.append(currDuration + "\t");
+            duration += currDuration;
+        }
+//        logBuffer.append("\n");
+//        LogUtil.i(logBuffer.toString());
+        long endT = getCurrTime();
+        LogUtil.i("testExpression end:" + (endT - startT) + ", real duration:" + duration);
+    }
+
+    private long getCurrTime() {
+        return System.currentTimeMillis();
+//        return System.nanoTime();
+    }
 }

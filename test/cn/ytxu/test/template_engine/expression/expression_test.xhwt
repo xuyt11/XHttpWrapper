@@ -45,16 +45,6 @@ public class ${request_group_class_name} extends BaseApi {
 	 * @desc ${request_desc}
 	 </t:if_end>
 	 *
-	 <t:foreach each="headers">
-	 * @param ${header_name} ${header_desc}
-	 </t:foreach>
-	 <t:foreach each="inputs">
-	 <t:if isTrue="input_isOptional">
-	 * @param ${input_name} isOptional ${field_read_type} ${input_desc}
-	 <t:if_else>
-	 * @param ${input_name} ${field_read_type} ${input_desc}
-	 </t:if_end>
-	 </t:foreach>
 	 */
 	public RequestHandle ${request_name}(Context cxt001,
 	    <t:list each="RESTful_fields" singleLine>
@@ -83,21 +73,6 @@ public class ${request_group_class_name} extends BaseApi {
         <t:if_else>
 		request.setUrl(getFullUrl("${request_normal_url}"));
         </t:if_end>
-
-	    <t:foreach each="headers">
-        <t:if isTrue="isFilterParam">
-   	    // request.addHeader("${header_name}", ${header_name});// 被过滤的header字段
-        <t:if_else>
-   	    request.addHeader("${header_name}", ${header_name});
-        </t:if_end>
-        </t:foreach>
-	    <t:foreach each="inputs">
-	    <t:if isTrue="input_isOptional">
-	    if (null != ${input_name}) request.addParam("${input_name}", ${input_name});
-	    <t:if_else>
-	    request.addParam("${input_name}", ${input_name});
-	    </t:if_end>
-        </t:foreach>
 
 		return NetWorker.execute(cxt001, request, response);
 	}

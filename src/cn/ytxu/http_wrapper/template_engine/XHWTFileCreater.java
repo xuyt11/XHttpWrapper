@@ -5,10 +5,10 @@ import cn.ytxu.http_wrapper.common.util.LogUtil;
 import cn.ytxu.http_wrapper.config.ConfigWrapper;
 import cn.ytxu.http_wrapper.model.version.VersionModel;
 import cn.ytxu.http_wrapper.template.expression.ExpressionRecord;
+import cn.ytxu.http_wrapper.template.expression.text.TextExpressionRecord;
 import cn.ytxu.http_wrapper.template_engine.creater.XHWTFileType;
 import cn.ytxu.http_wrapper.template_engine.parser.model.XHWTModel;
 import cn.ytxu.http_wrapper.template_engine.parser.XHWTFileParser;
-import cn.ytxu.http_wrapper.template_engine.parser.statement.record.TextStatementRecord;
 import cn.ytxu.http_wrapper.template_engine.parser.statement.record.retain.RetainModel;
 import cn.ytxu.http_wrapper.template_engine.parser.statement.record.retain.RetainParser;
 
@@ -71,8 +71,8 @@ public class XHWTFileCreater {
     }
 
     private String getString(String content, Object reflectModel) {
-        TextStatementRecord record = new TextStatementRecord(null, content);
-        record.parse();
+        TextExpressionRecord record = new TextExpressionRecord(content);
+        record.parseRecordAndSubRecords();
         return record.getWriteBuffer(reflectModel, null).toString().trim();
     }
 
